@@ -78,4 +78,15 @@ public class TaskRepositoryImpl implements TaskRepository {
 		return taskMapper.getTasksByProjectIds(ids);
 	}
 
+	@Override
+	public List<TaskDO> selectByPageProject(int projectId, int size, int offset) {
+		return taskMapper.selectByPageProject(projectId, size, offset);
+	}
+
+	@Override
+	public int selectAllCountProject(int projectId) {
+		return taskMapper.selectAllCountProject(projectId);
+	}
+
+	
 }

@@ -70,6 +70,24 @@ public interface TaskRepository {
 			@Param("offset") int offset);
 	
 	public int selectAllCount();
+	
+	/**
+	 * 根据项目ID查找其所有的任务列表，并进行分页
+	 * @param projectId
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	public List<TaskDO> selectByPageProject(@Param("projectId")int projectId,@Param("size") int size,
+			@Param("offset") int offset);
+	
+	/**
+	 * 根据项目ID查找任务的数量
+	 * @param projectId
+	 * @return
+	 */
+	public int selectAllCountProject(@Param("projectId")int projectId);
+	
 	/**
 	 * 查询某一项目下所有任务，得到一个任务中所有的MD5码和关键字
 	 */

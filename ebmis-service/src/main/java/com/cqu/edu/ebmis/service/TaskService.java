@@ -63,6 +63,6 @@ public interface TaskService {
 	 * @param offset
 	 * @return
 	 */
-	Page<TaskDO> findByPage(Page<TaskDO> page);
+	Page<TaskDO> findByPage(int projectId,Page<TaskDO> page);
 	
 }

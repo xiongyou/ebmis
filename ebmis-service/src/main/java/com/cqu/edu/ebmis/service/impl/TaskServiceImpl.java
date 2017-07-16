@@ -84,9 +84,9 @@ public class TaskServiceImpl implements TaskService {
 		return taskRepository.findTaskByProjectId(projectId);
 	}
 
-	public Page<TaskDO> findByPage(Page<TaskDO> page) {
-		List<TaskDO> tasks = taskRepository.selectByPage(page.getLimit(), page.getOffset());
-		page.setTotal(taskRepository.selectAllCount());
+	public Page<TaskDO> findByPage(int projectId,Page<TaskDO> page) {
+		List<TaskDO> tasks = taskRepository.selectByPageProject(projectId, page.getLimit(), page.getOffset());
+		page.setTotal(taskRepository.selectAllCountProject(projectId));
 
 		page.setRecords(tasks);
 		return page;

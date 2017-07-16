@@ -94,6 +94,24 @@
     from _crawler_project_task  
   </select>
   
+    
+  <select id="selectByPageProject" resultMap="BaseResultMap">
+    select
+    * 
+    from _crawler_project_task  
+    where _project_id=#{projectId,jdbcType=INTEGER}
+    order by _project_task_id
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectAllCountProject" resultType="int">
+    select
+    count(*) 
+    from _crawler_project_task  
+     where _project_id=#{projectId,jdbcType=INTEGER}
+  </select>
+  
+  
   <select id="getTasksByProjectId" resultType="java.util.HashMap" parameterType="java.lang.Integer">
     select
     _md,_keyword
