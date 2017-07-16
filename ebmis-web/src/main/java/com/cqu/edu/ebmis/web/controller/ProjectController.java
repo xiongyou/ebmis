@@ -48,7 +48,6 @@ public class ProjectController extends SuperController {
 	@ResponseBody
 	@RequestMapping("/getProjectList")
 	public String getProjectList() {
-	System.out.println("1111111111111111111");
 		Page<ProjectDO> page = getPage();
 		
 		projectService.findByPage(page);
@@ -70,9 +69,12 @@ public class ProjectController extends SuperController {
 	@RequestMapping("/edit")
 	public String edit(Model model) {
 	
-		String code = request.getParameter("code");
-		if (code != null) {
-			
+		String projectID1 = request.getParameter("projectID");
+		if (projectID1 != null) {
+			int projectId=Integer.parseInt(projectID1);
+			ProjectDO projectDo=projectService.findById(projectId);
+			model.addAttribute("projectDo" , projectDo);
+			model.addAttribute("update" , "update");
 		}
 		return "/project/edit";
 	}
@@ -85,36 +87,43 @@ public class ProjectController extends SuperController {
 	
 	@ResponseBody
 	@RequestMapping("/editProject")
-	public String editProject(ProjectDO project) {
+	public String editProject(ProjectDO projectDo) {
 	
 		JSONObject json = new JSONObject();
-		System.out.println("222222222222222");
+		String success1="";
+		String error1="";
+		String update = request.getParameter("update");
 		try {
-			project.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(project.getEndedTime1()));
-			project.setEndedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(project.getStartTime1()));
-			
-			System.out.println(project.toString());
-			System.out.println(project.getStartTime1());
-			System.out.println(project.getEndedTime1());
-			System.out.println(project.getStartTime());
-			System.out.println(project.getEndedTime());
-				projectService.save(project);
+			projectDo.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(projectDo.getEndedTime1()));
+			projectDo.setEndedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(projectDo.getStartTime1()));
+			if(update!=null&&!update.equals("")&&!update.equals("null")){
+				projectService.update(projectDo);
+				success1="修改成功";
+			}else{
+				projectService.save(projectDo);
+				success1="添加成功";
+			}
 				json.put("success" , true);
-				json.put("data" , "添加成功");
+				json.put("data" , success1);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			if(update!=null&&!update.equals("")&&!update.equals("null")){
+				error1="修改失败";
+			}else{
+				error1="添加失败";
+			}
 			json.put("success" , false);
-			json.put("data" , "添加失败");
+			json.put("data" , error1);
 		}
 		
 		return json.toJSONString();
 	}
 	@ResponseBody
-	@RequestMapping("/delProject/{code}")
-	public String delProject(@PathVariable int code) {
+	@RequestMapping("/delProject/{projectID}")
+	public String delProject(@PathVariable int projectID) {
 	
-		projectService.delete(code);
+		projectService.delete(projectID);
 		return Boolean.TRUE.toString();
 	}
 }

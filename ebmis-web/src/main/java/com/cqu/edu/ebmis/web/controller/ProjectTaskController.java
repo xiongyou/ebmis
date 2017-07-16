@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cqu.edu.ebmis.domain.CategoryDO;
+import com.cqu.edu.ebmis.domain.TaskDO;
 import com.cqu.edu.ebmis.service.CategoryService;
+import com.cqu.edu.ebmis.service.TaskService;
 import com.cqu.edu.ebmis.service.page.Page;
 import com.cqu.edu.ebmis.web.convert.CategoryConvert;
 import com.cqu.edu.ebmis.web.model.CategoryNode;
@@ -33,24 +35,26 @@ public class ProjectTaskController extends SuperController {
 	private final static int	THRID_LEVEL	= 2;
 	
 	@Autowired
-	private CategoryService		categoryService;
+	private TaskService	taskService;
 	
 	@RequestMapping("/list")
 	public String list(Model model) {
-	
+		String projectID = request.getParameter("projectID");
+		model.addAttribute("projectID" , projectID);
 		return "/projectTask/list";
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getCategoryList")
-	public String getCategoryList() {
+	@RequestMapping("/getProjectTaskList")
+	public String getProjectTaskList() {
 	
-		Page<CategoryDO> page = getPage();
-		
-		categoryService.findByPage(page);
+		Page<TaskDO> page = getPage();
+		String projectID1 = request.getParameter("projectID");
+		int projectID=Integer.parseInt(projectID1);
+		taskService.findByPage(projectID,page);
 		return jsonPage(page);
 	}
-	
+	/*
 	@ResponseBody
 	@RequestMapping("/getParentCategory/{parentCode}")
 	public JSONObject getParentCategory(@PathVariable String parentCode) {
@@ -125,5 +129,5 @@ public class ProjectTaskController extends SuperController {
 	
 		categoryService.delete(code);
 		return Boolean.TRUE.toString();
-	}
+	}*/
 }

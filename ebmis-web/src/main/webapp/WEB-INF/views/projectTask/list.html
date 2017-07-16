@@ -14,12 +14,17 @@ SpringWind - 任务管理
 			<button class="btn btn-primary" onclick="editProjectTask(null)" type="button">
 			<i class="fa fa-pencil"></i>&nbsp;添加任务</button>
 		</div>
+		<div class="pull-left" style="margin-left:5px">
+			<button class="btn btn-primary" onclick="editProjectsTask(null)" type="button">
+			<i class="fa fa-pencil"></i>&nbsp;批量添加</button>
+		</div>
 		<div class="input-group pull-right">
 			<input type="text" class="form-control">
 			<span class="input-group-btn">
 				<button type="button" class="btn btn-info">搜索</button>
 			</span>
 		</div>
+		<input type="hidden" class="form-control" id="projectID" name="projectID" value="$!{projectID}">
 	</div>
 </div>
 <div class="row">
@@ -36,20 +41,34 @@ SpringWind - 任务管理
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
-    var dataUrl = "#springUrl('/category/getCategoryList.html')";
+	var projectID=$("#projectID").val();
+    var dataUrl = "#springUrl('/projectTask/getProjectTaskList.html?projectID="+projectID+"')";
     var dataColumns = [{
-        field: 'code',
-        title: '任务所属项目Id'
+        field: 'taskId',
+        title: '任务Id'
     }, {
-        field: 'name',
-        title: '去重项目Id'
+        field: 'url',
+        title: '任务地址'
+    }, {
+        field: 'productInnerId',
+        title: 'productInnerId'
+    }, {
+        field: 'projectId',
+        title: '所属项目Id'
+    }, {
+        field: 'website',
+        title: '网站名'
+    }, {
+        field: 'keyword',
+        title: '关键字'
+    }, {
+        field: 'md',
+        title: 'md'
     },{
         title: '操作',
         formatter: function (value, row, index) {
             var id = row.code;
             return '<a class="btn btn-xs btn-warning" onclick="editProjectTask(' + "'" + id + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
-                    <!-- 此处按钮级别权限控制，目前只有 admin 拥有该权限！ -->
-                    + '<a class="btn btn-xs btn-danger" onclick="delCategory(' + "'" + id + "'" + ')"><i class="fa fa-remove"></i>删除</a>'
                     ;
         }
     }
@@ -61,26 +80,6 @@ SpringWind - 任务管理
         };
     }
 
-    function delCategory(code) {
-        //询问框
-        layer.confirm('确定删除吗？', {
-            btn: ['确定', '取消'] //按钮
-        }, function () {
-            $.ajax({
-                type: "POST",
-                url: "#springUrl('/category/delCategory/')" + code,
-                datatype: "text",
-                success: function (data) {
-                    if(data == 'true'){
-                        $('#dataTable').bootstrapTable('refresh',{url:dataUrl});
-                    }
-                    layer.closeAll();
-                }
-            });
-        }, function () {
-            return;
-        });
-    }
 	function editProjectTask(code){
 	   	var title = "新增任务";
 	   	var url = "#springUrl('/projectTask/edit.html')";
