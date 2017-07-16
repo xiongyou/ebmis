@@ -40,6 +40,9 @@ public class ProjectServiceImpl implements ProjectService {
 		return false;
 	}
 
+	public ProjectDO findById(int projectId){
+		return projectRepository.findProjectById(projectId);
+	}
 	public List<ProjectDO> findByName(String name) {
 		return projectRepository.findProjectByName(name);
 	}

@@ -42,6 +42,13 @@ public interface ProjectService {
 	 * @return
 	 */
 	 boolean isExist(ProjectDO project) ;
+	 
+	 /**
+	  * 通过项目ID查找项目
+	 * @param projectId
+	 * @return
+	 */
+	ProjectDO findById(int projectId);
 	
 	/**
 	 * 按照项目名称查找
