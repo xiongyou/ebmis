@@ -25,9 +25,9 @@ import com.cqu.edu.ebmis.utils.Md5Util;
 
 @Service
 public class TaskServiceImpl implements TaskService {
-
+	@Resource
 	private TaskRepository taskRepository;
-	
+	@Resource
 	private UrlRepository urlRepository;
 
 	public int save(TaskDO task,List<Integer> projectIds) {
