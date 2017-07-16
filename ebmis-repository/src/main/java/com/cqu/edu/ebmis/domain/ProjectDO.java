@@ -64,14 +64,7 @@ public class ProjectDO {
 	}
 
 	public Date getStartTime() {
-		Date date=null;
-		try {
-			date= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.startTime1);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return date;
+		return startTime;
 	}
 
 	public void setStartTime(Date startTime) {
@@ -87,14 +80,8 @@ public class ProjectDO {
 	}
 
 	public Date getEndedTime() {
-		Date date=null;
-		try {
-			date= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.endedTime1);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return date;
+		
+		return endedTime;
 	}
 
 	public void setEndedTime(Date endedTime) {

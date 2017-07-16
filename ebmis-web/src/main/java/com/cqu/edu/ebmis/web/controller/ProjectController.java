@@ -3,6 +3,9 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +90,9 @@ public class ProjectController extends SuperController {
 		JSONObject json = new JSONObject();
 		System.out.println("222222222222222");
 		try {
+			project.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(project.getEndedTime1()));
+			project.setEndedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(project.getStartTime1()));
+			
 			System.out.println(project.toString());
 			System.out.println(project.getStartTime1());
 			System.out.println(project.getEndedTime1());
