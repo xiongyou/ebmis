@@ -82,13 +82,22 @@ public class ProjectController extends SuperController {
 	
 	@ResponseBody
 	@RequestMapping("/editProject")
-	public String editProject(ProjectDO projectDO) {
+	public String editProject(ProjectDO project) {
 	
 		JSONObject json = new JSONObject();
-		
+		System.out.println("222222222222222");
 		try {
+			System.out.println(project.toString());
+			System.out.println(project.getStartTime1());
+			System.out.println(project.getEndedTime1());
+			System.out.println(project.getStartTime());
+			System.out.println(project.getEndedTime());
+				projectService.save(project);
+				json.put("success" , true);
+				json.put("data" , "添加成功");
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			json.put("success" , false);
 			json.put("data" , "添加失败");
 		}

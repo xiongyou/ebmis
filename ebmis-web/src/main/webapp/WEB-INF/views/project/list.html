@@ -83,14 +83,14 @@ SpringWind - 项目管理
         };
     }
 
-    function delCategory(code) {
+    function delCategory(projectID) {
         //询问框
         layer.confirm('确定删除吗？', {
             btn: ['确定', '取消'] //按钮
         }, function () {
             $.ajax({
                 type: "POST",
-                url: "#springUrl('/category/delCategory/')" + code,
+                url: "#springUrl('/category/delCategory/')" + projectID,
                 datatype: "text",
                 success: function (data) {
                     if(data == 'true'){
@@ -103,12 +103,12 @@ SpringWind - 项目管理
             return;
         });
     }
-	function editProject(code){
+	function editProject(projectID){
 	   	var title = "新增项目";
 	   	var url = "#springUrl('/project/edit.html')";
-	   	if(code!=null){
+	   	if(projectID!=null){
 	   		title = "编辑项目";
-	   		url = url + "?code=" + code;
+	   		url = url + "?projectID=" + projectID;
 	   	}
 	    layer.open({
 	        type: 2,
