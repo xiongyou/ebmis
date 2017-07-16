@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.ProjectMapper">
+
+    
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap id="BaseResultMap" type="com.cqu.edu.ebmis.domain.ProjectDO">
+    <id column="_project_id" jdbcType="INTEGER" property="projectID" />
+    <result column="_project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="_execute_period" jdbcType="INTEGER" property="ExecutePeriod" />
+    <result column="_obj_name" jdbcType="VARCHAR" property="objName" />
+    <result column="_start_time"  property="startTime" />
+    <result column="_end_time"  property="endTime" />
+    <result column="_key_word" jdbcType="VARCHAR" property="keyWord" />
+    <result column="_maxexecuting_time" jdbcType="INTEGER" property="maxExecutingTime" />
+    <result column="_project_description" jdbcType="VARCHAR" property="projectDescription" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    _project_id, _project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description
+  </sql>
+  
+  <insert id="insertProject" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
+    insert into _crawler_project (_project_id, _project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description)
+    values (#{projectID,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{ExecutePeriod,jdbcType=INTEGER},  #{objName,jdbcType=VARCHAR}, #{startTime}, #{endTime}, #{keyWord,jdbcType=VARCHAR},  #{maxExecutingTime,jdbcType=INTEGER},#{projectDescription,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="findAllProject" resultMap="BaseResultMap">
+    select
+    * 
+    from _crawler_project  
+    order by _project_id
+  </select>  
+  
+   <select id="findProjectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from _crawler_project
+    where _project_id = #{projectID,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findProjectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from _crawler_project
+    where _project_name = #{projectName,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="update" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
+    update _crawler_project
+    set  _project_name=#{projectName,jdbcType=VARCHAR}, _execute_period= #{ExecutePeriod,jdbcType=INTEGER},
+     _obj_name=#{objName,jdbcType=VARCHAR},_start_time=#{startTime},_end_time=#{endTime},
+     _key_word=#{keyWord,jdbcType=VARCHAR},_maxexecuting_time=#{maxExecutingTime,jdbcType=INTEGER},_project_description)=#{projectDescription,jdbcType=VARCHAR}
+    where _project_id = #{projectID,jdbcType=INTEGER}
+  </update>
+  
+    <delete id="deleteProject" parameterType="java.lang.Integer" >
+    delete from _crawler_project
+    where _project_id = #{projectID,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    * 
+    from _crawler_project  
+    order by _project_id
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectAllCount" resultType="int">
+    select
+    count(*) 
+    from _crawler_project  
+  </select>
+</mapper>

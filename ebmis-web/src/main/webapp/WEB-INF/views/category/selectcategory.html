@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSPINIA | Basic Form</title>
+	<link href="#springUrl('/static/css/bootstrap.min.css')" rel="stylesheet">
+	<link href="#springUrl('/static/css/style.css')" rel="stylesheet">
+	<link href="#springUrl('/static/css/bootstrap-treeview.min.css')" rel="stylesheet">
+</head>
+<body class="white-bg">
+<div id="tree"></div>
+<script src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
+<script src="#springUrl('/static/plugins/nice-validator-0.8.1/jquery.validator.js?local=zh-CN')"></script>
+<script src="#springUrl('/static/js/bootstrap-treeview.min.js')"></script>
+<script type="text/javascript">
+
+
+
+
+var nodeCheckedSilent = false;  
+function nodeChecked (event, node){  
+    if(nodeCheckedSilent){  
+        return;  
+    }  
+    nodeCheckedSilent = true;  
+    checkAllParent(node);  
+    checkAllSon(node);  
+    nodeCheckedSilent = false;  
+    
+    parent.setParent(node);
+}  
+  
+var nodeUncheckedSilent = false;  
+function nodeUnchecked  (event, node){  
+    if(nodeUncheckedSilent)  
+        return;  
+    nodeUncheckedSilent = true;  
+    uncheckAllParent(node);  
+    uncheckAllSon(node);  
+    nodeUncheckedSilent = false;  
+}  
+  
+//选中全部父节点  
+function checkAllParent(node){  
+    $('#tree').treeview('checkNode',node.nodeId,{silent:true});  
+    var parentNode = $('#tree').treeview('getParent',node.nodeId);  
+    if(!("id" in parentNode)){  
+        return;  
+    }else{  
+        checkAllParent(parentNode);  
+    }  
+}  
+//取消全部父节点  
+function uncheckAllParent(node){  
+    $('#tree').treeview('uncheckNode',node.nodeId,{silent:true});  
+    var siblings = $('#searchTree').treeview('getSiblings', node.nodeId);  
+    var parentNode = $('#searchTree').treeview('getParent',node.nodeId);  
+    if(!("id" in parentNode)) {  
+        return;  
+    }  
+    var isAllUnchecked = true;  //是否全部没选中  
+    for(var i in siblings){  
+        if(siblings[i].state.checked){  
+            isAllUnchecked=false;  
+            break;  
+        }  
+    }  
+    if(isAllUnchecked){  
+        uncheckAllParent(parentNode);  
+    }  
+  
+}  
+  
+//级联选中所有子节点  
+function checkAllSon(node){  
+    $('#tree').treeview('checkNode',node.nodeId,{silent:true});  
+    if(node.nodes!=null&&node.nodes.length>0){  
+        for(var i in node.nodes){  
+            checkAllSon(node.nodes[i]);  
+        }  
+    }  
+    
+}  
+//级联取消所有子节点  
+function uncheckAllSon(node){  
+    $('#tree').treeview('uncheckNode',node.nodeId,{silent:true});  
+    if(node.nodes!=null&&node.nodes.length>0){  
+        for(var i in node.nodes){  
+            uncheckAllSon(node.nodes[i]);  
+        }  
+    }  
+}  
+
+
+$.ajax({
+    type: "POST",
+    url: "#springUrl('/category/getParentCategory/-1')",
+    datatype: "json",
+    success: function (data) {
+             if(data.total > 0){
+                 tree = data.data;
+                 
+                 $('#tree').treeview({
+	                 showCheckbox:true,
+	                 data: tree,
+	                 onNodeChecked:nodeChecked,
+	                 onNodeUnchecked:nodeUnchecked  
+	                 });	
+             }
+             
+         }
+});
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>ebmis-service</artifactId>
+  <packaging>jar</packaging>
+
+  <parent>
+     <groupId>com.cqu.edu.ebmis</groupId>
+     <artifactId>ebmis-parent</artifactId>
+     <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <name>ebmis-service</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+  
+    <dependency>
+      <groupId>com.cqu.edu.ebmis</groupId>
+      <artifactId>ebmis-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.cqu.edu.ebmis</groupId>
+      <artifactId>ebmis-repository</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.cqu.edu.ebmis</groupId>
+      <artifactId>ebmis-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.cqu.edu.ebmis</groupId>
+      <artifactId>ebmis-utils</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+      <build>
+     <finalName>ebmis-service</finalName>  
+    <resources>  
+        <resource>  
+            <directory>src/main/resources</directory>  
+            <includes>  
+                <include>**/*.properties</include>  
+                <include>**/*.xml</include>   
+            </includes>  
+            <filtering>false</filtering>  
+        </resource>  
+        <resource>  
+            <directory>src/main/java</directory>  
+            <includes>  
+                <include>**/*.properties</include>  
+                <include>**/*.xml</include>  
+            </includes>  
+            <filtering>false</filtering>  
+        </resource>  
+    </resources>  
+  </build>
+</project>

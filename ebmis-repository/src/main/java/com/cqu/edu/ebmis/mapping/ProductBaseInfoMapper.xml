@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.ProductBaseInfoMapper">
+
+    
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap id="BaseResultMap" type="com.cqu.edu.ebmis.domain.ProductBaseInfoDO">
+    <id column="productInnerId" jdbcType="BIGINT" property="productInnerId" />
+    <result column="productName" jdbcType="VARCHAR" property="productName" />
+    <result column="productURL" jdbcType="VARCHAR" property="productURL"></result>
+    <result column="isValid" jdbcType="INTEGER" property="isValid" />
+    <result column="checked" jdbcType="INTEGER" property="checked" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    productInnerId, productName, productURL, isValid, checked 
+  </sql>
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from product_baseinfo
+    where productInnerId = #{productInnerId,jdbcType=BIGINT}
+  </select>
+  
+
+  <select id="selectAllProduct" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from product_baseinfo  
+    order by extractTime
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from product_baseinfo
+    where productInnerId = #{productInnerId,jdbcType=BIGINT}
+  </delete>
+  
+
+  
+  <update id="update" parameterType="com.cqu.edu.ebmis.domain.ProductBaseInfoDO" >
+    update product_baseinfo
+    set isValid = #{isValid,jdbcType=INTEGER},
+    checked = #{checked,jdbcType=INTEGER}
+    where productInnerId = #{productInnerId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    * 
+    from product_baseinfo  
+    order by extractTime
+    limit #{offset},#{size}
+  </select>
+  
+    <select id="selectAllCount" resultType="int">
+    select
+    count(*) 
+    from product_baseinfo  
+    
+  </select>
+  
+  <select id="selectCheckedByPage" resultMap="BaseResultMap">
+  	select 
+  	* 
+  	from product_baseinfo
+  	where checked=#{checked,jdbcType=INTEGER}
+  	order by extractTime
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectCheckedCount" resultType="int"  parameterType="java.lang.Integer">
+ 	select
+    count(*) 
+    from product_baseinfo  
+    where checked=#{checked,jdbcType=INTEGER}
+  </select>
+
+</mapper>
+

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.CategoryMapper">
+
+    
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap id="BaseResultMap" type="com.cqu.edu.ebmis.domain.CategoryDO">
+    <id column="category_code" jdbcType="VARCHAR" property="code" />
+    <result column="category_name" jdbcType="VARCHAR" property="name" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="parent_code" jdbcType="VARCHAR" property="parentCode" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    category_code, category_name, level, parent_code
+  </sql>
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from category
+    where category_code = #{code,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from category
+    where category_name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAllCatetory" resultMap="BaseResultMap">
+    select
+    * 
+    from category  
+    order by category_code
+  </select>
+  
+  <select id="selectByParentCode" resultMap="BaseResultMap">
+    select
+    * 
+    from category  
+    where parent_code = #{parentCode,jdbcType=VARCHAR}
+    order by category_code
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from category
+    where category_code = #{code,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.CategoryDO" >
+    insert into category (category_code, category_name, level, parent_code)
+    values (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER},  #{parentCode,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="com.cqu.edu.ebmis.domain.CategoryDO" >
+    update category
+    set category_name = #{name,jdbcType=VARCHAR}
+    where category_code = #{code,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    * 
+    from category  
+    order by category_code
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectAllCount" resultType="int">
+    select
+    count(*) 
+    from category  
+  </select>
+</mapper>
+

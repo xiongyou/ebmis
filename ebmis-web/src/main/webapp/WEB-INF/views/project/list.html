@@ -1,0 +1,126 @@
+#override("title")
+SpringWind - 项目管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><strong>项目管理</strong></li>
+#end
+#override("content")
+<div class="row">
+	<div class="ibox-content form-inline" style="background: #F3F3F4;">
+	<div class="pull-left">
+		<button class="btn btn-primary" onclick="editProject(null)" type="button">
+		<i class="fa fa-pencil"></i>&nbsp;添加项目</button>
+	</div>
+		<div class="pull-right input-group">
+			<input type="text" class="form-control">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-info">搜索</button>
+			</span>
+		</div>
+	</div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+    var dataUrl = "#springUrl('/project/getProjectList.html')";
+    var dataColumns = [{
+        field: 'projectID',
+        title: '项目Id'
+    }, {
+        field: 'projectName',
+        title: '项目名'
+    }, {
+        field: 'projectDescription',
+        title: '项目描述'
+    }, {
+        field: 'maxExecutingTime',
+        title: '执行周期'
+    },{
+        field: 'startTime',
+        title: '开始时间'
+    },{
+        field: 'endedTime',
+        title: '结束时间'
+    },{
+        field: 'ExecutePeriod',
+        title: 'ExecutePeriod'
+    },{
+        field: 'keyWord',
+        title: '关键字'
+    },{
+        field: 'price',
+        title: '价格'
+    },{
+        title: '操作',
+        formatter: function (value, row, index) {
+            var projectID = row.projectID;
+            return '<a class="btn btn-xs btn-warning" onclick="editProject(' + "'" + projectID + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
+                    <!-- 此处按钮级别权限控制，目前只有 admin 拥有该权限！ -->
+                    + '<a class="btn btn-xs btn-danger" onclick="delProject(' + "'" + projectID + "'" + ')"><i class="fa fa-remove"></i>删除</a> '
+                    + '<a class="btn btn-xs btn-primary" href="../projectTask/list"><i class="fa fa-navicon"></i>任务管理</a>'
+                    ;
+        }
+    }
+    ];
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+
+    function delCategory(code) {
+        //询问框
+        layer.confirm('确定删除吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.ajax({
+                type: "POST",
+                url: "#springUrl('/category/delCategory/')" + code,
+                datatype: "text",
+                success: function (data) {
+                    if(data == 'true'){
+                        $('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+                    }
+                    layer.closeAll();
+                }
+            });
+        }, function () {
+            return;
+        });
+    }
+	function editProject(code){
+	   	var title = "新增项目";
+	   	var url = "#springUrl('/project/edit.html')";
+	   	if(code!=null){
+	   		title = "编辑项目";
+	   		url = url + "?code=" + code;
+	   	}
+	    layer.open({
+	        type: 2,
+	        title: title,
+	        shadeClose: true,
+	        shade: 0.8,
+	        area: ['600px', '430px'],
+	        fix: false,
+	        maxmin: true,
+	        content: url
+	    });
+	}
+</script>
+#end
+#extends("/common/framework.html")

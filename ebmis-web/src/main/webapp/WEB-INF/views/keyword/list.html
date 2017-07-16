@@ -1,0 +1,114 @@
+#override("title")
+SpringWind - 关键字管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><strong>关键字管理</strong></li>
+#end
+#override("content")
+<div class="row">
+	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+		<div class="input-group">
+			<input type="text" name="keyword" id="keyword" class="form-control">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-info" onclick='search($("#keyword").val())'>搜索</button>
+			</span>
+		</div>
+		<button class="btn btn-primary" onclick="editKeyWord(null)" type="button">
+		<i class="fa fa-pencil"></i>&nbsp;添加关键字</button>
+	</div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+    var dataUrl = "#springUrl('/keyword/getKeyWordList/')";
+    var dataColumns = [{
+        field: 'categoryCode',
+        title: '编码'
+    }, {
+        field: 'keyword',
+        title: '关键字'
+    }, {
+        title: '操作',
+        formatter: function (value, row, index) {
+            var id = row.id;
+            return '<a class="btn btn-xs btn-warning" onclick="editKeyWord(' + "'" + id + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
+                    <!-- 此处按钮级别权限控制，目前只有 admin 拥有该权限！ -->
+                    + '<a class="btn btn-xs btn-danger" onclick="delKeyWord(' + "'" + id + "'" + ')"><i class="fa fa-remove"></i>删除</a>'
+                    ;
+        }
+    }
+    ];
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+    
+    function search(keyword){
+    	if(keyword==""){
+    		var dataUrl="#springUrl('/keyword/getKeyWordList/')";
+    		$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+    	}
+    	else{
+    		var dataUrl="#springUrl('/keyword/getKeyWordList/')"+keyword;
+    		$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+    	}
+    }
+
+    function delKeyWord(id) {
+        //询问框
+        layer.confirm('确定删除吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.ajax({
+                type: "POST",
+                url: "#springUrl('/keyword/delKeyWord/')" + id,
+                datatype: "text",
+                success: function (data) {
+                    if(data == 'true'){
+                        $('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+                    }
+                    layer.closeAll();
+                }
+            });
+        }, function () {
+            return;
+        });
+    }
+
+function editKeyWord(id){
+   	var title = "新增关键字";
+   	var url = "#springUrl('/keyword/edit.html')";
+   	if(id!=null){
+   		title = "编辑关键字";
+   		url = url + "?id=" + id;
+   	}
+    layer.open({
+        type: 2,
+        title: title,
+        shadeClose: true,
+        shade: 0.8,
+        area: ['600px', '430px'],
+        fix: false,
+        maxmin: true,
+        content: url
+    });
+}
+</script>
+#end
+#extends("/common/framework.html")

@@ -1,0 +1,152 @@
+#override("title")
+SpringWind - 农产品管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><strong>农产品管理</strong></li>
+#end
+#override("content")
+<div class="row">
+	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+		<div class="input-group">			
+			<span class="input-group-cbx">
+				<input name="unchecked" id="unchecked" type="checkbox" value="0" checked="checked" onclick="selectCheck()">
+				<Strong>未复核</Strong>
+			</span>
+		</div>
+		&nbsp;&nbsp;
+		<div class="input-group">			
+			<span class="input-group-cbx">
+				<input name="checked" id="checked" type="checkbox" value="1" onclick="selectCheck()">
+				<Strong>已复核</Strong>
+			</span>
+			<span style="padding-left:700px;float:right;" >&nbsp;
+			</span>
+		</div>
+		
+		<div class="input-group">
+			<input type="text" class="form-control">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-info">搜索</button>
+			</span>
+		</div>
+		
+	</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+    var dataUrl = "#springUrl('/product/getProduct/0')";
+    
+    var dataColumns = [{
+        field: 'productName',
+        title: '产品名称'
+    }, {
+        field: 'productURL',
+        title: '产品链接',
+        formatter: function (value, row, index) {
+        	var url = row.productURL;
+        	
+        	if(typeof url == "undefined"){
+        		
+        		return "-";
+        	}else{
+        		
+        		return '<a href="'+url+'" target="_blank">'+url+'</a>';
+        	}
+        	
+        }
+    },{
+        field: 'isValid',
+        title: '是否农产品',
+        formatter: function (value, row, index) {
+            var isValid = row.isValid;
+            var id = row.productInnerId;
+            if(isValid==1){
+            	return '<input name="checkbox" type="checkbox" value="'+isValid+'" checked="checked" onclick="audit('+id+',0)">';
+            }else{
+            	return '<input name="checkbox" type="checkbox" value="'+isValid+'" onclick="audit('+id+',1)">';
+            }
+          
+        }
+    }, {
+        field: 'checked',
+        title: '是否校验',
+        formatter: function (value, row, index) {
+            var checked = row.checked;
+           if(checked==1){
+            	return '<span style="color:#00F">已复核</span>';
+            }else{
+            	return '<span style="color:#F00">未复核</span>';
+            }
+        }
+    }, {
+        title: '操作',
+        formatter: function (value, row, index) {
+            var id = row.productInnerId;
+            var isValid = row.isValid;
+           
+            return '<a class="btn btn-xs btn-warning" onclick="audit(' + "'" + id + "','" +isValid+"'"+ ')"><i class="fa fa-pencil"></i>复核</a> ';
+           
+        }
+    }
+    ];
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+
+
+
+function audit(id,flag){
+	
+	
+	$.ajax({
+        type: "POST",
+        url: "#springUrl('/product/auditProduct/')" + id+':'+flag,
+        datatype: "text",
+        success: function (data) {
+            if(data == 'true'){
+                $('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+            }
+        }
+    });
+}
+
+
+function selectCheck(){
+	
+	if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+		var dataUrl="#springUrl('/product/getProduct/0')";
+		$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+	}
+	else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+		var dataUrl="#springUrl('/product/getProduct/1')";
+		$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+	}
+	else{
+		var dataUrl="#springUrl('/product/getProductList')";
+		$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+	}	
+		
+}
+
+</script>
+#end
+#extends("/common/framework.html")

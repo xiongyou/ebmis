@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.KeyWordMapper">
+
+    
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap id="BaseResultMap" type="com.cqu.edu.ebmis.domain.KeyWordDO">
+   <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="category_code" jdbcType="VARCHAR" property="categoryCode" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, category_code, keyword
+  </sql>
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from keyword
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectByKeyWord" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from keyword
+    where keyword = #{keyword,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="selectByParam" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from keyword
+    where keyword like CONCAT('%',#{keyword},'%')
+    order by category_code
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectAllKeyWord" resultMap="BaseResultMap">
+    select
+    * 
+    from keyword  
+    order by category_code
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from keyword
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.KeyWordDO" >
+    insert into keyword (category_code, keyword)
+    values (#{categoryCode,jdbcType=VARCHAR}, #{keyword,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="com.cqu.edu.ebmis.domain.KeyWordDO" >
+    update keyword
+    set keyword = #{keyword,jdbcType=VARCHAR},
+    category_code = #{categoryCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    * 
+    from keyword  
+    order by category_code
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectAllCount" resultType="int">
+    select
+    count(*) 
+    from keyword  
+    order by category_code
+  </select>
+</mapper>
+

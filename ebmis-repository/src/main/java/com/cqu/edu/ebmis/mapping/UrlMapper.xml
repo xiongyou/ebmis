@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.UrlMapper">
+
+    
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap id="BaseResultMap" type="com.cqu.edu.ebmis.domain.UrlDO">
+    <id column="productInnerId" jdbcType="INTEGER" property="productInnerId" />
+    <result column="productURL" jdbcType="VARCHAR" property="productURL" />
+    <result column="getURLTime"  property="getURLTime" />
+    <result column="platform" jdbcType="VARCHAR" property="platform" />
+    <result column="_status" jdbcType="TINYINT" property="status" />
+    <result column="keyWord" jdbcType="VARCHAR" property="keyWord" />
+    <result column="md" jdbcType="VARCHAR" property="md" />
+    <result column="relativeInnerId" jdbcType="INTEGER" property="relativeInnerId" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    productInnerId, productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId
+  </sql>
+  
+  <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.UrlDO" >
+    insert into tb_testinserturl ( productInnerId, productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
+    values (#{productInnerId,jdbcType=INTEGER}, #{productURL,jdbcType=VARCHAR}, #{getURLTime},  #{platform,jdbcType=VARCHAR}, 
+     #{status,jdbcType=TINYINT}，#{keyWord,jdbcType=VARCHAR}, #{md,jdbcType=VARCHAR} ,#{relativeInnerId,jdbcType=INTEGER})
+  </insert>
+  
+  <insert id="insertTasksBatch" parameterType="java.util.List" >
+  	<foreach collection="list" item="url" index="index" separator=";">  
+    insert into tb_testinserturl (productInnerId, productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
+    values (#{url.productInnerId,jdbcType=INTEGER}, #{url.productURL,jdbcType=VARCHAR}, #{url.getURLTime},  #{url.platform,jdbcType=VARCHAR}, 
+     #{url.status,jdbcType=TINYINT}，#{url.keyWord,jdbcType=VARCHAR}, #{url.md,jdbcType=VARCHAR} ,#{url.relativeInnerId,jdbcType=INTEGER})
+     </foreach>
+  </insert>
+  
+  <update id="update" parameterType="com.cqu.edu.ebmis.domain.UrlDO" >
+    update tb_testinserturl
+    set productURL=#{productURL,jdbcType=VARCHAR},
+     getURLTime=#{getURLTime}, platform= #{platform,jdbcType=VARCHAR},
+     _status=#{status,jdbcType=TINYINT},keyWord=#{keyWord,jdbcType=VARCHAR},md=#{md,jdbcType=VARCHAR},relativeInnerId=#{relativeInnerId,jdbcType=INTEGER}
+     where productInnerId = #{productInnerId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateUrls" parameterType="java.util.List" >
+      <foreach collection="list" item="url" index="index" separator=";">  
+		 update tb_testinserturl
+   		 set productURL=#{url.productURL,jdbcType=VARCHAR}, getURLTime=#{url.getURLTime}, platform= #{url.platform,jdbcType=VARCHAR},
+     	 _status=#{url.status,jdbcType=TINYINT},keyWord=#{url.keyWord,jdbcType=VARCHAR},md=#{url.md,jdbcType=VARCHAR},relativeInnerId=#{url.relativeInnerId,jdbcType=INTEGER}
+     	 where productInnerId = #{url.productInnerId,jdbcType=INTEGER}
+      </foreach>  
+  </update>
+  
+  <select id="getAllUrls" resultMap="BaseResultMap">
+    select
+    * 
+    from tb_testinserturl  
+    order by productInnerId
+  </select>  
+
+   <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_testinserturl
+    where productInnerId = #{productInnerId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getExsitUrls" resultType="java.util.HashMap"  >
+    select 
+    md, keyWord 
+    from tb_testinserturl
+  </select>
+  
+  <select id="getProductIds" resultType="java.util.HashMap"  >
+    select 
+    md, productInnerId 
+    from tb_testinserturl
+  </select>
+  
+  
+  <update id="updateKeyWord" parameterType="java.util.List" >
+      <foreach collection="list" item="url" index="index" separator=";">  
+		 update tb_testinserturl
+   		 set keyWord=#{url.keyWord,jdbcType=VARCHAR}
+     	 where md=#{url.md,jdbcType=VARCHAR}
+      </foreach>  
+  </update>
+  
+  <select id="getInfoByRelativeId" resultType="java.lang.String" parameterType="java.lang.Integer" >
+    select 
+    productURL,keyWord
+    from  tb_testinserturl 
+    where productInnerId = #{relativeInnerId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>
