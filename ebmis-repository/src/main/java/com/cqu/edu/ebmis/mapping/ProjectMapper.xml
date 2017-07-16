@@ -45,7 +45,7 @@
     where _project_name = #{projectName,jdbcType=VARCHAR}
   </select>
   
-  <update id="update" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
+  <update id="updateProject" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
     update _crawler_project
     set  _project_name=#{projectName,jdbcType=VARCHAR}, _execute_period= #{ExecutePeriod,jdbcType=INTEGER},
      _obj_name=#{objName,jdbcType=VARCHAR},_start_time=#{startTime},_end_time=#{endedTime},
