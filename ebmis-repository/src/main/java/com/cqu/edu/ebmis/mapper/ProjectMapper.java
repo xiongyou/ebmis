@@ -2,6 +2,8 @@ package com.cqu.edu.ebmis.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.cqu.edu.ebmis.domain.ProjectDO;
 
 public interface ProjectMapper {
@@ -61,7 +63,8 @@ public interface ProjectMapper {
 	 * @param searchContent
 	 * @return
 	 */
-	public List<ProjectDO> selectByPage(int offset,int size);
+	public List<ProjectDO> selectByPage(@Param("size") int size,
+			@Param("offset") int offset);
 	
 	/**
 	 * 所有的数量

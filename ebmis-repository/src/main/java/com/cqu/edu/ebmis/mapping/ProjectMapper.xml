@@ -10,7 +10,7 @@
     <result column="_execute_period" jdbcType="INTEGER" property="ExecutePeriod" />
     <result column="_obj_name" jdbcType="VARCHAR" property="objName" />
     <result column="_start_time"  property="startTime" />
-    <result column="_end_time"  property="endTime" />
+    <result column="_end_time"  property="endedTime" />
     <result column="_key_word" jdbcType="VARCHAR" property="keyWord" />
     <result column="_maxexecuting_time" jdbcType="INTEGER" property="maxExecutingTime" />
     <result column="_project_description" jdbcType="VARCHAR" property="projectDescription" />
