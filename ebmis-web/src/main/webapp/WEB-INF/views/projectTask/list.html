@@ -50,6 +50,9 @@ SpringWind - 任务管理
         field: 'url',
         title: '任务地址'
     }, {
+        field: 'dataObj',
+        title: '数据对象'
+    }, {
         field: 'productInnerId',
         title: 'productInnerId'
     }, {
@@ -67,8 +70,8 @@ SpringWind - 任务管理
     },{
         title: '操作',
         formatter: function (value, row, index) {
-            var id = row.code;
-            return '<a class="btn btn-xs btn-warning" onclick="editProjectTask(' + "'" + id + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
+            var taskId = row.taskId;
+            return '<a class="btn btn-xs btn-warning" onclick="editProjectTask(' + "'" + taskId + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
                     ;
         }
     }
@@ -80,13 +83,29 @@ SpringWind - 任务管理
         };
     }
 
-	function editProjectTask(code){
+	function editProjectTask(taskId){
 	   	var title = "新增任务";
-	   	var url = "#springUrl('/projectTask/edit.html')";
-	   	if(code!=null){
+	   	var projectID=$("#projectID").val();
+	   	var url ="#springUrl('/projectTask/edit.html')"+"?projectID="+projectID;
+	   	if(taskId!=null){
 	   		title = "编辑任务";
-	   		url = url + "?code=" + code;
+	   		url = url + "&taskId=" + taskId;
 	   	}
+	    layer.open({
+	        type: 2,
+	        title: title,
+	        shadeClose: true,
+	        shade: 0.8,
+	        area: ['600px', '430px'],
+	        fix: false,
+	        maxmin: true,
+	        content: url
+	    });
+	}
+	function editProjectsTask(taskId){
+	   	var title = "批量添加";
+	   	var projectID=$("#projectID").val();
+	   	var url = "#springUrl('/projectTask/edits.html')"+"?projectID="+projectID;
 	    layer.open({
 	        type: 2,
 	        title: title,

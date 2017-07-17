@@ -2,26 +2,26 @@ package com.cqu.edu.ebmis.domain;
 import java.security.MessageDigest;
 public class TaskDO {
 
-	private int taskId;
+	private Integer taskId;
 	
 	private String url;
 	
-	private int productInnerId;
+	private Integer productInnerId;
 	
 	private String dataObj;
 	
-	private int projectId;
+	private Integer projectId;
 	
 	private String website;
 	
 	private String keyword;
 	private String md;
 
-	public int getTaskId() {
+	public Integer getTaskId() {
 		return taskId;
 	}
 
-	public void setTaskId(int taskId) {
+	public void setTaskId(Integer taskId) {
 		this.taskId = taskId;
 	}
 
@@ -33,15 +33,14 @@ public class TaskDO {
 		this.url = url;
 	}
 
-	public int getProductInnerId() {
+	public Integer getProductInnerId() {
 		return productInnerId;
 	}
 
-	public void setProductInnerId(int productInnerId) {
+	public void setProductInnerId(Integer productInnerId) {
 		this.productInnerId = productInnerId;
 	}
 
-	
 	public String getDataObj() {
 		return dataObj;
 	}
@@ -50,11 +49,11 @@ public class TaskDO {
 		this.dataObj = dataObj;
 	}
 
-	public int getProjectId() {
+	public Integer getProjectId() {
 		return projectId;
 	}
 
-	public void setProjectId(int projectId) {
+	public void setProjectId(Integer projectId) {
 		this.projectId = projectId;
 	}
 

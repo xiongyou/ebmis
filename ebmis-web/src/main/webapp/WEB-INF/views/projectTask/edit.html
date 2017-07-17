@@ -12,42 +12,54 @@
 </head>
 <body class="white-bg">
 <div class="ibox-content" style="width: 430px;">
-   <form class="form-horizontal" method ='post' action="#springUrl('/taskFile/fileList')" autocomplete="off" data-validator-option="{theme:'default'}" enctype="multipart/form-data">
-       <input type="hidden" class="form-control" value="$!{category.categoryCode}" name="categoryCode" >
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">任务所属项目Id</label>
+   <form id="myForm" class="form-horizontal">
+       <input type="hidden" id="projectID" class="form-control" name="projectId" value="$!{projectID}">
+       <input type="hidden" id="hiddenUpdate" class="form-control" name="update" value="$!{update}">
+       <input type="hidden" class="form-control" name="taskId" value="$!{taskId}">
+       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">任务地址</label>
            <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="" value="">
+           		<input type="text" class="form-control" name="url" value="">
+           </div>
+       </div>
+       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">productInnerId</label>
+           <div class="col-sm-10 pull-right">
+           		<input type="text" class="form-control" name="productInnerId" value="">
+           </div>
+       </div>
+       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">网站名</label>
+           <div class="col-sm-10 pull-right">
+           		<input type="text" class="form-control" name="website" value="">
+           </div>
+       </div>
+       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">关键字</label>
+           <div class="col-sm-10 pull-right">
+           		<input type="text" class="form-control" name="keyword" value="">
+           </div>
+       </div>
+       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">md</label>
+           <div class="col-sm-10 pull-right">
+           		<input type="text" class="form-control" name="md" value="">
            </div>
        </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">去重项目Id(以英文逗号隔开)</label>
            <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="" value="">
+           		<input type="text" id="dropProjectId" class="form-control" name="dropProjectId" value="">
            </div>
        </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px;margin-right:123px">数据对象</label>
-			<div class="btn-group">
-			    <button type="button" class="btn btn-default">Product</button>
-			    <button type="button" class="btn btn-default dropdown-toggle" 
-			        data-toggle="dropdown">
-			        <span class="caret"></span>
-			        <span class="sr-only">切换下拉菜单</span>
-			    </button>
-			    <ul class="dropdown-menu" role="menu">
-			        <li><a href="#">功能</a></li>
-			        <li><a href="#">另一个功能</a></li>
-			        <li><a href="#">其他</a></li>
-			        <li><a href="#">分离的链接</a></li>
-			    </ul>
-			</div>
-		</div>
-        <div class="form-group">
-           <div class="col-sm-10 pull-right">
-           		<input type="file" name="file">
-           </div>
+       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">数据对象</label>
+       	   <div class="col-sm-10 pull-right">
+		       <select class="form-control" name="dataObj" style="width:196px">
+			      <option>Product</option>
+			      <option>2</option>
+			      <option>3</option>
+			      <option>4</option>
+			      <option>5</option>
+		       </select>
+	       </div>
 	   </div>
        <div class="form-group">
             <div class="text-center">
-                <button class="btn btn-primary" type="submit">#if($!{category})修 改#else提 交#end</button>
+                <button class="btn btn-primary" type="submit">#if($!{taskDO})修 改#else提 交#end</button>
             </div>
        </div>
     </form>
@@ -59,13 +71,17 @@
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
+var hiddenUpdate=$("#hiddenUpdate").val();
+if(hiddenUpdate!=""&&hiddenUpdate!=null&&hiddenUpdate=='update'){
+	$("#dropProjectId").attr("readonly","readonly");
+}
 $("#myForm").validator({
     valid: function(form){
         var me = this;
         // 提交表单之前，hold住表单，防止重复提交
         me.holdSubmit();
         $.ajax({
-        	url: "#springUrl('/category/editCategory')",
+        	url: "#springUrl('/projectTask/editProjectTask')",
             data: $(form).serialize(),
             type: "POST",
             success: function(data){
@@ -85,30 +101,6 @@ $("#myForm").validator({
     }
 });
 
-var index;
-$("#selectParentCode").click(function(){
-	
-	var title = "类别选择";
-   	var url = "#springUrl('/category/selectcategory.html')";
-
-    index = layer.open({
-        type: 2,
-        title: title,
-        shadeClose: true,
-        shade: 0.8,
-        area: ['200px', '300px'],
-        fix: false,
-        maxmin: true,
-        content: url,
-        index: 111
-    });
-});
-
-function setParent(val){
-    layer.close(index);
-    $("#selectParentCode").val(val.text);
-    $("#parentCode").val(val.code);
-}
 </script>
 </body>
 </html>

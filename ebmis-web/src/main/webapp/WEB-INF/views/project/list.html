@@ -96,7 +96,7 @@ SpringWind - 项目管理
         }, function () {
             $.ajax({
                 type: "POST",
-                url: "#springUrl('/project/delProject/')" + projectID,
+                url: "#springUrl('/project/delProject/')"+projectID,
                 datatype: "text",
                 success: function (data) {
                     if(data == 'true'){

@@ -73,6 +73,8 @@ public class ProjectController extends SuperController {
 		if (projectID1 != null) {
 			int projectId=Integer.parseInt(projectID1);
 			ProjectDO projectDo=projectService.findById(projectId);
+			projectDo.setStartTime1(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(projectDo.getStartTime()));
+			projectDo.setEndedTime1(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(projectDo.getEndedTime()));
 			model.addAttribute("projectDo" , projectDo);
 			model.addAttribute("update" , "update");
 		}
@@ -108,7 +110,7 @@ public class ProjectController extends SuperController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			if(update!=null&&!update.equals("")&&!update.equals("null")){
+			if(update!=null&&!update.equals("")&&!update.equals("null")&&update.equals("update")){
 				error1="修改失败";
 			}else{
 				error1="添加失败";

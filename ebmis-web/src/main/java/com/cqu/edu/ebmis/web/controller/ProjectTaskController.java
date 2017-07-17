@@ -3,14 +3,21 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cqu.edu.ebmis.domain.CategoryDO;
@@ -66,63 +73,132 @@ public class ProjectTaskController extends SuperController {
 		
 		return jsonList(nodes);
 	}
-	
+	*/
 	@RequestMapping("/edit")
 	public String edit(Model model) {
-	
-		String code = request.getParameter("code");
-		if (code != null) {
-			CategoryDO category = categoryService.findByCode(code);
-			model.addAttribute("category" , category);
-			
-			CategoryDO parent = categoryService.findByCode(category
-					.getParentCode());
-			
-			if (parent != null)
-				model.addAttribute("parentName" , parent.getName());
+		String taskId = request.getParameter("taskId");
+		String projectID = request.getParameter("projectID");
+		if (taskId != null) {
+			model.addAttribute("update" , "update");
+			model.addAttribute("taskId" , taskId);
 		}
+		model.addAttribute("projectID",projectID);
 		return "/projectTask/edit";
 	}
-	
-	@RequestMapping("/selectcategory")
-	public String selectCategory(Model model) {
-	
-		return "category/selectcategory";
+	@RequestMapping("/edits")
+	public String edits(Model model) {
+		String taskId = request.getParameter("taskId");
+		String projectID = request.getParameter("projectID");
+		return "/projectTask/edits?projectID="+projectID;
 	}
 	
 	@ResponseBody
-	@RequestMapping("/editCategory")
-	public String editCategory(CategoryDO category) {
-	
+	@RequestMapping("/editProjectTask")
+	public String editProjectTask(TaskDO taskDO) {
 		JSONObject json = new JSONObject();
-		
+		String success1="";
+		String error1="";
+		String update = request.getParameter("update");
+		String dropProjectId = request.getParameter("dropProjectId");
+		String[] strsId=dropProjectId.split(",");
+		List<Integer> projectIds=new ArrayList<Integer>();
+		for(String str:strsId){
+			Integer projectId=Integer.parseInt(str);
+			projectIds.add(projectId);
+		}
 		try {
-			if (category.getCode() == null) {
-				
-				String parentCode = category.getParentCode();
-				
-				String code = categoryService.constructCode(parentCode);
-				
-				category.setCode(code);
-				
-				int level = categoryService.findByCode(parentCode).getLevel() + 1;
-				category.setLevel(level);
-				
-				if (level < THRID_LEVEL) {
-					categoryService.save(category);
-				}
-				
-				json.put("success" , true);
-				json.put("data" , "添加成功");
+			if(update!=null&&!update.equals("")&&!update.equals("null")&&update.equals("update")){
+				taskService.update(taskDO);
+				success1="修改成功";
+			}else{
+				System.out.println("1111111111111");
+				taskService.save(taskDO,projectIds);
+				System.out.println("222222222222222222");
+				success1="添加成功";
 			}
+			json.put("success" , true);
+			json.put("data" , success1);
 		} catch (Exception e) {
+			e.printStackTrace();
+			if(update!=null&&!update.equals("")&&!update.equals("null")&&update.equals("update")){
+				error1="修改失败";
+			}else{
+				error1="添加失败";
+			}
+			json.put("success" , false);
+			json.put("data" , error1);
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping("/addProjectsTask")
+	public String editProjectsTask(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {
+		
+		JSONObject json = new JSONObject();
+		String dropProjectId = request.getParameter("dropProjectId");
+		String[] strsId=dropProjectId.split(",");
+		List<Integer> projectIds=new ArrayList<Integer>();
+		String projectID1 = request.getParameter("projectID");
+		String dataObj = request.getParameter("dataObj");
+		int projectId=Integer.parseInt(projectID1);
+		for(String str:strsId){
+			Integer projectId1=Integer.parseInt(str);
+			projectIds.add(projectId1);
+		}
+		 String path = request.getSession().getServletContext().getRealPath("upload");  
+	        String fileName = file.getOriginalFilename();  
+//	        String fileName = new Date().getTime()+".jpg";  
+	        System.out.println(path);  
+	        File targetFile = new File(path, fileName);  
+	        if(!targetFile.exists()){  
+	            targetFile.mkdirs();  
+	        }  
+	  
+	        //保存  
+	        try {  
+	            file.transferTo(targetFile);  
+	        } catch (Exception e) {  
+	            e.printStackTrace();  
+	        } 
+	        String fileUrl=request.getContextPath()+"/upload/"+fileName;
+		try {
+				taskService.saveBatch(projectId,dataObj,projectIds,fileUrl);
+			json.put("success" , true);
+			json.put("data" , "添加成功");
+		} catch (Exception e) {
+			e.printStackTrace();
 			json.put("success" , false);
 			json.put("data" , "添加失败");
 		}
 		
 		return json.toJSONString();
 	}
-	
+	 /*@RequestMapping(value = "/fileList")  
+	 public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {  
+	  
+	        System.out.println("开始"); 
+	        System.out.println(file.isEmpty()); 
+	        String path = request.getSession().getServletContext().getRealPath("upload");  
+	        String fileName = file.getOriginalFilename();  
+//	        String fileName = new Date().getTime()+".jpg";  
+	        System.out.println(path);  
+	        File targetFile = new File(path, fileName);  
+	        if(!targetFile.exists()){  
+	            targetFile.mkdirs();  
+	        }  
+	  
+	        //保存  
+	        try {  
+	            file.transferTo(targetFile);  
+	        } catch (Exception e) {  
+	            e.printStackTrace();  
+	        }  
+	        model.addAttribute("fileUrl", request.getContextPath()+"/upload/"+fileName);  
+	        System.out.println("11111111111111111111111");
+	        System.out.println(request.getContextPath()+"/upload/"+fileName); 
+	        return "";  
+	    }*/
+	/*
 	@ResponseBody
 	@RequestMapping("/delCategory/{code}")
 	public String delUser(@PathVariable String code) {

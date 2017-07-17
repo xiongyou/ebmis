@@ -12,42 +12,42 @@
 <body class="white-bg">
 <div class="ibox-content" style="width: 430px;">
    <form id="myForm" class="form-horizontal">
-   	   <input type="hidden" class="form-control" name="update" value="$!{update}">
+   	   <input type="hidden" id="hiddenUpdate" class="form-control" name="update" value="$!{update}">
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目Id</label>
            <div class="col-sm-10 pull-right">
-           		<input type="text" id="projectID" class="form-control" name="projectID" data-rule="项目Id:required;project" value="$!{projectDo.projectID}">
+           		<input type="text" id="projectID" class="form-control" name="projectID" data-rule="项目Id:required;integer;projectID" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']" value="$!{projectDo.projectID}">
            </div>
        </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目名</label>
            <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="projectName" value="$!{projectDo.projectName}" data-rule="项目名:required;project">
+           		<input type="text" class="form-control" name="projectName" value="$!{projectDo.projectName}" data-rule="项目名:required;projectName">
            </div>
        </div>
 	   <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目描述</label>
            <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="projectDescription" value="$!{projectDo.projectDescription}" data-rule="项目描述:required;project">
+           		<input type="text" class="form-control" name="projectDescription" value="$!{projectDo.projectDescription}" data-rule="项目描述:required;projectDescription">
            </div>
 	   </div>
         <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">执行周期</label>
            <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="ExecutePeriod" value="$!{projectDo.ExecutePeriod}" data-rule="执行周期:required;project">
+           		<input type="text" class="form-control" name="ExecutePeriod" value="$!{projectDo.ExecutePeriod}" data-rule="执行周期:required;integer;ExecutePeriod" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
            </div>
 	   </div>
         <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">单一任务最大执行时间</label>
            <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="maxExecutingTime" value="$!{projectDo.maxExecutingTime}" data-rule="单一任务最大执行时间:required;project">
+           		<input type="text" class="form-control" name="maxExecutingTime" value="$!{projectDo.maxExecutingTime}" data-rule="单一任务最大执行时间:required;integer;maxExecutingTime" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
            </div>
 	   </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">开始时间</label>
-		     <div class="input-append date form_datetime">
-			    <input size="16" type="text" name="startTime1" value="$!{projectDo.startTime}" data-rule="开始时间:required;project" readonly>
+		     <div class="input-append date form_datetime col-sm-10 pull-right">
+			    <input type="text" class="form-control" name="startTime1" value="$!{projectDo.startTime1}" data-rule="结束时间:required;startTime1" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
 			</div> 
 	   </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">结束时间</label>
-           <div class="input-append date form_datetime">
-			    <input size="16" type="text" name="endedTime1" value="$!{projectDo.endedTime}" data-rule="结束时间:required;project" readonly>
+           <div class="input-append date form_datetime col-sm-10 pull-right">
+			    <input type="text" class="form-control" name="endedTime1" value="$!{projectDo.endedTime1}" data-rule="结束时间:required;endedTime1" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
 			</div>
@@ -67,8 +67,13 @@
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
+var hiddenUpdate=$("#hiddenUpdate").val();
+if(hiddenUpdate!=""&&hiddenUpdate!=null&&hiddenUpdate=="update"){
+	$("#projectID").attr("readonly","readonly");
+}
 $(".form_datetime").datetimepicker({
-    format: "yyyy-mm-dd hh:ii:ss"
+    format: "yyyy-mm-dd hh:ii:ss",
+    autoclose: 1
 });
 $("#myForm").validator({
     valid: function(form){
