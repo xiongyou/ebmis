@@ -9,26 +9,33 @@
     <result column="_url" jdbcType="VARCHAR" property="url" />
     <result column="_product_inner_id" jdbcType="INTEGER" property="productInnerId" />
     <result column="_dataobj" jdbcType="VARCHAR" property="dataObj" />
-    <result column="_key_word" jdbcType="VARCHAR" property="keyWord" />
+    <result column="_keyword" jdbcType="VARCHAR" property="keyword" />
     <result column="_project_id" jdbcType="INTEGER" property="projectId" />
     <result column="_website" jdbcType="VARCHAR" property="website" />
     <result column="_md" jdbcType="VARCHAR" property="md" />
   </resultMap>
+  
+   <resultMap id="md_key_Map" type="java.util.HashMap">
+ 	<result column="_md" jdbcType="VARCHAR" property="key" />
+    <result column="_keyword" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
-    _project_task_id, _url, _product_inner_id, _dataobj,_key_word,_project_id,_website,_md
+    _project_task_id, _url, _product_inner_id, _dataobj,_keyword,_project_id,_website,_md
   </sql>
   
   <insert id="insertTask" parameterType="com.cqu.edu.ebmis.domain.TaskDO" >
-    insert into _crawler_project_task ( _project_task_id, _url, _product_inner_id, _dataobj,_key_word,_project_id,_website,_md)
+    insert into _crawler_project_task ( _project_task_id, _url, _product_inner_id, _dataobj,_keyword,_project_id,_website,_md)
     values (#{taskId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{productInnerId,jdbcType=INTEGER},  #{dataObj,jdbcType=VARCHAR}, 
-     #{keyWord,jdbcType=VARCHAR},  #{projectId,jdbcType=INTEGER},#{website,jdbcType=VARCHAR},#{md,jdbcType=VARCHAR})
+     #{keyword,jdbcType=VARCHAR},  #{projectId,jdbcType=INTEGER},#{website,jdbcType=VARCHAR},#{md,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertTasksBatch" parameterType="java.util.List" >
   	<foreach collection="list" item="task" index="index" separator=";">  
-    insert into _crawler_project_task ( _project_task_id, _url, _product_inner_id, _dataobj,_key_word,_project_id,_website,_md)
+    insert into _crawler_project_task ( _project_task_id, _url, _product_inner_id, _dataobj,_keyword,_project_id,_website,_md)
     values (#{task.taskId,jdbcType=INTEGER}, #{task.url,jdbcType=VARCHAR}, #{task.productInnerId,jdbcType=INTEGER},  #{task.dataObj,jdbcType=VARCHAR}, 
-     #{task.keyWord,jdbcType=VARCHAR},  #{task.projectId,jdbcType=INTEGER},#{task.website,jdbcType=VARCHAR},#{task.md,jdbcType=VARCHAR})    </foreach>  
+     #{task.keyword,jdbcType=VARCHAR},  #{task.projectId,jdbcType=INTEGER},#{task.website,jdbcType=VARCHAR},#{task.md,jdbcType=VARCHAR})   
+      </foreach>  
   </insert>
   
   <select id="findAll" resultMap="BaseResultMap">
@@ -62,7 +69,7 @@
   <update id="updateTask" parameterType="com.cqu.edu.ebmis.domain.TaskDO" >
     update _crawler_project_task
     set  _url=#{url,jdbcType=VARCHAR}, _product_inner_id=#{productInnerId,jdbcType=INTEGER}, 
-    _dataobj=#{dataObj,jdbcType=VARCHAR},_key_word=#{keyWord,jdbcType=VARCHAR},
+    _dataobj=#{dataObj,jdbcType=VARCHAR},_keyword=#{keyword,jdbcType=VARCHAR},
     _project_id=#{projectId,jdbcType=INTEGER},_website=#{website,jdbcType=VARCHAR},_md=#{md,jdbcType=VARCHAR}
      where _project_task_id = #{taskId,jdbcType=INTEGER}
   </update>
@@ -70,7 +77,7 @@
     <update id="updateKeyWord" parameterType="java.util.List" >
       <foreach collection="list" item="task" index="index" separator=";">  
 		update _crawler_project_task
-    	set  _key_word=#{task.keyWord,jdbcType=VARCHAR}
+    	set  _keyword=#{task.keyword,jdbcType=VARCHAR}
      	where _md=#{task.md,jdbcType=VARCHAR}
         </foreach>  
   </update>
@@ -112,14 +119,14 @@
   </select>
   
   
-  <select id="getTasksByProjectId" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+  <select id="getTasksByProjectId" resultMap="md_key_Map" parameterType="java.lang.Integer">
     select
     _md,_keyword
     from _crawler_project_task
     where   _project_id=#{projectId,jdbcType=INTEGER}
   </select>
   
-  <select id="getTasksByProjectIdS" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+  <select id="getTasksByProjectIds" resultMap="md_key_Map" parameterType="java.lang.Integer" >
     select
     _md,_keyword
     from _crawler_project_task

@@ -2,18 +2,33 @@ package com.cqu.edu.ebmis.repository.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cqu.edu.ebmis.domain.UrlDO;
+import com.cqu.edu.ebmis.handler.MapResultHandler;
 import com.cqu.edu.ebmis.mapper.UrlMapper;
 @Repository
-public class UrlRepository implements com.cqu.edu.ebmis.repository.UrlRepository {
+public class UrlRepository extends SqlSessionDaoSupport implements com.cqu.edu.ebmis.repository.UrlRepository {
 
 	@Resource
 	private UrlMapper urlMapper;
+	
+	 @Resource
+	     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory){
+	       super.setSqlSessionFactory(sqlSessionFactory);
+	      }
+
+
 	@Override
 	public int insert(UrlDO url) {
 		return urlMapper.insert(url);
@@ -46,12 +61,38 @@ public class UrlRepository implements com.cqu.edu.ebmis.repository.UrlRepository
 
 	@Override
 	public HashMap<String, String> getExsitUrls() {
-		return urlMapper.getExsitUrls();
+         
+	        int size = 10000;
+	        try{
+	        	MapResultHandler mrh=new MapResultHandler();
+	    		this.getSqlSession().select("getExsitUrls", mrh);
+	    		Map map=mrh.getMappedResults();
+	    		return (HashMap<String, String>) map;//urlMapper.getExsitUrls();
+	            
+	        }catch (Exception e){
+	            e.printStackTrace();
+	            return null;
+	        } 
+		/*
+		MapResultHandler mrh=new MapResultHandler();
+		session.select("getExsitUrls", mrh);
+		Map map=mrh.getMappedResults();
+		return (HashMap<String, String>) map;//urlMapper.getExsitUrls();
+		*/
 	}
 
 	@Override
 	public HashMap<String, Integer> getProductIds() {
-		return urlMapper.getProductIds();
+		try{
+        	MapResultHandler mrh=new MapResultHandler();
+    		this.getSqlSession().select("getProductIds", mrh);
+    		Map map=mrh.getMappedResults();
+    		return (HashMap<String, Integer>) map;//urlMapper.getExsitUrls();
+            
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        } 
 	}
 
 	@Override

@@ -14,6 +14,17 @@
     <result column="md" jdbcType="VARCHAR" property="md" />
     <result column="relativeInnerId" jdbcType="INTEGER" property="relativeInnerId" />
   </resultMap>
+  
+  <resultMap id="md_key_Map" type="java.util.HashMap">
+ 	<result column="md" jdbcType="VARCHAR" property="key" />
+    <result column="keyWord" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+  
+    <resultMap id="md_id_Map" type="java.util.HashMap">
+ 	<result column="md" jdbcType="VARCHAR" property="key" />
+ 	<result column="productInnerId" jdbcType="INTEGER" property="value" />
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     productInnerId, productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId
   </sql>
@@ -24,11 +35,11 @@
      #{status,jdbcType=TINYINT}，#{keyWord,jdbcType=VARCHAR}, #{md,jdbcType=VARCHAR} ,#{relativeInnerId,jdbcType=INTEGER})
   </insert>
   
-  <insert id="insertTasksBatch" parameterType="java.util.List" >
+  <insert id="insertUrls" parameterType="java.util.List" >
   	<foreach collection="list" item="url" index="index" separator=";">  
     insert into tb_testinserturl (productInnerId, productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
     values (#{url.productInnerId,jdbcType=INTEGER}, #{url.productURL,jdbcType=VARCHAR}, #{url.getURLTime},  #{url.platform,jdbcType=VARCHAR}, 
-     #{url.status,jdbcType=TINYINT}，#{url.keyWord,jdbcType=VARCHAR}, #{url.md,jdbcType=VARCHAR} ,#{url.relativeInnerId,jdbcType=INTEGER})
+     #{url.status,jdbcType=TINYINT},#{url.keyWord,jdbcType=VARCHAR}, #{url.md,jdbcType=VARCHAR} ,#{url.relativeInnerId,jdbcType=INTEGER})
      </foreach>
   </insert>
   
@@ -63,13 +74,13 @@
     where productInnerId = #{productInnerId,jdbcType=INTEGER}
   </select>
   
-  <select id="getExsitUrls" resultType="java.util.HashMap"  >
+  <select id="getExsitUrls" resultMap="md_key_Map"  >
     select 
     md, keyWord 
     from tb_testinserturl
   </select>
   
-  <select id="getProductIds" resultType="java.util.HashMap"  >
+  <select id="getProductIds" resultMap="md_id_Map"  >
     select 
     md, productInnerId 
     from tb_testinserturl
