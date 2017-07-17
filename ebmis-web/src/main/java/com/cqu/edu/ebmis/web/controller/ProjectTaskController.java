@@ -102,6 +102,7 @@ public class ProjectTaskController extends SuperController {
 			Integer projectId=Integer.parseInt(str);
 			projectIds.add(projectId);
 		}
+		projectIds.add(taskDO.getProjectId());
 		try {
 			if(update!=null&&!update.equals("")&&!update.equals("null")&&update.equals("update")){
 				taskService.update(taskDO);
