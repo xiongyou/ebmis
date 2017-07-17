@@ -13,20 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.TaskDO;
-import com.cqu.edu.ebmis.service.CategoryService;
 import com.cqu.edu.ebmis.service.TaskService;
 import com.cqu.edu.ebmis.service.page.Page;
-import com.cqu.edu.ebmis.web.convert.CategoryConvert;
-import com.cqu.edu.ebmis.web.model.CategoryNode;
 
 /**
  * 三级分类管理
@@ -89,7 +84,8 @@ public class ProjectTaskController extends SuperController {
 	public String edits(Model model) {
 		String taskId = request.getParameter("taskId");
 		String projectID = request.getParameter("projectID");
-		return "/projectTask/edits?projectID="+projectID;
+		model.addAttribute("projectID",projectID);
+		return "/projectTask/edits";
 	}
 	
 	@ResponseBody
@@ -132,8 +128,8 @@ public class ProjectTaskController extends SuperController {
 	}
 	@ResponseBody
 	@RequestMapping("/addProjectsTask")
-	public String editProjectsTask(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {
-		
+	public String addProjectsTask(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
+		System.out.println("888888888888888888");
 		JSONObject json = new JSONObject();
 		String dropProjectId = request.getParameter("dropProjectId");
 		String[] strsId=dropProjectId.split(",");
@@ -145,6 +141,8 @@ public class ProjectTaskController extends SuperController {
 			Integer projectId1=Integer.parseInt(str);
 			projectIds.add(projectId1);
 		}
+		System.out.println(projectId);
+		System.out.println(projectIds);
 		 String path = request.getSession().getServletContext().getRealPath("upload");  
 	        String fileName = file.getOriginalFilename();  
 //	        String fileName = new Date().getTime()+".jpg";  
@@ -160,18 +158,18 @@ public class ProjectTaskController extends SuperController {
 	        } catch (Exception e) {  
 	            e.printStackTrace();  
 	        } 
+	        String strPath=path.replace("\\", "/");
+	        String filePath=strPath+"/"+fileName;
 	        String fileUrl=request.getContextPath()+"/upload/"+fileName;
+	        System.out.println(fileUrl);
+	        System.out.println(filePath);
 		try {
-				taskService.saveBatch(projectId,dataObj,projectIds,fileUrl);
-			json.put("success" , true);
-			json.put("data" , "添加成功");
+			taskService.saveBatch(projectId,dataObj,projectIds,filePath);
 		} catch (Exception e) {
 			e.printStackTrace();
-			json.put("success" , false);
-			json.put("data" , "添加失败");
 		}
 		
-		return json.toJSONString();
+		return "";
 	}
 	 /*@RequestMapping(value = "/fileList")  
 	 public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {  

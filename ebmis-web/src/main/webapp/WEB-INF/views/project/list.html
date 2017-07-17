@@ -50,6 +50,9 @@ SpringWind - 项目管理
         field: 'maxExecutingTime',
         title: '最大执行周期'
     },{
+        field: 'ExecutePeriod',
+        title: '执行周期'
+    },{
         field: 'startTime',
         title: '开始时间',
        	formatter: function (value, row, index) {
@@ -61,9 +64,6 @@ SpringWind - 项目管理
         formatter: function (value, row, index) {
             return formatDate(row.endedTime);
         }
-    },{
-        field: 'ExecutePeriod',
-        title: '执行周期'
     },{
         field: 'keyWord',
         title: '关键字'

@@ -12,27 +12,25 @@
 </head>
 <body class="white-bg">
 <div class="ibox-content" style="width: 430px;">
-   <form class="form-horizontal" method ='post' action="#springUrl('/taskFile/fileList')" autocomplete="off" data-validator-option="{theme:'default'}" enctype="multipart/form-data">
-       <input type="hidden" id="projectID" class="form-control" name="projectId" value="$!{projectID}">
+   <form class="form-horizontal" id="myForm" method ='post' action="../projectTask/addProjectsTask.html" accept-charset="utf-8" enctype="multipart/form-data">
+       <input type="hidden" class="form-control" name="projectID" value="$!{projectID}">
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">去重项目Id(以英文逗号隔开)</label>
            <div class="col-sm-10 pull-right">
            		<input type="text" id="dropProjectId" class="form-control" name="dropProjectId" value="">
            </div>
        </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px;margin-right:123px">数据对象</label>
-			<div class="btn-group">
-			    <button type="button" class="btn btn-default">Product</button>
-			    <button type="button" class="btn btn-default dropdown-toggle" 
-			        data-toggle="dropdown">
-			        <span class="caret"></span>
-			        <span class="sr-only">切换下拉菜单</span>
-			    </button>
-			    <ul class="dropdown-menu" role="menu">
-			        <li><a href="#">text</a></li>
-			    </ul>
-			</div>
-		</div>
-        <div class="form-group">
+       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">数据对象</label>
+       	   <div class="col-sm-10 pull-right">
+		       <select class="form-control" name="dataObj" style="width:196px">
+			      <option>Product</option>
+			      <option>2</option>
+			      <option>3</option>
+			      <option>4</option>
+			      <option>5</option>
+		       </select>
+	       </div>
+	   </div>
+       <div class="form-group">
            <div class="col-sm-10 pull-right">
            		<input type="file" name="file">
            </div>
@@ -51,35 +49,7 @@
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
-var hiddenUpdate=$("#hiddenUpdate").val();
-if(hiddenUpdate!=""&&hiddenUpdate!=null){
-	$("#dropProjectId").attr("readonly","readonly");
-}
-$("#myForm").validator({
-    valid: function(form){
-        var me = this;
-        // 提交表单之前，hold住表单，防止重复提交
-        me.holdSubmit();
-        $.ajax({
-        	url: "#springUrl('/projectTask/addProjectsTask.html')",
-            data: $(form).serialize(),
-            type: "POST",
-            success: function(data){
-            	var d = JSON.parse(data);
-            	
-                if(d.success && d.data){
-                	window.parent.location.reload();
-                	//当你在iframe页面关闭自身时
-                	//var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                	//parent.layer.close(index); //再执行关闭   
-                } else {
-                	//失败，提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
-                    me.holdSubmit(false);
-                }
-            }
-        });
-    }
-});
+
 
 </script>
 </body>
