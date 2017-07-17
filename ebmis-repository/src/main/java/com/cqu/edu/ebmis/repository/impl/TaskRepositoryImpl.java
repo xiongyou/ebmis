@@ -6,17 +6,26 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.cqu.edu.ebmis.domain.TaskDO;
+import com.cqu.edu.ebmis.handler.MapResultHandler;
 import com.cqu.edu.ebmis.mapper.TaskMapper;
 import com.cqu.edu.ebmis.repository.TaskRepository;
 
 @Repository
-public class TaskRepositoryImpl implements TaskRepository {
+public class TaskRepositoryImpl extends SqlSessionDaoSupport  implements TaskRepository {
 	@Resource
 	private TaskMapper taskMapper; 
 	
+
+	 @Resource
+	     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory){
+	       super.setSqlSessionFactory(sqlSessionFactory);
+	      }
+
 	@Override
 	public int insertTask(TaskDO task) {
 		return taskMapper.insertTask(task);
@@ -60,7 +69,16 @@ public class TaskRepositoryImpl implements TaskRepository {
 
 	@Override
 	public HashMap<String, String> getTasksByProjectId(int projectId) {
-		return taskMapper.getTasksByProjectId(projectId);
+		try{
+        	MapResultHandler mrh=new MapResultHandler();
+    		this.getSqlSession().select("getTasksByProjectId", projectId,mrh);
+    		Map map=mrh.getMappedResults();
+    		return (HashMap<String, String>) map;
+            
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
 	}
 
 	@Override
@@ -75,7 +93,16 @@ public class TaskRepositoryImpl implements TaskRepository {
 
 	@Override
 	public HashMap<String, String> getTasksByProjectIds(List<Integer> ids) {
-		return taskMapper.getTasksByProjectIds(ids);
+		 try{
+	        	MapResultHandler mrh=new MapResultHandler();
+	    		this.getSqlSession().select("getTasksByProjectIds",ids, mrh);
+	    		Map map=mrh.getMappedResults();
+	    		return (HashMap<String, String>) map;
+	            
+	        }catch (Exception e){
+	            e.printStackTrace();
+	            return null;
+	        } 
 	}
 
 	@Override
