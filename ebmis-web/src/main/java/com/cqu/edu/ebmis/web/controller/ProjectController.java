@@ -61,8 +61,13 @@ public class ProjectController extends SuperController {
 		if (projectID1 != null) {
 			int projectId=Integer.parseInt(projectID1);
 			ProjectDO projectDo=projectService.findById(projectId);
-			projectDo.setStartTime1(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(projectDo.getStartTime()));
-			projectDo.setEndedTime1(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(projectDo.getEndedTime()));
+			if(projectDo.getStartTime()==null){
+				projectDo.setStartTime1(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+				projectDo.setEndedTime1(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+			}else{
+				projectDo.setStartTime1(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(projectDo.getStartTime()));
+				projectDo.setEndedTime1(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(projectDo.getEndedTime()));
+			}
 			model.addAttribute("projectDo" , projectDo);
 			model.addAttribute("update" , "update");
 		}
@@ -78,8 +83,8 @@ public class ProjectController extends SuperController {
 		String error1="";
 		String update = request.getParameter("update");
 		try {
-			projectDo.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(projectDo.getEndedTime1()));
-			projectDo.setEndedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(projectDo.getStartTime1()));
+			projectDo.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(projectDo.getStartTime1()));
+			projectDo.setEndedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(projectDo.getEndedTime1()));
 			if(update!=null&&!update.equals("")&&!update.equals("null")){
 				projectService.update(projectDo);
 				success1="修改成功";

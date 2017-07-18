@@ -40,14 +40,14 @@
 	   </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">开始时间</label>
 		     <div class="input-append date form_datetime col-sm-10 pull-right">
-			    <input type="text" class="form-control" name="startTime1" value="$!{projectDo.startTime1}" data-rule="结束时间:required" readonly>
+			    <input type="text" id="startTime" class="form-control" name="startTime1" value="$!{projectDo.startTime1}" data-rule="开始日期:required" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
 			</div> 
 	   </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">结束时间</label>
-           <div class="input-append date form_datetime col-sm-10 pull-right">
-			    <input type="text" class="form-control" name="endedTime1" value="$!{projectDo.endedTime1}" data-rule="结束时间:required" readonly>
+           <div class="input-append date form_datetime col-sm-10 pull-right" id="endTest">
+			    <input type="text" id="endedTime" class="form-control" name="endedTime1" value="$!{projectDo.endedTime1}" data-rule="结束日期:required" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
 			</div>
@@ -67,6 +67,29 @@
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
+var flag=false;
+$("#startTime").change(function(){
+	$("#startTime~span[for='startTime']").html("");
+});
+$("#endedTime").change(function(){
+	var assigntime = $("#startTime").val();
+    var deadlinetime = $("#endedTime").val();
+    var reg = new RegExp('-','g');
+    assigntime = assigntime.replace(reg,'/');//正则替换
+    deadlinetime = deadlinetime.replace(reg,'/');
+    assigntime = new Date(parseInt(Date.parse(assigntime),10));
+    deadlinetime = new Date(parseInt(Date.parse(deadlinetime),10));
+    if(assigntime>deadlinetime){
+    	$("#endedTime~span[for='endedTime']").html("");
+    	$("#endedTime~span[for='endedTime']").addClass("pull-left");
+    	$("#endedTime").addClass("pull-left");
+    	$("#endTest").append('<span id="endTest1" class="msg-box n-right pull-left" style=""><span role="alert" class="msg-wrap n-error"><span class="n-icon"></span><span class="n-msg">结束日期必须大于开始日期</span></span></span>');
+        flag=false;
+    }else{
+    	$("#endTest1").html("");
+        flag=true;
+    }
+});
 var hiddenUpdate=$("#hiddenUpdate").val();
 if(hiddenUpdate!=""&&hiddenUpdate!=null&&hiddenUpdate=="update"){
 	$("#projectID").attr("readonly","readonly");
@@ -76,30 +99,34 @@ $(".form_datetime").datetimepicker({
     autoclose: 1
 });
 $("#myForm").validator({
-    valid: function(form){
-        var me = this;
-        // 提交表单之前，hold住表单，防止重复提交
-        me.holdSubmit();
-        $.ajax({
-        	url: "#springUrl('/project/editProject')",
-            data: $(form).serialize(),
-            type: "POST",
-            success: function(data){
-            	var d = JSON.parse(data);
-            	
-                if(d.success && d.data){
-                	window.parent.location.reload();
-                	//当你在iframe页面关闭自身时
-                	//var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                	//parent.layer.close(index); //再执行关闭   
-                } else {
-                	//失败，提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
-                    me.holdSubmit(false);
-                }
-            }
-        });
-    }
-});
+	    valid: function(form){
+	        var me = this;
+	        // 提交表单之前，hold住表单，防止重复提交
+	        me.holdSubmit();
+	        if(flag){
+		        $.ajax({
+		        	url: "#springUrl('/project/editProject')",
+		            data: $(form).serialize(),
+		            type: "POST",
+		            success: function(data){
+		            	var d = JSON.parse(data);
+		            	
+		                if(d.success && d.data){
+		                	window.parent.location.reload();
+		                	//当你在iframe页面关闭自身时
+		                	//var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		                	//parent.layer.close(index); //再执行关闭   
+		                } else {
+		                	//失败，提交表单成功后，释放hold，如果不释放hold，就变成了只能提交一次的表单
+		                    me.holdSubmit(false);
+		                }
+		            }
+		        });
+	        }
+	    }
+	});	
+
+
 </script>
 </body>
 </html>
