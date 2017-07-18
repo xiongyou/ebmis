@@ -48,10 +48,18 @@ public interface UrlMapper {
 	//public void updateMd5Value();
 	
 	/**
+	 * 通过id查找url
 	 * @param productInnerId
 	 * @return
 	 */
 	public UrlDO findById(int productInnerId);
+	
+	/**
+	 * 通过MD5查找URL
+	 * @param productInnerId
+	 * @return
+	 */
+	public UrlDO findByMd5(String md5);
 	
 	/**
 	 * 查询md5与关键词

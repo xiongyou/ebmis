@@ -80,6 +80,10 @@ public class TaskRepositoryImpl extends SqlSessionDaoSupport  implements TaskRep
             return null;
         }
 	}
+	
+	public List<TaskDO> findTasks(HashMap map){
+		return taskMapper.findTasks(map);
+	}
 
 	@Override
 	public boolean insertTasksBatch(List<TaskDO> tasks) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeSet;
 
@@ -32,6 +33,7 @@ public class TaskServiceImpl implements TaskService {
 
 	public int save(TaskDO task,List<Integer> projectIds) {
 		
+		/*
 		List<FileInfo> fileInfos =new ArrayList<FileInfo>();
 		FileInfo fileInfo=new FileInfo();
 		fileInfo.setUrl(task.getUrl());
@@ -39,6 +41,53 @@ public class TaskServiceImpl implements TaskService {
 		fileInfo.setWebsite(task.getWebsite());
 		fileInfos.add(fileInfo);
 		this.saveBatch(task.getProjectId(),task.getDataObj(),projectIds,fileInfos);
+		*/
+		//1.构造新task链接的MD5
+		String taskMd5=Md5Util.toMd5(task.getUrl());
+		task.setMd(taskMd5);
+		UrlDO newUrl=new UrlDO();
+		//2.通过MD5去URL表查找是否存在
+		boolean urlExist=false;
+		UrlDO oldUrl= urlRepository.findByMd5(taskMd5);
+		//  2.1 如果不存在，则添加，得到一个productInnerId
+		if(oldUrl==null){
+			newUrl.setProductURL(task.getUrl());
+			newUrl.setMd(taskMd5);
+			newUrl.setKeyWord(task.getKeyword());
+			newUrl.setPlatform(task.getWebsite());
+			newUrl.setGetURLTime(new Date());
+			urlRepository.insert(newUrl);
+			
+		}
+		
+		//  2.2 如果存在，则比较关键字，将URL表中的关键字以较长的为准，进行更新。同时还需要得到productInnerId
+		else{
+			if(oldUrl.getKeyWord()==null||oldUrl.getKeyWord().length()<task.getKeyword().length()){
+				oldUrl.setKeyWord(task.getKeyword());
+				urlRepository.update(oldUrl);
+			}
+			newUrl=oldUrl;
+			urlExist=true;
+		}
+		//3.添加到任务基本列表
+		task.setProductInnerId(newUrl.getProductInnerId());
+		task.setKeyword(newUrl.getKeyWord());
+		if(urlExist){
+		//  3.1 通过productInnerId，到需要去重的项目里面（in关键字）进行查找，看此任务是否存在。
+			HashMap map=new HashMap();
+			map.put("md", newUrl.getMd());
+			map.put("projectIds", projectIds);
+			List<TaskDO> tasks=taskRepository.findTasks(map);
+//			3.1.1 如果存在，比较、更新关键字
+			for(TaskDO t:tasks){
+				t.setKeyword(task.getKeyword());
+				taskRepository.updateTask(t);
+			}
+		}		
+		//    	3.1.2 如果不存在，则直接添加任务
+		else{
+			taskRepository.insertTask(task);
+		}
 		return 1;
 	}
 	

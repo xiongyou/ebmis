@@ -53,6 +53,14 @@ public interface UrlRepository {
 	 */
 	public UrlDO findById(int productInnerId);
 	
+
+	/**
+	 * 通过MD5查找URL
+	 * @param productInnerId
+	 * @return
+	 */
+	public UrlDO findByMd5(String md5);
+	
 	/**
 	 * 查询md5与关键词
 	 * @return

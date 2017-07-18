@@ -30,16 +30,19 @@
   </sql>
   
   <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.UrlDO" >
-    insert into tb_testinserturl ( productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
+    insert into tb_testinserturl ( productURL, getURLTime, platform,_status,keyWord,md)
     values (#{productURL,jdbcType=VARCHAR}, #{getURLTime},  #{platform,jdbcType=VARCHAR}, 
-     #{status,jdbcType=TINYINT}，#{keyWord,jdbcType=VARCHAR}, #{md,jdbcType=VARCHAR} ,#{relativeInnerId,jdbcType=INTEGER})
+     #{status,jdbcType=TINYINT},#{keyWord,jdbcType=VARCHAR}, #{md,jdbcType=VARCHAR} )
+     <selectKey resultType="Integer" order="AFTER" keyProperty="productInnerId">
+            SELECT LAST_INSERT_ID() AS productInnerId
+        </selectKey>
   </insert>
   
   <insert id="insertUrls" parameterType="java.util.List" >
   	<foreach collection="list" item="url" index="index" separator=";">  
-    insert into tb_testinserturl (productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
+    insert into tb_testinserturl (productURL, getURLTime, platform,_status,keyWord,md)
     values ( #{url.productURL,jdbcType=VARCHAR}, #{url.getURLTime},  #{url.platform,jdbcType=VARCHAR}, 
-     #{url.status,jdbcType=TINYINT},#{url.keyWord,jdbcType=VARCHAR}, #{url.md,jdbcType=VARCHAR} ,#{url.relativeInnerId,jdbcType=INTEGER})
+     #{url.status,jdbcType=TINYINT},#{url.keyWord,jdbcType=VARCHAR}, #{url.md,jdbcType=VARCHAR} )
      </foreach>
   </insert>
   
@@ -72,6 +75,13 @@
     <include refid="Base_Column_List" />
     from tb_testinserturl
     where productInnerId = #{productInnerId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findByMd5" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_testinserturl
+    where md = #{md5,jdbcType=VARCHAR}
   </select>
   
   <select id="getExsitUrls" resultMap="md_key_Map"  >

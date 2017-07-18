@@ -42,6 +42,7 @@ public interface TaskRepository {
 	 */
 	public List<TaskDO> findTaskByProjectId(int projectId);
 
+	List<TaskDO> findTasks(HashMap map);
 	/**
 	 * 根据projectId与urlHashForm判断是否重复
 	 */

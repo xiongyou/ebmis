@@ -58,6 +58,12 @@ public class UrlRepository extends SqlSessionDaoSupport implements com.cqu.edu.e
 	public UrlDO findById(int productInnerId) {
 		return urlMapper.findById(productInnerId);
 	}
+	
+
+	@Override
+	public UrlDO findByMd5(String md5){
+		return urlMapper.findByMd5(md5);
+	}
 
 	@Override
 	public HashMap<String, String> getExsitUrls() {

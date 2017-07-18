@@ -40,6 +40,13 @@ public interface TaskMapper {
 	 * @return
 	 */
 	public List<TaskDO> findTaskByProjectId(int projectId);
+	
+	/**
+	 * 将查询的参数通过map进行传递
+	 * @param map
+	 * @return
+	 */
+	List<TaskDO> findTasks(HashMap map);
 
 	/**
 	 * 根据projectId与urlHashForm判断是否重复

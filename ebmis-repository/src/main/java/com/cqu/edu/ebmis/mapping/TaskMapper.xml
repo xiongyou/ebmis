@@ -58,6 +58,20 @@
     where _project_id = #{projectName,jdbcType=INTEGER}
   </select>
   
+  
+    <select id="findTasks" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from _crawler_project_task
+    where 1=1
+    	<if test="productInnerId!=null"> and _product_inner_id=#{productInnerId}</if> 
+    	<if test="taskId!=null"> and _project_task_id=#{taskId}</if>  
+        <if test="projectId!=null"> and _project_id=#{projectId}</if>  
+        <if test="md!=null"> and _md=#{md}</if>  
+        <if test="website!=null"> and _website=#{website}</if>  
+        <if test="projectIds!=null"> and _project_id in <foreach collection="projectIds"  item="item" index="index" open="(" separator="," close=")">#{item}</foreach> 
+        </if>  
+  </select>
   <select id="findTaskByIdandHashcde" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
