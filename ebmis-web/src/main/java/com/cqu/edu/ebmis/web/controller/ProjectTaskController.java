@@ -120,6 +120,7 @@ public class ProjectTaskController extends SuperController {
 		}
 		return json.toJSONString();
 	}
+	@ResponseBody
 	@RequestMapping("/addProjectsTask")
 	public String addProjectsTask(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request,Model model) {
 		JSONObject json = new JSONObject();
@@ -153,12 +154,16 @@ public class ProjectTaskController extends SuperController {
 	        String fileUrl=request.getContextPath()+"/upload/"+fileName;
 			System.out.println("44444444444444444");
 			taskService.saveBatch(projectId,dataObj,projectIds,filePath);
+			json.put("success" , true);
+			json.put("data" , "修改成功");
 			System.out.println("5555555555555555");
 		} catch (Exception e) {
 			e.printStackTrace();
+			json.put("success" , false);
+			json.put("data" , "修改失败");
 		}
 		model.addAttribute("projectID" , projectId);
-		return "/projectTask/list";
+		return json.toJSONString();
 	}
 	@ResponseBody
 	@RequestMapping("/delProjectsTask/{taskId}")
