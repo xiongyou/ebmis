@@ -75,10 +75,10 @@ public class TaskServiceImpl implements TaskService {
 		if(urlExist){
 		//  3.1 通过productInnerId，到需要去重的项目里面（in关键字）进行查找，看此任务是否存在。
 			HashMap map=new HashMap();
-			map.put("md", newUrl.getMd());
+			map.put("productInnerId", newUrl.getProductInnerId());
 			map.put("projectIds", projectIds);
 			List<TaskDO> tasks=taskRepository.findTasks(map);
-//			3.1.1 如果存在，比较、更新关键字
+		//	    3.1.1 如果存在，比较、更新关键字
 			for(TaskDO t:tasks){
 				t.setKeyword(task.getKeyword());
 				taskRepository.updateTask(t);
@@ -98,10 +98,22 @@ public class TaskServiceImpl implements TaskService {
 		FileOperation fileOperation = new FileOperation();
 		List<FileInfo> fileInfos =new ArrayList<FileInfo>();
 		if(filePath==null||filePath.equals("")){
-			
+			return false;
 		}
 		else{
 			fileInfos = fileOperation.readFile(filePath);
+		}
+		if(fileInfos.size()<1000){
+			for(FileInfo fileInfo:fileInfos){
+				TaskDO task=new TaskDO();
+				task.setProjectId(projectId);
+				task.setUrl(fileInfo.getUrl());
+				task.setWebsite(fileInfo.getWebsite());
+				task.setDataObj(dataObj);
+				task.setKeyword(fileInfo.getKeyword());
+				this.save(task, projectIds);
+			}
+			return true;
 		}
 		return this.saveBatch(projectId, dataObj, projectIds, fileInfos);
 	}
