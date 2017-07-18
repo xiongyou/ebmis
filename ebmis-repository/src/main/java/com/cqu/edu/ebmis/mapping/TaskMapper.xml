@@ -25,16 +25,15 @@
   </sql>
   
   <insert id="insertTask" parameterType="com.cqu.edu.ebmis.domain.TaskDO" >
-    insert into _crawler_project_task ( _project_task_id, _url, _product_inner_id, _dataobj,_keyword,_project_id,_website,_md)
-    values (#{taskId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{productInnerId,jdbcType=INTEGER},  #{dataObj,jdbcType=VARCHAR}, 
+    insert into _crawler_project_task (  _url, _product_inner_id, _dataobj,_keyword,_project_id,_website,_md)
+    values ( #{url,jdbcType=VARCHAR}, #{productInnerId,jdbcType=INTEGER},  #{dataObj,jdbcType=VARCHAR}, 
      #{keyword,jdbcType=VARCHAR},  #{projectId,jdbcType=INTEGER},#{website,jdbcType=VARCHAR},#{md,jdbcType=VARCHAR})
   </insert>
   
   <insert id="insertTasksBatch" parameterType="java.util.List" >
-  	<foreach collection="list" item="task" index="index" separator=";">  
-    insert into _crawler_project_task ( _project_task_id, _url, _product_inner_id, _dataobj,_keyword,_project_id,_website,_md)
-    values (#{task.taskId,jdbcType=INTEGER}, #{task.url,jdbcType=VARCHAR}, #{task.productInnerId,jdbcType=INTEGER},  #{task.dataObj,jdbcType=VARCHAR}, 
-     #{task.keyword,jdbcType=VARCHAR},  #{task.projectId,jdbcType=INTEGER},#{task.website,jdbcType=VARCHAR},#{task.md,jdbcType=VARCHAR})   
+  	insert into _crawler_project_task (_url,_product_inner_id,_dataobj,_keyword,_project_id,_website,_md) values 
+  	<foreach collection="list" item="task" index="index" separator=",">  
+     (#{task.url,jdbcType=VARCHAR},#{task.productInnerId,jdbcType=INTEGER},#{task.dataObj,jdbcType=VARCHAR},#{task.keyword,jdbcType=VARCHAR},#{task.projectId,jdbcType=INTEGER},#{task.website,jdbcType=VARCHAR},#{task.md,jdbcType=VARCHAR})   
       </foreach>  
   </insert>
   

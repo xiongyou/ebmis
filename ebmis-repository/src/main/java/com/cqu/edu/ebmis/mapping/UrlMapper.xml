@@ -30,15 +30,15 @@
   </sql>
   
   <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.UrlDO" >
-    insert into tb_testinserturl ( productInnerId, productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
-    values (#{productInnerId,jdbcType=INTEGER}, #{productURL,jdbcType=VARCHAR}, #{getURLTime},  #{platform,jdbcType=VARCHAR}, 
+    insert into tb_testinserturl ( productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
+    values (#{productURL,jdbcType=VARCHAR}, #{getURLTime},  #{platform,jdbcType=VARCHAR}, 
      #{status,jdbcType=TINYINT}，#{keyWord,jdbcType=VARCHAR}, #{md,jdbcType=VARCHAR} ,#{relativeInnerId,jdbcType=INTEGER})
   </insert>
   
   <insert id="insertUrls" parameterType="java.util.List" >
   	<foreach collection="list" item="url" index="index" separator=";">  
-    insert into tb_testinserturl (productInnerId, productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
-    values (#{url.productInnerId,jdbcType=INTEGER}, #{url.productURL,jdbcType=VARCHAR}, #{url.getURLTime},  #{url.platform,jdbcType=VARCHAR}, 
+    insert into tb_testinserturl (productURL, getURLTime, platform,_status,keyWord,md,relativeInnerId)
+    values ( #{url.productURL,jdbcType=VARCHAR}, #{url.getURLTime},  #{url.platform,jdbcType=VARCHAR}, 
      #{url.status,jdbcType=TINYINT},#{url.keyWord,jdbcType=VARCHAR}, #{url.md,jdbcType=VARCHAR} ,#{url.relativeInnerId,jdbcType=INTEGER})
      </foreach>
   </insert>
