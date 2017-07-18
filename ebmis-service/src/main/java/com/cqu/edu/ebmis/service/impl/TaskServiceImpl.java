@@ -79,9 +79,14 @@ public class TaskServiceImpl implements TaskService {
 			map.put("projectIds", projectIds);
 			List<TaskDO> tasks=taskRepository.findTasks(map);
 		//	    3.1.1 如果存在，比较、更新关键字
+			if(tasks.size()==0){
+				taskRepository.insertTask(task);
+			}
+			else{
 			for(TaskDO t:tasks){
 				t.setKeyword(task.getKeyword());
 				taskRepository.updateTask(t);
+			}
 			}
 		}		
 		//    	3.1.2 如果不存在，则直接添加任务
@@ -113,9 +118,10 @@ public class TaskServiceImpl implements TaskService {
 				task.setKeyword(fileInfo.getKeyword());
 				this.save(task, projectIds);
 			}
-			return true;
+			
 		}
-		return this.saveBatch(projectId, dataObj, projectIds, fileInfos);
+		return true;
+		//return this.saveBatch(projectId, dataObj, projectIds, fileInfos);
 	}
 	
 	public boolean saveBatch(int projectId,String dataObj,List<Integer> projectIds,List<FileInfo> fileInfos) {
