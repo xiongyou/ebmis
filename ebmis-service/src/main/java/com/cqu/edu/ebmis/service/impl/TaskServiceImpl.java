@@ -79,6 +79,9 @@ public class TaskServiceImpl implements TaskService {
 	public List<TaskDO> findAll() {
 		return taskRepository.findAll();
 	}
+	public TaskDO find(int taskId){
+		return taskRepository.findById(taskId);
+	}
 
 	public List<TaskDO> findByProjectId(int projectId) {
 		return taskRepository.findTaskByProjectId(projectId);

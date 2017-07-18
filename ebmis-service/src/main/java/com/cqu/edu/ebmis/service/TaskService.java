@@ -49,6 +49,13 @@ public interface TaskService {
 	List<TaskDO> findAll();
 	
 	/**
+	 * 通过任务Id查找任务
+	 * @param taskId
+	 * @return
+	 */
+	TaskDO find(int taskId);
+	
+	/**
 	 * 根据任务的项目Id查找
 	 * 
 	 * @param projectId
