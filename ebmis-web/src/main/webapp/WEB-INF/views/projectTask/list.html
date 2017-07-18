@@ -72,6 +72,7 @@ SpringWind - 任务管理
         formatter: function (value, row, index) {
             var taskId = row.taskId;
             return '<a class="btn btn-xs btn-warning" onclick="editProjectTask(' + "'" + taskId + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
+            		+ '<a class="btn btn-xs btn-danger" onclick="delProjectTask(' + "'" + taskId + "'" + ')"><i class="fa fa-remove"></i>删除</a> '
                     ;
         }
     }
@@ -82,7 +83,26 @@ SpringWind - 任务管理
             _index: params.offset, //页码
         };
     }
-
+    function delProjectTask(taskId) {
+        //询问框
+        layer.confirm('确定删除吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.ajax({
+                type: "POST",
+                url: "#springUrl('/projectTask/delProjectsTask/')"+taskId,
+                datatype: "text",
+                success: function (data) {
+                    if(data == 'true'){
+                        $('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+                    }
+                    layer.closeAll();
+                }
+            });
+        }, function () {
+            return;
+        });
+    }
 	function editProjectTask(taskId){
 	   	var title = "新增任务";
 	   	var projectID=$("#projectID").val();

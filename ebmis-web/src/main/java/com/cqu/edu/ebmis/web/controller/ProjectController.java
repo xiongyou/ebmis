@@ -54,18 +54,6 @@ public class ProjectController extends SuperController {
 		return jsonPage(page);
 	}
 	
-/*	@ResponseBody
-	@RequestMapping("/getParentCategory/{parentCode}")
-	public JSONObject getParentCategory(@PathVariable String parentCode) {
-	
-		List<CategoryDO> categorys = categoryService.findAll();
-		
-		List<CategoryNode> nodes = CategoryConvert.covert(categorys ,
-				parentCode);
-		
-		return jsonList(nodes);
-	}
-	*/
 	@RequestMapping("/edit")
 	public String edit(Model model) {
 	
@@ -80,12 +68,6 @@ public class ProjectController extends SuperController {
 		}
 		return "/project/edit";
 	}
-	
-/*	@RequestMapping("/selectcategory")
-	public String selectCategory(Model model) {
-	
-		return "category/selectcategory";
-	}*/
 	
 	@ResponseBody
 	@RequestMapping("/editProject")
