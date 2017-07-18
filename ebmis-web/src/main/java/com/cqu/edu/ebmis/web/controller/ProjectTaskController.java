@@ -74,8 +74,11 @@ public class ProjectTaskController extends SuperController {
 		String taskId = request.getParameter("taskId");
 		String projectID = request.getParameter("projectID");
 		if (taskId != null) {
+			int taskId1= Integer.parseInt(taskId);
+			TaskDO taskDO=taskService.find(taskId1);
 			model.addAttribute("update" , "update");
 			model.addAttribute("taskId" , taskId);
+			model.addAttribute("taskDO" , taskDO);
 		}
 		model.addAttribute("projectID",projectID);
 		return "/projectTask/edit";
@@ -129,19 +132,22 @@ public class ProjectTaskController extends SuperController {
 	}
 	@ResponseBody
 	@RequestMapping("/addProjectsTask")
-	public String addProjectsTask(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
+	public String addProjectsTask(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request,Model model) {
 		System.out.println("888888888888888888");
 		JSONObject json = new JSONObject();
 		String dropProjectId = request.getParameter("dropProjectId");
-		String[] strsId=dropProjectId.split(",");
 		List<Integer> projectIds=new ArrayList<Integer>();
+		if(dropProjectId!=null&&!dropProjectId.equals("")){
+			String[] strsId=dropProjectId.split(",");
+			for(String str:strsId){
+				Integer projectId1=Integer.parseInt(str);
+				projectIds.add(projectId1);
+			}
+		}
 		String projectID1 = request.getParameter("projectID");
 		String dataObj = request.getParameter("dataObj");
 		int projectId=Integer.parseInt(projectID1);
-		for(String str:strsId){
-			Integer projectId1=Integer.parseInt(str);
-			projectIds.add(projectId1);
-		}
+		projectIds.add(projectId);
 		System.out.println(projectId);
 		System.out.println(projectIds);
 		 String path = request.getSession().getServletContext().getRealPath("upload");  
@@ -165,12 +171,14 @@ public class ProjectTaskController extends SuperController {
 	        System.out.println(fileUrl);
 	        System.out.println(filePath);
 		try {
+			System.out.println("44444444444444444");
 			taskService.saveBatch(projectId,dataObj,projectIds,filePath);
+			System.out.println("5555555555555555");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return "";
+		model.addAttribute("projectID" , projectId);
+		return "/projectTask/list";
 	}
 	 /*@RequestMapping(value = "/fileList")  
 	 public String upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request, ModelMap model) {  
