@@ -7,7 +7,7 @@
   <resultMap id="BaseResultMap" type="com.cqu.edu.ebmis.domain.ProjectDO">
     <id column="_project_id" jdbcType="INTEGER" property="projectID" />
     <result column="_project_name" jdbcType="VARCHAR" property="projectName" />
-    <result column="_execute_period" jdbcType="INTEGER" property="ExecutePeriod" />
+    <result column="_execute_period" jdbcType="INTEGER" property="executePeriod" />
     <result column="_obj_name" jdbcType="VARCHAR" property="objName" />
     <result column="_start_time"  property="startTime" />
     <result column="_end_time"  property="endedTime" />
@@ -21,7 +21,7 @@
   
   <insert id="insertProject" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
     insert into _crawler_project (_project_id, _project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description)
-    values (#{projectID,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{ExecutePeriod,jdbcType=INTEGER},  #{objName,jdbcType=VARCHAR}, #{startTime}, #{endedTime}, #{keyWord,jdbcType=VARCHAR},  #{maxExecutingTime,jdbcType=INTEGER},#{projectDescription,jdbcType=VARCHAR})
+    values (#{projectID,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{executePeriod,jdbcType=INTEGER},  #{objName,jdbcType=VARCHAR}, #{startTime}, #{endedTime}, #{keyWord,jdbcType=VARCHAR},  #{maxExecutingTime,jdbcType=INTEGER},#{projectDescription,jdbcType=VARCHAR})
   </insert>
   
   <select id="findAllProject" resultMap="BaseResultMap">
@@ -47,7 +47,7 @@
   
   <update id="updateProject" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
     update _crawler_project
-    set  _project_name=#{projectName,jdbcType=VARCHAR}, _execute_period= #{ExecutePeriod,jdbcType=INTEGER},
+    set  _project_name=#{projectName,jdbcType=VARCHAR}, _execute_period= #{executePeriod,jdbcType=INTEGER},
      _obj_name=#{objName,jdbcType=VARCHAR},_start_time=#{startTime},_end_time=#{endedTime},
      _key_word=#{keyWord,jdbcType=VARCHAR},_maxexecuting_time=#{maxExecutingTime,jdbcType=INTEGER},_project_description=#{projectDescription,jdbcType=VARCHAR}
     where _project_id = #{projectID,jdbcType=INTEGER}
