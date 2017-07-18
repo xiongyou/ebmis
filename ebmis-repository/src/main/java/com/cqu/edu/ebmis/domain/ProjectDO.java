@@ -7,7 +7,7 @@ public class ProjectDO {
 
 	private Integer projectID;
 
-	private Integer ExecutePeriod;
+	private Integer executePeriod;
 	
 	private String objName;
 	
@@ -38,11 +38,11 @@ public class ProjectDO {
 	}
 
 	public Integer getExecutePeriod() {
-		return ExecutePeriod;
+		return executePeriod;
 	}
 
 	public void setExecutePeriod(Integer executePeriod) {
-		ExecutePeriod = executePeriod;
+		this.executePeriod = executePeriod;
 	}
 
 	public String getObjName() {
