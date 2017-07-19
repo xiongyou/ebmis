@@ -71,7 +71,8 @@ SpringWind - 项目管理
             return '<a class="btn btn-xs btn-warning" onclick="editProject(' + "'" + projectID + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
                     <!-- 此处按钮级别权限控制，目前只有 admin 拥有该权限！ -->
                     + '<a class="btn btn-xs btn-danger" onclick="delProject(' + "'" + projectID + "'" + ')"><i class="fa fa-remove"></i>删除</a> '
-                    + '<a class="btn btn-xs btn-primary" href="../projectTask/list?projectID='+projectID+'"><i class="fa fa-navicon"></i>任务管理</a>'
+                    + '<a class="btn btn-xs btn-primary" href="../projectTask/list?projectID='+projectID+'"><i class="fa fa-navicon"></i>任务管理</a> '
+                    + '<a class="btn btn-xs btn-info" href="../project/projectControl?projectID='+projectID+'"><i class="fa fa-eye"></i>项目监控</a>'
                     ;
         }
     }

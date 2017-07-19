@@ -44,6 +44,11 @@ public class ProjectController extends SuperController {
 	
 		return "/project/list";
 	}
+	@RequestMapping("/projectControl")
+	public String projectControl(Model model) {
+		
+		return "/project/projectControl";
+	}
 	
 	@ResponseBody
 	@RequestMapping("/getProjectList")

@@ -1,0 +1,117 @@
+#override("title")
+SpringWind - 项目管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><strong>项目管理</strong></li><li class="active"><strong>项目监控</strong></li>
+#end
+#override("projectControl")
+<div style="border-bottom:1px solid #ddd;padding:10px 20px 5px 20px">
+	<div style="padding-bottom:10px">
+	  <h3 class="col-sm-11 pull-left">项目监控</h3>
+	  	<span class="badge">42</span>
+	</div>
+</div>
+#end
+#override("content")
+<div style="padding:10px 80px">
+  <div class="panel panel-default">
+	    <div class="panel-heading" style="padding:8px 15px 1px 8px">
+	    	<h4>项目基本信息</h4>
+	    </div>
+	    <div class="row panel-body">
+	    	<div class="col-sm-4">
+	    		<h5>项目名称:</h5>
+	    		<h5>每月监测数据</h5>
+	    	</div>
+	    	<div class="col-sm-4">
+	    		<h5>项目说明:</h5>
+	    		<h5>对电商平台每月数据进行抓取</h5>
+	    	</div>
+	    	<div class="col-sm-4">
+	    		<h5>任务数量:</h5>
+	    		<h5>数量</h5>
+	    	</div>
+	    </div>
+  </div>
+  <div class="panel panel-default">
+	    <div class="panel-heading" style="padding:8px 15px 1px 8px">
+	    	<h4>任务执行总体情况</h4>
+	    </div>
+	    <div class="panel-body">
+	    	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    		<div id="ecchartsMain" style="width: 100%;height:400px;"></div>
+	    </div>
+  </div>
+  <div class="panel panel-default">
+	    <div class="panel-heading" style="padding:8px 15px 1px 8px">
+	    	<h4>执行人员情况</h4>
+	    </div>
+	    <div class="panel-body">
+	    	Panel content
+	    </div>
+  </div>
+</div>
+
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script src="#springUrl('/static/js/plugins/echarts/echarts.js')"></script>
+<script type="text/javascript">
+//基于准备好的dom，初始化echarts实例
+var myChart = echarts.init(document.getElementById('ecchartsMain'));
+myChart.setOption({
+	title: {
+		 text: '任务执行情况',
+		 subtext: '',
+		 x: 'center',
+		 y:'350px'
+		 		},
+	legend: {
+    	orient: 'vertical',
+    	type: 'legendToggleSelect',
+    	selectedMode:false,
+    	x: '0px',
+    	y: '0px',
+    	data: ['待执行任务数', '已执行任务数', '正在执行任务数']
+    		},
+    toolbox:{
+    	show:true,
+    	orient:'horizontal',
+    	right:20,
+    	itemGap:15,
+    	feature: {
+    		dataView:{
+    			show:true
+    		},
+    		restore:{
+    			show:true
+    		},
+    		saveAsImage:{
+    			show:true
+    		}
+    	}
+    },
+    series : [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius: '55%',
+            data:[
+                {value:23, name:'待执行任务数'},
+                {value:274, name:'已执行任务数'},
+                {value:310, name:'正在执行任务数'}
+            ]
+        }
+    ]
+});
+</script>
+#end
+#extends("/common/framework.html")
