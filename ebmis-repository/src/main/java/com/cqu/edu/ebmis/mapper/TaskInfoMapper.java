@@ -3,6 +3,8 @@
  */
 package com.cqu.edu.ebmis.mapper;
 
+import java.util.List;
+
 import com.cqu.edu.ebmis.domain.TaskInfoDO;
 /**
  * 
@@ -64,5 +66,17 @@ public interface TaskInfoMapper {
 	 * @return
 	 */
 	int findProjectExecutPeriod(Integer projectID);
+	/**
+	 * 默认查询项目的每人完成任务的数量
+	 * @param projectID
+	 * @return
+	 */
+	List<TaskInfoDO> findDefultUserTaskNum(TaskInfoDO taskIfoDO);
+	/**
+	 * 查询项目的每人完成任务的数量
+	 * @param projectID
+	 * @return
+	 */
+	List<TaskInfoDO> findUserTaskNum(TaskInfoDO taskIfoDO);
 	
 }

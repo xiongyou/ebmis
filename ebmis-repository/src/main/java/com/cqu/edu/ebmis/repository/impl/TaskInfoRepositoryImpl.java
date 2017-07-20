@@ -1,6 +1,8 @@
 package com.cqu.edu.ebmis.repository.impl;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
@@ -66,6 +68,18 @@ public class TaskInfoRepositoryImpl  implements TaskInfoRepository {
 	public int findProjectExecutPeriod(Integer projectID) {
 		// TODO Auto-generated method stub
 		return taskInfoMapper.findProjectExecutPeriod(projectID);
+	}
+
+	@Override
+	public List<TaskInfoDO> findDefultUserTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findDefultUserTaskNum(taskIfoDO);
+	}
+
+	@Override
+	public List<TaskInfoDO> findUserTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findUserTaskNum(taskIfoDO);
 	}
 
 	

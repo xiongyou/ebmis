@@ -1,6 +1,8 @@
 package com.cqu.edu.ebmis.service.impl;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -57,6 +59,16 @@ public class TaskInfoServiceImpl implements TaskInfoService {
 	public int findProjectExecutPeriod(Integer projectID) {
 		// TODO Auto-generated method stub
 		return taskInfoRepository.findProjectExecutPeriod(projectID);
+	}
+
+	public List<TaskInfoDO> findDefultUserTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findDefultUserTaskNum(taskIfoDO);
+	}
+
+	public List<TaskInfoDO> findUserTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findUserTaskNum(taskIfoDO);
 	}
 
 

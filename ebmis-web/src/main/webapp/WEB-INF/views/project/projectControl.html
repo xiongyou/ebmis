@@ -49,17 +49,21 @@ SpringWind - 项目管理
 	    	<h4>项目基本信息</h4>
 	    </div>
 	    <div class="row panel-body">
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-3">
 	    		<h5>项目名称:</h5>
 	    		<h5>每月监测数据</h5>
 	    	</div>
-	    	<div class="col-sm-4">
+	    	<div class="col-sm-3">
 	    		<h5>项目说明:</h5>
 	    		<h5>对电商平台每月数据进行抓取</h5>
 	    	</div>
-	    	<div class="col-sm-4">
-	    		<h5>任务数量:</h5>
+	    	<div class="col-sm-3">
+	    		<h5>总任务数量:</h5>
 	    		<h5 id="AllExecutTaskNum">${taskInfoDO.allExecutTaskNum}</h5>
+	    	</div>
+	    	<div class="col-sm-3">
+	    		<h5>已完成任务数量:</h5>
+	    		<h5 id="allFinishedNum"></h5>
 	    	</div>
 	    </div>
   </div>
@@ -143,6 +147,7 @@ var pillarChart = echarts.init(document.getElementById('pillarMain'));
 var AwaitTaskNumber=$("#AwaitTaskNumber").val();
 var ExecutedTaskNumber=$("#ExecutedTaskNumber").val();
 var ExecutingTaskNumber=$("#ExecutingTaskNumber").val();
+var projectID=$("#projectID").val();
 $("#myForm").validator({
     valid: function(form){
         var me = this;
@@ -154,10 +159,10 @@ $("#myForm").validator({
 	            data: $(form).serialize(),
 	            type: "POST",
 	            success: function(data){
-	            	alert(data.awaitTaskNumber);
+	            	/* alert(data.awaitTaskNumber);
 	            	alert(data.executedTaskNumber);
 	            	alert(data.executingTaskNumber);
-	            	alert(data.allExecutTaskNum); 
+	            	alert(data.allExecutTaskNum);  */
 	            	AwaitTaskNumber=data.awaitTaskNumber;
 	            	ExecutedTaskNumber=data.executedTaskNumber;
 	            	ExecutingTaskNumber=data.executingTaskNumber;
@@ -227,9 +232,69 @@ $("#myForm").validator({
 	            	me.holdSubmit(false);
 	            }
 	        });
+	        //刷新柱形图
+	        $.ajax({
+	        	url: "#springUrl('/taskInfo/projectUserTaskPillar')",
+	            data: $(form).serialize(),
+	            type: "POST",
+	            success: function(data){
+	            	if(data.length>0){
+	            		var userNames=[];
+	            		var userTaskNum=[];
+	            		var allFinishedNum=0;
+	            		for(var i=0;i<data.length;i++){
+	            			userNames[i]=data[i].userName;
+	            			userTaskNum[i]=data[i].userTaskNum;
+	            			allFinishedNum+=userTaskNum[i];
+	            		}
+	            		$("#allFinishedNum").html(allFinishedNum);
+	            		pillarChart.setOption({
+	            			title: {
+	            		        text: '完成的任务数量图'
+	            		    },
+	            			tooltip : {
+	            		        trigger: 'axis',
+	            		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+	            		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+	            		        }
+	            		    },
+	            		    legend: {
+	            		        data: ['完成的任务数量']
+	            		    },
+	            		    grid: {
+	            		        left: '10%',
+	            		        right: '11%',
+	            		        bottom: '10%',
+	            		        containLabel: true
+	            		    },
+	            		    xAxis:  {
+	            		        type: 'value'
+	            		    },
+	            		    yAxis: {
+	            		        type: 'category',
+	            		        data: userNames
+	            		    },
+	            		    series: [
+	            		        {
+	            		            name: '完成的任务数量',
+	            		            type: 'bar',
+	            		            label: {
+	            		                normal: {
+	            		                    show: true,
+	            		                    position: 'insideRight'
+	            		                }
+	            		            },
+	            		            data: userTaskNum
+	            		        }
+	            		    ]
+	            		});
+	            	}
+	            }
+	        }); 
         }
     }
 });
+
 myChart.setOption({
 	title: {
 		 text: '任务执行情况',
@@ -286,6 +351,64 @@ myChart.setOption({
         }
     ]
 });
+$.ajax({
+	url: "#springUrl('/taskInfo/projectUserTask')",
+    data: "projectID="+projectID,
+    type: "POST",
+    success: function(data){
+    	if(data.length>0){
+    		var userNames=[];
+    		var userTaskNum=[];
+    		var allFinishedNum=0;
+    		for(var i=0;i<data.length;i++){
+    			userNames[i]=data[i].userName;
+    			userTaskNum[i]=data[i].userTaskNum;
+    			allFinishedNum+=userTaskNum[i];
+    		}
+    		$("#allFinishedNum").html(allFinishedNum);
+    		pillarChart.setOption({
+    			title: {
+    		        text: '完成的任务数量图'
+    		    },
+    			tooltip : {
+    		        trigger: 'axis',
+    		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+    		            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    		        }
+    		    },
+    		    legend: {
+    		        data: ['完成的任务数量']
+    		    },
+    		    grid: {
+    		        left: '10%',
+    		        right: '11%',
+    		        bottom: '10%',
+    		        containLabel: true
+    		    },
+    		    xAxis:  {
+    		        type: 'value'
+    		    },
+    		    yAxis: {
+    		        type: 'category',
+    		        data: userNames
+    		    },
+    		    series: [
+    		        {
+    		            name: '完成的任务数量',
+    		            type: 'bar',
+    		            label: {
+    		                normal: {
+    		                    show: true,
+    		                    position: 'insideRight'
+    		                }
+    		            },
+    		            data: userTaskNum
+    		        }
+    		    ]
+    		});
+    	}
+    }
+}); 
 </script>
 #end
 #extends("/common/framework.html")

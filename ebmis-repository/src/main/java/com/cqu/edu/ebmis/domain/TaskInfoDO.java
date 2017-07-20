@@ -30,6 +30,10 @@ public class TaskInfoDO {
 	
 	private Integer allExecutTaskNum;
 	
+	private Integer userTaskNum;
+	
+	private String userName;
+	
 	public Integer getTaskInfoID() {
 		return taskInfoID;
 	}
@@ -141,6 +145,22 @@ public class TaskInfoDO {
 
 	public void setFinishedTime1(String finishedTime1) {
 		this.finishedTime1 = finishedTime1;
+	}
+
+	public Integer getUserTaskNum() {
+		return userTaskNum;
+	}
+
+	public void setUserTaskNum(Integer userTaskNum) {
+		this.userTaskNum = userTaskNum;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	
