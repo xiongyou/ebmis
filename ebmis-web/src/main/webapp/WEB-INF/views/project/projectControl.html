@@ -78,7 +78,7 @@ SpringWind - 项目管理
 	    </div>
 	    <div class="panel-body">
 	    	<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    		<div id="ecchartsMain" style="width: 100%;height:400px;"></div>
+    		<div id="pillarMain" style="width: 100%;height:400px;"></div>
 	    </div>
   </div>
 </div>
@@ -139,10 +139,10 @@ $("#finishedTime").change(function(){
 });
 //基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('ecchartsMain'));
+var pillarChart = echarts.init(document.getElementById('pillarMain'));
 var AwaitTaskNumber=$("#AwaitTaskNumber").val();
 var ExecutedTaskNumber=$("#ExecutedTaskNumber").val();
 var ExecutingTaskNumber=$("#ExecutingTaskNumber").val();
-var AllExecutTaskNum=$("#AllExecutTaskNumr").val();
 $("#myForm").validator({
     valid: function(form){
         var me = this;
@@ -154,10 +154,10 @@ $("#myForm").validator({
 	            data: $(form).serialize(),
 	            type: "POST",
 	            success: function(data){
-	            	/* alert(data.awaitTaskNumber);
+	            	alert(data.awaitTaskNumber);
 	            	alert(data.executedTaskNumber);
 	            	alert(data.executingTaskNumber);
-	            	alert(data.allExecutTaskNum); */
+	            	alert(data.allExecutTaskNum); 
 	            	AwaitTaskNumber=data.awaitTaskNumber;
 	            	ExecutedTaskNumber=data.executedTaskNumber;
 	            	ExecutingTaskNumber=data.executingTaskNumber;

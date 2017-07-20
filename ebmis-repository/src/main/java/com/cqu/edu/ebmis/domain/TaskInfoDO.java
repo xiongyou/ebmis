@@ -29,6 +29,7 @@ public class TaskInfoDO {
 	private Integer executingTaskNumber;
 	
 	private Integer allExecutTaskNum;
+	
 	public Integer getTaskInfoID() {
 		return taskInfoID;
 	}

@@ -41,7 +41,7 @@ public class TaskInfoRepositoryImpl  implements TaskInfoRepository {
 	@Override
 	public int findDefultExecutedTaskNum(TaskInfoDO taskIfoDO) {
 		// TODO Auto-generated method stub
-		return taskInfoMapper.findDefultAllExecutTaskNum(taskIfoDO);
+		return taskInfoMapper.findDefultExecutedTaskNum(taskIfoDO);
 	}
 
 	@Override
