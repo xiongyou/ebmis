@@ -47,9 +47,10 @@
 	   </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">结束时间</label>
            <div class="input-append date form_datetime col-sm-10 pull-right" id="endTest">
-			    <input type="text" id="endedTime" class="form-control" name="endedTime1" value="$!{projectDo.endedTime1}" data-rule="结束日期:required" readonly>
+			    <input type="text" id="endedTime" class="form-control pull-left" name="endedTime1" value="$!{projectDo.endedTime1}" data-rule="结束日期:required" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
+			    <span id="endTest1" class="msg-box n-right pull-left" style=""><span role="alert" class="msg-wrap n-error"><span class="n-icon"></span><span class="n-msg">结束日期必须大于开始日期</span></span></span>
 			</div>
 	   </div>
        <div class="form-group">
@@ -70,8 +71,6 @@
 var flag=false;
 $("#startTime").change(function(){
 	$("#startTime~span[for='startTime']").html("");
-});
-$("#endedTime").change(function(){
 	var assigntime = $("#startTime").val();
     var deadlinetime = $("#endedTime").val();
     var reg = new RegExp('-','g');
@@ -80,18 +79,35 @@ $("#endedTime").change(function(){
     assigntime = new Date(parseInt(Date.parse(assigntime),10));
     deadlinetime = new Date(parseInt(Date.parse(deadlinetime),10));
     if(assigntime>deadlinetime){
-    	$("#endedTime~span[for='endedTime']").html("");
-    	$("#endedTime~span[for='endedTime']").addClass("pull-left");
-    	$("#endedTime").addClass("pull-left");
-    	$("#endTest").append('<span id="endTest1" class="msg-box n-right pull-left" style=""><span role="alert" class="msg-wrap n-error"><span class="n-icon"></span><span class="n-msg">结束日期必须大于开始日期</span></span></span>');
+    	$("#endTest1").show();
         flag=false;
     }else{
-    	$("#endTest1").html("");
+    	$("#endTest1").hide();
         flag=true;
     }
 });
+$("#endedTime").change(function(){
+	$("#endedTime~span[for='endedTime']").html("");
+	var assigntime = $("#startTime").val();
+    var deadlinetime = $("#endedTime").val();
+    var reg = new RegExp('-','g');
+    assigntime = assigntime.replace(reg,'/');//正则替换
+    deadlinetime = deadlinetime.replace(reg,'/');
+    assigntime = new Date(parseInt(Date.parse(assigntime),10));
+    deadlinetime = new Date(parseInt(Date.parse(deadlinetime),10));
+    if(assigntime>deadlinetime){
+    	$("#endedTime~span[for='endedTime']").addClass("pull-left");
+    	$("#endTest1").show();
+        flag=false;
+    }else{
+    	$("#endTest1").hide();
+        flag=true;
+    }
+});
+$("#endTest1").hide();
 var hiddenUpdate=$("#hiddenUpdate").val();
 if(hiddenUpdate!=""&&hiddenUpdate!=null&&hiddenUpdate=="update"){
+	flag=true;
 	$("#projectID").attr("readonly","readonly");
 }
 $(".form_datetime").datetimepicker({

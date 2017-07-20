@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.TaskInfoMapper">
+
+  <select id="findDefultAwaitTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
+		AND a.`Status`=0 AND UNIX_TIMESTAMP(DistributedTime)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER})
+		 AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(NOW())
+  </select>
+  <select id="findDefultExecutedTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
+		AND a.`Status`=2 AND UNIX_TIMESTAMP(DistributedTime)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(NOW())
+  </select>
+  <select id="findDefultExecutingTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
+		AND a.`Status`=1 AND UNIX_TIMESTAMP(DistributedTime)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) 
+		AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(NOW())
+  </select>
+  <select id="findDefultAllExecutTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
+		AND UNIX_TIMESTAMP(DistributedTime)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(NOW())
+  </select>
+  <select id="findProjectExecutPeriod" resultType="int" parameterType="java.lang.Integer">
+  	SELECT _execute_period FROM _crawler_project where _project_id=#{projectID,jdbcType=INTEGER}
+  </select>
+</mapper>

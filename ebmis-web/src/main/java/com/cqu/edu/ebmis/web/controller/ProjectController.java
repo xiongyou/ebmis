@@ -3,10 +3,8 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.ProjectDO;
-import com.cqu.edu.ebmis.service.CategoryService;
 import com.cqu.edu.ebmis.service.ProjectService;
 import com.cqu.edu.ebmis.service.page.Page;
-import com.cqu.edu.ebmis.web.convert.CategoryConvert;
-import com.cqu.edu.ebmis.web.model.CategoryNode;
 
 /**
  * 三级分类管理
@@ -43,11 +37,6 @@ public class ProjectController extends SuperController {
 	public String list(Model model) {
 	
 		return "/project/list";
-	}
-	@RequestMapping("/projectControl")
-	public String projectControl(Model model) {
-		
-		return "/project/projectControl";
 	}
 	
 	@ResponseBody
@@ -82,7 +71,6 @@ public class ProjectController extends SuperController {
 	@ResponseBody
 	@RequestMapping("/editProject")
 	public String editProject(ProjectDO projectDo) {
-	
 		JSONObject json = new JSONObject();
 		String success1="";
 		String error1="";
