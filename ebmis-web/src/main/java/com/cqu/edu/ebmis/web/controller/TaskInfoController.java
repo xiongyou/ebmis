@@ -4,10 +4,14 @@
 package com.cqu.edu.ebmis.web.controller;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cqu.edu.ebmis.domain.TaskInfoDO;
 import com.cqu.edu.ebmis.service.TaskInfoService;
@@ -41,8 +45,31 @@ public class TaskInfoController extends SuperController {
 		taskInfoDO.setExecutedTaskNumber(executedTaskNumber);
 		taskInfoDO.setExecutingTaskNumber(executingTaskNumber);
 		taskInfoDO.setAllExecutTaskNum(allExecutTaskNum);
+		taskInfoDO.setProjectID(projectID);
 		model.addAttribute("taskInfoDO", taskInfoDO);
 		return "/project/projectControl";
+	}
+	@ResponseBody
+	@RequestMapping("/projectSubmitControl")
+	public TaskInfoDO projectEye(Model model,TaskInfoDO taskInfoDO1) {
+		try {
+			taskInfoDO1.setFinishedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(taskInfoDO1.getFinishedTime1()));
+			taskInfoDO1.setDistributedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(taskInfoDO1.getDistributedTime1()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int awaitTaskNumber=taskInfoService.findAwaitTaskNum(taskInfoDO1);
+		int executedTaskNumber=taskInfoService.findExecutedTaskNum(taskInfoDO1);
+		int executingTaskNumber=taskInfoService.findExecutingTaskNum(taskInfoDO1);
+		int allExecutTaskNum=taskInfoService.findAllExecutTaskNum(taskInfoDO1);
+		TaskInfoDO taskInfoDO=new TaskInfoDO();
+		taskInfoDO.setAwaitTaskNumber(awaitTaskNumber);
+		taskInfoDO.setExecutedTaskNumber(executedTaskNumber);
+		taskInfoDO.setExecutingTaskNumber(executingTaskNumber);
+		taskInfoDO.setAllExecutTaskNum(allExecutTaskNum);
+		taskInfoDO.setProjectID(taskInfoDO1.getProjectID());
+		return taskInfoDO;
 	}
 	
 }

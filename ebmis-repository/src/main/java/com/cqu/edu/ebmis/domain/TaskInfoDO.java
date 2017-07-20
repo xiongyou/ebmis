@@ -14,6 +14,10 @@ public class TaskInfoDO {
 	
 	private Date finishedTime;
 	
+	private String distributedTime1;
+	
+	private String finishedTime1;
+	
 	private Integer projectExcitedPeriod;
 	
 	private Integer projectTaskID;
@@ -121,5 +125,22 @@ public class TaskInfoDO {
 	public void setProjectExcitedPeriod(Integer projectExcitedPeriod) {
 		this.projectExcitedPeriod = projectExcitedPeriod;
 	}
+
+	public String getDistributedTime1() {
+		return distributedTime1;
+	}
+
+	public void setDistributedTime1(String distributedTime1) {
+		this.distributedTime1 = distributedTime1;
+	}
+
+	public String getFinishedTime1() {
+		return finishedTime1;
+	}
+
+	public void setFinishedTime1(String finishedTime1) {
+		this.finishedTime1 = finishedTime1;
+	}
+	
 	
 }

@@ -96,13 +96,17 @@ $("#endedTime").change(function(){
     assigntime = new Date(parseInt(Date.parse(assigntime),10));
     deadlinetime = new Date(parseInt(Date.parse(deadlinetime),10));
     if(assigntime>deadlinetime){
-    	$("#endedTime~span[for='endedTime']").addClass("pull-left");
     	$("#endTest1").show();
         flag=false;
     }else{
     	$("#endTest1").hide();
         flag=true;
     }
+});
+$("#endedTime").focusout(function() {
+	setTimeout(function(){
+		$("#endedTime~span[for='endedTime']").addClass("pull-left");
+	},50);
 });
 $("#endTest1").hide();
 var hiddenUpdate=$("#hiddenUpdate").val();
