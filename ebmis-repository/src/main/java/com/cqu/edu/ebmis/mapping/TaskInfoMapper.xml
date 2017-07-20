@@ -4,43 +4,43 @@
 
   <select id="findDefultAwaitTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
-		AND a.`Status`=0 AND UNIX_TIMESTAMP(DistributedTime)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER})
-		 AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(NOW())
+		AND a.`Status`=0 AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW())
   </select>
   <select id="findDefultExecutedTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
-		AND a.`Status`=2 AND UNIX_TIMESTAMP(DistributedTime)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(NOW())
+		AND a.`Status`=2 AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW())
   </select>
   <select id="findDefultExecutingTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
-		AND a.`Status`=1 AND UNIX_TIMESTAMP(DistributedTime)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) 
-		AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(NOW())
+		AND a.`Status`=1 AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) 
+		AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW())
   </select>
   <select id="findDefultAllExecutTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
-		AND UNIX_TIMESTAMP(DistributedTime)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(NOW())
+		AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER}) AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW())
   </select>
   <select id="findProjectExecutPeriod" resultType="int" parameterType="java.lang.Integer">
   	SELECT _execute_period FROM _crawler_project where _project_id=#{projectID,jdbcType=INTEGER}
   </select>
   <select id="findAwaitTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
-		AND a.`Status`=0 AND UNIX_TIMESTAMP(DistributedTime)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
-		 AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
+		AND a.`Status`=0 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
   </select>
   <select id="findExecutedTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
-		AND a.`Status`=2 AND UNIX_TIMESTAMP(DistributedTime)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
-		 AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
+		AND a.`Status`=2 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
   </select>
   <select id="findExecutingTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
-		AND a.`Status`=1 AND UNIX_TIMESTAMP(DistributedTime)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
-		 AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
+		AND a.`Status`=1 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
   </select>
   <select id="findAllExecutTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id AND ProjectID=#{projectID,jdbcType=INTEGER} 
-		 AND UNIX_TIMESTAMP(DistributedTime)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
-		 AND UNIX_TIMESTAMP(FinishedTime)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
   </select>
 </mapper>
