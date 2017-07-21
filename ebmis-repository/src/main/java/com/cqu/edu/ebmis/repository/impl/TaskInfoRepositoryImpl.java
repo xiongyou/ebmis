@@ -82,6 +82,66 @@ public class TaskInfoRepositoryImpl  implements TaskInfoRepository {
 		return taskInfoMapper.findUserTaskNum(taskIfoDO);
 	}
 
+	@Override
+	public int findDefultAllAwaitTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findDefultAllAwaitTaskNum();
+	}
+
+	@Override
+	public int findDefultAllExecutedTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findDefultAllExecutedTaskNum();
+	}
+
+	@Override
+	public int findDefultAllExecutingTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findDefultAllExecutingTaskNum();
+	}
+
+	@Override
+	public int findDefultAllProjectExecutTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findDefultAllProjectExecutTaskNum();
+	}
+
+	@Override
+	public List<TaskInfoDO> findDefultAllUserTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findDefultAllUserTaskNum();
+	}
+
+	@Override
+	public int findAllAwaitTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findAllAwaitTaskNum(taskIfoDO);
+	}
+
+	@Override
+	public int findAllExecutedTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findAllExecutedTaskNum(taskIfoDO);
+	}
+
+	@Override
+	public int findAllExecutingTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findAllExecutingTaskNum(taskIfoDO);
+	}
+
+	@Override
+	public int findAllProjectExecutTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findAllProjectExecutTaskNum(taskIfoDO);
+	}
+
+	@Override
+	public List<TaskInfoDO> findAllUserTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoMapper.findAllUserTaskNum(taskIfoDO);
+	}
+
 	
 	
 

@@ -71,6 +71,56 @@ public class TaskInfoServiceImpl implements TaskInfoService {
 		return taskInfoRepository.findUserTaskNum(taskIfoDO);
 	}
 
+	public int findDefultAllAwaitTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findDefultAllAwaitTaskNum();
+	}
+
+	public int findDefultAllExecutedTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findDefultAllExecutedTaskNum();
+	}
+
+	public int findDefultAllExecutingTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findDefultAllExecutingTaskNum();
+	}
+
+	public int findDefultAllProjectExecutTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findDefultAllProjectExecutTaskNum();
+	}
+
+	public List<TaskInfoDO> findDefultAllUserTaskNum() {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findDefultAllUserTaskNum();
+	}
+
+	public int findAllAwaitTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findAllAwaitTaskNum(taskIfoDO);
+	}
+
+	public int findAllExecutedTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findAllExecutedTaskNum(taskIfoDO);
+	}
+
+	public int findAllExecutingTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findAllExecutingTaskNum(taskIfoDO);
+	}
+
+	public int findAllProjectExecutTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findAllProjectExecutTaskNum(taskIfoDO);
+	}
+
+	public List<TaskInfoDO> findAllUserTaskNum(TaskInfoDO taskIfoDO) {
+		// TODO Auto-generated method stub
+		return taskInfoRepository.findAllUserTaskNum(taskIfoDO);
+	}
+
 
 
 }

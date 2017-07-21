@@ -49,13 +49,63 @@
   <select id="findDefultUserTaskNum" resultMap="TaskInfoResultMap" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
 	SELECT IFNULL((c.userTaskNum+d.userTaskNum),0) userTaskNum,c.user_name FROM (SELECT 0 userTaskNum,user_name FROM `user` b ,taskinfo a WHERE ClientID=b.id AND a.`Status`=2 
   	 GROUP BY user_name) c LEFT JOIN (SELECT count(TaskInfoID) userTaskNum,user_name FROM `user` b ,taskinfo a WHERE ClientID=b.id AND a.`Status`=2 
-  	AND ProjectID=1 AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER})
+  	AND ProjectID=#{projectID,jdbcType=INTEGER} AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-#{projectExcitedPeriod,jdbcType=INTEGER})
 		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW()) GROUP BY user_name) d ON c.user_name=d.user_name
   </select>
   <select id="findUserTaskNum" resultMap="TaskInfoResultMap" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
   	SELECT IFNULL((c.userTaskNum+d.userTaskNum),0) userTaskNum,c.user_name FROM (SELECT 0 userTaskNum,user_name FROM `user` b ,taskinfo a WHERE ClientID=b.id AND a.`Status`=2 
   	 GROUP BY user_name) c LEFT JOIN (SELECT count(TaskInfoID) userTaskNum,user_name FROM `user` b ,taskinfo a WHERE ClientID=b.id AND a.`Status`=2 
-  	AND ProjectID=1 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+  	AND ProjectID=#{projectID,jdbcType=INTEGER} AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE}) GROUP BY user_name) d ON c.user_name=d.user_name
+  </select>
+  <select id="findDefultAllAwaitTaskNum" resultType="int">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id 
+		AND a.`Status`=0 AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-2592000)
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW())
+  </select>
+  <select id="findDefultAllExecutedTaskNum" resultType="int">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id 
+		AND a.`Status`=2 AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-2592000) AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW())
+  </select>
+  <select id="findDefultAllExecutingTaskNum" resultType="int">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id  
+		AND a.`Status`=1 AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-2592000) 
+		AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW())
+  </select>
+  <select id="findDefultAllProjectExecutTaskNum" resultType="int">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id 
+		AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-2592000) AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW())
+  </select>
+  <select id="findDefultAllUserTaskNum" resultMap="TaskInfoResultMap">
+	SELECT IFNULL((c.userTaskNum+d.userTaskNum),0) userTaskNum,c.user_name FROM (SELECT 0 userTaskNum,user_name FROM `user` b ,taskinfo a WHERE ClientID=b.id AND a.`Status`=2 
+  	 GROUP BY user_name) c LEFT JOIN (SELECT count(TaskInfoID) userTaskNum,user_name FROM `user` b ,taskinfo a WHERE ClientID=b.id AND a.`Status`=2 
+  	 AND UNIX_TIMESTAMP(Add_Task_Time)>=(UNIX_TIMESTAMP(NOW())-2592000)
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(NOW()) GROUP BY user_name) d ON c.user_name=d.user_name
+  </select>
+  <select id="findAllAwaitTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id  
+		AND a.`Status`=0 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
+  </select>
+  <select id="findAllExecutedTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id  
+		AND a.`Status`=2 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
+  </select>
+  <select id="findAllExecutingTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id 
+		AND a.`Status`=1 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
+  </select>
+  <select id="findAllProjectExecutTaskNum" resultType="int" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT count(TaskInfoID) FROM taskinfo a,_crawler_project b where ProjectID=_project_id  
+		 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
+		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE})
+  </select>
+  <select id="findAllUserTaskNum" resultMap="TaskInfoResultMap" parameterType="com.cqu.edu.ebmis.domain.TaskInfoDO">
+  	SELECT IFNULL((c.userTaskNum+d.userTaskNum),0) userTaskNum,c.user_name FROM (SELECT 0 userTaskNum,user_name FROM `user` b ,taskinfo a WHERE ClientID=b.id AND a.`Status`=2 
+  	 GROUP BY user_name) c LEFT JOIN (SELECT count(TaskInfoID) userTaskNum,user_name FROM `user` b ,taskinfo a WHERE ClientID=b.id AND a.`Status`=2 
+  	 AND UNIX_TIMESTAMP(Add_Task_Time)>=UNIX_TIMESTAMP(#{distributedTime,jdbcType=DATE})
 		 AND UNIX_TIMESTAMP(Add_Task_Time)&lt;=UNIX_TIMESTAMP(#{finishedTime,jdbcType=DATE}) GROUP BY user_name) d ON c.user_name=d.user_name
   </select>
 </mapper>

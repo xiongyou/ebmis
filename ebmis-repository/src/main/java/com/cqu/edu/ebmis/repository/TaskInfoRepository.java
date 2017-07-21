@@ -73,6 +73,66 @@ public interface TaskInfoRepository {
 	 * @return
 	 */
 	List<TaskInfoDO> findUserTaskNum(TaskInfoDO taskIfoDO);
+	/**
+	 * 默认查询总项目待执行任务数
+	 * @param projectID
+	 * @return
+	 */
+	int findDefultAllAwaitTaskNum();
+	/**
+	 * 默认查询总项目已执行任务数
+	 * @param projectID
+	 * @return
+	 */
+	int findDefultAllExecutedTaskNum();
+	/**
+	 * 默认查询总项目正在执行任务数
+	 * @param projectID
+	 * @return
+	 */
+	int findDefultAllExecutingTaskNum();
+	/**
+	 * 默认查询总项目总执行任务数
+	 * @param projectID
+	 * @return
+	 */
+	int findDefultAllProjectExecutTaskNum();
+	/**
+	 * 默认查询总项目的每人完成任务的数量
+	 * @param projectID
+	 * @return
+	 */
+	List<TaskInfoDO> findDefultAllUserTaskNum();
+	/**
+	 * 查询总项目待执行任务数
+	 * @param projectID
+	 * @return
+	 */
+	int findAllAwaitTaskNum(TaskInfoDO taskIfoDO);
+	/**
+	 * 查询总项目已执行任务数
+	 * @param projectID
+	 * @return
+	 */
+	int findAllExecutedTaskNum(TaskInfoDO taskIfoDO);
+	/**
+	 * 查询总项目正在执行任务数
+	 * @param projectID
+	 * @return
+	 */
+	int findAllExecutingTaskNum(TaskInfoDO taskIfoDO);
+	/**
+	 * 查询总项目总执行任务数
+	 * @param projectID
+	 * @return
+	 */
+	int findAllProjectExecutTaskNum(TaskInfoDO taskIfoDO);
+	/**
+	 * 查询总项目的每人完成任务的数量
+	 * @param projectID
+	 * @return
+	 */
+	List<TaskInfoDO> findAllUserTaskNum(TaskInfoDO taskIfoDO);
 	
 	
 }

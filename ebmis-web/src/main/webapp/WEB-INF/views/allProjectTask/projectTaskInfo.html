@@ -8,12 +8,12 @@ SpringWind - 项目管理
 <link href="#springUrl('/static/css/bootstrap-datetimepicker.css')" rel="stylesheet">
 #end
 #override("breadcrumb")
-<li><a>资源管理</a></li><li class="active"><strong>项目管理</strong></li><li class="active"><strong>项目监控</strong></li>
+<li><a>资源管理</a></li><li class="active"><strong>项目任务统计</strong></li>
 #end
 #override("projectControl")
 <div style="border-bottom:1px solid #ddd;padding:10px 20px 5px 20px">
 	<div style="padding-bottom:10px">
-	  <h3 class="col-sm-11 pull-left">项目监控</h3>
+	  <h3 class="col-sm-11 pull-left">项目任务监控</h3>
 	  	<span class="badge">42</span>
 	</div>
 </div>
@@ -24,7 +24,6 @@ SpringWind - 项目管理
 <input type="hidden" id="AwaitTaskNumber" name="awaitTaskNumber" value="${taskInfoDO.awaitTaskNumber}">
 <input type="hidden" id="ExecutedTaskNumber" name="executedTaskNumber" value="${taskInfoDO.executedTaskNumber}">
 <input type="hidden" id="ExecutingTaskNumber" name="executingTaskNumber" value="${taskInfoDO.executingTaskNumber}">
-<input type="hidden" id="projectID" name="projectID" value="${taskInfoDO.projectID}">
   <div class="form-group" style="margin-right:140px">
     <label class="control-label" style="padding-top:8px">开始时间</label>
     <div class="input-append date form_datetime pull-right">
@@ -147,7 +146,6 @@ var pillarChart = echarts.init(document.getElementById('pillarMain'));
 var AwaitTaskNumber=$("#AwaitTaskNumber").val();
 var ExecutedTaskNumber=$("#ExecutedTaskNumber").val();
 var ExecutingTaskNumber=$("#ExecutingTaskNumber").val();
-var projectID=$("#projectID").val();
 $("#myForm").validator({
     valid: function(form){
         var me = this;
@@ -155,7 +153,7 @@ $("#myForm").validator({
         me.holdSubmit();
         if(flag){
 	        $.ajax({
-	        	url: "#springUrl('/taskInfo/projectSubmitControl')",
+	        	url: "#springUrl('/allProjectTask/projectTaskInfo')",
 	            data: $(form).serialize(),
 	            type: "POST",
 	            success: function(data){
@@ -233,8 +231,8 @@ $("#myForm").validator({
 	            }
 	        });
 	        //刷新柱形图
-	        $.ajax({
-	        	url: "#springUrl('/taskInfo/projectUserTaskPillar')",
+	         $.ajax({
+	        	url: "#springUrl('/allProjectTask/projectTaskPillar')",
 	            data: $(form).serialize(),
 	            type: "POST",
 	            success: function(data){
@@ -290,7 +288,7 @@ $("#myForm").validator({
 	            		});
 	            	}
 	            }
-	        }); 
+	        });
         }
     }
 });
@@ -352,8 +350,7 @@ myChart.setOption({
     ]
 });
 $.ajax({
-	url: "#springUrl('/taskInfo/projectUserTask')",
-    data: "projectID="+projectID,
+	url: "#springUrl('/allProjectTask/defultProjectTaskPillar')",
     type: "POST",
     success: function(data){
     	if(data.length>0){
