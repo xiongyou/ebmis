@@ -79,7 +79,9 @@ public interface ProductBaseInfoMapper {
 	 * @param map
 	 *    如:checked  是否已经复核
 	 *       isValid  是否为农产品
+	 *       platform 平台
 	 *       keyword  关键字
+	 *       categoryCode 关键字代码， 可能会是一个列表。
 	 *       key      可以进行模糊查找的关键字，如productName like "%key%"  、  keyword like  "%key%"
 	 *       size     分页大小
 	 *       offset   偏移量
@@ -93,10 +95,10 @@ public interface ProductBaseInfoMapper {
 	 * @param map
 	 *    如:checked  是否已经复核
 	 *       isValid  是否为农产品
+	 *       platform 平台
 	 *       keyword  关键字
+	 *       categoryCode 关键字代码， 可能会是一个列表。
 	 *       key      可以进行模糊查找的关键字，如productName like "%key%"  、  keyword like  "%key%"
-	 *       size     分页大小
-	 *       offset   偏移量
 	 * @return
 	 */
 	int selectCount(HashMap map);

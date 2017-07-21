@@ -21,6 +21,7 @@ public class ProductBaseInfoDO {
 	private String platform;
 	
 	private String keyword;
+	private String categoryCode;
 	
 	private int		isValid;
 	
@@ -92,6 +93,14 @@ public class ProductBaseInfoDO {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
 	}
 
 	/**
