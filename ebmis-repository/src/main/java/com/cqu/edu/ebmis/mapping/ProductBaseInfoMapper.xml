@@ -6,8 +6,10 @@
     <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
   <resultMap id="BaseResultMap" type="com.cqu.edu.ebmis.domain.ProductBaseInfoDO">
     <id column="productInnerId" jdbcType="BIGINT" property="productInnerId" />
+    <result column="platform" jdbcType="VARCHAR" property="platform" />
     <result column="productName" jdbcType="VARCHAR" property="productName" />
-    <result column="productURL" jdbcType="VARCHAR" property="productURL"></result>
+    <result column="productURL" jdbcType="VARCHAR" property="productURL"/>
+    <result column="singleKeyword" jdbcType="VARCHAR" property="keyword" />
     <result column="isValid" jdbcType="INTEGER" property="isValid" />
     <result column="checked" jdbcType="INTEGER" property="checked" />
   </resultMap>
@@ -56,7 +58,6 @@
     select
     count(*) 
     from product_baseinfo  
-    
   </select>
   
   <select id="selectCheckedByPage" resultMap="BaseResultMap">
@@ -69,6 +70,27 @@
   </select>
   
   <select id="selectCheckedCount" resultType="int"  parameterType="java.lang.Integer">
+ 	select
+    count(*) 
+    from product_baseinfo  
+    where checked=#{checked,jdbcType=INTEGER}
+  </select>
+  
+  <select id="select" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from _crawler_project_task
+    where 1=1
+    	<if test="productInnerId!=null"> and _product_inner_id=#{productInnerId}</if> 
+    	<if test="taskId!=null"> and _project_task_id=#{taskId}</if>  
+        <if test="projectId!=null"> and _project_id=#{projectId}</if>  
+        <if test="md!=null"> and _md=#{md}</if>  
+        <if test="website!=null"> and _website=#{website}</if>  
+        <if test="projectIds!=null"> and _project_id in <foreach collection="projectIds"  item="item" index="index" open="(" separator="," close=")">#{item}</foreach> 
+        </if>  
+  </select>
+  
+  <select id="selectCount" resultType="int"  parameterType="java.lang.Integer">
  	select
     count(*) 
     from product_baseinfo  
