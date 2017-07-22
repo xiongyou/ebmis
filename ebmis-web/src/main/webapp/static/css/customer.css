@@ -1,0 +1,21 @@
+.paging_text {
+    float: left;
+}
+
+.dhx_pager_item {
+    height : 0
+}
+
+
+html {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+.share-res-text  {
+    font-size: 1.0em;
+    margin-right: 3px;
+    cursor : pointer;
+    float: left;
+    margin-top: 3px;
+}

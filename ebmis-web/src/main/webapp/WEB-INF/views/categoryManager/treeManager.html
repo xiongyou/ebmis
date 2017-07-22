@@ -1,0 +1,144 @@
+#override("title")
+SpringWind - 项目管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+<link href="#springUrl('/static/css/style.css')" rel="stylesheet">
+<link href="#springUrl('/static/css/metroStyle.css')" rel="stylesheet">
+<link href="#springUrl('/static/css/customer.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><strong>类别管理</strong></li>
+#end
+#override("content")
+<div class="panel panel-default col-lg-4" style="padding:0px;margin:20px 40px 80px 30px">
+    <div class="panel-heading" style="height:56px;background:#337ab7">
+	        <span class="pull-left" style="margin:2px 0px 2px 140px;color:#fff;font-size:20px">
+	            	类别树
+	        </span>
+	        <div class="pull-right">
+	        	<div style="margin:5px 20px;float:left">
+		        	<span class="glyphicon glyphicon-refresh" title="刷新" style="font-size:20px"></span>
+		        </div>
+		        <div class="btn-group">
+					<button type="button" class="btn btn-primary dropdown-toggle" style="background:#00008B;width:70px" data-toggle="dropdown">操作 
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu pull-right" style="min-width:0px;width:70px" role="menu">
+						<li><a href="#" onClick="addTree()">增加</a></li>
+						<li><a href="#" onClick="delTree()">删除</a></li>
+						<li><a href="#" onClick="editTree()">编辑</a></li>
+					</ul>
+				</div>
+			</div>
+    </div>
+    <div class="panel-body" style="height:300px">
+       <div>
+   		<ul id="zTreeManager" class="ztree"></ul>
+	   </div>
+    </div>
+</div>
+<div class="col-lg-7" id="editCategoey" style="background:#fff;padding:0px;margin:20px 0px 80px 30px">
+	<div class="box box-info">
+        <div class="box-header with-border" style="border-bottom:1px solid #e5e6e7;padding:8px 0px 3px 10px">
+          <h3 class="box-title">添加类别</h3>
+        </div>
+        <div class="box-body" style="margin:15px 10px 10px 0px">
+            <form class="form-horizontal" id="form1">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">类别名称</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="categoryName" class="form-control"/>
+                  </div>
+                </div>
+              <div class="form-group">
+                  <label class="col-sm-2 control-label">是否显示</label>
+                  <div class="col-sm-10">
+                    <select name="visiable" class="form-control">
+                    	<option value="1">是</option>
+                    	<option value="0">否</option>
+                    </select>
+                  </div>
+                </div>
+
+            </form>
+          </div>
+          <div class="box-footer">
+            <div class="pull-right" style="margin:0px 10px 10px 0px">
+              <div class="buttons">
+                <button class="btn btn-primary btn-flat" onClick="save()"><i class="fa fa-save"></i>保存</button>
+                <button class="btn btn-danger btn-flat" onClick="cancel()"><i class="fa fa-close"></i>取消</button>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+
+#end
+#override("js")
+<script src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script src="#springUrl('/static/js/jquery.ztree.all.min.js')"></script>
+<script type="text/javascript">
+$("#editCategoey").hide();
+	var setting = {
+        async: {
+            enable: true,
+            autoParam: ["categoryId=parentId"],
+            dataType:"json",
+            type:"post",
+            url :"#springUrl('/categoryManager/getParentId')"
+        },
+        data: {
+            key:{name:""},
+            simpleData: {
+                enable: true,
+                idKey: "categoryId",
+                pIdKey: "parentId"
+            }
+        },
+        view: {
+            selectedMulti: false
+        },
+        callback:{
+            beforeDrop: null,
+            onDrop: null
+        }
+    };
+    var url="#springUrl('/categoryManager/getToolId.html')";
+    
+    $.post(url,function(result){
+       var resourcesTree=$.fn.zTree.init($("#zTreeManager"), setting,result);
+    },"json"); 
+    /* $.ajax({
+    	url: "#springUrl('/categoryManager/getToolId.html')",
+        type: "POST",
+        dataType:"json",
+        success: function(data){
+        	var resourcesTree=$.fn.zTree.init($("#zTreeManager"), setting,data);
+        }
+    }); */
+    function addTree(){
+    	$("#editCategoey").show();
+    }
+    function delTree(){
+    	alert("22222222222");
+    }
+    function editTree(){
+    	$("#editCategoey").show();
+    }
+    function save(){
+    	alert("333333333");
+    	$("#editCategoey").hide();
+    }
+    function cancel(){
+    	$("#editCategoey").hide();
+    }
+</script>
+#end
+#extends("/common/framework.html")

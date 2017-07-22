@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.CategoryManagerMapper">
+
+    
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap id="CategoryManagerResultMap" type="com.cqu.edu.ebmis.domain.CategoryManagerDO">
+    <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="visiable" jdbcType="INTEGER" property="visiable" />
+  </resultMap>
+  <sql id="CategoryManager_Column" >
+    category_id, category_name, parent_id, visiable
+  </sql>
+
+  <select id="getByParentId" resultMap="CategoryManagerResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="CategoryManager_Column" />
+    from category_manager  
+    where parent_id = #{parentId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="del" parameterType="java.lang.Integer">
+    delete from category_manager
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="save" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
+    insert into category_manager (category_name, parent_id, visiable)
+    values (#{categoryName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{visiable,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="update" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
+    update category_manager
+    set category_name = #{categoryName,jdbcType=VARCHAR},visiable = #{visiable,jdbcType=INTEGER}
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>
+
