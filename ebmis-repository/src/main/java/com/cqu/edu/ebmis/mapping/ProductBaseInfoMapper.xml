@@ -88,7 +88,7 @@
         <if test="key!=null"> and (productName like CONCAT('%',#{key},'%') or singleKeyword like CONCAT('%',#{key},'%'))</if>  
         <if test="categoryCode!=null"> and categoryCode in <foreach collection="categoryCode"  item="item" index="index" open="(" separator="," close=")">#{item}</foreach> 
         </if>  
-        <if test="size!=null"> limit #{size}</if><if test="size!=null&&offset!=null">, #{offset}</if>  
+        <if test="size!=null"> limit #{size}</if><if test="size!=null and offset!=null">, #{offset}</if>  
        
   </select>
   
