@@ -13,8 +13,15 @@ public class ProductBaseInfoDO {
 	private long	productInnerId;
 	
 	private String	productName;
+
 	
 	private String	productURL;
+	
+	
+	private String platform;
+	
+	private String keyword;
+	private String categoryCode;
 	
 	private int		isValid;
 	
@@ -70,7 +77,32 @@ public class ProductBaseInfoDO {
 	
 		this.productURL = productURL;
 	}
-	
+
+
+	public String getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(String platform) {
+		this.platform = platform;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+
 	/**
 	 * @return the isValid
 	 */
