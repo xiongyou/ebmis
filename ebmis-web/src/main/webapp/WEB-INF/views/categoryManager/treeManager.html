@@ -88,7 +88,7 @@ SpringWind - 项目管理
 $("#editCategoey").hide();
 var zTreeObj;
 // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-var setting = {
+/* var setting = {
 	edit: {
 		drag: {
 			isCopy: false,
@@ -131,8 +131,8 @@ var nodes = [
 	   	var nodes=zTreeObject.getSelectedNodes();
 	   	var pId=nodes[0].pId;
 	    return !(targetNode == null || moveType != "inner" || !targetNode.pId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level);
-	}
-	/* var setting = {
+	} */
+	var setting = {
         async: {
             enable: true,
             autoParam: ["categoryId=parentId"],
@@ -160,8 +160,8 @@ var nodes = [
     
     $.post(url,function(result){
        var resourcesTree=$.fn.zTree.init($("#zTreeManager"), setting,result);
-    },"json"); */ 
-    /* $.ajax({
+    },"json"); 
+    /*$.ajax({
     	url: "#springUrl('/categoryManager/getToolId.html')",
         type: "POST",
         dataType:"json",
