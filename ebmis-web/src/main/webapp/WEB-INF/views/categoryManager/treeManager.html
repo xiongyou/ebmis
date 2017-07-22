@@ -11,9 +11,9 @@ SpringWind - 项目管理
 <li><a>资源管理</a></li><li class="active"><strong>类别管理</strong></li>
 #end
 #override("content")
-<div class="panel panel-default col-lg-4" style="padding:0px;margin:20px 40px 80px 30px">
+<div class="panel panel-default col-lg-3" style="padding:0px;margin:20px 50px 80px 30px">
     <div class="panel-heading" style="height:56px;background:#337ab7">
-	        <span class="pull-left" style="margin:2px 0px 2px 140px;color:#fff;font-size:20px">
+	        <span class="pull-left" style="margin:2px 0px 2px 70px;color:#fff;font-size:20px">
 	            	类别树
 	        </span>
 	        <div class="pull-right">
@@ -169,7 +169,8 @@ var nodes = [
             selectedMulti: false
         },
         callback: {
-    		beforeDrop: zTreeBeforeDrop
+    		beforeDrop: zTreeBeforeDrop,
+    		onClick: zTreeOnClick
     	}
     };
     var url="#springUrl('/categoryManager/getToolId.html')";
@@ -181,12 +182,17 @@ var nodes = [
        if(nodes.length >0){
        resourcesTree.expandNode(nodes[0], true, false, false)
        }
-    },"json"); 
+    },"json");
+    //点击事件
+    function zTreeOnClick(event, treeId, treeNode) {
+    	$("#editCategoey").hide();
+    };
+    //拖拽事件
     function zTreeBeforeDrop(treeId, treeNodes, targetNode, moveType) {
  	   var zTreeObject=$.fn.zTree.getZTreeObj(treeId);
  	   	var nodes=zTreeObject.getSelectedNodes();
- 	   	var pId=nodes[0].pId;
- 	    return !(targetNode == null || moveType != "inner" || !targetNode.pId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level);
+ 	   	var parentId=nodes[0].parentId;
+ 	    return !(targetNode == null || moveType != "inner" || !targetNode.parentId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level||nodes[0].isParent);
  	}
     function addTree(){
     	$("#handAction").val("");
