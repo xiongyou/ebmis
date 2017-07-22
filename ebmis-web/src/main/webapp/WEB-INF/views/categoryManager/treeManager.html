@@ -166,10 +166,11 @@ var nodes = [
             }
         },
         view: {
-            selectedMulti: false
+            selectedMulti: true
         },
         callback: {
     		beforeDrop: zTreeBeforeDrop,
+    		onDrop: zTreeOnDrop, 
     		onClick: zTreeOnClick
     	}
     };
@@ -186,14 +187,32 @@ var nodes = [
     //点击事件
     function zTreeOnClick(event, treeId, treeNode) {
     	$("#editCategoey").hide();
-    };
-    //拖拽事件
+    }
+    //拖拽之前的事件处理
     function zTreeBeforeDrop(treeId, treeNodes, targetNode, moveType) {
  	   var zTreeObject=$.fn.zTree.getZTreeObj(treeId);
  	   	var nodes=zTreeObject.getSelectedNodes();
  	   	var parentId=nodes[0].parentId;
  	    return !(targetNode == null || moveType != "inner" || !targetNode.parentId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level||nodes[0].isParent);
  	}
+    //拖拽事件处理
+    function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
+    	var categoryId=targetNode.categoryId;
+    	var jsonStr="{"
+    		jsonStr+="pId:"+categoryId+","
+    	for(var i=0;i<treeNodes.length;i++){
+    		jsonStr+="categoryId"+i+":"+treeNodes[i].categoryId+",";
+    	}
+    	var jsonStr1=jsonStr.substr(0,jsonStr.length-1);
+    	jsonStr1+="}";
+    	var date=eval('(' + jsonStr1 + ')');
+    	/* var url="#springUrl('/categoryManager/save')";
+    	
+    	$.post(url,date,function(result){
+        		
+    	    }); */
+        alert(treeNodes.length +"  "+treeNodes[0].categoryName+"  "+targetNode.categoryName);
+    };
     function addTree(){
     	$("#handAction").val("");
     	$("#categoryName").removeAttr("placeholder");
