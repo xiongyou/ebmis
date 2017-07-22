@@ -48,7 +48,7 @@ SpringWind - 项目管理
                 <div class="form-group">
                   <label class="col-sm-2 control-label">类别名称</label>
                   <div class="col-sm-10">
-                    <input type="text" name="categoryName" class="form-control"/>
+                    <input type="text" id="categoryName" name="categoryName" class="form-control"/>
                   </div>
                 </div>
               <div class="form-group">
@@ -86,7 +86,53 @@ SpringWind - 项目管理
 <script src="#springUrl('/static/js/jquery.ztree.all.min.js')"></script>
 <script type="text/javascript">
 $("#editCategoey").hide();
-	var setting = {
+var zTreeObj;
+// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+var setting = {
+	edit: {
+		drag: {
+			isCopy: false,
+			isMove: true
+		},
+			enable: true,
+			showRemoveBtn: false,
+			showRenameBtn: false
+		},
+    data: {
+        simpleData: {
+            enable: true
+        },
+    },
+    callback: {
+		beforeDrop: zTreeBeforeDrop
+	}
+};
+// zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+var nodes = [
+    {id:1, pId:0, name: "父节点1"},
+    {id:11, pId:1, name: "子节点1"},
+    {id:12, pId:1, name: "子节点2"},
+    {id:13, pId:11, name: "子节点3"},
+    {id:14, pId:11, name: "子节点4"},
+    {id:15, pId:12, name: "子节点5"},
+    {id:16, pId:12, name: "子节点6"},
+    {id:17, pId:12, name: "子节点7"},
+    {id:18, pId:13, name: "子节点8"},
+    {id:19, pId:14, name: "子节点9"},
+    {id:20, pId:15, name: "子节点10"},
+    {id:21, pId:16, name: "子节点11"}
+];
+   zTreeObj = $.fn.zTree.init($("#zTreeManager"), setting, nodes);
+   function getzTreeObject(){
+   	return $.fn.zTree.getZTreeObj("zTreeManager");
+   }
+   function zTreeBeforeDrop(treeId, treeNodes, targetNode, moveType) {
+	   var zTreeObject=$.fn.zTree.getZTreeObj(treeId);
+	   	var nodes=zTreeObject.getSelectedNodes();
+	   	var pId=nodes[0].pId;
+	    return !(targetNode == null || moveType != "inner" || !targetNode.pId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level);
+	}
+	/* var setting = {
         async: {
             enable: true,
             autoParam: ["categoryId=parentId"],
@@ -114,7 +160,7 @@ $("#editCategoey").hide();
     
     $.post(url,function(result){
        var resourcesTree=$.fn.zTree.init($("#zTreeManager"), setting,result);
-    },"json"); 
+    },"json"); */ 
     /* $.ajax({
     	url: "#springUrl('/categoryManager/getToolId.html')",
         type: "POST",
@@ -123,18 +169,55 @@ $("#editCategoey").hide();
         	var resourcesTree=$.fn.zTree.init($("#zTreeManager"), setting,data);
         }
     }); */
+    
     function addTree(){
-    	$("#editCategoey").show();
+    	/* var zTreeObject=this.getzTreeObject();
+    	var nodes=zTreeObject.getSelectedNodes();
+    	var childrenNodes=nodes[0].children;
+    	alert(childrenNodes); */
+    	var zTreeObject=this.getzTreeObject();
+    	var nodes=zTreeObject.getSelectedNodes();
+    	if(nodes.length===0){
+    		alert("请选择节点")
+    	}else if(nodes[0].level==3){
+    		alert("不能被添加");
+    	}else{
+    		var id=nodes[0].id;
+    		$("#editCategoey").show();
+    	} 
     }
     function delTree(){
-    	alert("22222222222");
+    	var zTreeObject=this.getzTreeObject();
+    	var nodes=zTreeObject.getSelectedNodes();
+    	var id=nodes[0].id;
+    	alert(id);
+    	
+    	if(nodes[0].pId==null){
+    	alert("不能删除根节点");	
+    	}else if(nodes[0].isParent){
+    		alert("不能删除父节点");
+    	} 
+    	
     }
     function editTree(){
     	$("#editCategoey").show();
+    	var zTreeObject=this.getzTreeObject();
+    	var nodes=zTreeObject.getSelectedNodes();
+    	var pId=nodes[0].pId;
+    	alert(pId);
+    	alert(nodes[0].level);
     }
     function save(){
     	alert("333333333");
-    	$("#editCategoey").hide();
+    	var categoryName=$("#categoryName").val();
+    	if(categoryName==null||categoryName==""){
+    		$("#categoryName").attr("placeholder","请输入类型名称");
+    	}else{
+    		$("#categoryName").removeAttr("placeholder");
+    		$("#categoryName").val("");
+    		$("option").removeAttr("selected");
+    	}
+    	/* $("#editCategoey").hide(); */
     }
     function cancel(){
     	$("#editCategoey").hide();
