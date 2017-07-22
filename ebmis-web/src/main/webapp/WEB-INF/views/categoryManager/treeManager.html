@@ -193,7 +193,7 @@ var nodes = [
  	   var zTreeObject=$.fn.zTree.getZTreeObj(treeId);
  	   	var nodes=zTreeObject.getSelectedNodes();
  	   	var parentId=nodes[0].parentId;
- 	    return !(targetNode == null || moveType != "inner" || !targetNode.parentId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level||nodes[0].isParent);
+ 	    return !(targetNode == null || moveType != "inner" || !targetNode.parentId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level);
  	}
     //拖拽事件处理
     function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
