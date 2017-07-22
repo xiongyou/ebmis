@@ -57,6 +57,23 @@
         <!-- 内存中的最大值 -->  
         <property name="maxInMemorySize" value="40960" />    
     </bean>   
+    <context:annotation-config />
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+
+    <bean id="contentNegotiationManager"
+        class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false" />
+        <property name="favorParameter" value="false" />
+        <property name="ignoreAcceptHeader" value="false" />
+        <property name="mediaTypes">
+            <value>
+                atom=application/atom+xml 
+                html=text/html
+                json=application/json 
+                *=*/*
+            </value>
+        </property>
+    </bean>
   <mvc:annotation-driven/>  
   <mvc:default-servlet-handler/>  
 </beans> 

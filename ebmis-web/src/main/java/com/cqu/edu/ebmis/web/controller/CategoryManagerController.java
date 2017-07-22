@@ -45,7 +45,7 @@ public class CategoryManagerController extends SuperController {
 	public List<CategoryManagerDO> getParentId(Model model) {
 		List<CategoryManagerDO> list=null;
 		String strParentId=request.getParameter("parentId");
-		if(strParentId!=null&&!strParentId.equals("")&&strParentId.equals("null")){
+		if(strParentId!=null&&!strParentId.equals("")&&!strParentId.equals("null")){
 			int parentId=Integer.parseInt(strParentId);
 			list=categoryManagerService.getByParentId(parentId);
 		}
