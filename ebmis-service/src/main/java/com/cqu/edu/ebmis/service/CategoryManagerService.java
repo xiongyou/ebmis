@@ -31,6 +31,11 @@ public interface CategoryManagerService {
 	 */
 	void del(int categoryId);
 	/**
+	 * 根据categoryId查询CategoryManagerDO
+	 * @param categoryManager
+	 */
+	CategoryManagerDO getById(int categoryId);
+	/**
 	 * 查询子级集合
 	 * @param parentId
 	 * @return

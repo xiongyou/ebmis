@@ -18,7 +18,7 @@ SpringWind - 项目管理
 	        </span>
 	        <div class="pull-right">
 	        	<div style="margin:5px 20px;float:left">
-		        	<span class="glyphicon glyphicon-refresh" title="刷新" style="font-size:20px"></span>
+		        	<span class="glyphicon glyphicon-refresh" onClick="reFresh()" title="刷新" style="font-size:20px"></span>
 		        </div>
 		        <div class="btn-group">
 					<button type="button" class="btn btn-primary dropdown-toggle" style="background:#00008B;width:70px" data-toggle="dropdown">操作 
@@ -45,6 +45,10 @@ SpringWind - 项目管理
         </div>
         <div class="box-body" style="margin:15px 10px 10px 0px">
             <form class="form-horizontal" id="form1">
+            <input type="hidden" id="handAction" name="handAction"/>
+            <input type="hidden" id="id" name="id"/>
+            <input type="hidden" id="pId" name="pId"/>
+            <input type="hidden" id="Leaf" name="Leaf"/>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">类别名称</label>
                   <div class="col-sm-10">
@@ -55,8 +59,8 @@ SpringWind - 项目管理
                   <label class="col-sm-2 control-label">是否显示</label>
                   <div class="col-sm-10">
                     <select name="visiable" class="form-control">
-                    	<option value="1">是</option>
-                    	<option value="0">否</option>
+                    	<option id="option1" value="1">是</option>
+                    	<option id="option2" value="0">否</option>
                     </select>
                   </div>
                 </div>
@@ -74,6 +78,7 @@ SpringWind - 项目管理
         </div>
 </div>
 
+
 #end
 #override("js")
 <script src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
@@ -87,6 +92,9 @@ SpringWind - 项目管理
 <script type="text/javascript">
 $("#editCategoey").hide();
 var zTreeObj;
+function getzTreeObject(){
+   	return $.fn.zTree.getZTreeObj("zTreeManager");
+   }
 // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
 /* var setting = {
 	edit: {
@@ -140,8 +148,17 @@ var nodes = [
             type:"post",
             url :"#springUrl('/categoryManager/getParentId')"
         },
+        edit: {
+    		drag: {
+    			isCopy: false,
+    			isMove: true
+    		},
+    			enable: true,
+    			showRemoveBtn: false,
+    			showRenameBtn: false
+    		},
         data: {
-            key:{name:""},
+            key:{name:"categoryName"},
             simpleData: {
                 enable: true,
                 idKey: "categoryId",
@@ -151,75 +168,229 @@ var nodes = [
         view: {
             selectedMulti: false
         },
-        callback:{
-            beforeDrop: null,
-            onDrop: null
-        }
+        callback: {
+    		beforeDrop: zTreeBeforeDrop
+    	}
     };
     var url="#springUrl('/categoryManager/getToolId.html')";
     
     $.post(url,function(result){
        var resourcesTree=$.fn.zTree.init($("#zTreeManager"), setting,result);
+       //展开节点
+       var nodes = resourcesTree.getNodes()
+       if(nodes.length >0){
+       resourcesTree.expandNode(nodes[0], true, false, false)
+       }
     },"json"); 
-    /*$.ajax({
-    	url: "#springUrl('/categoryManager/getToolId.html')",
-        type: "POST",
-        dataType:"json",
-        success: function(data){
-        	var resourcesTree=$.fn.zTree.init($("#zTreeManager"), setting,data);
-        }
-    }); */
-    
+    function zTreeBeforeDrop(treeId, treeNodes, targetNode, moveType) {
+ 	   var zTreeObject=$.fn.zTree.getZTreeObj(treeId);
+ 	   	var nodes=zTreeObject.getSelectedNodes();
+ 	   	var pId=nodes[0].pId;
+ 	    return !(targetNode == null || moveType != "inner" || !targetNode.pId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level);
+ 	}
     function addTree(){
-    	/* var zTreeObject=this.getzTreeObject();
-    	var nodes=zTreeObject.getSelectedNodes();
-    	var childrenNodes=nodes[0].children;
-    	alert(childrenNodes); */
+    	$("#handAction").val("");
+    	$("#categoryName").removeAttr("placeholder");
+		$("#categoryName").val("");
+		$("option").removeAttr("selected");
+		$("#id").val("");
+    	$("#pId").val("");
     	var zTreeObject=this.getzTreeObject();
     	var nodes=zTreeObject.getSelectedNodes();
     	if(nodes.length===0){
-    		alert("请选择节点")
+    		layer.alert('请选择节点', {
+    			  skin: 'layui-layer-molv',
+    			  closeBtn: 0
+    			});
     	}else if(nodes[0].level==3){
-    		alert("不能被添加");
+    		layer.alert('已经最底层了,不能再添加啦!', {
+  			  skin: 'layui-layer-molv',
+  			  closeBtn: 0
+  			});
     	}else{
-    		var id=nodes[0].id;
     		$("#editCategoey").show();
+    		$("#handAction").val("add");
     	} 
     }
     function delTree(){
     	var zTreeObject=this.getzTreeObject();
     	var nodes=zTreeObject.getSelectedNodes();
-    	var id=nodes[0].id;
-    	alert(id);
-    	
-    	if(nodes[0].pId==null){
-    	alert("不能删除根节点");	
+    	if(nodes.length===0){
+    		layer.alert('请选择节点', {
+  			  skin: 'layui-layer-molv',
+  			  closeBtn: 0
+  			});
+    	}else if(nodes[0].parentId==null){
+    		layer.alert('不能删除根节点', {
+  			  skin: 'layui-layer-molv',
+  			  closeBtn: 0
+  			});
     	}else if(nodes[0].isParent){
-    		alert("不能删除父节点");
+    		layer.alert('不能删除父节点', {
+    			  skin: 'layui-layer-molv',
+    			  closeBtn: 0
+    			});
+    	}else{
+    		 //询问框
+            layer.confirm('确定删除吗？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+            	var pId=-2;
+        		var selectNodeParent=nodes[0].getParentNode()
+        		if(nodes[0].getPreNode()==null&&nodes[0].getNextNode()==null){
+        			pId=nodes[0].getParentNode().categoryId;
+        			selectNodeParent.isParent=false
+        			zTreeObject.updateNode(selectNodeParent)
+        		}
+        		 
+        		var id=nodes[0].categoryId;
+        		var url="#springUrl('/categoryManager/del')";
+        		var date={id:id,pId:pId};
+        		$.post(url,date,function(result){
+            		var d = JSON.parse(result);
+                    if(!d.success){
+                    	var error=d.data;
+	            		layer.alert(error, {
+	          			  skin: 'layui-layer-molv',
+	          			  closeBtn: 0
+	          			});
+                    }else{
+                    	layer.closeAll();
+                    	zTreeObject.reAsyncChildNodes(selectNodeParent, "refresh");
+                    }
+        	    });
+            }, function () {
+                return;
+            });
+    		 
     	} 
     	
     }
     function editTree(){
-    	$("#editCategoey").show();
+    	$("#handAction").val("");
+    	$("#categoryName").removeAttr("placeholder");
+		$("#categoryName").val("");
+		$("option").removeAttr("selected");
+		$("#id").val("");
+    	$("#pId").val("");
     	var zTreeObject=this.getzTreeObject();
     	var nodes=zTreeObject.getSelectedNodes();
-    	var pId=nodes[0].pId;
-    	alert(pId);
-    	alert(nodes[0].level);
+    	if(nodes.length===0){
+    		layer.alert('请选择节点', {
+  			  skin: 'layui-layer-molv',
+  			  closeBtn: 0
+  			});
+    	}else if(nodes[0].parentId==null){
+    		layer.alert('不能编辑根节点', {
+    			  skin: 'layui-layer-molv',
+    			  closeBtn: 0
+    			});
+    	}else{
+    		$("#editCategoey").show();
+    		$("#handAction").val("edit");
+    		var id=nodes[0].categoryId;
+    		var date={id:id};
+        	var url="#springUrl('/categoryManager/getById')";
+        	$.post(url,date,function(result){
+        		var categoryName=result.categoryName;
+        		var Leaf=result.isLeaf;
+        		$("#categoryName").val(categoryName);
+        		$("#Leaf").val(Leaf);
+        		if(result.visiable==1){
+        			$("#option1").attr("selected","selected");
+        		}else{
+        			$("#option2").attr("selected","selected");
+        		}
+        	});
+    		
+    	} 
+    }
+    function reFresh(){
+    	var zTreeObject=this.getzTreeObject();
+    	var nodes = zTreeObject.getNodes()
+        if(nodes.length >0){
+        	zTreeObject.reAsyncChildNodes(nodes[0], "refresh");
+        }
     }
     function save(){
-    	alert("333333333");
+    	var handAction=$("#handAction").val();
     	var categoryName=$("#categoryName").val();
-    	if(categoryName==null||categoryName==""){
-    		$("#categoryName").attr("placeholder","请输入类型名称");
-    	}else{
-    		$("#categoryName").removeAttr("placeholder");
-    		$("#categoryName").val("");
-    		$("option").removeAttr("selected");
+    	if(handAction=="add"){
+        	if(categoryName==null||categoryName==""){
+        		$("#categoryName").attr("placeholder","请输入类型名称");
+        	}else{
+        		var zTreeObject=this.getzTreeObject();
+            	var nodes=zTreeObject.getSelectedNodes();
+            	var id=nodes[0].categoryId;
+            	$("#id").val(id);
+            	var date=$("#form1").serialize();
+            	var url="#springUrl('/categoryManager/save')";
+		            	
+            	$.post(url,date,function(result){
+	            		var d = JSON.parse(result);
+	            		$("#categoryName").removeAttr("placeholder");
+	            		$("#categoryName").val("");
+	            		$("option").removeAttr("selected");
+	            		$("#editCategoey").hide();
+		                if(!d.success){
+		            		var error=d.data;
+		            		layer.alert(error, {
+		          			  skin: 'layui-layer-molv',
+		          			  closeBtn: 0
+		          			});
+		                }else{
+		                	if(nodes[0].isParent==false){
+		            			nodes[0].isParent=true;
+		            			zTreeObject.updateNode(nodes[0]);
+		            		}
+		            		zTreeObject.reAsyncChildNodes(nodes[0], "refresh");
+		                }
+            	    });
+        		
+        	}
     	}
-    	/* $("#editCategoey").hide(); */
+    	if(handAction=="edit"){
+        	if(categoryName==null||categoryName==""){
+        		$("#categoryName").attr("placeholder","请输入类型名称");
+        	}else{
+        		var zTreeObject=this.getzTreeObject();
+            	var nodes=zTreeObject.getSelectedNodes();
+            	var id=nodes[0].categoryId;
+            	var pId=nodes[0].parentId;
+            	$("#id").val(id);
+            	$("#pId").val(pId);
+            	var date=$("#form1").serialize();
+            	var url="#springUrl('/categoryManager/update')";
+            	$.post(url,date,function(result){
+	            		var d = JSON.parse(result);
+	            		$("#categoryName").removeAttr("placeholder");
+	            		$("#categoryName").val("");
+	            		$("option").removeAttr("selected");
+	            		$("#editCategoey").hide();
+		                if(!d.success){
+		                	var error=d.data;
+		            		layer.alert(error, {
+		          			  skin: 'layui-layer-molv',
+		          			  closeBtn: 0
+		          			});
+		                }else{
+		                	 nodes[0].categoryName=categoryName;
+		                	 zTreeObject.updateNode(nodes[0]);
+		            		zTreeObject.reAsyncChildNodes(nodes[0], "refresh");
+		                }
+            	    });
+        		
+        	}
+    	}
+    	
     }
     function cancel(){
+    	$("#handAction").val("");
+    	$("#categoryName").removeAttr("placeholder");
+		$("#categoryName").val("");
+		$("option").removeAttr("selected");
+		$("#id").val("");
+    	$("#pId").val("");
     	$("#editCategoey").hide();
     }
 </script>

@@ -16,11 +16,12 @@ public class CategoryManagerDO {
 	/**
 	 * 是否是父节点
 	 */
-	private int	 isParent;
+	private String isParent;
 	/**
 	 * 是否显示
 	 */
 	private Integer visiable;
+	private Integer isLeaf;
 	public Integer getCategoryId() {
 		return categoryId;
 	}
@@ -39,10 +40,11 @@ public class CategoryManagerDO {
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
-	public int getIsParent() {
+	
+	public String getIsParent() {
 		return isParent;
 	}
-	public void setIsParent(int isParent) {
+	public void setIsParent(String isParent) {
 		this.isParent = isParent;
 	}
 	public Integer getVisiable() {
@@ -50,6 +52,17 @@ public class CategoryManagerDO {
 	}
 	public void setVisiable(Integer visiable) {
 		this.visiable = visiable;
+	}
+	public Integer getIsLeaf() {
+		return isLeaf;
+	}
+	public void setIsLeaf(Integer isLeaf) {
+		this.isLeaf = isLeaf;
+		if(isLeaf==0){
+			this.isParent="false";
+		}else{
+			this.isParent="true";
+		}
 	}
 	
 	

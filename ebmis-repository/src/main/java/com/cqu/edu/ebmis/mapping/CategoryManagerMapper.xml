@@ -9,9 +9,10 @@
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="visiable" jdbcType="INTEGER" property="visiable" />
+    <result column="isleaf" jdbcType="INTEGER" property="isLeaf" />
   </resultMap>
   <sql id="CategoryManager_Column" >
-    category_id, category_name, parent_id, visiable
+    category_id, category_name, parent_id, visiable, isleaf
   </sql>
 
   <select id="getByParentId" resultMap="CategoryManagerResultMap" parameterType="java.lang.Integer">
@@ -19,6 +20,12 @@
     <include refid="CategoryManager_Column" />
     from category_manager  
     where parent_id = #{parentId,jdbcType=INTEGER}
+  </select>
+  <select id="getById" resultMap="CategoryManagerResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="CategoryManager_Column" />
+    from category_manager  
+    where category_id = #{categoryId,jdbcType=INTEGER}
   </select>
   
   <delete id="del" parameterType="java.lang.Integer">
@@ -33,7 +40,7 @@
   
   <update id="update" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
     update category_manager
-    set category_name = #{categoryName,jdbcType=VARCHAR},visiable = #{visiable,jdbcType=INTEGER}
+    set category_name = #{categoryName,jdbcType=VARCHAR},visiable = #{visiable,jdbcType=INTEGER},isleaf=#{isLeaf,jdbcType=INTEGER}
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
   
