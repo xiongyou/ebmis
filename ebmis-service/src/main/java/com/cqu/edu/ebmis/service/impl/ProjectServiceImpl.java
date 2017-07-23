@@ -60,4 +60,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return page;
 	}
 
+	public Page<ProjectDO> findByPageField(Page<ProjectDO> page, String field) {
+		List<ProjectDO> projects = projectRepository.selectByPageField(
+				page.getLimit() , page.getOffset(),field);
+		page.setTotal(projectRepository.selectAllCountField(field));
+		
+		page.setRecords(projects);
+		return page;
+	}
+
+
 }

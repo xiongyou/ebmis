@@ -23,6 +23,11 @@ public interface CategoryManagerMapper {
 	 */
 	void update(CategoryManagerDO categoryManager);
 	/**
+	 * 修改父节点
+	 * @param categoryManager
+	 */
+	void updateById(CategoryManagerDO categoryManager);
+	/**
 	 * 删除类型节点
 	 * @param categoryManager
 	 */

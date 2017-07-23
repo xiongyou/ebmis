@@ -45,5 +45,11 @@ public class CategoryManagerServiceImpl implements CategoryManagerService {
 		return catetoryManagerRepository.getById(categoryId);
 	}
 
+	public void updateById(CategoryManagerDO categoryManager) {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.updateById(categoryManager);
+	}
+
+
 	
 }

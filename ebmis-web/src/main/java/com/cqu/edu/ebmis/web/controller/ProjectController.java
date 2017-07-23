@@ -47,6 +47,17 @@ public class ProjectController extends SuperController {
 		projectService.findByPage(page);
 		return jsonPage(page);
 	}
+	@ResponseBody
+	@RequestMapping("/getProjectListField")
+	public String getProjectListField() {
+		String field="%";
+		String field1=request.getParameter("field");
+		field+=field1+"%";
+		Page<ProjectDO> page = getPage();
+		
+		projectService.findByPageField(page,field);
+		return jsonPage(page);
+	}
 	
 	@RequestMapping("/edit")
 	public String edit(Model model) {

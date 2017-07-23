@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,6 +137,51 @@ public class CategoryManagerController extends SuperController {
 			// TODO: handle exception
 			e.printStackTrace();
 			String success="修改失败";
+			json.put("success" , false);
+			json.put("data" , success);
+		}
+		return json.toJSONString();
+	}
+	//拖拽修改父节点pId
+	@ResponseBody
+	@RequestMapping("/updatePId")
+	public String updatePId(Model model) {
+		JSONObject json = new JSONObject();
+		try {
+			String parentId1=request.getParameter("pId");
+			Integer parentId=Integer.parseInt(parentId1);
+			CategoryManagerDO categoryManagerDO=new CategoryManagerDO();
+			categoryManagerDO.setParentId(parentId);
+			String length1=request.getParameter("length");
+			Integer length=Integer.parseInt(length1);
+				for(int i=0;i<length;i++){
+					String categoryId1=request.getParameter("categoryId"+i);
+					Integer categoryId=Integer.parseInt(categoryId1);
+					categoryManagerDO.setCategoryId(categoryId);
+					categoryManagerService.updateById(categoryManagerDO);
+				}
+			//查询拖拽目的节点是否是展开的  即isleaf=1
+			CategoryManagerDO categoryManagerDO1=categoryManagerService.getById(parentId);
+			if(categoryManagerDO1.getIsLeaf()==0){
+				categoryManagerDO1.setIsLeaf(1);
+				categoryManagerService.update(categoryManagerDO1);
+			}
+			//查询拖拽后它的父目录下是否还有节点  有就不修改isleaf 否则修改isleaf=1
+			String preParentId1=request.getParameter("parentId");
+			Integer preParentId=Integer.parseInt(preParentId1);
+			List<CategoryManagerDO> categoryManagerDOList=categoryManagerService.getByParentId(preParentId);
+			if(categoryManagerDOList.size()<1){
+				CategoryManagerDO categoryManagerDO2=categoryManagerService.getById(preParentId);
+				categoryManagerDO2.setIsLeaf(0);
+				categoryManagerService.update(categoryManagerDO2);
+			}
+			String success="拖拽成功";
+			json.put("success" , true);
+			json.put("data" , success);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			String success="拖拽失败";
 			json.put("success" , false);
 			json.put("data" , success);
 		}

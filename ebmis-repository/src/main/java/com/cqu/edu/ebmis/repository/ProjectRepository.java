@@ -2,6 +2,8 @@ package com.cqu.edu.ebmis.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.cqu.edu.ebmis.domain.ProjectDO;
 
 public interface ProjectRepository {
@@ -69,4 +71,16 @@ public interface ProjectRepository {
 	 * @return
 	 */
 	public int selectAllCount();
+	/**分页字段查找
+	 * @param searchContent
+	 * @return
+	 */
+	public List<ProjectDO> selectByPageField(int size,
+			int offset,String field);
+	
+	/**
+	 * 该字段所有的数量
+	 * @return
+	 */
+	public int selectAllCountField(String field); 
 }

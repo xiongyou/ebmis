@@ -71,4 +71,19 @@
     count(*) 
     from _crawler_project  
   </select>
+  <select id="selectByPageField" resultMap="BaseResultMap">
+    select
+    * 
+    from _crawler_project 
+    WHERE _project_id LIKE #{field} or _project_description LIKE #{field} OR _project_name LIKE #{field} 
+    order by _project_id
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectAllCountField" resultType="int">
+    select
+    count(_project_id) 
+    from _crawler_project
+    WHERE _project_id LIKE #{field} or _project_description LIKE #{field} OR _project_name LIKE #{field}  
+  </select>
 </mapper>

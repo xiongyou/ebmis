@@ -51,6 +51,12 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 		// TODO Auto-generated method stub
 		return categoryManagerMapper.getById(categoryId);
 	}
-	
+
+	@Override
+	public void updateById(CategoryManagerDO categoryManager) {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.updateById(categoryManager);
+	}
+
 	
 }

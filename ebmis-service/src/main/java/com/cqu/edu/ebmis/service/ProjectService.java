@@ -75,4 +75,13 @@ public interface ProjectService {
 	 */
 	Page<ProjectDO> findByPage(Page<ProjectDO> page);
 	
+	/**
+	 * 分页字段查询
+	 * 
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<ProjectDO> findByPageField(Page<ProjectDO> page,String field);
+	
 }

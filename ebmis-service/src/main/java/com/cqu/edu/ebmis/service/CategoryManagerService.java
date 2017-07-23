@@ -41,4 +41,9 @@ public interface CategoryManagerService {
 	 * @return
 	 */
 	List<CategoryManagerDO> getByParentId(int parentId);
+	/**
+	 * 修改父节点
+	 * @param categoryManager
+	 */
+	void updateById(CategoryManagerDO categoryManager);
 }

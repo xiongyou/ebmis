@@ -71,4 +71,16 @@ public interface ProjectMapper {
 	 * @return
 	 */
 	public int selectAllCount();
+	/**分页字段查找
+	 * @param searchContent
+	 * @return
+	 */
+	public List<ProjectDO> selectByPageField(@Param("size") int size,
+			@Param("offset") int offset,@Param("field") String field);
+	
+	/**
+	 * 该字段所有的数量
+	 * @return
+	 */
+	public int selectAllCountField(@Param("field") String field);
 }

@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.domain;
 
+import java.util.List;
 
 public class CategoryManagerDO {
 	
@@ -64,7 +65,5 @@ public class CategoryManagerDO {
 			this.isParent="true";
 		}
 	}
-	
-	
 	
 }

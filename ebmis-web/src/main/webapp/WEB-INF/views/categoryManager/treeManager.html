@@ -49,6 +49,7 @@ SpringWind - 项目管理
             <input type="hidden" id="id" name="id"/>
             <input type="hidden" id="pId" name="pId"/>
             <input type="hidden" id="Leaf" name="Leaf"/>
+            <input type="hidden" id="nodeParentId" name="nodeParentId"/>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">类别名称</label>
                   <div class="col-sm-10">
@@ -171,7 +172,8 @@ var nodes = [
         callback: {
     		beforeDrop: zTreeBeforeDrop,
     		onDrop: zTreeOnDrop, 
-    		onClick: zTreeOnClick
+    		onClick: zTreeOnClick,
+    		onMouseDown: zTreeOnMouseDown
     	}
     };
     var url="#springUrl('/categoryManager/getToolId.html')";
@@ -184,9 +186,17 @@ var nodes = [
        resourcesTree.expandNode(nodes[0], true, false, false)
        }
     },"json");
+    //鼠标按下事件
+    function zTreeOnMouseDown(event, treeId, treeNode) {
+    	if(treeNode!=null){
+    		var nodeParentId=treeNode.parentId;
+        	$("#nodeParentId").val(nodeParentId);
+    	}
+    };
     //点击事件
     function zTreeOnClick(event, treeId, treeNode) {
     	$("#editCategoey").hide();
+    	
     }
     //拖拽之前的事件处理
     function zTreeBeforeDrop(treeId, treeNodes, targetNode, moveType) {
@@ -197,21 +207,35 @@ var nodes = [
  	}
     //拖拽事件处理
     function zTreeOnDrop(event, treeId, treeNodes, targetNode, moveType) {
+    	if(null==targetNode){
+    		return
+    	}
     	var categoryId=targetNode.categoryId;
-    	var jsonStr="{"
-    		jsonStr+="pId:"+categoryId+","
+    	var parentId=$("#nodeParentId").val();
+    	var length=treeNodes.length;
+    	var jsonStr="{";
+    		jsonStr+="pId:"+categoryId+","+"length:"+length+","+"parentId:"+parentId+",";
     	for(var i=0;i<treeNodes.length;i++){
     		jsonStr+="categoryId"+i+":"+treeNodes[i].categoryId+",";
     	}
     	var jsonStr1=jsonStr.substr(0,jsonStr.length-1);
     	jsonStr1+="}";
     	var date=eval('(' + jsonStr1 + ')');
-    	/* var url="#springUrl('/categoryManager/save')";
-    	
-    	$.post(url,date,function(result){
+    	var url="#springUrl('/categoryManager/updatePId')";
+			$.post(url,date,function(result){
+				var d = JSON.parse(result);
+                if(!d.success){
+                	var error=d.data;
+            		layer.alert(error, {
+          			  skin: 'layui-layer-molv',
+          			  closeBtn: 0
+          			});
+                }else{
+                	layer.closeAll();
+                }
         		
-    	    }); */
-        alert(treeNodes.length +"  "+treeNodes[0].categoryName+"  "+targetNode.categoryName);
+    	    });
+    	var parentId=$("#nodeParentId").val("");  
     };
     function addTree(){
     	$("#handAction").val("");
@@ -227,7 +251,7 @@ var nodes = [
     			  skin: 'layui-layer-molv',
     			  closeBtn: 0
     			});
-    	}else if(nodes[0].level==3){
+    	}else if(nodes[0].level==4){
     		layer.alert('已经最底层了,不能再添加啦!', {
   			  skin: 'layui-layer-molv',
   			  closeBtn: 0
@@ -235,7 +259,7 @@ var nodes = [
     	}else{
     		$("#editCategoey").show();
     		$("#handAction").val("add");
-    	} 
+    	}  
     }
     function delTree(){
     	var zTreeObject=this.getzTreeObject();

@@ -15,9 +15,9 @@ SpringWind - 项目管理
 		<i class="fa fa-pencil"></i>&nbsp;添加项目</button>
 	</div>
 		<div class="pull-right input-group">
-			<input type="text" class="form-control">
+			<input type="text" id="field" name="field" value="" class="form-control">
 			<span class="input-group-btn">
-				<button type="button" class="btn btn-info">搜索</button>
+				<button type="button" onClick="search()" class="btn btn-info">搜索</button>
 			</span>
 		</div>
 	</div>
@@ -77,6 +77,15 @@ SpringWind - 项目管理
         }
     }
     ];
+    function search(){
+    	var field=$("#field").val();
+    	var opt = {
+    	        url: "#springUrl('/project/getProjectListField.html?field="+field+"')"
+    	    };
+    	/* dataUrl = "#springUrl('/project/getProjectListField.html?field="+field+"')"; */
+    	$("#dataTable").bootstrapTable('refresh', opt);
+
+    }
     function dataQueryParams(params) {
         return {
             _size: params.limit,  //页面大小

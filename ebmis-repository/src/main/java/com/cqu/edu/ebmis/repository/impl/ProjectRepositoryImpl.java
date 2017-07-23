@@ -64,6 +64,18 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 	public int selectAllCount() {
 		return projectMapper.selectAllCount();
 	}
+
+	@Override
+	public List<ProjectDO> selectByPageField(int size, int offset, String field) {
+		// TODO Auto-generated method stub
+		return projectMapper.selectByPageField(size, offset, field);
+	}
+
+	@Override
+	public int selectAllCountField(String field) {
+		// TODO Auto-generated method stub
+		return projectMapper.selectAllCountField(field);
+	}
 	
 	
 	
