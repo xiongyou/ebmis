@@ -71,5 +71,13 @@ public interface TaskService {
 	 * @return
 	 */
 	Page<TaskDO> findByPage(int projectId,Page<TaskDO> page);
+	/**
+	 * 分页字段查询
+	 * 
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<TaskDO> findByPageField(int projectId,Page<TaskDO> page,String field);
 	
 }

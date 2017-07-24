@@ -161,6 +161,13 @@ public class TaskServiceImpl implements TaskService {
 		page.setRecords(tasks);
 		return page;
 	}
+	public Page<TaskDO> findByPageField(int projectId,Page<TaskDO> page,String field) {
+		List<TaskDO> tasks = taskRepository.selectByPageProjectField(projectId, page.getLimit(), page.getOffset(),field);
+		page.setTotal(taskRepository.selectAllCountProjectField(projectId,field));
+		
+		page.setRecords(tasks);
+		return page;
+	}
 	
 	/**
 	 * 生成初始任务

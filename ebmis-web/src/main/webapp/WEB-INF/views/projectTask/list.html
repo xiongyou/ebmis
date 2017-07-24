@@ -5,7 +5,7 @@ SpringWind - 任务管理
 <link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
 #end
 #override("breadcrumb")
-<li><a>资源管理</a></li><li class="active"><strong>项目管理</strong></li><li class="active"><strong>任务管理</strong></li>
+<li><a>资源管理</a></li><li class="active"><a>项目管理</a></li><li class="active"><a>任务管理</a></li>
 #end
 #override("content")
 <div class="row">
@@ -19,9 +19,9 @@ SpringWind - 任务管理
 			<i class="fa fa-pencil"></i>&nbsp;批量添加</button>
 		</div>
 		<div class="input-group pull-right">
-			<input type="text" class="form-control">
+			<input type="text" id="field" name="field" value="" class="form-control">
 			<span class="input-group-btn">
-				<button type="button" class="btn btn-info">搜索</button>
+				<button type="button" onClick="search()" class="btn btn-info">搜索</button>
 			</span>
 		</div>
 		<input type="hidden" class="form-control" id="projectID" name="projectID" value="$!{projectID}">
@@ -71,6 +71,14 @@ SpringWind - 任务管理
         }
     }
     ];
+    function search(){
+    	var field=$("#field").val();
+    	var opt = {
+    	        url: "#springUrl('/projectTask/getProjectTaskListField.html?projectID="+projectID+"&field="+field+"')"
+    	    };
+    	$("#dataTable").bootstrapTable('refresh', opt);
+
+    }
     function dataQueryParams(params) {
         return {
             _size: params.limit,  //页面大小

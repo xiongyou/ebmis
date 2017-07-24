@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.cqu.edu.ebmis.domain.ProjectDO;
 import com.cqu.edu.ebmis.domain.TaskDO;
 
 public interface TaskMapper {
@@ -94,7 +95,19 @@ public interface TaskMapper {
 	 * @return
 	 */
 	public int selectAllCountProject(@Param("projectId")int projectId);
+	/**
+	 * 根据项目ID分页字段查找其所有的任务列表
+	 * @param searchContent
+	 * @return
+	 */
+	public List<TaskDO> selectByPageProjectField(@Param("projectId")int projectId,@Param("size") int size,
+			@Param("offset") int offset,@Param("field") String field);
 	
+	/**
+	 * 根据项目ID该字段所有的数量
+	 * @return
+	 */
+	public int selectAllCountProjectField(@Param("projectId")int projectId,@Param("field") String field);
 	
 	/**
 	 * 查询某一项目下所有任务，得到一个任务中所有的MD5码和关键字

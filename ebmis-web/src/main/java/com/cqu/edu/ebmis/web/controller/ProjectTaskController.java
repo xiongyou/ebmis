@@ -26,7 +26,7 @@ import com.cqu.edu.ebmis.service.TaskService;
 import com.cqu.edu.ebmis.service.page.Page;
 
 /**
- * 三级分类管理
+ * 项目任务管理
  * 
  * @author mxl
  * @version $ CategoryController.java v1.0, 2017年5月5日 上午11:38:18 mxl Exp $
@@ -35,8 +35,6 @@ import com.cqu.edu.ebmis.service.page.Page;
 @RequestMapping("/projectTask")
 public class ProjectTaskController extends SuperController {
 	
-	/** 三级层级 */
-	private final static int	THRID_LEVEL	= 2;
 	
 	@Autowired
 	private TaskService	taskService;
@@ -55,6 +53,18 @@ public class ProjectTaskController extends SuperController {
 		String projectID1 = request.getParameter("projectID");
 		int projectID=Integer.parseInt(projectID1);
 		taskService.findByPage(projectID,page);
+		return jsonPage(page);
+	}
+	@ResponseBody
+	@RequestMapping("/getProjectTaskListField")
+	public String getProjectTaskListField() {
+		String field="%";
+		String field1=request.getParameter("field");
+		field+=field1+"%";
+		Page<TaskDO> page = getPage();
+		String projectID1 = request.getParameter("projectID");
+		int projectID=Integer.parseInt(projectID1);
+		taskService.findByPageField(projectID,page,field);
 		return jsonPage(page);
 	}
 	@RequestMapping("/edit")
@@ -101,9 +111,7 @@ public class ProjectTaskController extends SuperController {
 				taskService.update(taskDO);
 				success1="修改成功";
 			}else{
-				System.out.println("1111111111111");
 				taskService.save(taskDO,projectIds);
-				System.out.println("222222222222222222");
 				success1="添加成功";
 			}
 			json.put("success" , true);
@@ -152,11 +160,9 @@ public class ProjectTaskController extends SuperController {
 	        String strPath=path.replace("\\", "/");
 	        String filePath=strPath+"/"+fileName;
 	        String fileUrl=request.getContextPath()+"/upload/"+fileName;
-			System.out.println("44444444444444444");
 			taskService.saveBatch(projectId,dataObj,projectIds,filePath);
 			json.put("success" , true);
 			json.put("data" , "修改成功");
-			System.out.println("5555555555555555");
 		} catch (Exception e) {
 			e.printStackTrace();
 			json.put("success" , false);
