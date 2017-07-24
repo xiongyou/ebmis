@@ -40,7 +40,7 @@
   
   <update id="update" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
     update category_manager
-    set category_name = #{categoryName,jdbcType=VARCHAR},visiable = #{visiable,jdbcType=INTEGER},isleaf=#{isLeaf,jdbcType=INTEGER}
+    set category_name = #{categoryName,jdbcType=VARCHAR},isleaf=#{isLeaf,jdbcType=INTEGER}
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
   <update id="updateById" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >

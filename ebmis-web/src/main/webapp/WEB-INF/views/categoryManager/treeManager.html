@@ -19,64 +19,59 @@ line-height:23px;
 <li><a>资源管理</a></li><li class="active"><a>农产品维护</a></li>
 #end
 #override("content")
-<div class="panel panel-default col-lg-7" style="padding:0px;margin:20px 50px 80px 50px">
-    <div class="panel-heading" style="height:56px;background:#337ab7">
-	        <span class="pull-left" style="margin:2px 0px 2px 10px;color:#fff;font-size:20px">
+<div class="panel panel-default col-lg-11" style="padding:0px;margin:20px 50px 80px 50px">
+    <div class="panel-heading" style="height:45px;background:#337ab7">
+	        <span class="pull-left" style="margin:0px 0px 2px 10px;color:#fff;font-size:20px">
 	            	农产品维护
 	        </span>
 	        <div class="pull-right">
-	        	<div style="margin:5px 20px;float:left">
+	        	<div style="margin:0px 20px;float:left">
 		        	<span class="glyphicon glyphicon-refresh" onClick="reFresh()" title="刷新" style="font-size:20px"></span>
 		        </div>
-		        <!-- <div class="btn-group">
-					<button type="button" class="btn btn-primary dropdown-toggle" style="background:#00008B;width:70px" data-toggle="dropdown">操作 
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu pull-right" style="min-width:0px;width:70px" role="menu">
-						<li><a href="#" onClick="addTree()">增加</a></li>
-						<li><a href="#" onClick="delTree()">删除</a></li>
-						<li><a href="#" onClick="editTree()">编辑</a></li>
-					</ul>
-				</div> -->
 			</div>
     </div>
     <div class="panel-body" style="height:100%;border-top:2px solid #00FF7F">
        <div id="context" data-toggle="context" data-target="#context-menu">
-   		<ul id="zTreeManager" class="ztree" style="padding:20px 0px 20px 30px"></ul>
+   		<ul id="zTreeManager" class="ztree" style="padding:10px 0px 20px 20px"></ul>
 	   </div>
     </div>
 </div>
-<div class="col-lg-4" id="editCategoey" style="background:#fff;padding:0px;margin:20px 0px 80px 0px;border-top:2px solid #00FF7F">
-	<div class="box box-info">
-        <div class="box-header with-border" style="border-bottom:1px solid #e5e6e7;padding:8px 0px 3px 10px">
-          <h3 class="box-title">添加类别</h3>
-        </div>
-        <div class="box-body" style="margin:15px 10px 10px 0px">
-            <form class="form-horizontal" id="form1">
-            <input type="hidden" id="handAction" name="handAction"/>
-            <input type="hidden" id="id" name="id"/>
-            <input type="hidden" id="pId" name="pId"/>
-            <input type="hidden" id="Leaf" name="Leaf"/>
-            <input type="hidden" id="nodeParentId" name="nodeParentId"/>
-                <div class="form-group">
-                  <label class="col-sm-3 control-label">类别名称</label>
-                  <div class="col-sm-9">
-                    <input type="text" id="categoryName" name="categoryName" class="form-control"/>
-                  </div>
-                </div>
-
-            </form>
-          </div>
-          <div class="box-footer">
-            <div class="pull-right" style="margin:0px 10px 10px 0px">
-              <div class="buttons">
-                <button class="btn btn-primary btn-flat" onClick="save()"><i class="fa fa-save"></i>保存</button>
-                <button class="btn btn-danger btn-flat" onClick="cancel()"><i class="fa fa-close"></i>取消</button>
-              </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加</h4>
             </div>
-          </div>
-        </div>
+            <div class="modal-body">
+            	<form class="form-horizontal" id="form1">
+		            <input type="hidden" id="handAction" name="handAction"/>
+		            <input type="hidden" id="id" name="id"/>
+		            <input type="hidden" id="pId" name="pId"/>
+		            <input type="hidden" id="Leaf" name="Leaf"/>
+		            <input type="hidden" id="nodeParentId" name="nodeParentId"/>
+	                <div class="form-group">
+	                  <label class="col-sm-3 control-label">类别名称</label>
+	                  <div class="col-sm-9">
+	                    <input type="text" id="categoryName" name="categoryName" class="form-control"/>
+	                  </div>
+	                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <div class="pull-right" style="margin:0px 10px 10px 0px">
+	              <div class="buttons">
+	                <button class="btn btn-primary btn-flat" onClick="save()"><i class="fa fa-save"></i>保存</button>
+	                <button class="btn btn-danger btn-flat" onClick="cancel()" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
+	              </div>
+              </div>
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交更改</button>  -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
+<!-- /.modal -->
 <div id="context-menu">
   <ul class="dropdown-menu" style="min-width:0px;width:70px" role="menu">
 						<li><a href="#" data-toggle="modal" onClick="addTree()">增加</a></li>
@@ -87,7 +82,6 @@ line-height:23px;
 
 #end
 #override("js")
-<script src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
 <script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
 <script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
 <script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
@@ -98,7 +92,7 @@ line-height:23px;
 <script src="#springUrl('/static/js/bootstrap-contextmenu.js')"></script>
 <script src="#springUrl('/static/js/prettify.js')"></script>
 <script type="text/javascript">
-$("#editCategoey").hide();
+/* $("#editCategoey").hide(); */
 var zTreeObj;
 function getzTreeObject(){
    	return $.fn.zTree.getZTreeObj("zTreeManager");
@@ -219,7 +213,6 @@ function getzTreeObject(){
     	$("#handAction").val("");
     	$("#categoryName").removeAttr("placeholder");
 		$("#categoryName").val("");
-		$("option").removeAttr("selected");
 		$("#id").val("");
     	$("#pId").val("");
     	var zTreeObject=this.getzTreeObject();
@@ -235,7 +228,7 @@ function getzTreeObject(){
   			  closeBtn: 0
   			});
     	}else{
-    		$("#editCategoey").show();
+    		$('#myModal').modal('show');
     		$("#handAction").val("add");
     	}  
     }
@@ -312,7 +305,7 @@ function getzTreeObject(){
     			  closeBtn: 0
     			});
     	}else{
-    		$("#editCategoey").show();
+    		$('#myModal').modal('show');
     		$("#handAction").val("edit");
     		var id=nodes[0].categoryId;
     		var date={id:id};
@@ -322,13 +315,6 @@ function getzTreeObject(){
         		var Leaf=result.isLeaf;
         		$("#categoryName").val(categoryName);
         		$("#Leaf").val(Leaf);
-        		if(result.visiable==1){
-        			$("#option1").prop("selected",true);
-        			$("#option2").prop("selected",false);
-        		}else{
-        			$("#option2").prop("selected",true);
-        			$("#option1").prop("selected",false);
-        		}
         	});
     		
     	} 
@@ -358,8 +344,6 @@ function getzTreeObject(){
 	            		var d = JSON.parse(result);
 	            		$("#categoryName").removeAttr("placeholder");
 	            		$("#categoryName").val("");
-	            		$("option").removeAttr("selected");
-	            		$("#editCategoey").hide();
 		                if(!d.success){
 		            		var error=d.data;
 		            		layer.alert(error, {
@@ -367,6 +351,7 @@ function getzTreeObject(){
 		          			  closeBtn: 0
 		          			});
 		                }else{
+		                	$('#myModal').modal('hide');
 		                	if(nodes[0].isParent==false){
 		            			nodes[0].isParent=true;
 		            			zTreeObject.updateNode(nodes[0]);
@@ -393,8 +378,6 @@ function getzTreeObject(){
 	            		var d = JSON.parse(result);
 	            		$("#categoryName").removeAttr("placeholder");
 	            		$("#categoryName").val("");
-	            		$("option").removeAttr("selected");
-	            		$("#editCategoey").hide();
 		                if(!d.success){
 		                	var error=d.data;
 		            		layer.alert(error, {
@@ -402,6 +385,7 @@ function getzTreeObject(){
 		          			  closeBtn: 0
 		          			});
 		                }else{
+		                	$('#myModal').modal('hide');
 		                	 nodes[0].categoryName=categoryName;
 		                	 zTreeObject.updateNode(nodes[0]);
 		            		zTreeObject.reAsyncChildNodes(nodes[0], "refresh");
@@ -416,10 +400,8 @@ function getzTreeObject(){
     	$("#handAction").val("");
     	$("#categoryName").removeAttr("placeholder");
 		$("#categoryName").val("");
-		$("option").removeAttr("selected");
 		$("#id").val("");
     	$("#pId").val("");
-    	$("#editCategoey").hide();
     }
 </script>
 #end
