@@ -6,21 +6,29 @@ SpringWind - 项目管理
 <link href="#springUrl('/static/css/style.css')" rel="stylesheet">
 <link href="#springUrl('/static/css/metroStyle.css')" rel="stylesheet">
 <link href="#springUrl('/static/css/customer.css')" rel="stylesheet">
+<style type="text/css">
+.ztree * {
+font-size:17px;
+}
+.ztree li {
+line-height:23px;
+}
+</style>
 #end
 #override("breadcrumb")
-<li><a>资源管理</a></li><li class="active"><strong>类别管理</strong></li>
+<li><a>资源管理</a></li><li class="active"><a>农产品维护</a></li>
 #end
 #override("content")
-<div class="panel panel-default col-lg-3" style="padding:0px;margin:20px 50px 80px 30px">
+<div class="panel panel-default col-lg-7" style="padding:0px;margin:20px 50px 80px 50px">
     <div class="panel-heading" style="height:56px;background:#337ab7">
-	        <span class="pull-left" style="margin:2px 0px 2px 70px;color:#fff;font-size:20px">
-	            	类别树
+	        <span class="pull-left" style="margin:2px 0px 2px 10px;color:#fff;font-size:20px">
+	            	农产品维护
 	        </span>
 	        <div class="pull-right">
 	        	<div style="margin:5px 20px;float:left">
 		        	<span class="glyphicon glyphicon-refresh" onClick="reFresh()" title="刷新" style="font-size:20px"></span>
 		        </div>
-		        <div class="btn-group">
+		        <!-- <div class="btn-group">
 					<button type="button" class="btn btn-primary dropdown-toggle" style="background:#00008B;width:70px" data-toggle="dropdown">操作 
 						<span class="caret"></span>
 					</button>
@@ -29,16 +37,16 @@ SpringWind - 项目管理
 						<li><a href="#" onClick="delTree()">删除</a></li>
 						<li><a href="#" onClick="editTree()">编辑</a></li>
 					</ul>
-				</div>
+				</div> -->
 			</div>
     </div>
-    <div class="panel-body" style="height:300px">
-       <div>
-   		<ul id="zTreeManager" class="ztree"></ul>
+    <div class="panel-body" style="height:100%;border-top:2px solid #00FF7F">
+       <div id="context" data-toggle="context" data-target="#context-menu">
+   		<ul id="zTreeManager" class="ztree" style="padding:20px 0px 20px 30px"></ul>
 	   </div>
     </div>
 </div>
-<div class="col-lg-7" id="editCategoey" style="background:#fff;padding:0px;margin:20px 0px 80px 30px">
+<div class="col-lg-4" id="editCategoey" style="background:#fff;padding:0px;margin:20px 0px 80px 0px;border-top:2px solid #00FF7F">
 	<div class="box box-info">
         <div class="box-header with-border" style="border-bottom:1px solid #e5e6e7;padding:8px 0px 3px 10px">
           <h3 class="box-title">添加类别</h3>
@@ -51,18 +59,9 @@ SpringWind - 项目管理
             <input type="hidden" id="Leaf" name="Leaf"/>
             <input type="hidden" id="nodeParentId" name="nodeParentId"/>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">类别名称</label>
-                  <div class="col-sm-10">
+                  <label class="col-sm-3 control-label">类别名称</label>
+                  <div class="col-sm-9">
                     <input type="text" id="categoryName" name="categoryName" class="form-control"/>
-                  </div>
-                </div>
-              <div class="form-group">
-                  <label class="col-sm-2 control-label">是否显示</label>
-                  <div class="col-sm-10">
-                    <select name="visiable" class="form-control">
-                    	<option id="option1" value="1">是</option>
-                    	<option id="option2" value="0">否</option>
-                    </select>
                   </div>
                 </div>
 
@@ -78,7 +77,13 @@ SpringWind - 项目管理
           </div>
         </div>
 </div>
-
+<div id="context-menu">
+  <ul class="dropdown-menu" style="min-width:0px;width:70px" role="menu">
+						<li><a href="#" data-toggle="modal" onClick="addTree()">增加</a></li>
+						<li><a href="#" data-toggle="modal" onClick="delTree()">删除</a></li>
+						<li><a href="#" data-toggle="modal" onClick="editTree()">编辑</a></li>
+ </ul>
+</div>
 
 #end
 #override("js")
@@ -90,57 +95,14 @@ SpringWind - 项目管理
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script src="#springUrl('/static/js/jquery.ztree.all.min.js')"></script>
+<script src="#springUrl('/static/js/bootstrap-contextmenu.js')"></script>
+<script src="#springUrl('/static/js/prettify.js')"></script>
 <script type="text/javascript">
 $("#editCategoey").hide();
 var zTreeObj;
 function getzTreeObject(){
    	return $.fn.zTree.getZTreeObj("zTreeManager");
    }
-// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-/* var setting = {
-	edit: {
-		drag: {
-			isCopy: false,
-			isMove: true
-		},
-			enable: true,
-			showRemoveBtn: false,
-			showRenameBtn: false
-		},
-    data: {
-        simpleData: {
-            enable: true
-        },
-    },
-    callback: {
-		beforeDrop: zTreeBeforeDrop
-	}
-};
-// zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-var nodes = [
-    {id:1, pId:0, name: "父节点1"},
-    {id:11, pId:1, name: "子节点1"},
-    {id:12, pId:1, name: "子节点2"},
-    {id:13, pId:11, name: "子节点3"},
-    {id:14, pId:11, name: "子节点4"},
-    {id:15, pId:12, name: "子节点5"},
-    {id:16, pId:12, name: "子节点6"},
-    {id:17, pId:12, name: "子节点7"},
-    {id:18, pId:13, name: "子节点8"},
-    {id:19, pId:14, name: "子节点9"},
-    {id:20, pId:15, name: "子节点10"},
-    {id:21, pId:16, name: "子节点11"}
-];
-   zTreeObj = $.fn.zTree.init($("#zTreeManager"), setting, nodes);
-   function getzTreeObject(){
-   	return $.fn.zTree.getZTreeObj("zTreeManager");
-   }
-   function zTreeBeforeDrop(treeId, treeNodes, targetNode, moveType) {
-	   var zTreeObject=$.fn.zTree.getZTreeObj(treeId);
-	   	var nodes=zTreeObject.getSelectedNodes();
-	   	var pId=nodes[0].pId;
-	    return !(targetNode == null || moveType != "inner" || !targetNode.pId||nodes[0].level==targetNode.level||nodes[0].level-1!=targetNode.level);
-	} */
 	var setting = {
         async: {
             enable: true,
@@ -174,6 +136,9 @@ var nodes = [
     		onDrop: zTreeOnDrop, 
     		onClick: zTreeOnClick,
     		onMouseDown: zTreeOnMouseDown
+    		/* 
+    		beforeRightClick: zTreeBeforeRightClick
+    		onRightClick: zTreeOnRightClick */
     	}
     };
     var url="#springUrl('/categoryManager/getToolId.html')";
@@ -198,6 +163,19 @@ var nodes = [
     	$("#editCategoey").hide();
     	
     }
+    //右击之前事件
+   /* function zTreeBeforeRightClick(treeId, treeNode) {
+	   if(treeNode==null){
+		   return false;
+	   }else{
+		   return true;
+	   }
+    	
+    }; */
+    //鼠标右键事件
+   /*  function zTreeOnRightClick(event, treeId, treeNode) {
+         alert(treeNode.categoryName);
+    }; */
     //拖拽之前的事件处理
     function zTreeBeforeDrop(treeId, treeNodes, targetNode, moveType) {
  	   var zTreeObject=$.fn.zTree.getZTreeObj(treeId);
@@ -319,7 +297,6 @@ var nodes = [
     	$("#handAction").val("");
     	$("#categoryName").removeAttr("placeholder");
 		$("#categoryName").val("");
-		$("option").removeAttr("selected");
 		$("#id").val("");
     	$("#pId").val("");
     	var zTreeObject=this.getzTreeObject();
@@ -346,9 +323,11 @@ var nodes = [
         		$("#categoryName").val(categoryName);
         		$("#Leaf").val(Leaf);
         		if(result.visiable==1){
-        			$("#option1").attr("selected","selected");
+        			$("#option1").prop("selected",true);
+        			$("#option2").prop("selected",false);
         		}else{
-        			$("#option2").attr("selected","selected");
+        			$("#option2").prop("selected",true);
+        			$("#option1").prop("selected",false);
         		}
         	});
     		

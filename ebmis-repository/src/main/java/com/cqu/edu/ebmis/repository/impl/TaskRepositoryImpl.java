@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import com.cqu.edu.ebmis.domain.ProjectDO;
 import com.cqu.edu.ebmis.domain.TaskDO;
 import com.cqu.edu.ebmis.handler.MapResultHandler;
 import com.cqu.edu.ebmis.mapper.TaskMapper;
@@ -117,6 +118,18 @@ public class TaskRepositoryImpl extends SqlSessionDaoSupport  implements TaskRep
 	@Override
 	public int selectAllCountProject(int projectId) {
 		return taskMapper.selectAllCountProject(projectId);
+	}
+
+	@Override
+	public List<TaskDO> selectByPageProjectField(int projectId, int size, int offset, String field) {
+		// TODO Auto-generated method stub
+		return taskMapper.selectByPageProjectField(projectId, size, offset, field);
+	}
+
+	@Override
+	public int selectAllCountProjectField(int projectId, String field) {
+		// TODO Auto-generated method stub
+		return taskMapper.selectAllCountProjectField(projectId, field);
 	}
 
 	

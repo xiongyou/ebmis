@@ -1,0 +1,82 @@
+#override("title")
+SpringWind - 项目管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+<link href="#springUrl('/static/css/style.css')" rel="stylesheet">
+<link href="#springUrl('/static/css/metroStyle.css')" rel="stylesheet">
+<link href="#springUrl('/static/css/customer.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><a>农产品复合2</a></li>
+#end
+#override("content")
+<div id="categoryList">
+	<div class="col-lg-12" style="margin-top:20px">
+		<div class="ibox-content form-inline" style="background: #F3F3F4;">
+			<div class="pull-right input-group">
+				<input type="text" id="field" name="field" value="" class="form-control">
+				<span class="input-group-btn">
+					<button type="button" onClick="search()" class="btn btn-info">搜索</button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12" style="margin-bottom:70px">
+	    <div class="col-sm-12">
+	        <table id="dataTable"></table>
+	    </div>
+	</div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script src="#springUrl('/static/js/jquery.ztree.all.min.js')"></script>
+<script type="text/javascript">
+var dataUrl = "#springUrl('/project/getProjectList.html')";
+var dataColumns = [{
+    field: 'projectID',
+    title: '产品名称'
+}, {
+    field: 'projectName',
+    title: '产品链接'
+}, {
+    field: 'isValid',
+    title: '是否农产品',
+    formatter: function (value, row, index) {
+        var isValid = row.isValid;
+        var id = row.productInnerId;
+        if(isValid==1){
+        	return '<input name="checkbox" type="checkbox" value="'+isValid+'" checked="checked" onclick="audit('+id+',0)">';
+        }else{
+        	return '<input name="checkbox" type="checkbox" value="'+isValid+'" onclick="audit('+id+',1)">';
+        }
+      
+    }
+}, {
+    field: 'maxExecutingTime',
+    title: '是否校验'
+},{
+    title: '操作',
+    formatter: function (value, row, index) {
+        var projectID = row.projectID;
+        return '<a class="btn btn-xs btn-warning" onclick="editProject(' + "'" + projectID + "'" + ')"><i class="fa fa-pencil"></i>复合</a> '
+                ;
+    }
+}];
+function dataQueryParams(params) {
+    return {
+        _size: params.limit,  //页面大小
+        _index: params.offset, //页码
+    };
+}
+   
+</script>
+#end
+#extends("/common/framework.html")

@@ -130,6 +130,21 @@
     from _crawler_project_task  
      where _project_id=#{projectId,jdbcType=INTEGER}
   </select>
+  <select id="selectByPageProjectField" resultMap="BaseResultMap">
+    select
+    * 
+    from _crawler_project_task  
+    where _project_id=#{projectId,jdbcType=INTEGER} AND _project_task_id LIKE #{field} OR _dataobj LIKE #{field} OR _website LIKE #{field} OR _keyword LIKE #{field}
+    order by _project_task_id
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectAllCountProjectField" resultType="int">
+    select
+    count(*) 
+    from _crawler_project_task  
+     where _project_id=#{projectId,jdbcType=INTEGER} AND _project_task_id LIKE #{field} OR _dataobj LIKE #{field} OR _website LIKE #{field} OR _keyword LIKE #{field}
+  </select>
   
   
   <select id="getTasksByProjectId" resultMap="md_key_Map" parameterType="java.lang.Integer">
