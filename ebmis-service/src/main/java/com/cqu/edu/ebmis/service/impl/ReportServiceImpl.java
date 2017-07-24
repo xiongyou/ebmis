@@ -13,9 +13,9 @@ import com.cqu.edu.ebmis.service.ReportService;
 @Service
 public class ReportServiceImpl implements ReportService {
 	@Resource private ReportRepository reportRepository;
-	public List<Map<String, Object>> getOrignData(HashMap map) {
+	public List<Map<String, Object>> getOriginData(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.getOrignData(map);
+		return reportRepository.getOriginData(map);
 	}
 
 }

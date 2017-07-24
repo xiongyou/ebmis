@@ -11,5 +11,5 @@ public interface ReportMapper {
 	 * @param map
 	 * @return
 	 */
-	List<Map<String, Object>> getOrignData(HashMap map); 
+	List<Map<String, Object>> getOriginData(HashMap map); 
 }

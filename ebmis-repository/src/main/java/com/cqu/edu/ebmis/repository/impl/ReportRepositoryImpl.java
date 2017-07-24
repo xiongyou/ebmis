@@ -14,9 +14,9 @@ public class ReportRepositoryImpl implements ReportRepository {
 	@Autowired
 	private ReportMapper reportMapper;
 	@Override
-	public List<Map<String, Object>> getOrignData(HashMap map) {
+	public List<Map<String, Object>> getOriginData(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportMapper.getOrignData(map);
+		return reportMapper.getOriginData(map);
 	}
 
 }

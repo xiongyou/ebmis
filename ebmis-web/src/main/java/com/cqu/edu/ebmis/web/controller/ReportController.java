@@ -22,7 +22,7 @@ public class ReportController extends SuperController {
 		HashMap map=new HashMap();
     	map.put("size", 1);
     	map.put("offset", 10);
-    	List<Map<String, Object>> res=reportService.getOrignData(map);
+    	List<Map<String, Object>> res=reportService.getOriginData(map);
     	System.out.println(res.size());
 		return "";
 		

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqu.edu.ebmis.mapper.ReportMapper">
 
-   <select id="getOrignData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   <select id="getOriginData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
     select 
     dataID,productInnerId,productActualID,productURL,productName,productDescription,shelveDate,weight,origin,province,city,category,specialtyCategory,brand,factoryName,factoryAddress,series,specification,deliveryStartArea,productPrice,productPromPrice,monthSaleCount,commentCount,storeActualID,storeName,storeURL,shopkeeper,companyName,storeLocation,expirationDay,produceDay,productPromotionID,productCompleteID,category1,category2,category3,goodCommentCount,midCommentCount,badCommentCount,SaleCount,goodCommentRate,category4,taxRate,productHighVipPrice,productLowVipPrice,productTax,pictureCommentCount,additionCommentCount,keyword,website,extractTime,analyzeTime,errorInfo,TaskDataID
     from data

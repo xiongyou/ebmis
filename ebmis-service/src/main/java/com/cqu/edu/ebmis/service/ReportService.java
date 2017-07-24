@@ -5,5 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface ReportService {
-	List<Map<String, Object>> getOrignData(HashMap map);
+	/**获取采集的原始数据
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getOriginData(HashMap map);
 }
