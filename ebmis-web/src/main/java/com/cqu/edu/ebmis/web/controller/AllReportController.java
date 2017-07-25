@@ -36,10 +36,15 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/originDataReport")
 	public String originDataReport(Model model, HttpServletResponse response) {
 		HashMap map=new HashMap();
-    	map.put("size", 1);
-    	map.put("offset", 10);
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+    	map.put("size", size);
+    	map.put("offset", index);
     	List<Map<String, Object>> originDataReportList=reportService.getOriginData(map);
-    	String str="{"+"\"total\":"+originDataReportList.size()+","+"\"rows\":[";
+    	int allCount=reportService.getOriginDataCount();
+    	String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
     	for(Map<String, Object> oneMap:originDataReportList){
     		str+="{";
     		Set<String> setstr=oneMap.keySet();

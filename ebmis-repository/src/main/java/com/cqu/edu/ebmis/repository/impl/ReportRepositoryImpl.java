@@ -18,5 +18,10 @@ public class ReportRepositoryImpl implements ReportRepository {
 		// TODO Auto-generated method stub
 		return reportMapper.getOriginData(map);
 	}
+	@Override
+	public int getOriginDataCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.getOriginDataCount();
+	}
 
 }

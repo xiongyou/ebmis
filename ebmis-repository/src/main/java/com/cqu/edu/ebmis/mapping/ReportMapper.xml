@@ -7,6 +7,12 @@
     dataID,productInnerId,productActualID,website,productName,errorInfo,keyword,productURL,productDescription,shelveDate,weight,origin,province,city,category,specialtyCategory,brand,factoryName,factoryAddress,series,specification,deliveryStartArea,productPrice,productPromPrice,monthSaleCount,commentCount,storeActualID,storeName,storeURL,shopkeeper,companyName,storeLocation,expirationDay,produceDay,category1,category2,category3,goodCommentCount,midCommentCount,badCommentCount,SaleCount,pictureCommentCount,additionCommentCount,extractTime,TaskDataID
     from data
     order by dataId
-    <if test="size!=null and offset!=null"> limit #{size},#{offset}</if>
+    <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="getOriginDataCount" resultType="int">
+    select
+    count(*)
+    from data
+    order by dataId
   </select>
   </mapper>

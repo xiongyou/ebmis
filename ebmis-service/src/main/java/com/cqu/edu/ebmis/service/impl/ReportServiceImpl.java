@@ -17,5 +17,9 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.getOriginData(map);
 	}
+	public int getOriginDataCount() {
+		// TODO Auto-generated method stub
+		return reportRepository.getOriginDataCount();
+	}
 
 }

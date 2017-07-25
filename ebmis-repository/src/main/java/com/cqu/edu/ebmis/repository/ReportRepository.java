@@ -12,4 +12,10 @@ public interface ReportRepository {
 	 * @return
 	 */
 	List<Map<String, Object>> getOriginData(HashMap map); 
+	/**
+	 *原始数据所有的条数
+	 * @param map
+	 * @return
+	 */
+	int getOriginDataCount(); 
 }
