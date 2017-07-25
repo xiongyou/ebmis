@@ -3,13 +3,10 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
 import com.cqu.edu.ebmis.service.ReportService;
 
 @Controller
@@ -34,7 +30,7 @@ public class AllReportController extends SuperController {
 	}
 	@ResponseBody
 	@RequestMapping("/originDataReport")
-	public String originDataReport(Model model, HttpServletResponse response) {
+	public String originDataReport(Model model) {
 		HashMap map=new HashMap();
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -56,7 +52,6 @@ public class AllReportController extends SuperController {
     	}
     	str=str.substring(0, str.lastIndexOf(","));  
     	str+="]}";
-    	System.out.println(str);
     	/*JSONArray jsonArr=JSONArray.parseArray(str);*/
     	return str;
 	}
@@ -66,7 +61,7 @@ public class AllReportController extends SuperController {
 	}
 	@ResponseBody
 	@RequestMapping("/CQLocalStoreReport")
-	public String CQLocalStoreReport(Model model, HttpServletResponse response) {
+	public String CQLocalStoreReport(Model model) {
 		HashMap map=new HashMap();
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -88,7 +83,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 	@RequestMapping("/AliClassifyList")
@@ -97,7 +91,7 @@ public class AllReportController extends SuperController {
 	}
 	@ResponseBody
 	@RequestMapping("/AliClassifyReport")
-	public String AliClassifyReport(Model model, HttpServletResponse response) {
+	public String AliClassifyReport(Model model) {
 		HashMap map=new HashMap();
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -119,7 +113,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 	@RequestMapping("/TmMonthProductList")
@@ -128,7 +121,7 @@ public class AllReportController extends SuperController {
 	}
 	@ResponseBody
 	@RequestMapping("/TmMonthProductReport")
-	public String TmMonthProductReport(Model model, HttpServletResponse response) {
+	public String TmMonthProductReport(Model model) {
 		HashMap map=new HashMap();
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -149,7 +142,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 	@RequestMapping("/TbMonthProductList")
@@ -158,7 +150,7 @@ public class AllReportController extends SuperController {
 	}
 	@ResponseBody
 	@RequestMapping("/TbMonthProductReport")
-	public String TbMonthProductReport(Model model, HttpServletResponse response) {
+	public String TbMonthProductReport(Model model) {
 		HashMap map=new HashMap();
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -179,7 +171,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 
