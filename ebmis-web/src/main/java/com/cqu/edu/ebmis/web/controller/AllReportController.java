@@ -29,7 +29,7 @@ public class AllReportController extends SuperController {
 	@Autowired
 	private ReportService reportService;
 	@RequestMapping("/originDataReportList")
-	public String list(Model model) {
+	public String originDataReportList(Model model) {
 		return "/allReport/originDataReportList";
 	}
 	@ResponseBody
@@ -59,6 +59,128 @@ public class AllReportController extends SuperController {
     	System.out.println(str);
     	/*JSONArray jsonArr=JSONArray.parseArray(str);*/
     	return str;
+	}
+	@RequestMapping("/CQLocalStoreList")
+	public String CQLocalStoreList(Model model) {
+		return "/allReport/CQLocalStoreList";
+	}
+	@ResponseBody
+	@RequestMapping("/CQLocalStoreReport")
+	public String CQLocalStoreReport(Model model, HttpServletResponse response) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> originDataReportList=reportService.getCQLocalStore(map);
+		int allCount=reportService.getCQLocalStoreCount();
+		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:originDataReportList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		System.out.println(str);
+		return str;
+	}
+	@RequestMapping("/AliClassifyList")
+	public String AliClassifyList(Model model) {
+		return "/allReport/AliClassifyList";
+	}
+	@ResponseBody
+	@RequestMapping("/AliClassifyReport")
+	public String AliClassifyReport(Model model, HttpServletResponse response) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> originDataReportList=reportService.AliClassifyData(map);
+		int allCount=reportService.AliClassifyCount();
+		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:originDataReportList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		System.out.println(str);
+		return str;
+	}
+	@RequestMapping("/TmMonthProductList")
+	public String TmMonthProductList(Model model) {
+		return "/allReport/TmMonthProductList";
+	}
+	@ResponseBody
+	@RequestMapping("/TmMonthProductReport")
+	public String TmMonthProductReport(Model model, HttpServletResponse response) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> originDataReportList=reportService.TmMonthProductData(map);
+		String str="{"+"\"total\":"+20+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:originDataReportList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		System.out.println(str);
+		return str;
+	}
+	@RequestMapping("/TbMonthProductList")
+	public String TbMonthProductList(Model model) {
+		return "/allReport/TbMonthProductList";
+	}
+	@ResponseBody
+	@RequestMapping("/TbMonthProductReport")
+	public String TbMonthProductReport(Model model, HttpServletResponse response) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> TbMonthProductList=reportService.TbMonthProductData(map);
+		String str="{"+"\"total\":"+20+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:TbMonthProductList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		System.out.println(str);
+		return str;
 	}
 
 	

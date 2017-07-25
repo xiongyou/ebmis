@@ -15,4 +15,39 @@
     from data
     order by dataId
   </select>
+  <select id="getCQLocalStore" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+  select `a`.`storeinnerid` ,`a`.`storeactualid` ,`a`.`storeURL` ,`a`.`stor_platform` ,`a`.`storeName`,`b`.`companyName`,`a`.`store_salse` 
+  ,`a`.`sum(a.monthSaleCount)` AS counts  ,a.sku  from (`店铺季度销售排行` `a` join `store_baseinfo` `b`) where ((`a`.`loc_province` = '重庆') and 
+  (`a`.`storeinnerid` = `b`.`storeInnerId`)) order by `a`.`store_salse` desc <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+  <select id="getCQLocalStoreCount" resultType="int">
+    select count(*) from (`店铺季度销售排行` `a` join `store_baseinfo` `b`) where ((`a`.`loc_province` = '重庆') and 
+  (`a`.`storeinnerid` = `b`.`storeInnerId`)) order by `a`.`store_salse` desc
+  </select>
+  <select id="AliClassifyData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	  select `a`.`platform` AS `platform`,`b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,
+	sum(`a`.`monthSaleCount`) AS `销量`,count(*) as SKU 
+	from (`产品月度销售数据` `a` join `threeclassificationtable` `b`) where (`b`.`三级` = `a`.`singleKeyword`)
+	group by `b`.`一级`,`a`.`platform` order by `销售额` desc <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+  <select id="AliClassifyCount" resultType="int">
+    select count(*) from (select `a`.`platform` AS `platform`,`b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,
+	sum(`a`.`monthSaleCount`) AS `销量`,count(*) as SKU 
+	from (`产品月度销售数据` `a` join `threeclassificationtable` `b`) where (`b`.`三级` = `a`.`singleKeyword`)
+	group by `b`.`一级`,`a`.`platform` order by `销售额` desc) c
+  </select>
+  <select id="TmMonthProductData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+  select productInnerId,productName,storeinnerid,storeName,platform, stor_province,monthSaleCount,
+totalsale,singleKeyword ,productURL 
+from 产品月度销售数据
+where platform='Tmall'
+ORDER BY totalsale desc <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+</select>
+  <select id="TbMonthProductData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+  select productInnerId,productName,storeinnerid,storeName,platform, stor_province,monthSaleCount,totalsale,singleKeyword ,productURL 
+from 产品月度销售数据
+where platform='TaoBao'
+ORDER BY totalsale desc
+<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+</select>
   </mapper>

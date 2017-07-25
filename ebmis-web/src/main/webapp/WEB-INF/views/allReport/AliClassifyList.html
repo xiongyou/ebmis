@@ -1,0 +1,62 @@
+#override("title")
+SpringWind - 项目管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><a>阿里平台分类统计</a></li>
+#end
+#override("content")
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+   	var dataUrl = "#springUrl('/allReport/AliClassifyReport.html')";
+    /* $.ajax({
+        type: "GET",
+        url: "#springUrl('/allReport/originDataReport.html')",           
+        dataType: "json",
+        success: function (msg) {
+            $("#dataTable").bootstrapTable('load', msg);
+        },
+        error: function () {
+            alert("错误");
+        }
+    });  */
+    var dataColumns = [{
+        field: 'platform',
+        title: '平台'
+    },{
+        field: '一级',
+        title: '一级'
+    }, {
+        field: '销售额',
+        title: '销售额'
+    }, {
+        field: '销量',
+        title: '销量'
+    }, {
+        field: 'SKU',
+        title: 'SKU'
+    }];
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+
+</script>
+#end
+#extends("/common/framework.html")
