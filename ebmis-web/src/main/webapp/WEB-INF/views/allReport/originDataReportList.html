@@ -1,0 +1,185 @@
+#override("title")
+SpringWind - 项目管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><a>原始数据复合</a></li>
+#end
+#override("content")
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+   	var dataUrl = "#springUrl('/allReport/originDataReport.html')";
+    /* $.ajax({
+        type: "GET",
+        url: "#springUrl('/allReport/originDataReport.html')",           
+        dataType: "json",
+        success: function (msg) {
+            $("#dataTable").bootstrapTable('load', msg);
+        },
+        error: function () {
+            alert("错误");
+        }
+    });  */
+    var dataColumns = [{
+        field: 'TaskDataID',
+        title: '任务编号'
+    },{
+        field: 'dataID',
+        title: '流水号'
+    }, {
+        field: 'productInnerId',
+        title: '商品内部编号'
+    }, {
+        field: 'productActualID',
+        title: '商品实际编号'
+    }, {
+        field: 'website',
+        title: '平台'
+    },{
+        field: 'productName',
+        title: '名称'
+    },{
+        field: 'errorInfo',
+        title: '错误信息'
+    },{
+        field: 'keyword',
+        title: '关键字'
+    },{
+        field: 'productURL',
+        title: '链接'
+    },{
+        field: 'productDescription',
+        title: '描述'
+    },{
+        field: 'shelveDate',
+        title: '上架时间'
+    },{
+        field: 'weight',
+        title: '重量'
+    },{
+        field: 'origin',
+        title: '产地'
+    },{
+        field: 'province',
+        title: '省份'
+    },{
+        field: 'city',
+        title: '城市'
+    },{
+        field: 'category',
+        title: '类别'
+    },{
+        field: 'specialtyCategory',
+        title: '特产类别'
+    },{
+        field: 'brand',
+        title: '品牌'
+    },{
+        field: 'factoryName',
+        title: '厂家'
+    },{
+        field: 'factoryAddress',
+        title: '厂址'
+    },{
+        field: 'series',
+        title: '系统'
+    },{
+        field: 'specification',
+        title: '规格'
+    },{
+        field: 'deliveryStartArea',
+        title: '发货地'
+    },{
+        field: 'productPrice',
+        title: '价格'
+    },{
+        field: 'productPromPrice',
+        title: '促销价格'
+    },{
+        field: 'monthSaleCount',
+        title: '月销量'
+    },{
+        field: 'commentCount',
+        title: '评论数'
+    },{
+        field: 'storeActualID',
+        title: '店铺ID'
+    },{
+        field: 'storeName',
+        title: '店铺名称'
+    },{
+        field: 'storeURL',
+        title: '店铺链接'
+    },{
+        field: 'shopkeeper',
+        title: '掌柜'
+    },{
+        field: 'shopkeeper',
+        title: '掌柜'
+    },{
+        field: 'companyName',
+        title: '公司名称'
+    },{
+        field: 'storeLocation',
+        title: '店铺所在地'
+    },{
+        field: 'expirationDay',
+        title: '保质期'
+    },{
+        field: 'produceDay',
+        title: '生产日期'
+    },{
+        field: 'category1',
+        title: '类别1'
+    },{
+        field: 'category2',
+        title: '类别2'
+    },{
+        field: 'category3',
+        title: '类别3'
+    },{
+        field: 'goodCommentCount',
+        title: '好评'
+    },{
+        field: 'midCommentCount',
+        title: '中评'
+    },{
+        field: 'badCommentCount',
+        title: '差评'
+    },{
+        field: 'SaleCount',
+        title: '销量'
+    },{
+        field: 'pictureCommentCount',
+        title: '带图评论'
+    },{
+        field: 'additionCommentCount',
+        title: '追评'
+    },{
+        field: 'extractTime',
+        title: '抓取时间'
+    }];
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+
+</script>
+#end
+#extends("/common/framework.html")
