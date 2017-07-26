@@ -36,17 +36,78 @@
 	group by `b`.`一级`,`a`.`platform` order by `销售额` desc) c
   </select>
   <select id="TmMonthProductData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-  select productInnerId,productName,storeinnerid,storeName,platform, stor_province,monthSaleCount,
-totalsale,singleKeyword ,productURL 
-from 产品月度销售数据
-where platform='Tmall'
-ORDER BY totalsale desc <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
-</select>
+	  select productInnerId,productName,storeinnerid,storeName,platform, stor_province,monthSaleCount,
+	totalsale,singleKeyword ,productURL 
+	from 产品月度销售数据
+	where platform='Tmall'
+	ORDER BY totalsale desc <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
   <select id="TbMonthProductData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-  select productInnerId,productName,storeinnerid,storeName,platform, stor_province,monthSaleCount,totalsale,singleKeyword ,productURL 
-from 产品月度销售数据
-where platform='TaoBao'
-ORDER BY totalsale desc
-<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
-</select>
+	  select productInnerId,productName,storeinnerid,storeName,platform, stor_province,monthSaleCount,totalsale,singleKeyword ,productURL 
+	from 产品月度销售数据
+	where platform='TaoBao'
+	ORDER BY totalsale desc
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+  <select id="allProductNumData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	 select platform,count(*) as 数量 from product_baseinfo 
+	WHERE isValid=1
+	GROUP BY platform
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="allProductNumCount" resultType="int">
+    select count(*) from (select platform,count(*) as 数量 from product_baseinfo 
+	WHERE isValid=1
+	GROUP BY platform) a
+  </select>
+  <select id="CQFarmProductNumData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select platform,count(*) as 数量 from `产品月度销售数据`
+	GROUP BY platform
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="CQFarmProductNumCount" resultType="int">
+    select count(*) from (select platform,count(*) as 数量 from `产品月度销售数据`
+	GROUP BY platform) a
+  </select>
+  <select id="PlatformStoreNumData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select platform ,count(0) AS 数量 from 售卖重庆农产品的店铺信息  group by platform
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="PlatformStoreNumCount" resultType="int">
+    select count(*) from (select platform ,count(0) AS 数量 from 售卖重庆农产品的店铺信息  group by platform) a
+  </select>
+  <select id="ClassifySystemData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select 零级,一级,二级,三级  from threeclassificationtable ORDER BY 零级,一级,二级,三级 
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="ClassifySystemCount" resultType="int">
+    select count(*) from threeclassificationtable ORDER BY 零级,一级,二级,三级 
+  </select>
+  <select id="OneClassifyData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select `b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,sum(`a`.`monthSaleCount`) AS `销量`,count(*) as SKU from (`产品月度销售数据` `a` join `threeclassificationtable` `b`)
+ where (`b`.`三级` = `a`.`singleKeyword`) group by `b`.`一级` order by `销售额` desc
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="OneClassifyCount" resultType="int">
+    select count(*) from (select `b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,sum(`a`.`monthSaleCount`) AS `销量`,count(*) as SKU from (`产品月度销售数据` `a` join `threeclassificationtable` `b`)
+ where (`b`.`三级` = `a`.`singleKeyword`) group by `b`.`一级` order by `销售额` desc) a
+  </select>
+  <select id="FreshClassifyData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select `b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,sum(`a`.`monthSaleCount`) AS `销量`,count(0) AS `商品数量` from (`产品月度销售数据` `a` join `threeclassificationtable` `b`) 
+	where ((`a`.`singleKeyword` = `b`.`三级`) and (`b`.`零级` = '生鲜')) group by `b`.`一级` order by 销售额 desc
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="FreshClassifyCount" resultType="int">
+   	select count(*) from (select `b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,sum(`a`.`monthSaleCount`) AS `销量`,count(0) AS `商品数量` from (`产品月度销售数据` `a` join `threeclassificationtable` `b`) 
+	where ((`a`.`singleKeyword` = `b`.`三级`) and (`b`.`零级` = '生鲜')) group by `b`.`一级` order by 销售额 desc) c
+  </select>
+  <select id="NoFreshClassifyData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select `b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,sum(`a`.`monthSaleCount`) AS `销量`,count(0) AS `商品数量` from (`产品月度销售数据` `a` join `threeclassificationtable` `b`) 
+	where ((`a`.`singleKeyword` = `b`.`三级`) and (`b`.`零级` = '非生鲜')) group by `b`.`一级` order by 销售额 desc
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="NoFreshClassifyCount" resultType="int">
+   	select count(*) from (select `b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,sum(`a`.`monthSaleCount`) AS `销量`,count(0) AS `商品数量` from (`产品月度销售数据` `a` join `threeclassificationtable` `b`) 
+	where ((`a`.`singleKeyword` = `b`.`三级`) and (`b`.`零级` = '非生鲜')) group by `b`.`一级` order by 销售额 desc) c
+  </select>
   </mapper>

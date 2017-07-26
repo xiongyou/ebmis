@@ -53,5 +53,75 @@ public class ReportRepositoryImpl implements ReportRepository {
 		// TODO Auto-generated method stub
 		return reportMapper.TbMonthProductData(map);
 	}
+	@Override
+	public List<Map<String, Object>> allProductNumData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.allProductNumData(map);
+	}
+	@Override
+	public int allProductNumCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.allProductNumCount();
+	}
+	@Override
+	public List<Map<String, Object>> CQFarmProductNumData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmProductNumData(map);
+	}
+	@Override
+	public int CQFarmProductNumCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmProductNumCount();
+	}
+	@Override
+	public List<Map<String, Object>> PlatformStoreNumData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.PlatformStoreNumData(map);
+	}
+	@Override
+	public int PlatformStoreNumCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.PlatformStoreNumCount();
+	}
+	@Override
+	public List<Map<String, Object>> ClassifySystemData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.ClassifySystemData(map);
+	}
+	@Override
+	public int ClassifySystemCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.ClassifySystemCount();
+	}
+	@Override
+	public List<Map<String, Object>> OneClassifyData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.OneClassifyData(map);
+	}
+	@Override
+	public int OneClassifyCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.OneClassifyCount();
+	}
+	@Override
+	public List<Map<String, Object>> FreshClassifyData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.FreshClassifyData(map);
+	}
+	@Override
+	public int FreshClassifyCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.FreshClassifyCount();
+	}
+	@Override
+	public List<Map<String, Object>> NoFreshClassifyData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.NoFreshClassifyData(map);
+	}
+	@Override
+	public int NoFreshClassifyCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.NoFreshClassifyCount();
+	}
 
 }
