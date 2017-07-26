@@ -125,5 +125,13 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.MarketCQFarmProductStoreCount();
 	}
+	public List<Map<String, Object>> CQEveryCityStoreData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.CQEveryCityStoreData(map);
+	}
+	public int CQEveryCityStoreCount() {
+		// TODO Auto-generated method stub
+		return reportRepository.CQEveryCityStoreCount();
+	}
 
 }

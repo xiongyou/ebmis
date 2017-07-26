@@ -483,6 +483,37 @@ public class AllReportController extends SuperController {
 		System.out.println(str);
 		return str;
 	}
+	@RequestMapping("/CQEveryCityStoreList")
+	public String CQEveryCityStoreList(Model model) {
+		return "/allReport/CQEveryCityStoreList";
+	}
+	@ResponseBody
+	@RequestMapping("/CQEveryCityStoreReport")
+	public String CQEveryCityStoreReport(Model model) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> originDataReportList=reportService.CQEveryCityStoreData(map);
+		int allCount=reportService.CQEveryCityStoreCount();
+		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:originDataReportList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		System.out.println(str);
+		return str;
+	}
 
 	
 }

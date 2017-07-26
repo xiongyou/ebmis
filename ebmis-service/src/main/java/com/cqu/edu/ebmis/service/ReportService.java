@@ -172,4 +172,16 @@ public interface ReportService {
 	 * @return
 	 */
 	int MarketCQFarmProductStoreCount();
+	/**
+	 * 重庆各区县店铺数量
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> CQEveryCityStoreData(HashMap map); 
+	/**
+	 *重庆各区县店铺数量的条数
+	 * @param map
+	 * @return
+	 */
+	int CQEveryCityStoreCount();
 }

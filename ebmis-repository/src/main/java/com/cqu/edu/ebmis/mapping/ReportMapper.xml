@@ -133,4 +133,11 @@
    <select id="MarketCQFarmProductStoreCount" resultType="int">
    	select count(*) from 售卖重庆农产品的店铺信息
   </select>
+  <select id="CQEveryCityStoreData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select `a`.`area` AS `area`,count(0) AS 数量 from `store_baseinfo` `a` where (`a`.`area` is not null) group by `a`.`area` order by count(0) desc
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="CQEveryCityStoreCount" resultType="int">
+   	select count(*) from (select `a`.`area` AS `area`,count(0) AS 数量 from `store_baseinfo` `a` where (`a`.`area` is not null) group by `a`.`area` order by count(0) desc) c
+  </select>
   </mapper>

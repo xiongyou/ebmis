@@ -153,5 +153,15 @@ public class ReportRepositoryImpl implements ReportRepository {
 		// TODO Auto-generated method stub
 		return reportMapper.MarketCQFarmProductStoreCount();
 	}
+	@Override
+	public List<Map<String, Object>> CQEveryCityStoreData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.CQEveryCityStoreData(map);
+	}
+	@Override
+	public int CQEveryCityStoreCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.CQEveryCityStoreCount();
+	}
 
 }
