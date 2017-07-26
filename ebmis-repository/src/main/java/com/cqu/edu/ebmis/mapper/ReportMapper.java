@@ -138,5 +138,41 @@ public interface ReportMapper {
 	 * @return
 	 */
 	int NoFreshClassifyCount(); 
+	/**
+	 * 重庆农产品各省市销售情况
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> CQFarmProductEveryMarketData(HashMap map); 
+	/**
+	 *重庆农产品各省市销售情况的条数
+	 * @param map
+	 * @return
+	 */
+	int CQFarmProductEveryMarketCount(); 
+	/**
+	 * 重庆农产品分省店铺数量
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> CQFarmProductEveryStoreData(HashMap map); 
+	/**
+	 *重庆农产品分省店铺数量的条数
+	 * @param map
+	 * @return
+	 */
+	int CQFarmProductEveryStoreCount(); 
+	/**
+	 * 售卖重庆农产品的店铺
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> MarketCQFarmProductStoreData(HashMap map); 
+	/**
+	 *售卖重庆农产品的店铺的条数
+	 * @param map
+	 * @return
+	 */
+	int MarketCQFarmProductStoreCount(); 
 	
 }

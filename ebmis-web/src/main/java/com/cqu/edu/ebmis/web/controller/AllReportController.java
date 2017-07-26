@@ -390,6 +390,99 @@ public class AllReportController extends SuperController {
 		System.out.println(str);
 		return str;
 	}
+	@RequestMapping("/CQFarmProductEveryMarketList")
+	public String CQFarmProductEveryMarketList(Model model) {
+		return "/allReport/CQFarmProductEveryMarketList";
+	}
+	@ResponseBody
+	@RequestMapping("/CQFarmProductEveryMarketReport")
+	public String CQFarmProductEveryMarketReport(Model model) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> originDataReportList=reportService.CQFarmProductEveryMarketData(map);
+		int allCount=reportService.CQFarmProductEveryMarketCount();
+		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:originDataReportList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		System.out.println(str);
+		return str;
+	}
+	@RequestMapping("/CQFarmProductEveryStoreList")
+	public String CQFarmProductEveryStoreList(Model model) {
+		return "/allReport/CQFarmProductEveryStoreList";
+	}
+	@ResponseBody
+	@RequestMapping("/CQFarmProductEveryStoreReport")
+	public String CQFarmProductEveryStoreReport(Model model) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> originDataReportList=reportService.CQFarmProductEveryStoreData(map);
+		int allCount=reportService.CQFarmProductEveryStoreCount();
+		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:originDataReportList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		System.out.println(str);
+		return str;
+	}
+	@RequestMapping("/MarketCQFarmProductStoreList")
+	public String MarketCQFarmProductStoreList(Model model) {
+		return "/allReport/MarketCQFarmProductStoreList";
+	}
+	@ResponseBody
+	@RequestMapping("/MarketCQFarmProductStoreReport")
+	public String MarketCQFarmProductStoreReport(Model model) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> originDataReportList=reportService.MarketCQFarmProductStoreData(map);
+		int allCount=reportService.MarketCQFarmProductStoreCount();
+		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:originDataReportList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		System.out.println(str);
+		return str;
+	}
 
 	
 }

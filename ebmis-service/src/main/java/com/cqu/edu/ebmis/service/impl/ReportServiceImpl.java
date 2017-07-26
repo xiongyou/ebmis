@@ -101,5 +101,29 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.NoFreshClassifyCount();
 	}
+	public List<Map<String, Object>> CQFarmProductEveryMarketData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.CQFarmProductEveryMarketData(map);
+	}
+	public int CQFarmProductEveryMarketCount() {
+		// TODO Auto-generated method stub
+		return reportRepository.CQFarmProductEveryMarketCount();
+	}
+	public List<Map<String, Object>> CQFarmProductEveryStoreData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.CQFarmProductEveryStoreData(map);
+	}
+	public int CQFarmProductEveryStoreCount() {
+		// TODO Auto-generated method stub
+		return reportRepository.CQFarmProductEveryStoreCount();
+	}
+	public List<Map<String, Object>> MarketCQFarmProductStoreData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.MarketCQFarmProductStoreData(map);
+	}
+	public int MarketCQFarmProductStoreCount() {
+		// TODO Auto-generated method stub
+		return reportRepository.MarketCQFarmProductStoreCount();
+	}
 
 }

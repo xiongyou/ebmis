@@ -123,5 +123,35 @@ public class ReportRepositoryImpl implements ReportRepository {
 		// TODO Auto-generated method stub
 		return reportMapper.NoFreshClassifyCount();
 	}
+	@Override
+	public List<Map<String, Object>> CQFarmProductEveryMarketData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmProductEveryMarketData(map);
+	}
+	@Override
+	public int CQFarmProductEveryMarketCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmProductEveryMarketCount();
+	}
+	@Override
+	public List<Map<String, Object>> CQFarmProductEveryStoreData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmProductEveryStoreData(map);
+	}
+	@Override
+	public int CQFarmProductEveryStoreCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmProductEveryStoreCount();
+	}
+	@Override
+	public List<Map<String, Object>> MarketCQFarmProductStoreData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.MarketCQFarmProductStoreData(map);
+	}
+	@Override
+	public int MarketCQFarmProductStoreCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.MarketCQFarmProductStoreCount();
+	}
 
 }

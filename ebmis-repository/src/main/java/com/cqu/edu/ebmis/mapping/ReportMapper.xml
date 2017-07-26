@@ -110,4 +110,27 @@
    	select count(*) from (select `b`.`一级` AS `一级`,sum(`a`.`totalsale`) AS `销售额`,sum(`a`.`monthSaleCount`) AS `销量`,count(0) AS `商品数量` from (`产品月度销售数据` `a` join `threeclassificationtable` `b`) 
 	where ((`a`.`singleKeyword` = `b`.`三级`) and (`b`.`零级` = '非生鲜')) group by `b`.`一级` order by 销售额 desc) c
   </select>
+  <select id="CQFarmProductEveryMarketData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select stor_province,sum(totalsale) AS 销售额,sum(monthSaleCount) AS 销量 from 产品月度销售数据 group by stor_province order by 销售额 desc
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="CQFarmProductEveryMarketCount" resultType="int">
+   	select count(*) from (select stor_province,sum(totalsale) AS 销售额,sum(monthSaleCount) AS 销量 from 产品月度销售数据 group by stor_province order by 销售额 desc) c
+  </select>
+  <select id="CQFarmProductEveryStoreData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select `重庆农产品各省店铺分布`.`loc_province` AS `省份`,count(`重庆农产品各省店铺分布`.`loc_province`) AS `店铺数量` from `重庆农产品各省店铺分布` group by `重庆农产品各省店铺分布`.`loc_province` 
+	order by count(`重庆农产品各省店铺分布`.`loc_province`) desc
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="CQFarmProductEveryStoreCount" resultType="int">
+   	select count(*) from (select `重庆农产品各省店铺分布`.`loc_province` AS `省份`,count(`重庆农产品各省店铺分布`.`loc_province`) AS `店铺数量` from `重庆农产品各省店铺分布` group by `重庆农产品各省店铺分布`.`loc_province` 
+	order by count(`重庆农产品各省店铺分布`.`loc_province`) desc) c
+  </select>
+  <select id="MarketCQFarmProductStoreData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select storeActualID ,storeName,shopkeeper,companyName,loc_province,loc_city from 售卖重庆农产品的店铺信息
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="MarketCQFarmProductStoreCount" resultType="int">
+   	select count(*) from 售卖重庆农产品的店铺信息
+  </select>
   </mapper>
