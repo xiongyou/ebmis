@@ -42,7 +42,8 @@ public class TaskInfoController extends SuperController {
 		int awaitTaskNumber=taskInfoService.findDefultAwaitTaskNum(taskInfoDO1);
 		int executedTaskNumber=taskInfoService.findDefultExecutedTaskNum(taskInfoDO1);
 		int executingTaskNumber=taskInfoService.findDefultExecutingTaskNum(taskInfoDO1);
-		int allExecutTaskNum=taskInfoService.findDefultAllExecutTaskNum(taskInfoDO1);
+		/*int allExecutTaskNum=taskInfoService.findDefultAllExecutTaskNum(taskInfoDO1);*/
+		int allExecutTaskNum=awaitTaskNumber+executedTaskNumber+executingTaskNumber;
 		TaskInfoDO taskInfoDO=new TaskInfoDO();
 		taskInfoDO.setAwaitTaskNumber(awaitTaskNumber);
 		taskInfoDO.setExecutedTaskNumber(executedTaskNumber);
@@ -71,7 +72,8 @@ public class TaskInfoController extends SuperController {
 		int awaitTaskNumber=taskInfoService.findAwaitTaskNum(taskInfoDO1);
 		int executedTaskNumber=taskInfoService.findExecutedTaskNum(taskInfoDO1);
 		int executingTaskNumber=taskInfoService.findExecutingTaskNum(taskInfoDO1);
-		int allExecutTaskNum=taskInfoService.findAllExecutTaskNum(taskInfoDO1);
+		/*int allExecutTaskNum=taskInfoService.findAllExecutTaskNum(taskInfoDO1);*/
+		int allExecutTaskNum=awaitTaskNumber+executedTaskNumber+executingTaskNumber;
 		TaskInfoDO taskInfoDO=new TaskInfoDO();
 		taskInfoDO.setAwaitTaskNumber(awaitTaskNumber);
 		taskInfoDO.setExecutedTaskNumber(executedTaskNumber);

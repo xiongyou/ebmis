@@ -36,7 +36,8 @@ public class AllProjectTaskInfoController extends SuperController {
 		int awaitTaskNumber=taskInfoService.findDefultAllAwaitTaskNum();
 		int executedTaskNumber=taskInfoService.findDefultAllExecutedTaskNum();
 		int executingTaskNumber=taskInfoService.findDefultAllExecutingTaskNum();
-		int allExecutTaskNum=taskInfoService.findDefultAllProjectExecutTaskNum();
+		/*int allExecutTaskNum=taskInfoService.findDefultAllProjectExecutTaskNum();*/
+		int allExecutTaskNum=awaitTaskNumber+executedTaskNumber+executingTaskNumber;
 		TaskInfoDO taskInfoDO=new TaskInfoDO();
 		taskInfoDO.setAwaitTaskNumber(awaitTaskNumber);
 		taskInfoDO.setExecutedTaskNumber(executedTaskNumber);
@@ -64,7 +65,8 @@ public class AllProjectTaskInfoController extends SuperController {
 		int awaitTaskNumber=taskInfoService.findAllAwaitTaskNum(taskInfoDO1);
 		int executedTaskNumber=taskInfoService.findAllExecutedTaskNum(taskInfoDO1);
 		int executingTaskNumber=taskInfoService.findAllExecutingTaskNum(taskInfoDO1);
-		int allExecutTaskNum=taskInfoService.findAllProjectExecutTaskNum(taskInfoDO1);
+		/*int allExecutTaskNum=taskInfoService.findAllProjectExecutTaskNum(taskInfoDO1);*/
+		int allExecutTaskNum=awaitTaskNumber+executedTaskNumber+executingTaskNumber;
 		TaskInfoDO taskInfoDO=new TaskInfoDO();
 		taskInfoDO.setAwaitTaskNumber(awaitTaskNumber);
 		taskInfoDO.setExecutedTaskNumber(executedTaskNumber);

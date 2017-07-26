@@ -8,12 +8,12 @@ SpringWind - 项目管理
 <link href="#springUrl('/static/css/bootstrap-datetimepicker.css')" rel="stylesheet">
 #end
 #override("breadcrumb")
-<li><a>资源管理</a></li><li class="active"><a>项目任务统计</a></li>
+<li><a>资源管理</a></li><li class="active"><a>采集总监控</a></li>
 #end
 #override("projectControl")
 <div style="border-bottom:1px solid #ddd;padding:10px 20px 5px 20px">
 	<div style="padding-bottom:10px">
-	  <h3 class="col-sm-11 pull-left">项目任务统计</h3>
+	  <h3 class="col-sm-11 pull-left">采集总监控</h3>
 	  	<span class="badge">42</span>
 	</div>
 </div>
@@ -88,7 +88,6 @@ SpringWind - 项目管理
 
 #end
 #override("js")
-<script src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
 <script src="#springUrl('/static/plugins/nice-validator-0.8.1/jquery.validator.js?local=zh-CN')"></script>
 <script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
 <script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
@@ -409,3 +408,7 @@ $.ajax({
 </script>
 #end
 #extends("/common/framework.html")
+<script type="text/javascript">
+$("#firstLeve1").removeClass();
+$("#firstLeve3").addClass("active");
+</script>

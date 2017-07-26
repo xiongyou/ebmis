@@ -89,7 +89,6 @@ SpringWind - 项目管理
 
 #end
 #override("js")
-<script src="#springUrl('/static/js/jquery-2.1.1.js')"></script>
 <script src="#springUrl('/static/plugins/nice-validator-0.8.1/jquery.validator.js?local=zh-CN')"></script>
 <script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
 <script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
@@ -412,3 +411,7 @@ $.ajax({
 </script>
 #end
 #extends("/common/framework.html")
+<script type="text/javascript">
+$("#firstLeve1").removeClass();
+$("#firstLeve3").addClass("active");
+</script>
