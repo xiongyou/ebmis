@@ -28,18 +28,87 @@
                 	<span class="fa arrow"></span>
                	</a>
                	<ul class="nav nav-second-level">
-                     <li class='active'><a href="#springUrl('/allReport/originDataReportList')">原始数据复核</a></li>
-                    <li class='active'><a href="#springUrl('/product/list')">产品基本数据复核</a></li>
-                     <li class='active'><a href="">产品销售数据复核</a></li>
-                    <li class='active'><a href="#springUrl('/category/list')">三级类别管理</a></li>
-                    <li class='active'><a href="#springUrl('/categoryManager/manager')">农产品类别管理</a></li>
-                    <li class='active'><a href="#springUrl('/keyword/list')">关键字管理</a></li>
-                    <li class='active'><a href="#springUrl('/project/list')">采集项目管理</a></li>
-                    <li class='active'><a href="#springUrl('/allProjectTask/defultProjectTaskInfo')">采集总任务统计</a></li>
-                    <li class='active'><a href="#springUrl('/DemoTest/list')">DEMO演示</a></li>
+               		<li >
+		                <a href="#">
+		                	<i ></i>
+		                	<span class="nav-label">采集数据复核</span>
+		                	<span class="fa arrow"></span>
+		               	</a>
+		               	<ul class="nav nav-third-level">
+		               	 <li class='active'><a href="#springUrl('/allReport/originDataReportList')">原始数据复核</a></li>
+                    	 <li class='active'><a href="#springUrl('/product/list')">产品基本数据复核</a></li>
+		               	</ul>
+		             </li>  
+		             
+		             <li >
+		                <a href="#">
+		                	<i ></i>
+		                	<span class="nav-label">基础数据管理</span>
+		                	<span class="fa arrow"></span>
+		               	</a>
+		               	<ul class="nav nav-third-level">
+		               		<li class='active'><a href="#springUrl('/categoryManager/manager')">农产品类别管理</a></li>
+		               		<li class='active'><a href="#springUrl('/DemoTest/list')">DEMO演示</a></li>
+		               		<li class='active'><a href="#springUrl('/category/list')">三级类别管理</a></li>
+                    		<li class='active'><a href="#springUrl('/keyword/list')">关键字管理</a></li>
+                    		
+		               	</ul>
+		             </li> 
+               	
+               		<li >
+		                <a href="#">
+		                	<i ></i>
+		                	<span class="nav-label">采集任务管理</span>
+		                	<span class="fa arrow"></span>
+		               	</a>
+		               	<ul class="nav nav-third-level">
+		               		<li class='active'><a href="#springUrl('/project/list')">采集项目管理</a></li>
+		               		<li class='active'><a>采集任务发布</a></li>
+                   			<li class='active'><a href="#springUrl('/allProjectTask/defultProjectTaskInfo')">采集总监控</a></li>
+		               	</ul>
+		             </li> 
+                    
                 </ul>
             </li>
- 			<li id="second">
+            
+            <li id="second" >
+                <a href="#">
+                	<i ></i>
+                	<span class="nav-label">农电商数据处理</span>
+                	<span class="fa arrow"></span>
+               	</a>
+               	<ul class="nav nav-second-level">
+               		<li >
+		                <a href="#">
+		                	<i ></i>
+		                	<span class="nav-label">数据预处理</span>
+		                	<span class="fa arrow"></span>
+		               	</a>
+		               	<ul class="nav nav-third-level">
+		               	  <li class='active'><a >价格处理</a></li>
+                    	  <li class='active'><a >地址处理</a></li>
+                    	  <li class='active'><a >重量处理</a></li>
+		               	</ul>
+		             </li>  
+		             
+		             <li >
+		                <a href="#">
+		                	<i ></i>
+		                	<span class="nav-label">数据导入</span>
+		                	<span class="fa arrow"></span>
+		               	</a>
+		               	<ul class="nav nav-third-level">
+		               	  <li class='active'><a >店铺数据导入</a></li>
+                    	  <li class='active'><a >商品数据导入</a></li>
+                    	  <li class='active'><a >交易数据导入</a></li>
+		               	</ul>
+		             </li> 
+		           
+                    
+                </ul>
+            </li>
+            
+ 			<li id="third">
                 <a href="#">
                 	<i ></i>
                 	<span class="nav-label">农电商数据报表</span>
@@ -49,36 +118,62 @@
                		<li >
 		                <a href="#">
 		                	<i ></i>
-		                	<span class="nav-label">农产品数据分析</span>
+		                	<span class="nav-label">平台数据</span>
 		                	<span class="fa arrow"></span>
 		               	</a>
 		               	<ul class="nav nav-third-level">
+		               		<li class='active'><a>采集平台清单</a></li>
+		               		<li class='active'><a href="">所有商品数量</a></li>
+		               		<li class='active'><a href="">重庆农产品数量</a></li>
+		               		<li class='active'><a href="">分平台店铺数量</a></li>
 		               	</ul>
-		             </li>  	
-               		<li >
+		             </li>  
+		             
+		             
+		             <li >
 		                <a href="#">
 		                	<i ></i>
-		                	<span class="nav-label">店铺数据分析</span>
+		                	<span class="nav-label">类别数据</span>
 		                	<span class="fa arrow"></span>
 		               	</a>
 		               	<ul class="nav nav-third-level">
-		               	<li class='active'><a href="#springUrl('/allReport/CQLocalStoreList')">重庆本土网店清单</a></li>
+		               		<li class='active'><a href="">分类体系</a></li>
+		               		<li class='active'><a href="">按一级类别统计</a></li>
+		               		<li class='active'><a href="">生鲜分类统计</a></li>
+		               		<li class='active'><a href="">非生鲜分类统计</a></li>
+		               		<li class='active'><a href="#springUrl('/allReport/AliClassifyList')">阿里平台月度销售情况</a></li>
 		               	</ul>
-		             </li>  	
-               		<li >
+		             </li>  
+		             
+		             <li >
 		                <a href="#">
 		                	<i ></i>
-		                	<span class="nav-label">月度数据分析</span>
+		                	<span class="nav-label">地区数据</span>
 		                	<span class="fa arrow"></span>
 		               	</a>
 		               	<ul class="nav nav-third-level">
-		               	<li class='active'><a href="#springUrl('/allReport/AliClassifyList')">阿里平台月度销售情况</a></li>
+		               		<li class='active'><a href="">重庆农产品各省市销售情况</a></li>
+		               		<li class='active'><a href="">重庆农产品分省店铺数量</a></li>
 		               	</ul>
-		             </li>  	
+		             </li>
+		             	
                		<li >
 		                <a href="#">
 		                	<i ></i>
-		                	<span class="nav-label">交易数据分析</span>
+		                	<span class="nav-label">店铺数据</span>
+		                	<span class="fa arrow"></span>
+		               	</a>
+		               	<ul class="nav nav-third-level">
+		               		<li class='active'><a href="">售卖重庆农产品的店铺</a></li>
+		               		<li class='active'><a href="#springUrl('/allReport/CQLocalStoreList')">重庆本土网店清单</a></li>
+		               		<li class='active'><a href="">重庆各区县店铺数量</a></li>
+		               	</ul>
+		             </li>  	
+               		 	
+               		<li >
+		                <a href="#">
+		                	<i ></i>
+		                	<span class="nav-label">单品统计</span>
 		                	<span class="fa arrow"></span>
 		               	</a>
 		               	<ul class="nav nav-third-level">
@@ -86,10 +181,8 @@
                     	<li class='active'><a href="#springUrl('/allReport/TbMonthProductList')">淘宝月度单品20强</a></li>
 		               	</ul>
 		             </li>  	
-                     <li class='active'><a href="">采集平台清单</a></li>
-                    <li class='active'><a href="">每日采集报表</a></li>
-                    <li class='active'><a href="">项目管理</a></li>
-                    <li class='active'><a href="">项目任务统计</a></li>
+                    <li class='active'><a>每日采集报表</a></li>
+                   
                 </ul>
             </li>
         </ul>
