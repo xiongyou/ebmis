@@ -10,9 +10,26 @@ SpringWind - 农产品管理
 #override("content")
 <div class="row">
 	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+	<div class="input-group">			
+			<span class="input-group-cbx">
+				<input name="unchecked" id="unchecked" type="checkbox" value="0" checked="checked" onclick="selectCheck()">
+				<Strong>未复核</Strong>
+			</span>
+		</div>
+		&nbsp;&nbsp;
+		<div class="input-group">			
+			<span class="input-group-cbx">
+				<input name="checked" id="checked" type="checkbox" value="1" onclick="selectCheck()">
+				<Strong>已复核</Strong>
+			</span>
+			<span style="padding-left:344px" >&nbsp;
+			</span>
+		</div>
 		<div class="input-group" style="padding-right:30px">			
 			<select id="select1" class="form-control">
-		      <option>请选择</option>
+		      <option value="请选择">请选择</option>
+		      <option value="生鲜">生鲜</option>
+		      <option value="非生鲜">非生鲜</option>
 		    </select>
 		</div>
 		<div class="input-group" style="padding-right:30px">			
@@ -29,21 +46,6 @@ SpringWind - 农产品管理
 			<select id="select4" class="form-control">
 		      <option>请选择</option>
 		    </select>
-		</div>
-		<div class="input-group">			
-			<span class="input-group-cbx">
-				<input name="unchecked" id="unchecked" type="checkbox" value="0" checked="checked" onclick="selectCheck()">
-				<Strong>未复核</Strong>
-			</span>
-		</div>
-		&nbsp;&nbsp;
-		<div class="input-group">			
-			<span class="input-group-cbx">
-				<input name="checked" id="checked" type="checkbox" value="1" onclick="selectCheck()">
-				<Strong>已复核</Strong>
-			</span>
-			<span style="padding-left:344px;float:right;" >&nbsp;
-			</span>
 		</div>
 		
 		<div class="input-group">
@@ -134,10 +136,44 @@ SpringWind - 农产品管理
 
 
 
-function audit(id,flag){
+	$("#select1").change(function(){
+		var levelName2=$("#select1").val();
+		if(levelName2=="生鲜"){
+			$("#select2").append('<option value="鱼">鱼</option><option value="虾">虾</option>);
+		}else if(levelName2=="非生鲜"){
+			$("#select2").append('<option value="白菜">白菜</option><option value="萝卜">萝卜</option><option value="花生">花生</option>');
+		}
+	});
+	$("#select2").change(function(){
+		var levelName3=$("#select2").val();
+		if(levelName3=="鱼"){
+			$("#select3").append('<option value="鲫鱼">鲫鱼</option><option value="鲢鱼">鲢鱼</option><option value="小鱼">小鱼</option><option value="海螺">海螺</option>');
+		}else if(levelName3=="虾"){
+			$("#select3").append('<option value="大虾">大虾</option><option value="小虾">小虾</option>');
+		}else if(levelName3=="白菜"){
+			$("#select3").append('<option value="空心菜">空心菜</option><option value="实心菜">实心菜</option>');
+		}else if(levelName3=="萝卜"){
+			$("#select3").append('<option value="胡萝卜">胡萝卜</option><option value="白萝卜">白萝卜</option>');
+		}else if(levelName3=="花生"){
+			$("#select3").append('<option value="好吃的花生">好吃的花生</option>');
+		}
+	}
+	$("#select3").change(function(){
+		var levelName4=$("#select3").val();
+		if(levelName4=="鲫鱼"){
+			$("#select4").append('<option value="小鲫鱼">小鲫鱼</option>');
+		}else if(levelName4=="鲢鱼"){
+			$("#select4").append('<option value="大鲢鱼">大鲢鱼</option><option value="小鲢鱼">小鲢鱼</option>');
+		}else if(levelName4=="小鱼"){
+			$("#select4").append('<option value="小小鱼">小小鱼</option>');
+		}else if(levelName4=="大虾"){
+			$("#select4").append('<option value="龙虾">龙虾</option><option value="红虾">红虾</option>');
+		}else if(levelName4=="小虾"){
+			$("#select4").append('<option value="小小虾">小小虾</option>');
+		}
+	}
 	
-	
-	$.ajax({
+	/* $.ajax({
         type: "POST",
         url: "#springUrl('/product/auditProduct/')" + id+':'+flag,
         datatype: "text",
@@ -146,8 +182,7 @@ function audit(id,flag){
                 $('#dataTable').bootstrapTable('refresh',{url:dataUrl});
             }
         }
-    });
-}
+    }); */
 
 
 function selectCheck(){
