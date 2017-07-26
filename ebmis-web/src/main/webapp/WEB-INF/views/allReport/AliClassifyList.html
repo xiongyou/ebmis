@@ -8,6 +8,15 @@ SpringWind - 项目管理
 <li><a>资源管理</a></li><li class="active"><a>阿里平台分类统计</a></li>
 #end
 #override("content")
+<button type="button" class="btn btn-primary pull-right">导出Excel</button>
+<div class="col-sm-1 pull-right" style="padding-right:0px">
+	<input type="hidden" id="currentIndex">
+	<select id="ExcelValue" class="form-control">
+			<option value="1">当前页</option>
+			<option value="2">全部</option>
+	</select>
+</div>
+
 <div class="row">
     <div class="col-sm-12">
         <table id="dataTable"></table>
@@ -56,7 +65,10 @@ SpringWind - 项目管理
             _index: params.offset, //页码
         };
     }
-
 </script>
 #end
 #extends("/common/framework.html")
+<script type="text/javascript">
+$("#first").removeClass();
+$("#second").addClass("active");
+</script>

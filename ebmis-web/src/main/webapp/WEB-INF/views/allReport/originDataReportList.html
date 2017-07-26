@@ -51,7 +51,13 @@ SpringWind - 项目管理
         title: '平台'
     },{
         field: 'productName',
-        title: '名称'
+        title: '名称',
+        formatter:function (value, row, index) {
+            if(value !=null && value.length >10){
+            return '<a title="'+value+'" href="javascript:void(0)" >'+value.substr(0,10)+'..</a>';
+            }
+            return value;
+            }
     },{
         field: 'errorInfo',
         title: '错误信息'
@@ -63,7 +69,13 @@ SpringWind - 项目管理
         title: '链接'
     },{
         field: 'productDescription',
-        title: '描述'
+        title: '描述 ',
+        formatter:function (value, row, index) {
+        if(value !=null && value.length >10){
+        return '<a title="'+value+'" href="javascript:void(0)" >'+value.substr(0,10)+'..</a>';
+        }
+        return value;
+        }
     },{
         field: 'shelveDate',
         title: '上架时间'
@@ -90,7 +102,13 @@ SpringWind - 项目管理
         title: '品牌'
     },{
         field: 'factoryName',
-        title: '厂家'
+        title: '厂家',
+        formatter:function (value, row, index) {
+            if(value !=null && value.length >10){
+            return '<a title="'+value+'" href="javascript:void(0)" >'+value.substr(0,10)+'..</a>';
+            }
+            return value;
+            }
     },{
         field: 'factoryAddress',
         title: '厂址'
@@ -183,3 +201,7 @@ SpringWind - 项目管理
 </script>
 #end
 #extends("/common/framework.html")
+<script type="text/javascript">
+$("#first").removeClass();
+$("#second").addClass("active");
+</script>
