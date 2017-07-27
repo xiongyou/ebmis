@@ -194,12 +194,14 @@ SpringWind - 农产品管理
 	
 	$.ajax({
         type: "POST",
-        url: "#springUrl('/product/auditProduct/')" + id+':'+flag,
-        datatype: "text",
+        url: "#springUrl('/threeClassification/level0List')",
+        datatype: "json",
         success: function (data) {
-            if(data == 'true'){
-                $('#dataTable').bootstrapTable('refresh',{url:dataUrl});
-            }
+        	var level1Str="";
+        	for(var i=0;i<data.length;i++){
+        		level1Str+='<option value="'+data.level0+'">'+data.level0+'</option>';
+        	}
+        	$("#select1").append(level1Str);
         }
     }); 
 

@@ -25,7 +25,7 @@ import com.cqu.edu.ebmis.service.page.Page;
  * @version $ ProductController.java v1.0, 2017年5月5日 下午11:35:38 mxl Exp $
  */
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/threeClassification")
 public class ThreeClassificationController extends SuperController {
 	
 	@Autowired

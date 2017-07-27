@@ -3,11 +3,6 @@
  */
 package com.cqu.edu.ebmis.domain;
 
-/**
- * 
- * @author mxl
- * @version $ CategoryDO.java v1.0, 2017年5月5日 上午10:50:06 mxl Exp $
- */
 public class ThreeClassificationDo {
 	private String level0;
 	private String level1;
