@@ -8,13 +8,17 @@ SpringWind - 项目管理
 <li><a>资源管理</a></li><li class="active"><a>非生鲜分类统计</a></li>
 #end
 #override("content")
-<button type="button" class="btn btn-primary pull-right">导出Excel</button>
+<button type="button" class="btn btn-primary pull-right" onClick="OutExcel()">导出Excel</button>
 <div class="col-sm-1 pull-right" style="padding-right:0px">
-	<input type="hidden" id="currentIndex">
-	<select id="ExcelValue" class="form-control">
-			<option value="1">当前页</option>
-			<option value="2">全部</option>
-	</select>
+	<form id="formExcel">
+		<input type="hidden" id="currentIndex" name="_index">
+		<input type="hidden" id="currentSize" name="_size">
+		<input type="hidden" id="platName" name="platName" value="非生鲜分类统计">
+		<select id="ExcelValue" name="ExcelValue" class="form-control">
+				<option value="1">当前页</option>
+				<option value="2">全部</option>
+		</select>
+	</form>
 </div>
 
 <div class="row">
@@ -46,10 +50,27 @@ SpringWind - 项目管理
         title: '商品数量'
     }];
     function dataQueryParams(params) {
+    	$("#currentIndex").val(params.offset);
+    	$("#currentSize").val(params.limit);
         return {
             _size: params.limit,  //页面大小
             _index: params.offset, //页码
         };
+    }
+    function OutExcel(){
+    	$.ajax({
+        	url: "#springUrl('/outExcel/NoFreshClassifyExcel')",
+            data: $("#formExcel").serialize(),
+            type: "POST",
+            success: function(data){
+            	var d = JSON.parse(data);
+            	var info=d.data;
+            	layer.alert(info, {
+        			  skin: 'layui-layer-molv',
+        			  closeBtn: 0
+        			});
+            }
+    	});
     }
 </script>
 #end

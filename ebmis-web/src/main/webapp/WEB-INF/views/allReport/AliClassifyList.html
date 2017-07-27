@@ -65,6 +65,7 @@ SpringWind - 项目管理
     }];
     function dataQueryParams(params) {
     	$("#currentIndex").val(params.offset);
+    	$("#currentSize").val(params.limit);
         return {
             _size: params.limit,  //页面大小
             _index: params.offset, //页码
@@ -76,7 +77,12 @@ SpringWind - 项目管理
             data: $("#formExcel").serialize(),
             type: "POST",
             success: function(data){
-            	
+            	var d = JSON.parse(data);
+            	var info=d.data;
+            	layer.alert(info, {
+        			  skin: 'layui-layer-molv',
+        			  closeBtn: 0
+        			});
             }
     	});
     }

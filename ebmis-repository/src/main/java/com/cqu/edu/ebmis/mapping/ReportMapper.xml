@@ -15,7 +15,7 @@
     from data    
   </select>
   <select id="getCQLocalStore" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-  select `a`.`storeinnerid` ,`a`.`storeactualid` ,`a`.`storeURL` ,`a`.`stor_platform` ,`a`.`storeName`,`b`.`companyName`,`a`.`store_salse` 
+  select `a`.`storeinnerid` ,`a`.`storeactualid` ,`a`.`storeURL` ,`a`.`stor_platform` ,`a`.`storeName`,IFNULL(`b`.`companyName`,'无') companyName,`a`.`store_salse` 
   ,`a`.`sum(a.monthSaleCount)` AS counts  ,a.sku  from (`店铺季度销售排行` `a` join `store_baseinfo` `b`) where ((`a`.`loc_province` = '重庆') and 
   (`a`.`storeinnerid` = `b`.`storeInnerId`)) order by `a`.`store_salse` desc <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
   </select>
@@ -127,7 +127,7 @@
 	order by count(`重庆农产品各省店铺分布`.`loc_province`) desc) c
   </select>
   <select id="MarketCQFarmProductStoreData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-	select storeActualID ,storeName,shopkeeper,companyName,loc_province,loc_city from 售卖重庆农产品的店铺信息
+	select storeActualID ,IFNULL(storeName,'无') storeName,IFNULL(shopkeeper,'无') shopkeeper,IFNULL(companyName,'无') companyName,IFNULL(loc_province,'无') loc_province,IFNULL(loc_city,'无') loc_city from 售卖重庆农产品的店铺信息
 	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
   </select>
    <select id="MarketCQFarmProductStoreCount" resultType="int">

@@ -22,14 +22,12 @@ SpringWind - 农产品管理
 				<input name="checked" id="checked" type="checkbox" value="1" onclick="selectCheck()">
 				<Strong>已复核</Strong>
 			</span>
-			<span style="padding-left:200px">&nbsp;
+			<span>&nbsp;
 			</span>
 		</div>
-		<div class="input-group" style="padding-right:30px">			
+		<div class="input-group" style="padding-right:30px;padding-left:30px">			
 			<select id="select1" class="form-control">
 		      <option value="请选择">请选择</option>
-		      <option value="生鲜">生鲜</option>
-		      <option value="非生鲜">非生鲜</option>
 		    </select>
 		</div>
 		<div class="input-group" style="padding-right:30px">			
@@ -42,7 +40,7 @@ SpringWind - 农产品管理
 		      <option>请选择</option>
 		    </select>
 		</div>
-		<div class="input-group" style="padding-right:80px">			
+		<div class="input-group" style="padding-right:260px">			
 			<select id="select4" class="form-control">
 		      <option>请选择</option>
 		    </select>
@@ -194,7 +192,7 @@ SpringWind - 农产品管理
 		}
 	});
 	
-	/* $.ajax({
+	$.ajax({
         type: "POST",
         url: "#springUrl('/product/auditProduct/')" + id+':'+flag,
         datatype: "text",
@@ -203,7 +201,7 @@ SpringWind - 农产品管理
                 $('#dataTable').bootstrapTable('refresh',{url:dataUrl});
             }
         }
-    }); */
+    }); 
 
 
 function selectCheck(){

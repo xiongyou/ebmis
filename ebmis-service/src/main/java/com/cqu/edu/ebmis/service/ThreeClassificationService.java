@@ -1,18 +1,20 @@
 /**
  * xiaolong.mxl @copyRight 2016-2017
  */
-package com.cqu.edu.ebmis.mapper;
+package com.cqu.edu.ebmis.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
-import com.cqu.edu.ebmis.domain.CategoryDO;
-import com.cqu.edu.ebmis.domain.CategoryManagerDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 
 
-public interface ThreeClassificationMapper {
+/**
+ * 产品基本信息服务
+ * 
+ * @author mxl
+ * @version $ ProductBaseInfoService.java v1.0, 2017年5月5日 下午11:19:01 mxl Exp $
+ */
+public interface ThreeClassificationService {
 	/**
 	 * 零级列表
 	 * @return
@@ -36,4 +38,5 @@ public interface ThreeClassificationMapper {
 	 * @return
 	 */
 	List<ThreeClassificationDo> findLevel3(ThreeClassificationDo threeClassificationDo);
+	
 }

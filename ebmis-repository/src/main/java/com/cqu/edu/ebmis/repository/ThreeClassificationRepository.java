@@ -1,18 +1,15 @@
 /**
  * xiaolong.mxl @copyRight 2016-2017
  */
-package com.cqu.edu.ebmis.mapper;
+package com.cqu.edu.ebmis.repository;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
-import com.cqu.edu.ebmis.domain.CategoryDO;
-import com.cqu.edu.ebmis.domain.CategoryManagerDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 
 
-public interface ThreeClassificationMapper {
+public interface ThreeClassificationRepository {
+	
 	/**
 	 * 零级列表
 	 * @return
