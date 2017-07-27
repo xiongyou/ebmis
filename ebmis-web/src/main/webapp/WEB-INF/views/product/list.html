@@ -22,7 +22,7 @@ SpringWind - 农产品管理
 				<input name="checked" id="checked" type="checkbox" value="1" onclick="selectCheck()">
 				<Strong>已复核</Strong>
 			</span>
-			<span style="padding-left:344px" >&nbsp;
+			<span style="padding-left:200px">&nbsp;
 			</span>
 		</div>
 		<div class="input-group" style="padding-right:30px">			
@@ -139,39 +139,60 @@ SpringWind - 农产品管理
 	$("#select1").change(function(){
 		var levelName2=$("#select1").val();
 		if(levelName2=="生鲜"){
-			$("#select2").append('<option value="鱼">鱼</option><option value="虾">虾</option>);
+			$("#select2").html("");
+			$("#select2").append('<option value="请选择">请选择</option><option value="水果">水果</option><option value="水产">水产</option><option value="蔬菜">蔬菜</option><option value="肉">肉</option>');
 		}else if(levelName2=="非生鲜"){
-			$("#select2").append('<option value="白菜">白菜</option><option value="萝卜">萝卜</option><option value="花生">花生</option>');
+			$("#select2").html("");
+			$("#select2").append('<option value="请选择">请选择</option><option value="茶叶及饮品">茶叶及饮品</option><option value="干山货">干山货</option><option value="火锅底料">火锅底料</option><option value="粮油及其制成品">粮油及其制成品</option><option value="佐餐调味">佐餐调味</option><option value="休闲食品">休闲食品</option><option value="腌腊食品">腌腊食品</option>');
+		}else{
+			$("#select2").html("");
+			$("#select3").html("");
+			$("#select4").html("");
 		}
 	});
 	$("#select2").change(function(){
 		var levelName3=$("#select2").val();
-		if(levelName3=="鱼"){
-			$("#select3").append('<option value="鲫鱼">鲫鱼</option><option value="鲢鱼">鲢鱼</option><option value="小鱼">小鱼</option><option value="海螺">海螺</option>');
-		}else if(levelName3=="虾"){
-			$("#select3").append('<option value="大虾">大虾</option><option value="小虾">小虾</option>');
-		}else if(levelName3=="白菜"){
-			$("#select3").append('<option value="空心菜">空心菜</option><option value="实心菜">实心菜</option>');
-		}else if(levelName3=="萝卜"){
-			$("#select3").append('<option value="胡萝卜">胡萝卜</option><option value="白萝卜">白萝卜</option>');
+		if(levelName3=="水果"){
+			$("#select3").html("");
+			$("#select3").append('<option value="请选择">请选择</option><option value="葡萄">葡萄</option><option value="橙子">橙子</option><option value="梨子">梨子</option><option value="海螺">海螺</option>');
+		}else if(levelName3=="水产"){
+			$("#select3").html("");
+			$("#select3").append('<option value="请选择">请选择</option><option value="鱼">鱼</option><option value="龙虾">龙虾</option><option value="泥鳅">泥鳅</option><option value="螃蟹">螃蟹</option>');
+		}else if(levelName3=="蔬菜"){
+			$("#select3").html("");
+			$("#select3").append('<option value="请选择">请选择</option><option value="空心菜">空心菜</option><option value="实心菜">实心菜</option>');
+		}else if(levelName3=="肉"){
+			$("#select3").html("");
+			$("#select3").append('<option value="请选择">请选择</option><option value="猪肉">猪肉</option><option value="牛肉">牛肉</option><option value="羊肉">羊肉</option><option value="鸡肉">鸡肉</option>');
 		}else if(levelName3=="花生"){
-			$("#select3").append('<option value="好吃的花生">好吃的花生</option>');
+			$("#select3").html("");
+			$("#select3").append('<option value="请选择">请选择</option><option value="好吃的花生">好吃的花生</option>');
+		}else{
+			$("#select3").html("");
+			$("#select4").html("");
 		}
-	}
+	});
 	$("#select3").change(function(){
 		var levelName4=$("#select3").val();
-		if(levelName4=="鲫鱼"){
-			$("#select4").append('<option value="小鲫鱼">小鲫鱼</option>');
+		if(levelName4=="葡萄"){
+			$("#select4").html("");
+			$("#select4").append('<option value="请选择">请选择</option><option value="巨峰葡萄">巨峰葡萄</option><option value="玫瑰葡萄">玫瑰葡萄</option><option value="马奶葡萄">马奶葡萄</option>');
 		}else if(levelName4=="鲢鱼"){
-			$("#select4").append('<option value="大鲢鱼">大鲢鱼</option><option value="小鲢鱼">小鲢鱼</option>');
+			$("#select4").html("");
+			$("#select4").append('<option value="请选择">请选择</option><option value="大鲢鱼">大鲢鱼</option><option value="小鲢鱼">小鲢鱼</option>');
 		}else if(levelName4=="小鱼"){
-			$("#select4").append('<option value="小小鱼">小小鱼</option>');
+			$("#select4").html("");
+			$("#select4").append('<option value="请选择">请选择</option><option value="小小鱼">小小鱼</option>');
 		}else if(levelName4=="大虾"){
-			$("#select4").append('<option value="龙虾">龙虾</option><option value="红虾">红虾</option>');
+			$("#select4").html("");
+			$("#select4").append('<option value="请选择">请选择</option><option value="龙虾">龙虾</option><option value="红虾">红虾</option>');
 		}else if(levelName4=="小虾"){
-			$("#select4").append('<option value="小小虾">小小虾</option>');
+			$("#select4").html("");
+			$("#select4").append('<option value="请选择">请选择</option><option value="小小虾">小小虾</option>');
+		}else{
+			$("#select4").html("");
 		}
-	}
+	});
 	
 	/* $.ajax({
         type: "POST",
