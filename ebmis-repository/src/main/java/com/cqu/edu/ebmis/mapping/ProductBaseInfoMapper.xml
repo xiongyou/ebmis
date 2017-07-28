@@ -136,14 +136,14 @@
   </select>
  <!-- 层级分页搜索查找商品-->
   <select id="getLevelSearchProduct" resultMap="BaseResultMap">
-    SELECT <include refid="Base_Column_List"/> FROM product_baseinfo WHERE productName like #{word} or singleKeyword like #{word}
+    SELECT <include refid="Base_Column_List"/> FROM product_baseinfo WHERE ( productName like #{word} or singleKeyword like #{word})
     <if test="checkedNum!=-1"> and checked=#{checkedNum}</if><if test="platform!='请选择'"> and platform=#{platform}</if><if test="level0!='请选择'">and singleKeyword IN 
     (SELECT 三级 FROM threeclassificationtable WHERE 1=1 <if test="level0!='请选择'"> and 零级=#{level0}</if><if test="level1!='请选择'"> and 一级=#{level1}</if>
     <if test="level2!='请选择'"> and 二级=#{level2}</if><if test="level3!='请选择'"> and 三级=#{level3}</if>)</if> order by extractTime limit #{offset},#{size}
   </select>
  <!-- 层级分页查找全部商品-->
   <select id="getLevelSearchProductNum" resultType="int">
-    SELECT count(productInnerId) FROM product_baseinfo WHERE productName like #{word} or singleKeyword like #{word}
+    SELECT count(productInnerId) FROM product_baseinfo WHERE (productName like #{word} or singleKeyword like #{word})
     <if test="checkedNum!=-1"> and checked=#{checkedNum}</if><if test="platform!='请选择'"> and platform=#{platform}</if><if test="level0!='请选择'"> and singleKeyword IN 
     (SELECT 三级 FROM threeclassificationtable WHERE 1=1 <if test="level0!='请选择'"> and 零级=#{level0}</if><if test="level1!='请选择'"> and 一级=#{level1}</if>
     <if test="level2!='请选择'"> and 二级=#{level2}</if><if test="level3!='请选择'"> and 三级=#{level3}</if>)</if>
