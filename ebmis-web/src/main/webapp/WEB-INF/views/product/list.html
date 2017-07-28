@@ -125,10 +125,11 @@ SpringWind - 农产品管理
         title: '是否校验',
         formatter: function (value, row, index) {
             var checked = row.checked;
+            var id = row.productInnerId;
            if(checked==1){
             	return '<span style="color:#00F">已复核</span>';
             }else{
-            	return '<span style="color:#F00">未复核</span>';
+            	return '<span id="'+id+'" style="color:#F00">未复核</span>';
             }
         }
     }, {
@@ -387,9 +388,22 @@ function selectCheck(){
 	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
 	    };
 	$("#dataTable").bootstrapTable('refresh', opt1);
-	
-		
 }
+function audit(id,flag){
+	 	
+	 	$.ajax({
+	         type: "POST",
+	         url: "#springUrl('/product/auditProduct/')" + id+':'+flag,
+	         datatype: "text",
+	         success: function (data) {
+	             if(data == 'true'){
+	            	 $("#"+id).html("已复核");
+	            	 $("#"+id).css("color","#00F");
+	             }
+	         }
+	     });
+	 }
+
 
 </script>
 #end
