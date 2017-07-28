@@ -19,29 +19,40 @@ SpringWind - 农产品管理
 		&nbsp;&nbsp;
 		<div class="input-group">			
 			<span class="input-group-cbx">
-				<input name="checked" id="checked" type="checkbox" value="1" checked="checked" onclick="selectCheck()">
+				<input name="checked" id="checked" type="checkbox" value="1" onclick="selectCheck()">
 				<Strong>已复核</Strong>
 			</span>
 			<span>&nbsp;
 			</span>
 		</div>
-		<div class="input-group" style="padding-right:30px;padding-left:30px">			
-			<select id="select1" name="select1" class="form-control">
+		<div class="input-group" style="padding-left:30px">
+			<Strong>平台选择:</Strong>
+		</div>
+		<div class="input-group" style="padding-right:30px;padding-left:10px">
+			<select id="platform" name="platform" class="form-control" style="width:100px">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
-		<div class="input-group" style="padding-right:30px">			
-			<select id="select2" name="select2" class="form-control">
+		<div class="input-group" style="padding-left:10px">			
+			<Strong>层级选择:</Strong>
+		</div>
+		<div class="input-group" style="padding-right:10px;padding-left:10px">			
+			<select id="select1" name="select1" class="form-control" style="width:100px">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
-		<div class="input-group" style="padding-right:30px">			
-			<select id="select3" name="select3" class="form-control">
+		<div class="input-group" style="padding-right:10px">			
+			<select id="select2" name="select2" class="form-control" style="width:100px">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
-		<div class="input-group" style="padding-right:260px">			
-			<select id="select4" name="select4" class="form-control">
+		<div class="input-group" style="padding-right:10px">			
+			<select id="select3" name="select3" class="form-control" style="width:100px">
+		      <option value="请选择">请选择</option>
+		    </select>
+		</div>
+		<div class="input-group" style="padding-right:60px">			
+			<select id="select4" name="select4" class="form-control" style="width:100px">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
@@ -73,9 +84,15 @@ SpringWind - 农产品管理
     var dataUrl = "#springUrl('/product/getProduct/0')";
     
     var dataColumns = [{
+        field: 'platform',
+        title: '平台'
+    },{
         field: 'productName',
         title: '产品名称'
-    }, {
+    },{
+        field: 'keyword',
+        title: '关键字'
+    },{
         field: 'productURL',
         title: '产品链接',
         formatter: function (value, row, index) {
@@ -133,41 +150,59 @@ SpringWind - 农产品管理
     }
 
 	function Search(){
-		var select1Name=$("#select1").val();
-		var select2Name=$("#select2").val();
-		var select3Name=$("#select3").val();
-		var select4Name=$("#select4").val();
-		if(select1Name=="请选择"){
-			var word=$("#word").val();
-			var checkedNum=-1;
-			var opt;
-			if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
-				checkedNum=0;
-				opt = {
-		    	        url: "#springUrl('/product/getProductSearchList.html?word="+word+"&checkedNum="+checkedNum+"')"
-		    	    };
-			}
-			else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
-				checkedNum=1;
-				opt = {
-		    	        url: "#springUrl('/product/getProductSearchList.html?word="+word+"&checkedNum="+checkedNum+"')"
-		    	    };
-			}else{
-				opt = {
-		    	        url: "#springUrl('/product/getProductSearchList.html?word="+word+"&checkedNum="+checkedNum+"')"
-		    	    };
-			}
-			$("#dataTable").bootstrapTable('refresh', opt);
-		}
-	}
-
-	$("#select1").change(function(){
 		var levelName1=$("#select1").val();
 		var levelName2=$("#select2").val();
 		var levelName3=$("#select3").val();
 		var levelName4=$("#select4").val();
-		var opt1;
+		var platform=$("#platform").val();
 		var checkedNum=-1;
+		var word=$("#word").val();
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		var opt1 = {
+    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+    	    };
+		$("#dataTable").bootstrapTable('refresh', opt1);
+	}
+	$("#platform").change(function(){
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3=$("#select3").val();
+		var levelName4=$("#select4").val();
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		var opt1 = {
+    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+    	    };
+		$("#dataTable").bootstrapTable('refresh', opt1);
+		
+	});
+
+	$("#select1").change(function(){
+		var levelName1=$("#select1").val();
+		var platform=$("#platform").val();
+		var levelName2;
+		var	opt1;
+		var checkedNum=-1;
+		$("#select2").html("");
+		$("#select3").html("");
+		$("#select4").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		$("#select3").append(level1Str);
+		$("#select4").append(level1Str);
+		var levelName3=$("#select3").val();
+		var levelName4=$("#select4").val();
 		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
 			checkedNum=0;
 		}
@@ -180,32 +215,133 @@ SpringWind - 农产品管理
 		        url: "#springUrl('/threeClassification/level1List?level0="+levelName1+"')",
 		        datatype: "json",
 		        success: function (data) {
-		        	$("#select2").html("");
-		        	var level1Str="<option value='请选择'>请选择</option>";
 		        	for(var i=0;i<data.length;i++){
 		        		level1Str+='<option value="'+data[i].level1+'">'+data[i].level1+'</option>';
 		        	}
 		        	$("#select2").append(level1Str);
+		        	levelName2=$("#select2").val();
+		        	opt1 = {
+			    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+			    	    };
+		        	$("#dataTable").bootstrapTable('refresh', opt1);
 		        }
 		    }); 
-			opt1 = {
-	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"')"
-	    	    };
 		}else{
-			opt1 = {
-	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"')"
+			$("#select2").append(level1Str);
+			levelName2=$("#select2").val();
+        	opt1 = {
+	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
 	    	    };
+        	$("#dataTable").bootstrapTable('refresh', opt1);
 		}
-		$("#dataTable").bootstrapTable('refresh', opt1);
+		
 		
 	});
 	$("#select2").change(function(){
+		var levelName1=$("#select1").val();
 		var levelName2=$("#select2").val();
+		var levelName3;
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		$("#select3").html("");
+		$("#select4").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		$("#select4").append(level1Str);
+		var levelName4=$("#select4").val();
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		if(levelName2!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level2List?level0="+levelName1+"&level1="+levelName2+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level2+'">'+data[i].level2+'</option>';
+		        	}
+		        	$("#select3").append(level1Str);
+		        	levelName3=$("#select3").val();
+		        	var	opt1 = {
+			    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+			    	    };
+				
+				$("#dataTable").bootstrapTable('refresh', opt1);
+		        }
+		    }); 
+		}else{
+			$("#select3").append(level1Str);
+			levelName3=$("#select3").val();
+			var	opt1 = {
+	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+	    	    };
 		
+		$("#dataTable").bootstrapTable('refresh', opt1);
+		}
 	});
 	$("#select3").change(function(){
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
 		var levelName3=$("#select3").val();
+		var levelName4;
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		$("#select4").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		if(levelName2!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level3List?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level3+'">'+data[i].level3+'</option>';
+		        	}
+		        	$("#select4").append(level1Str);
+		        	levelName4=$("#select4").val();
+		        	var	opt1 = {
+			    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+			    	    };
+				
+				$("#dataTable").bootstrapTable('refresh', opt1);
+		        }
+		    }); 
+		}else{
+			$("#select4").append(level1Str);
+			levelName4=$("#select4").val();
+			var	opt1 = {
+	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+	    	    };
 		
+		$("#dataTable").bootstrapTable('refresh', opt1);
+		}
+	});
+	$("#select4").change(function(){
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3=$("#select3").val();
+		var levelName4=$("#select4").val();
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		var	opt1 = {
+	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+	    	    };
+		
+		$("#dataTable").bootstrapTable('refresh', opt1);
 	});
 	
 	$.ajax({
@@ -220,22 +356,38 @@ SpringWind - 农产品管理
         	$("#select1").append(level1Str);
         }
     }); 
+	$.ajax({
+        type: "POST",
+        url: "#springUrl('/threeClassification/allPlatform')",
+        datatype: "json",
+        success: function (data) {
+        	var level1Str="";
+        	for(var i=0;i<data.length;i++){
+        		level1Str+='<option value="'+data[i].platform+'">'+data[i].platform+'</option>';
+        	}
+        	$("#platform").append(level1Str);
+        }
+    }); 
 
 
 function selectCheck(){
-	
+	var levelName1=$("#select1").val();
+	var levelName2=$("#select2").val();
+	var levelName3=$("#select3").val();
+	var levelName4=$("#select4").val();
+	var platform=$("#platform").val();
+	var checkedNum=-1;
 	if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
-		var dataUrl="#springUrl('/product/getProduct/0')";
-		$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+		checkedNum=0;
 	}
 	else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
-		var dataUrl="#springUrl('/product/getProduct/1')";
-		$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
+		checkedNum=1;
 	}
-	else{
-		var dataUrl="#springUrl('/product/getProductList')";
-		$('#dataTable').bootstrapTable('refresh',{url:dataUrl});
-	}	
+	var	opt1 = {
+	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+	    };
+	$("#dataTable").bootstrapTable('refresh', opt1);
+	
 		
 }
 

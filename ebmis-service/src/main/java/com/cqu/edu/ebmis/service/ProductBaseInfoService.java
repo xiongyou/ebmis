@@ -85,7 +85,7 @@ public interface ProductBaseInfoService {
 	 * @param offset
 	 * @return
 	 */
-	Page<ProductBaseInfoDO> getLevelList(int checkedNum,String level0,
+	Page<ProductBaseInfoDO> getLevelList(String platform,int checkedNum,String level0,
 			String level1, String level2, String level3,Page<ProductBaseInfoDO> page);
 	/**
 	 * 层级分页搜索查找商品
@@ -93,6 +93,6 @@ public interface ProductBaseInfoService {
 	 * @param offset
 	 * @return
 	 */
-	Page<ProductBaseInfoDO> getLevelSearchProduct(String word,int checkedNum,String level0,
+	Page<ProductBaseInfoDO> getLevelSearchProduct(String word,String platform,int checkedNum,String level0,
 			String level1, String level2, String level3,Page<ProductBaseInfoDO> page);
 }

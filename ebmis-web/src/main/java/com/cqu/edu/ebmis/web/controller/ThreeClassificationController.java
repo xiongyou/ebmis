@@ -8,15 +8,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
-import com.cqu.edu.ebmis.service.ProductBaseInfoService;
 import com.cqu.edu.ebmis.service.ThreeClassificationService;
-import com.cqu.edu.ebmis.service.page.Page;
 
 /**
  * 农产品基本信息管理
@@ -28,8 +24,6 @@ import com.cqu.edu.ebmis.service.page.Page;
 @RequestMapping("/threeClassification")
 public class ThreeClassificationController extends SuperController {
 	
-	@Autowired
-	private ProductBaseInfoService	productBaseInfoService;
 	@Autowired
 	private ThreeClassificationService	threeClassificationService;
 	
@@ -49,6 +43,33 @@ public class ThreeClassificationController extends SuperController {
 	public List<ThreeClassificationDo> level1List(Model model) {
 		String levelName=request.getParameter("level0");
 		return threeClassificationService.findLevel1(levelName);
+	}
+	@ResponseBody
+	@RequestMapping("/allPlatform")
+	public List<ThreeClassificationDo> allPlatform(Model model) {
+		return threeClassificationService.allPlatform();
+	}
+	@ResponseBody
+	@RequestMapping("/level2List")
+	public List<ThreeClassificationDo> level2List(Model model) {
+		String level0=request.getParameter("level0");
+		String level1=request.getParameter("level1");
+		ThreeClassificationDo threeClassificationDo=new ThreeClassificationDo();
+		threeClassificationDo.setLevel0(level0);
+		threeClassificationDo.setLevel1(level1);
+		return threeClassificationService.findLevel2(threeClassificationDo);
+	}
+	@ResponseBody
+	@RequestMapping("/level3List")
+	public List<ThreeClassificationDo> level3List(Model model) {
+		String level0=request.getParameter("level0");
+		String level1=request.getParameter("level1");
+		String level2=request.getParameter("level2");
+		ThreeClassificationDo threeClassificationDo=new ThreeClassificationDo();
+		threeClassificationDo.setLevel0(level0);
+		threeClassificationDo.setLevel1(level1);
+		threeClassificationDo.setLevel2(level2);
+		return threeClassificationService.findLevel3(threeClassificationDo);
 	}
 	
 }

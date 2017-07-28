@@ -320,8 +320,8 @@ public class AllOutExcelController extends SuperController {
 				}
 		}else{
 			HashMap map=new HashMap();
-			Integer size=null;
-			Integer index=null;
+			Integer size=20;
+			Integer index=1;
 			map.put("size", size);
 			map.put("offset", index);
 			List<Map<String, Object>> originDataReportList=reportService.TmMonthProductData(map);
@@ -398,8 +398,8 @@ public class AllOutExcelController extends SuperController {
 				}
 		}else{
 			HashMap map=new HashMap();
-			Integer size=null;
-			Integer index=null;
+			Integer size=20;
+			Integer index=1;
 			map.put("size", size);
 			map.put("offset", index);
 			List<Map<String, Object>> originDataReportList=reportService.TbMonthProductData(map);

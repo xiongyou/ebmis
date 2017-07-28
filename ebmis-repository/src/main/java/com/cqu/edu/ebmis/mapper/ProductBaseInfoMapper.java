@@ -69,7 +69,7 @@ public interface ProductBaseInfoMapper {
 	 * @return
 	 */
 	List<ProductBaseInfoDO> getLevelList(@Param("size") int size,
-			@Param("offset") int offset,@Param("checkedNum") int checkedNum,@Param("level0") String level0,
+			@Param("offset") int offset,@Param("platform") String platform,@Param("checkedNum") int checkedNum,@Param("level0") String level0,
 			@Param("level1") String level1,@Param("level2") String level2,@Param("level3") String level3);
 	/**
 	 * 层级查找全部商品的数量
@@ -77,7 +77,7 @@ public interface ProductBaseInfoMapper {
 	 * @param offset
 	 * @return
 	 */
-	int getLevelListNum(@Param("checkedNum") int checkedNum,@Param("level0") String level0,
+	int getLevelListNum(@Param("platform") String platform,@Param("checkedNum") int checkedNum,@Param("level0") String level0,
 			@Param("level1") String level1,@Param("level2") String level2,@Param("level3") String level3);
 	/**
 	 * 层级分页搜索查找商品
@@ -86,7 +86,7 @@ public interface ProductBaseInfoMapper {
 	 * @return
 	 */
 	List<ProductBaseInfoDO> getLevelSearchProduct(@Param("size") int size,
-			@Param("offset") int offset, @Param("word") String word,@Param("checkedNum") int checkedNum,@Param("level0") String level0,
+			@Param("offset") int offset, @Param("word") String word,@Param("platform") String platform,@Param("checkedNum") int checkedNum,@Param("level0") String level0,
 			@Param("level1") String level1,@Param("level2") String level2,@Param("level3") String level3);
 	/**
 	 * 层级分页搜索查找商品的数量
@@ -94,7 +94,7 @@ public interface ProductBaseInfoMapper {
 	 * @param offset
 	 * @return
 	 */
-	int getLevelSearchProductNum(@Param("word") String word,@Param("checkedNum") int checkedNum,@Param("level0") String level0,
+	int getLevelSearchProductNum(@Param("word") String word,@Param("platform") String platform,@Param("checkedNum") int checkedNum,@Param("level0") String level0,
 			@Param("level1") String level1,@Param("level2") String level2,@Param("level3") String level3);
 	
 	

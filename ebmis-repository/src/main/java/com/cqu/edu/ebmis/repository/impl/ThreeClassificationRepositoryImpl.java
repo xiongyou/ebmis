@@ -48,6 +48,12 @@ public class ThreeClassificationRepositoryImpl implements ThreeClassificationRep
 		// TODO Auto-generated method stub
 		return threeClassificationMapper.findLevel3(threeClassificationDo);
 	}
+
+	@Override
+	public List<ThreeClassificationDo> allPlatform() {
+		// TODO Auto-generated method stub
+		return threeClassificationMapper.allPlatform();
+	}
 	
 	
 	

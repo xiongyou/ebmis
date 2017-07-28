@@ -110,21 +110,21 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 		return page;
 	}
 
-	public Page<ProductBaseInfoDO> getLevelList(int checkedNum,String level0,
+	public Page<ProductBaseInfoDO> getLevelList(String platform,int checkedNum,String level0,
 			String level1, String level2, String level3,Page<ProductBaseInfoDO> page) {
 		// TODO Auto-generated method stub
-		List<ProductBaseInfoDO> records=productBaseInfoRepository.getLevelList(page.getLimit(), page.getOffset(),checkedNum, level0, level1, level2, level3);
-		page.setTotal(productBaseInfoRepository.getLevelListNum(checkedNum, level0, level1, level2, level3));
+		List<ProductBaseInfoDO> records=productBaseInfoRepository.getLevelList(page.getLimit(), page.getOffset(),platform,checkedNum, level0, level1, level2, level3);
+		page.setTotal(productBaseInfoRepository.getLevelListNum(platform,checkedNum, level0, level1, level2, level3));
 		page.setRecords(records);
 		return page;
 	}
 
 
-	public Page<ProductBaseInfoDO> getLevelSearchProduct(String word,int checkedNum,String level0,
+	public Page<ProductBaseInfoDO> getLevelSearchProduct(String word,String platform,int checkedNum,String level0,
 			String level1, String level2, String level3,Page<ProductBaseInfoDO> page) {
 		// TODO Auto-generated method stub
-		List<ProductBaseInfoDO> records=productBaseInfoRepository.getLevelSearchProduct(page.getLimit(), page.getOffset(), word, checkedNum, level0, level1, level2, level3);
-		page.setTotal(productBaseInfoRepository.getLevelSearchProductNum(word, checkedNum, level0, level1, level2, level3));
+		List<ProductBaseInfoDO> records=productBaseInfoRepository.getLevelSearchProduct(page.getLimit(), page.getOffset(), word,platform, checkedNum, level0, level1, level2, level3);
+		page.setTotal(productBaseInfoRepository.getLevelSearchProductNum(word,platform,checkedNum, level0, level1, level2, level3));
 		page.setRecords(records);
 		 return page;
 	}

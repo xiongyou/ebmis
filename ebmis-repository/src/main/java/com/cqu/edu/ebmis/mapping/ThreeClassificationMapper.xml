@@ -8,12 +8,22 @@
     <result column="一级" jdbcType="VARCHAR" property="level1" />
     <result column="二级" jdbcType="VARCHAR" property="level2" />
     <result column="三级" jdbcType="VARCHAR" property="level3" />
+    <result column="platform" jdbcType="VARCHAR" property="platform" />
     </resultMap>
    <select id="findLevel0" resultMap="ThreeClassificationResultMap">
     SELECT DISTINCT 零级  FROM threeclassificationtable 
    </select>
    <select id="findLevel1" resultMap="ThreeClassificationResultMap" parameterType="java.lang.String">
     SELECT DISTINCT 一级  FROM threeclassificationtable where 零级=#{LevelName}
+   </select>
+   <select id="allPlatform" resultMap="ThreeClassificationResultMap">
+    SELECT DISTINCT platform FROM product_baseinfo 
+   </select>
+   <select id="findLevel2" resultMap="ThreeClassificationResultMap" parameterType="com.cqu.edu.ebmis.domain.ThreeClassificationDo">
+    SELECT DISTINCT 二级	FROM threeclassificationtable WHERE 零级=#{level0} AND 一级=#{level1}
+   </select>
+   <select id="findLevel3" resultMap="ThreeClassificationResultMap" parameterType="com.cqu.edu.ebmis.domain.ThreeClassificationDo">
+    SELECT 三级	FROM threeclassificationtable WHERE 零级=#{level0} AND 一级=#{level1} AND 二级=#{level2}
    </select>
   
 </mapper>

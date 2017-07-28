@@ -38,5 +38,11 @@ public interface ThreeClassificationService {
 	 * @return
 	 */
 	List<ThreeClassificationDo> findLevel3(ThreeClassificationDo threeClassificationDo);
+	/**
+	 * 所有平台
+	 * @param threeClassificationDo
+	 * @return
+	 */
+	List<ThreeClassificationDo> allPlatform();
 	
 }

@@ -11,6 +11,7 @@ public class ThreeClassificationDo {
 	private String word;
 	private int checkedNum;
 	private String categoryCode;
+	private String platform;
 	public String getLevel0() {
 		return level0;
 	}
@@ -53,4 +54,11 @@ public class ThreeClassificationDo {
 	public void setCheckedNum(int checkedNum) {
 		this.checkedNum = checkedNum;
 	}
+	public String getPlatform() {
+		return platform;
+	}
+	public void setPlatform(String platform) {
+		this.platform = platform;
+	}
+	
 }

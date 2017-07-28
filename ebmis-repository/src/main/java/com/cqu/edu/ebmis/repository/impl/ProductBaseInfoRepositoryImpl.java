@@ -105,34 +105,34 @@ public class ProductBaseInfoRepositoryImpl implements ProductBaseInfoRepository 
 	}
 
 	@Override
-	public List<ProductBaseInfoDO> getLevelList(int size,int offset,int checkedNum,String level0,
+	public List<ProductBaseInfoDO> getLevelList(int size,int offset,String platform,int checkedNum,String level0,
 			String level1, String level2, String level3) {
 		// TODO Auto-generated method stub
-		return productBaseInfoMapper.getLevelList(size,offset,checkedNum,level0,
+		return productBaseInfoMapper.getLevelList(size,offset,platform,checkedNum,level0,
 			level1,level2,level3);
 	}
 
 	@Override
-	public int getLevelListNum(int checkedNum,String level0,
+	public int getLevelListNum(String platform,int checkedNum,String level0,
 			String level1, String level2, String level3) {
 		// TODO Auto-generated method stub
-		return productBaseInfoMapper.getLevelListNum(checkedNum,level0,
+		return productBaseInfoMapper.getLevelListNum(platform,checkedNum,level0,
 				level1,level2,level3);
 	}
 
 	@Override
-	public List<ProductBaseInfoDO> getLevelSearchProduct(int size,int offset,String word,int checkedNum,String level0,
+	public List<ProductBaseInfoDO> getLevelSearchProduct(int size,int offset,String word,String platform,int checkedNum,String level0,
 			String level1, String level2, String level3) {
 		// TODO Auto-generated method stub
-		return productBaseInfoMapper.getLevelSearchProduct(size,offset,word,checkedNum,level0,
+		return productBaseInfoMapper.getLevelSearchProduct(size,offset,word,platform,checkedNum,level0,
 				level1,level2,level3);
 	}
 
 	@Override
-	public int getLevelSearchProductNum(String word,int checkedNum,String level0,
+	public int getLevelSearchProductNum(String word,String platform,int checkedNum,String level0,
 			String level1, String level2, String level3) {
 		// TODO Auto-generated method stub
-		return productBaseInfoMapper.getLevelSearchProductNum(word,checkedNum,level0,
+		return productBaseInfoMapper.getLevelSearchProductNum(word,platform,checkedNum,level0,
 				level1,level2,level3);
 	}
 

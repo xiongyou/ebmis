@@ -92,13 +92,34 @@ public class ProductController extends SuperController {
 	@RequestMapping("/getLevelList")
 	public String getLevelList() {
 		String checkedNum1=request.getParameter("checkedNum");
+		String platform=request.getParameter("platform");
 		String level0=request.getParameter("level0");
 		String level1=request.getParameter("level1");
 		String level2=request.getParameter("level2");
 		String level3=request.getParameter("level3");
 		Integer checkedNum=Integer.parseInt(checkedNum1);
 		Page<ProductBaseInfoDO> page = getPage();
-		productBaseInfoService.getLevelList(checkedNum, level0, level1, level2, level3, page);
+		productBaseInfoService.getLevelList(platform,checkedNum, level0, level1, level2, level3, page);
+		return jsonPage(page);
+	}
+	/**
+	 * 层级分页搜索查找全部商品
+	 */
+	@ResponseBody
+	@RequestMapping("/getLevelSearchProduct")
+	public String getLevelSearchProduct() {
+		String word="%";
+		String word1=request.getParameter("word");
+		word+=word1+"%";
+		String checkedNum1=request.getParameter("checkedNum");
+		String platform=request.getParameter("platform");
+		String level0=request.getParameter("level0");
+		String level1=request.getParameter("level1");
+		String level2=request.getParameter("level2");
+		String level3=request.getParameter("level3");
+		Integer checkedNum=Integer.parseInt(checkedNum1);
+		Page<ProductBaseInfoDO> page = getPage();
+		productBaseInfoService.getLevelSearchProduct(word,platform,checkedNum, level0, level1, level2, level3, page);
 		return jsonPage(page);
 	}
 }

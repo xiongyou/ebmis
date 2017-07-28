@@ -48,5 +48,10 @@ public class ThreeClassificationServiceImpl implements ThreeClassificationServic
 		// TODO Auto-generated method stub
 		return threeClassificationRepository.findLevel3(threeClassificationDo);
 	}
+
+	public List<ThreeClassificationDo> allPlatform() {
+		// TODO Auto-generated method stub
+		return threeClassificationRepository.allPlatform();
+	}
 	
 }
