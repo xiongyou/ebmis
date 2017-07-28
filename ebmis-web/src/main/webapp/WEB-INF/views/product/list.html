@@ -171,6 +171,7 @@ SpringWind - 农产品管理
 		$("#dataTable").bootstrapTable('refresh', opt1);
 	}
 	$("#platform").change(function(){
+		var word=$("#word").val();
 		var levelName1=$("#select1").val();
 		var levelName2=$("#select2").val();
 		var levelName3=$("#select3").val();
@@ -183,14 +184,23 @@ SpringWind - 农产品管理
 		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
 			checkedNum=1;
 		}
-		var opt1 = {
-    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
-    	    };
-		$("#dataTable").bootstrapTable('refresh', opt1);
+		if(word!=""){
+			var opt1 = {
+	    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+	    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+	    	    };
+			$("#dataTable").bootstrapTable('refresh', opt1);
+		}else{
+			var opt1 = {
+	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+	    	    };
+			$("#dataTable").bootstrapTable('refresh', opt1);
+		}
 		
 	});
 
 	$("#select1").change(function(){
+		var word=$("#word").val();
 		var levelName1=$("#select1").val();
 		var platform=$("#platform").val();
 		var levelName2;
@@ -221,29 +231,45 @@ SpringWind - 农产品管理
 		        	}
 		        	$("#select2").append(level1Str);
 		        	levelName2=$("#select2").val();
-		        	opt1 = {
-			    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
-			    	    };
+		        	if(word!=""){
+		    			opt1 = {
+		    	    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+		    	    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+		    	    	    };
+		    		}else{
+		    			opt1 = {
+		    	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+		    	    	    };
+		    		}
 		        	$("#dataTable").bootstrapTable('refresh', opt1);
 		        }
 		    }); 
 		}else{
 			$("#select2").append(level1Str);
 			levelName2=$("#select2").val();
-        	opt1 = {
-	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
-	    	    };
+			if(word!=""){
+				opt1 = {
+		    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+		    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+		    	    };
+			}else{
+				opt1 = {
+		    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+		    	    };
+			}
         	$("#dataTable").bootstrapTable('refresh', opt1);
 		}
 		
 		
 	});
 	$("#select2").change(function(){
+		var word=$("#word").val();
 		var levelName1=$("#select1").val();
 		var levelName2=$("#select2").val();
 		var levelName3;
 		var platform=$("#platform").val();
 		var checkedNum=-1;
+		var	opt1;
 		$("#select3").html("");
 		$("#select4").html("");
 		var level1Str="<option value='请选择'>请选择</option>";
@@ -266,9 +292,17 @@ SpringWind - 农产品管理
 		        	}
 		        	$("#select3").append(level1Str);
 		        	levelName3=$("#select3").val();
-		        	var	opt1 = {
-			    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
-			    	    };
+		        	levelName2=$("#select2").val();
+					if(word!=""){
+						opt1 = {
+				    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+				    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+				    	    };
+					}else{
+						opt1 = {
+				    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+				    	    };
+					}
 				
 				$("#dataTable").bootstrapTable('refresh', opt1);
 		        }
@@ -276,20 +310,29 @@ SpringWind - 农产品管理
 		}else{
 			$("#select3").append(level1Str);
 			levelName3=$("#select3").val();
-			var	opt1 = {
-	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
-	    	    };
+			if(word!=""){
+				opt1 = {
+		    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+		    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+		    	    };
+			}else{
+				opt1 = {
+		    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+		    	    };
+			}
 		
 		$("#dataTable").bootstrapTable('refresh', opt1);
 		}
 	});
 	$("#select3").change(function(){
+		var word=$("#word").val();
 		var levelName1=$("#select1").val();
 		var levelName2=$("#select2").val();
 		var levelName3=$("#select3").val();
 		var levelName4;
 		var platform=$("#platform").val();
 		var checkedNum=-1;
+		var	opt1;
 		$("#select4").html("");
 		var level1Str="<option value='请选择'>请选择</option>";
 		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
@@ -309,9 +352,16 @@ SpringWind - 农产品管理
 		        	}
 		        	$("#select4").append(level1Str);
 		        	levelName4=$("#select4").val();
-		        	var	opt1 = {
-			    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
-			    	    };
+		        	if(word!=""){
+						opt1 = {
+				    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+				    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+				    	    };
+					}else{
+						opt1 = {
+				    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+				    	    };
+					}
 				
 				$("#dataTable").bootstrapTable('refresh', opt1);
 		        }
@@ -319,29 +369,44 @@ SpringWind - 农产品管理
 		}else{
 			$("#select4").append(level1Str);
 			levelName4=$("#select4").val();
-			var	opt1 = {
-	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
-	    	    };
+			if(word!=""){
+				opt1 = {
+		    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+		    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+		    	    };
+			}else{
+				opt1 = {
+		    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+		    	    };
+			}
 		
 		$("#dataTable").bootstrapTable('refresh', opt1);
 		}
 	});
 	$("#select4").change(function(){
+		var word=$("#word").val();
 		var levelName1=$("#select1").val();
 		var levelName2=$("#select2").val();
 		var levelName3=$("#select3").val();
 		var levelName4=$("#select4").val();
 		var platform=$("#platform").val();
 		var checkedNum=-1;
+		var	opt1;
 		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
 			checkedNum=0;
 		}else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
 			checkedNum=1;
 		}
-		var	opt1 = {
+		if(word!=""){
+			opt1 = {
+	    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+	    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+	    	    };
+		}else{
+			opt1 = {
 	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
 	    	    };
-		
+		}
 		$("#dataTable").bootstrapTable('refresh', opt1);
 	});
 	
@@ -372,21 +437,30 @@ SpringWind - 农产品管理
 
 
 function selectCheck(){
+	var word=$("#word").val();
 	var levelName1=$("#select1").val();
 	var levelName2=$("#select2").val();
 	var levelName3=$("#select3").val();
 	var levelName4=$("#select4").val();
 	var platform=$("#platform").val();
 	var checkedNum=-1;
+	var	opt1;
 	if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
 		checkedNum=0;
 	}
 	else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
 		checkedNum=1;
 	}
-	var	opt1 = {
-	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
-	    };
+	if(word!=""){
+		opt1 = {
+    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+    	    };
+	}else{
+		opt1 = {
+    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+    	    };
+	}
 	$("#dataTable").bootstrapTable('refresh', opt1);
 }
 function audit(id,flag){
