@@ -3,6 +3,8 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
+import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.service.ProductBaseInfoService;
 import com.cqu.edu.ebmis.service.page.Page;
 
@@ -43,6 +46,21 @@ public class ProductController extends SuperController {
 		
 		return jsonPage(page);
 	}
+	//全部搜索
+	@ResponseBody
+	@RequestMapping("/getProductSearchList")
+	public String getProductSearchList() {
+		String word="%";
+		String word1=request.getParameter("word");
+		word+=word1+"%";
+		String checkedNum1=request.getParameter("checkedNum");
+		Integer checkedNum=Integer.parseInt(checkedNum1);
+		Page<ProductBaseInfoDO> page = getPage();
+		
+		productBaseInfoService.findBySearchPage(word, checkedNum, page);
+		
+		return jsonPage(page);
+	}
 	
 	@ResponseBody
 	@RequestMapping("/getProduct/{checked}")
@@ -66,5 +84,21 @@ public class ProductController extends SuperController {
 					Integer.parseInt(strs[1]));
 		}
 		return Boolean.TRUE.toString();
+	}
+	/**
+	 * 层级分页查找全部商品
+	 */
+	@ResponseBody
+	@RequestMapping("/getLevelList")
+	public String getLevelList() {
+		String checkedNum1=request.getParameter("checkedNum");
+		String level0=request.getParameter("level0");
+		String level1=request.getParameter("level1");
+		String level2=request.getParameter("level2");
+		String level3=request.getParameter("level3");
+		Integer checkedNum=Integer.parseInt(checkedNum1);
+		Page<ProductBaseInfoDO> page = getPage();
+		productBaseInfoService.getLevelList(checkedNum, level0, level1, level2, level3, page);
+		return jsonPage(page);
 	}
 }

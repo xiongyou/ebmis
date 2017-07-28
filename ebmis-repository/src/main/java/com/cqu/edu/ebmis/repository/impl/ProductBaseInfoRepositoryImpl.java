@@ -5,10 +5,12 @@ package com.cqu.edu.ebmis.repository.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
+import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.mapper.ProductBaseInfoMapper;
 import com.cqu.edu.ebmis.repository.ProductBaseInfoRepository;
 
@@ -89,6 +91,51 @@ public class ProductBaseInfoRepositoryImpl implements ProductBaseInfoRepository 
 	public int selectCheckedCount(int checked) {
 		return productBaseInfoMapper.selectCheckedCount(checked);
 	}
+
+	@Override
+	public List<ProductBaseInfoDO> selectAllSearchProduct(int size, int offset, String word, int checkedNum) {
+		// TODO Auto-generated method stub
+		return productBaseInfoMapper.selectAllSearchProduct(size, offset, word, checkedNum);
+	}
+
+	@Override
+	public int selectAllSearchProductNum(int size, int offset, String word, int checkedNum) {
+		// TODO Auto-generated method stub
+		return productBaseInfoMapper.selectAllSearchProductNum(size, offset, word, checkedNum);
+	}
+
+	@Override
+	public List<ProductBaseInfoDO> getLevelList(int size,int offset,int checkedNum,String level0,
+			String level1, String level2, String level3) {
+		// TODO Auto-generated method stub
+		return productBaseInfoMapper.getLevelList(size,offset,checkedNum,level0,
+			level1,level2,level3);
+	}
+
+	@Override
+	public int getLevelListNum(int checkedNum,String level0,
+			String level1, String level2, String level3) {
+		// TODO Auto-generated method stub
+		return productBaseInfoMapper.getLevelListNum(checkedNum,level0,
+				level1,level2,level3);
+	}
+
+	@Override
+	public List<ProductBaseInfoDO> getLevelSearchProduct(int size,int offset,String word,int checkedNum,String level0,
+			String level1, String level2, String level3) {
+		// TODO Auto-generated method stub
+		return productBaseInfoMapper.getLevelSearchProduct(size,offset,word,checkedNum,level0,
+				level1,level2,level3);
+	}
+
+	@Override
+	public int getLevelSearchProductNum(String word,int checkedNum,String level0,
+			String level1, String level2, String level3) {
+		// TODO Auto-generated method stub
+		return productBaseInfoMapper.getLevelSearchProductNum(word,checkedNum,level0,
+				level1,level2,level3);
+	}
+
 	
 	
 }

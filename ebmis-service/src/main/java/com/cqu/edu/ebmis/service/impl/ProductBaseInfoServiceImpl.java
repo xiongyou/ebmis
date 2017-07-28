@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
+import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.repository.ProductBaseInfoRepository;
 import com.cqu.edu.ebmis.service.ProductBaseInfoService;
 import com.cqu.edu.ebmis.service.page.Page;
@@ -100,5 +101,33 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 		
 		return page;
 	}
+
+	public Page<ProductBaseInfoDO> findBySearchPage(String word, int checkedNum, Page<ProductBaseInfoDO> page) {
+		// TODO Auto-generated method stub
+		List<ProductBaseInfoDO> records=productBaseInfoRepository.selectAllSearchProduct(page.getLimit(), page.getOffset(), word, checkedNum);
+		page.setTotal(productBaseInfoRepository.selectAllSearchProductNum(page.getLimit(), page.getOffset(), word, checkedNum));
+		page.setRecords(records);
+		return page;
+	}
+
+	public Page<ProductBaseInfoDO> getLevelList(int checkedNum,String level0,
+			String level1, String level2, String level3,Page<ProductBaseInfoDO> page) {
+		// TODO Auto-generated method stub
+		List<ProductBaseInfoDO> records=productBaseInfoRepository.getLevelList(page.getLimit(), page.getOffset(),checkedNum, level0, level1, level2, level3);
+		page.setTotal(productBaseInfoRepository.getLevelListNum(checkedNum, level0, level1, level2, level3));
+		page.setRecords(records);
+		return page;
+	}
+
+
+	public Page<ProductBaseInfoDO> getLevelSearchProduct(String word,int checkedNum,String level0,
+			String level1, String level2, String level3,Page<ProductBaseInfoDO> page) {
+		// TODO Auto-generated method stub
+		List<ProductBaseInfoDO> records=productBaseInfoRepository.getLevelSearchProduct(page.getLimit(), page.getOffset(), word, checkedNum, level0, level1, level2, level3);
+		page.setTotal(productBaseInfoRepository.getLevelSearchProductNum(word, checkedNum, level0, level1, level2, level3));
+		page.setRecords(records);
+		 return page;
+	}
+
 	
 }

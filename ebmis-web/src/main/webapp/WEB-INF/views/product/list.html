@@ -19,37 +19,37 @@ SpringWind - 农产品管理
 		&nbsp;&nbsp;
 		<div class="input-group">			
 			<span class="input-group-cbx">
-				<input name="checked" id="checked" type="checkbox" value="1" onclick="selectCheck()">
+				<input name="checked" id="checked" type="checkbox" value="1" checked="checked" onclick="selectCheck()">
 				<Strong>已复核</Strong>
 			</span>
 			<span>&nbsp;
 			</span>
 		</div>
 		<div class="input-group" style="padding-right:30px;padding-left:30px">			
-			<select id="select1" class="form-control">
+			<select id="select1" name="select1" class="form-control">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
 		<div class="input-group" style="padding-right:30px">			
-			<select id="select2" class="form-control">
-		      <option>请选择</option>
+			<select id="select2" name="select2" class="form-control">
+		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
 		<div class="input-group" style="padding-right:30px">			
-			<select id="select3" class="form-control">
-		      <option>请选择</option>
+			<select id="select3" name="select3" class="form-control">
+		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
 		<div class="input-group" style="padding-right:260px">			
-			<select id="select4" class="form-control">
-		      <option>请选择</option>
+			<select id="select4" name="select4" class="form-control">
+		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
 		
 		<div class="input-group">
-			<input type="text" class="form-control">
+			<input type="text" id="word" name="word" class="form-control">
 			<span class="input-group-btn">
-				<button type="button" class="btn btn-info">搜索</button>
+				<button type="button" onClick="Search()" class="btn btn-info">搜索</button>
 			</span>
 		</div>
 		
@@ -132,64 +132,80 @@ SpringWind - 农产品管理
         };
     }
 
-
+	function Search(){
+		var select1Name=$("#select1").val();
+		var select2Name=$("#select2").val();
+		var select3Name=$("#select3").val();
+		var select4Name=$("#select4").val();
+		if(select1Name=="请选择"){
+			var word=$("#word").val();
+			var checkedNum=-1;
+			var opt;
+			if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+				checkedNum=0;
+				opt = {
+		    	        url: "#springUrl('/product/getProductSearchList.html?word="+word+"&checkedNum="+checkedNum+"')"
+		    	    };
+			}
+			else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+				checkedNum=1;
+				opt = {
+		    	        url: "#springUrl('/product/getProductSearchList.html?word="+word+"&checkedNum="+checkedNum+"')"
+		    	    };
+			}else{
+				opt = {
+		    	        url: "#springUrl('/product/getProductSearchList.html?word="+word+"&checkedNum="+checkedNum+"')"
+		    	    };
+			}
+			$("#dataTable").bootstrapTable('refresh', opt);
+		}
+	}
 
 	$("#select1").change(function(){
-		var levelName2=$("#select1").val();
-		if(levelName2=="生鲜"){
-			$("#select2").html("");
-			$("#select2").append('<option value="请选择">请选择</option><option value="水果">水果</option><option value="水产">水产</option><option value="蔬菜">蔬菜</option><option value="肉">肉</option>');
-		}else if(levelName2=="非生鲜"){
-			$("#select2").html("");
-			$("#select2").append('<option value="请选择">请选择</option><option value="茶叶及饮品">茶叶及饮品</option><option value="干山货">干山货</option><option value="火锅底料">火锅底料</option><option value="粮油及其制成品">粮油及其制成品</option><option value="佐餐调味">佐餐调味</option><option value="休闲食品">休闲食品</option><option value="腌腊食品">腌腊食品</option>');
-		}else{
-			$("#select2").html("");
-			$("#select3").html("");
-			$("#select4").html("");
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3=$("#select3").val();
+		var levelName4=$("#select4").val();
+		var opt1;
+		var checkedNum=-1;
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
 		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		if(levelName1!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level1List?level0="+levelName1+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	$("#select2").html("");
+		        	var level1Str="<option value='请选择'>请选择</option>";
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level1+'">'+data[i].level1+'</option>';
+		        	}
+		        	$("#select2").append(level1Str);
+		        }
+		    }); 
+			opt1 = {
+	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"')"
+	    	    };
+		}else{
+			opt1 = {
+	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"')"
+	    	    };
+		}
+		$("#dataTable").bootstrapTable('refresh', opt1);
+		
 	});
 	$("#select2").change(function(){
-		var levelName3=$("#select2").val();
-		if(levelName3=="水果"){
-			$("#select3").html("");
-			$("#select3").append('<option value="请选择">请选择</option><option value="葡萄">葡萄</option><option value="橙子">橙子</option><option value="梨子">梨子</option><option value="海螺">海螺</option>');
-		}else if(levelName3=="水产"){
-			$("#select3").html("");
-			$("#select3").append('<option value="请选择">请选择</option><option value="鱼">鱼</option><option value="龙虾">龙虾</option><option value="泥鳅">泥鳅</option><option value="螃蟹">螃蟹</option>');
-		}else if(levelName3=="蔬菜"){
-			$("#select3").html("");
-			$("#select3").append('<option value="请选择">请选择</option><option value="空心菜">空心菜</option><option value="实心菜">实心菜</option>');
-		}else if(levelName3=="肉"){
-			$("#select3").html("");
-			$("#select3").append('<option value="请选择">请选择</option><option value="猪肉">猪肉</option><option value="牛肉">牛肉</option><option value="羊肉">羊肉</option><option value="鸡肉">鸡肉</option>');
-		}else if(levelName3=="花生"){
-			$("#select3").html("");
-			$("#select3").append('<option value="请选择">请选择</option><option value="好吃的花生">好吃的花生</option>');
-		}else{
-			$("#select3").html("");
-			$("#select4").html("");
-		}
+		var levelName2=$("#select2").val();
+		
 	});
 	$("#select3").change(function(){
-		var levelName4=$("#select3").val();
-		if(levelName4=="葡萄"){
-			$("#select4").html("");
-			$("#select4").append('<option value="请选择">请选择</option><option value="巨峰葡萄">巨峰葡萄</option><option value="玫瑰葡萄">玫瑰葡萄</option><option value="马奶葡萄">马奶葡萄</option>');
-		}else if(levelName4=="鲢鱼"){
-			$("#select4").html("");
-			$("#select4").append('<option value="请选择">请选择</option><option value="大鲢鱼">大鲢鱼</option><option value="小鲢鱼">小鲢鱼</option>');
-		}else if(levelName4=="小鱼"){
-			$("#select4").html("");
-			$("#select4").append('<option value="请选择">请选择</option><option value="小小鱼">小小鱼</option>');
-		}else if(levelName4=="大虾"){
-			$("#select4").html("");
-			$("#select4").append('<option value="请选择">请选择</option><option value="龙虾">龙虾</option><option value="红虾">红虾</option>');
-		}else if(levelName4=="小虾"){
-			$("#select4").html("");
-			$("#select4").append('<option value="请选择">请选择</option><option value="小小虾">小小虾</option>');
-		}else{
-			$("#select4").html("");
-		}
+		var levelName3=$("#select3").val();
+		
 	});
 	
 	$.ajax({
@@ -199,7 +215,7 @@ SpringWind - 农产品管理
         success: function (data) {
         	var level1Str="";
         	for(var i=0;i<data.length;i++){
-        		level1Str+='<option value="'+data.level0+'">'+data.level0+'</option>';
+        		level1Str+='<option value="'+data[i].level0+'">'+data[i].level0+'</option>';
         	}
         	$("#select1").append(level1Str);
         }

@@ -44,5 +44,11 @@ public class ThreeClassificationController extends SuperController {
 		
 		return threeClassificationService.findLevel0();
 	}
+	@ResponseBody
+	@RequestMapping("/level1List")
+	public List<ThreeClassificationDo> level1List(Model model) {
+		String levelName=request.getParameter("level0");
+		return threeClassificationService.findLevel1(levelName);
+	}
 	
 }

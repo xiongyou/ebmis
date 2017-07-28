@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.ThreeClassificationMapper">
+
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+    <resultMap id="ThreeClassificationResultMap" type="com.cqu.edu.ebmis.domain.ThreeClassificationDo">
+    <result column="零级" jdbcType="VARCHAR" property="level0" />
+    <result column="一级" jdbcType="VARCHAR" property="level1" />
+    <result column="二级" jdbcType="VARCHAR" property="level2" />
+    <result column="三级" jdbcType="VARCHAR" property="level3" />
+    </resultMap>
+   <select id="findLevel0" resultMap="ThreeClassificationResultMap">
+    SELECT DISTINCT 零级  FROM threeclassificationtable 
+   </select>
+   <select id="findLevel1" resultMap="ThreeClassificationResultMap" parameterType="java.lang.String">
+    SELECT DISTINCT 一级  FROM threeclassificationtable where 零级=#{LevelName}
+   </select>
+  
+</mapper>
+

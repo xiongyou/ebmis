@@ -6,6 +6,7 @@ package com.cqu.edu.ebmis.service;
 import java.util.List;
 
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
+import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.service.page.Page;
 
 /**
@@ -63,6 +64,14 @@ public interface ProductBaseInfoService {
 	 * @return
 	 */
 	Page<ProductBaseInfoDO> findByPage(Page<ProductBaseInfoDO> page);
+	/**
+	 * 初始分页模糊查询
+	 * 
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<ProductBaseInfoDO> findBySearchPage(String word,int checkedNum,Page<ProductBaseInfoDO> page);
 	
 	/**
 	 * 分页查找复核的商品
@@ -70,4 +79,20 @@ public interface ProductBaseInfoService {
 	 * @return
 	 */
 	Page<ProductBaseInfoDO> findCheckedByPage(int checked,Page<ProductBaseInfoDO> page);
+	/**
+	 * 层级分页查找全部商品
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<ProductBaseInfoDO> getLevelList(int checkedNum,String level0,
+			String level1, String level2, String level3,Page<ProductBaseInfoDO> page);
+	/**
+	 * 层级分页搜索查找商品
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<ProductBaseInfoDO> getLevelSearchProduct(String word,int checkedNum,String level0,
+			String level1, String level2, String level3,Page<ProductBaseInfoDO> page);
 }

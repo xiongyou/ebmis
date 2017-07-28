@@ -53,8 +53,25 @@
     order by extractTime
     limit #{offset},#{size}
   </select>
+  <!-- 初始页搜索 -->
+  <select id="selectAllSearchProduct" resultMap="BaseResultMap">
+    select
+    * 
+    from product_baseinfo where productName like #{word}
+    <if test="checkedNum!=-1"> and checked=#{checkedNum}</if>
+    order by extractTime
+    limit #{offset},#{size}
+  </select>
+  <!-- 初始页搜索的条数 -->
+  <select id="selectAllSearchProductNum" resultType="int">
+    select
+    count(*) 
+    from product_baseinfo where productName like #{word}
+    <if test="checkedNum!=-1"> and checked=#{checkedNum}</if>
+    order by extractTime
+  </select>
   
-    <select id="selectAllCount" resultType="int">
+   <select id="selectAllCount" resultType="int">
     select
     count(*) 
     from product_baseinfo  
@@ -105,6 +122,33 @@
         <if test="categoryCode!=null"> and categoryCode in <foreach collection="categoryCode"  item="item" index="index" open="(" separator="," close=")">#{item}</foreach> 
         </if>  
   </select>
+ <!-- 层级分页查找全部商品-->
+  <select id="getLevelList" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM product_baseinfo WHERE 1=1 <if test="checkedNum!=-1"> and checked=#{checkedNum}</if> and singleKeyword IN 
+    (SELECT 三级 FROM threeclassificationtable WHERE 1=1 <if test="level0!='请选择'"> and 零级=#{level0}</if><if test="level1!='请选择'"> and 一级=#{level1}</if>
+    <if test="level2!='请选择'"> and 二级=#{level2}</if><if test="level3!='请选择'"> and 三级=#{level3}</if>) limit #{offset},#{size}
+  </select>
+ <!-- 层级分页查找全部商品-->
+  <select id="getLevelListNum" resultType="int">
+    SELECT count(productInnerId) FROM product_baseinfo WHERE 1=1 <if test="checkedNum!=-1"> and checked=#{checkedNum}</if> and singleKeyword IN 
+    (SELECT 三级 FROM threeclassificationtable WHERE 1=1 <if test="level0!='请选择'"> and 零级=#{level0}</if><if test="level1!='请选择'"> and 一级=#{level1}</if>
+    <if test="level2!='请选择'"> and 二级=#{level2}</if><if test="level3!='请选择'"> and 三级=#{level3}</if>)
+  </select>
+ <!-- 层级分页搜索查找商品-->
+  <select id="getLevelSearchProduct" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM product_baseinfo WHERE productName like #{word}
+    <if test="checkedNum!=-1"> and checked=#{checkedNum}</if> and singleKeyword IN 
+    (SELECT 三级 FROM threeclassificationtable WHERE 1=1 <if test="level0!='请选择'"> and 零级=#{level0}</if><if test="level1!='请选择'"> and 一级=#{level1}</if>
+    <if test="level2!='请选择'"> and 二级=#{level2}</if><if test="level3!='请选择'"> and 三级=#{level3}</if>) limit #{offset},#{size}
+  </select>
+ <!-- 层级分页查找全部商品-->
+  <select id="getLevelSearchProductNum" resultType="int">
+    SELECT count(productInnerId) FROM product_baseinfo WHERE productName like #{word}
+    <if test="checkedNum!=-1"> and checked=#{checkedNum}</if> and singleKeyword IN 
+    (SELECT 三级 FROM threeclassificationtable WHERE 1=1 <if test="level0!='请选择'"> and 零级=#{level0}</if><if test="level1!='请选择'"> and 一级=#{level1}</if>
+    <if test="level2!='请选择'"> and 二级=#{level2}</if><if test="level3!='请选择'"> and 三级=#{level3}</if>)
+  </select>
+  
 
 </mapper>
 

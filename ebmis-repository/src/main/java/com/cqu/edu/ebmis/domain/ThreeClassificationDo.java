@@ -8,6 +8,8 @@ public class ThreeClassificationDo {
 	private String level1;
 	private String level2;
 	private String level3;
+	private String word;
+	private int checkedNum;
 	private String categoryCode;
 	public String getLevel0() {
 		return level0;
@@ -39,5 +41,16 @@ public class ThreeClassificationDo {
 	public void setCategoryCode(String categoryCode) {
 		this.categoryCode = categoryCode;
 	}
-	
+	public String getWord() {
+		return word;
+	}
+	public void setWord(String word) {
+		this.word = word;
+	}
+	public int getCheckedNum() {
+		return checkedNum;
+	}
+	public void setCheckedNum(int checkedNum) {
+		this.checkedNum = checkedNum;
+	}
 }
