@@ -1,0 +1,64 @@
+#override("title")
+SpringWind - 三级分类管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>资源管理</a></li><li class="active"><strong>类别日志管理</strong></li>
+#end
+#override("content")
+<div class="row">
+	<div class="ibox-content form-inline" style="background: #F3F3F4;">
+		<div class="input-group pull-right">
+			<input type="text" class="form-control">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-info">搜索</button>
+			</span>
+		</div>
+	</div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+    var dataUrl = "#springUrl('/categoryLog/getCategoryLogList.html')";
+    var dataColumns = [{
+        field: 'logId',
+        title: '日志Id'
+    }, {
+        field: 'content',
+        title: '操作内容'
+    }, {
+        field: 'logTime',
+        title: '操作时间'
+    }, {
+        field: 'operation',
+        title: '操作'
+    }, {
+        field: 'userName',
+        title: '操作人'
+    }];
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+
+</script>
+#end
+#extends("/common/framework.html")
+<script type="text/javascript">
+$("#first").removeClass();
+</script>

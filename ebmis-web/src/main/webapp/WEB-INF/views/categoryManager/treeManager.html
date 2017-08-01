@@ -25,17 +25,49 @@ line-height:23px;
 	            	农产品维护
 	        </span>
 	        <div class="pull-right">
+	        	<div style="margin:0px 10px 0px 0px;float:left">
+		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="addLog()">添加日志</button>
+		        </div>
+			</div>
+	        <div class="pull-right">
 	        	<div style="margin:0px 20px;float:left">
 		        	<span class="glyphicon glyphicon-refresh" onClick="reFresh()" title="刷新" style="font-size:20px"></span>
 		        </div>
 			</div>
     </div>
     <div class="panel-body" style="height:100%;border-top:2px solid #00FF7F">
+    	<span id="logRecord" style="font-size: 15px;margin-left: 22px"></span>
        <div id="context" data-toggle="context" data-target="#context-menu">
    		<ul id="zTreeManager" class="ztree" style="padding:10px 0px 20px 20px"></ul>
 	   </div>
     </div>
 </div>
+<div class="modal fade" id="treeLog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">添加日志</h4>
+            </div>
+            <div class="modal-body" style="padding:0px">
+            	<form class="form-horizontal" id="form2">
+		           <textarea class="form-control" name="content" id="content" style="padding:0px 0px 100px 0px"></textarea>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <div class="pull-right" style="margin:0px 10px 10px 0px">
+	              <div class="buttons">
+	                <button class="btn btn-primary btn-flat" onClick="saveLog()"><i class="fa fa-save"></i>保存</button>
+	                <button class="btn btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
+	              </div>
+              </div>
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交更改</button>  -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -93,6 +125,10 @@ line-height:23px;
 <script src="#springUrl('/static/js/prettify.js')"></script>
 <script type="text/javascript">
 /* $("#editCategoey").hide(); */
+ var logUrl="#springUrl('/categoryLog/selectLatestLog.html')";
+    $.post(logUrl,function(result){
+    	$("#logRecord").html("日志记录:"+result.content+"  "+result.userName+"  "+result.logTime1)
+    },"json");
 var zTreeObj;
 function getzTreeObject(){
    	return $.fn.zTree.getZTreeObj("zTreeManager");
@@ -103,7 +139,8 @@ function getzTreeObject(){
             autoParam: ["categoryId=parentId"],
             dataType:"json",
             type:"post",
-            url :"#springUrl('/categoryManager/getParentId')"
+            url :"#springUrl('/categoryManager/getParentId')",
+            dataFilter: ajaxDataFilter
         },
         edit: {
     		drag: {
@@ -128,7 +165,6 @@ function getzTreeObject(){
         callback: {
     		beforeDrop: zTreeBeforeDrop,
     		onDrop: zTreeOnDrop, 
-    		onClick: zTreeOnClick,
     		onMouseDown: zTreeOnMouseDown
     		/* 
     		beforeRightClick: zTreeBeforeRightClick
@@ -145,6 +181,45 @@ function getzTreeObject(){
        resourcesTree.expandNode(nodes[0], true, false, false)
        }
     },"json");
+    function ajaxDataFilter(treeId, parentNode, responseData) {
+        if (responseData) {
+          for(var i =0; i < responseData.length; i++) {
+            responseData[i].name += "_filter";
+          }
+        }
+        return responseData;
+    };
+    //添加日志操作
+    function addLog(){
+    	$("#treeLog").modal('show');
+    }
+    //添加日志
+    function saveLog(){
+    	var content=$("#content").val();
+    	if(content==null||content==""){
+    		$("#content").attr("placeholder","请输入内容");
+    	}else{
+    		var date=$("#form2").serialize();
+        	var url="#springUrl('/categoryLog/insert')";
+    		$.post(url,date,function(result){
+        		var d = JSON.parse(result);
+        		$("#content").removeAttr("placeholder");
+        		$("#content").val("");
+                if(!d.success){
+            		var error=d.data;
+            		layer.alert(error, {
+          			  skin: 'layui-layer-molv',
+          			  closeBtn: 0
+          			});
+                }else{
+                	 $.post(logUrl,function(result){
+                	    	$("#logRecord").html("日志记录:"+result.content+"  "+result.userName+"  "+result.logTime1)
+                	    },"json");
+                	$("#treeLog").modal('hide');
+                }
+    	    });
+    	}
+    }
     //鼠标按下事件
     function zTreeOnMouseDown(event, treeId, treeNode) {
     	if(treeNode!=null){
@@ -153,10 +228,10 @@ function getzTreeObject(){
     	}
     };
     //点击事件
-    function zTreeOnClick(event, treeId, treeNode) {
+   /*  function zTreeOnClick(event, treeId, treeNode) {
     	$("#editCategoey").hide();
     	
-    }
+    } */
     //右击之前事件
    /* function zTreeBeforeRightClick(treeId, treeNode) {
 	   if(treeNode==null){
@@ -357,6 +432,7 @@ function getzTreeObject(){
 		            			zTreeObject.updateNode(nodes[0]);
 		            		}
 		            		zTreeObject.reAsyncChildNodes(nodes[0], "refresh");
+		            		
 		                }
             	    });
         		

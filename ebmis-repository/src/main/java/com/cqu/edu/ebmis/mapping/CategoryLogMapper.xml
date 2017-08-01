@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.CategoryLogMapper">
+
+    
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap id="CategoryLogResultMap" type="com.cqu.edu.ebmis.domain.CategoryLogDO">
+    <id column="log_id" jdbcType="INTEGER" property="logId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="log_time" jdbcType="TIMESTAMP" property="logTime" />
+  </resultMap>
+  <sql id="CategoryLogList" >
+    user_id, user_name, content, log_time,operation
+  </sql>
+  <select id="selectLatestLog" resultMap="CategoryLogResultMap">
+    select
+    * 
+    from category_log  
+    order by log_time DESC
+    limit 0,1 
+  </select>
+  <select id="selectByPage" resultMap="CategoryLogResultMap">
+    select
+    * 
+    from category_log  
+    order by log_time
+    limit #{offset},#{size}
+  </select>
+  
+  <select id="selectAllCount" resultType="int">
+    select
+    count(*) 
+    from category_log  
+  </select>
+  <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.CategoryLogDO">
+  	insert into category_log(user_id,user_name,content,log_time) values(#{userId,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},
+  	#{content,jdbcType=VARCHAR},#{logTime,jdbcType=TIMESTAMP})
+  </insert>
+</mapper>
+
