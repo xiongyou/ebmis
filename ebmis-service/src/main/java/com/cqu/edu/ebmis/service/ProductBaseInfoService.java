@@ -46,7 +46,7 @@ public interface ProductBaseInfoService {
 	 *            校验属性<li>0--非农产品,1--农产品</li>
 	 * @return
 	 */
-	int update(long productInnerId, int checked, int isValid);
+	int update(long productInnerId, int checked, int isValid,String userName);
 	
 	/**
 	 * 查找

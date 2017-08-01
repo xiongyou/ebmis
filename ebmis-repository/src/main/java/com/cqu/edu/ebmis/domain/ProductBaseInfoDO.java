@@ -26,6 +26,7 @@ public class ProductBaseInfoDO {
 	private int		isValid;
 	
 	private int		checked;
+	private String userName;
 	
 	/**
 	 * @return the productInnerId
@@ -135,6 +136,14 @@ public class ProductBaseInfoDO {
 	public void setChecked(int checked) {
 	
 		this.checked = checked;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 }

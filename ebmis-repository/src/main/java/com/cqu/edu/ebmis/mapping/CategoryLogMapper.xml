@@ -34,6 +34,17 @@
     count(*) 
     from category_log  
   </select>
+  <select id="searchByPage" resultMap="CategoryLogResultMap">
+   SELECT * FROM category_log WHERE user_name LIKE #{word} OR content LIKE #{word} OR 
+   log_time LIKE #{word} ORDER BY log_time DESC LIMIT #{offset},#{size}
+  </select>
+  
+  <select id="searchAllCount" resultType="int">
+    select
+    count(*) 
+    from category_log WHERE user_name LIKE #{word} OR content LIKE #{word} OR 
+   log_time LIKE #{word}
+  </select>
   <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.CategoryLogDO">
   	insert into category_log(user_id,user_name,content,log_time) values(#{userId,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},
   	#{content,jdbcType=VARCHAR},#{logTime,jdbcType=TIMESTAMP})

@@ -38,4 +38,12 @@ public interface CategoryLogService {
 	 * @return
 	 */
 	Page<CategoryLogDO> findByPage(Page<CategoryLogDO> page);
+	/**
+	 * 分页模糊查询
+	 * 
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<CategoryLogDO> searchByPage(Page<CategoryLogDO> page,String word);
 }

@@ -55,4 +55,15 @@ public class CategoryLogServiceImpl implements CategoryLogService {
 	}
 
 
+	public Page<CategoryLogDO> searchByPage(Page<CategoryLogDO> page, String word) {
+		// TODO Auto-generated method stub
+		List<CategoryLogDO> keyWords = catetoryLogRepository.searchByPage(
+				page.getLimit() , page.getOffset(),word);
+		page.setTotal(catetoryLogRepository.searchAllCount(word));
+		
+		page.setRecords(keyWords);
+		return page;
+	}
+
+
 }

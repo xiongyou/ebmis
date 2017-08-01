@@ -115,6 +115,16 @@ $("#endedTime").change(function(){
         flag=true;
     }
 });
+$("#ExecutePeriod").focusout(function() {
+	setTimeout(function(){
+		$("#ExecutePeriod~span[for='ExecutePeriod'] span[role='alert']").css("margin-left","69px");
+	},10);
+});
+$("#maxExecutingTime").focusout(function() {
+	setTimeout(function(){
+		$("#maxExecutingTime~span[for='maxExecutingTime'] span[role='alert']").css("margin-left","69px");
+	},10);
+});
 $("#endedTime").focusout(function() {
 	setTimeout(function(){
 		$("#endedTime~span[for='endedTime']").addClass("pull-left");

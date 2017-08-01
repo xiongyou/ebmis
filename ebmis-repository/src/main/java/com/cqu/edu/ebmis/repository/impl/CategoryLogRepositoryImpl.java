@@ -54,6 +54,18 @@ public class CategoryLogRepositoryImpl implements CategoryLogRepository {
 		// TODO Auto-generated method stub
 		return categoryLogMapper.selectLatestLog();
 	}
+
+	@Override
+	public List<CategoryLogDO> searchByPage(int size, int offset, String word) {
+		// TODO Auto-generated method stub
+		return categoryLogMapper.searchByPage(size, offset, word);
+	}
+
+	@Override
+	public int searchAllCount(String word) {
+		// TODO Auto-generated method stub
+		return categoryLogMapper.searchAllCount(word);
+	}
 	
 	
 }

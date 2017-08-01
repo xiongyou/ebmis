@@ -50,6 +50,17 @@ public class CategoryLogController extends SuperController {
 		categoryLogService.findByPage(page);
 		return jsonPage(page);
 	}
+	@ResponseBody
+	@RequestMapping("/searchCategoryLogList")
+	public String searchCategoryLogList() {
+		String word="%";
+		String word1=request.getParameter("word");
+		word+=word1+"%";
+		Page<CategoryLogDO> page = getPage();
+		
+		categoryLogService.searchByPage(page,word);
+		return jsonPage(page);
+	}
 	
 	
 	

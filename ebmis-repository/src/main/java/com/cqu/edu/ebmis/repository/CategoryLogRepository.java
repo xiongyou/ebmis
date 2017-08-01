@@ -35,4 +35,19 @@ public interface CategoryLogRepository {
 			@Param("offset") int offset);
 	
 	int selectAllCount();
+	/**
+	 * 搜索查询日志
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	List<CategoryLogDO> searchByPage(@Param("size") int size,
+			@Param("offset") int offset,@Param("word") String word);
+	/**
+	 * 搜索查询日志总数
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	int searchAllCount(@Param("word") String word);
 }

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
+import com.cqu.edu.ebmis.domain.UserDO;
 import com.cqu.edu.ebmis.service.ProductBaseInfoService;
 import com.cqu.edu.ebmis.service.page.Page;
+import com.cqu.edu.ebmis.service.vo.User;
 
 /**
  * 农产品基本信息管理
@@ -78,10 +80,12 @@ public class ProductController extends SuperController {
 		
 		ProductBaseInfoDO product = productBaseInfoService.selectByInnerId(Long
 				.parseLong(strs[0]));
-		
+		session=request.getSession();
+		User user=(User) session.getAttribute("user");
+		String userName=user.getUserName();
 		if (product != null) {
 			productBaseInfoService.update(Long.parseLong(strs[0]) , 1 ,
-					Integer.parseInt(strs[1]));
+					Integer.parseInt(strs[1]),userName);
 		}
 		return Boolean.TRUE.toString();
 	}

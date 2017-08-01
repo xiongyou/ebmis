@@ -47,7 +47,7 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 	 * @see com.cqu.edu.ebmis.service.ProductBaseInfoService#update(long, int,
 	 *      int)
 	 */
-	public int update(long productInnerId, int checked, int isValid) {
+	public int update(long productInnerId, int checked, int isValid,String userName) {
 	
 		// 捞取产品数据
 		ProductBaseInfoDO product = productBaseInfoRepository
@@ -58,6 +58,7 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 			product.setChecked(checked);
 			
 			product.setIsValid(isValid);
+			product.setUserName(userName);
 			
 			return productBaseInfoRepository.update(product);
 		} else {

@@ -11,9 +11,9 @@ SpringWind - 三级分类管理
 <div class="row">
 	<div class="ibox-content form-inline" style="background: #F3F3F4;">
 		<div class="input-group pull-right">
-			<input type="text" class="form-control">
+			<input type="text" name="word" id="word" placeholder="按操作内容 操作时间 操作人搜索" class="form-control">
 			<span class="input-group-btn">
-				<button type="button" class="btn btn-info">搜索</button>
+				<button type="button" onClick="search()" class="btn btn-info">搜索</button>
 			</span>
 		</div>
 	</div>
@@ -40,11 +40,8 @@ SpringWind - 三级分类管理
         field: 'content',
         title: '操作内容'
     }, {
-        field: 'logTime',
+        field: 'logTime1',
         title: '操作时间'
-    }, {
-        field: 'operation',
-        title: '操作'
     }, {
         field: 'userName',
         title: '操作人'
@@ -54,6 +51,13 @@ SpringWind - 三级分类管理
             _size: params.limit,  //页面大小
             _index: params.offset, //页码
         };
+    }
+    function search(){
+    	var word=$("#word").val();
+    	var opt = {
+    	        url: "#springUrl('/categoryLog/searchCategoryLogList.html?word="+word+"')"
+    	    };
+    	$("#dataTable").bootstrapTable('refresh', opt);
     }
 
 </script>
