@@ -18,18 +18,11 @@ import com.cqu.edu.ebmis.domain.ProjectDO;
 import com.cqu.edu.ebmis.service.ProjectService;
 import com.cqu.edu.ebmis.service.page.Page;
 
-/**
- * 三级分类管理
- * 
- * @author mxl
- * @version $ CategoryController.java v1.0, 2017年5月5日 上午11:38:18 mxl Exp $
- */
+
 @Controller
 @RequestMapping("/project")
 public class ProjectController extends SuperController {
 	
-	/** 三级层级 */
-	private final static int	THRID_LEVEL	= 2;
 	
 	@Autowired
 	private ProjectService projectService;

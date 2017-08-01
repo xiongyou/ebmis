@@ -13,11 +13,7 @@
 <div class="ibox-content" style="width: 430px;">
    <form id="myForm" class="form-horizontal">
    	   <input type="hidden" id="hiddenUpdate" class="form-control" name="update" value="$!{update}">
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目Id</label>
-           <div class="col-sm-10 pull-right">
-           		<input type="text" id="projectID" class="form-control" name="projectID" data-rule="项目Id:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']" value="$!{projectDo.projectID}">
-           </div>
-       </div>
+       <input type="hidden" id="projectID" class="form-control" name="projectID" value="$!{projectDo.projectID}">
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目名</label>
            <div class="col-sm-10 pull-right">
            		<input type="text" class="form-control" name="projectName" value="$!{projectDo.projectName}" data-rule="项目名:required">
@@ -29,13 +25,29 @@
            </div>
 	   </div>
         <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">执行周期</label>
-           <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="ExecutePeriod" value="$!{projectDo.ExecutePeriod}" data-rule="执行周期:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
+           <div class="col-sm-1 pull-right" style="padding:0px;margin-right: 15px">
+           		 <select id="selectExecutePeriod" class="form-control">
+				      <option value="天">天</option>
+				      <option value="时">时</option>
+				      <option value="分">分</option>
+				      <option selected value="秒">秒</option>
+			     </select>
+           </div>
+           <div class="pull-right" style="padding:0px;width:134px">
+           		<input type="text" class="form-control" id="ExecutePeriod" name="ExecutePeriod" value="$!{projectDo.ExecutePeriod}" data-rule="执行周期:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
            </div>
 	   </div>
         <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">单一任务最大执行时间</label>
-           <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="maxExecutingTime" value="$!{projectDo.maxExecutingTime}" data-rule="单一任务最大执行时间:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
+           <div class="col-sm-1 pull-right" style="padding:0px;margin-right: 15px">
+           		 <select id="selectMaxExecutingTime" class="form-control">
+				      <option value="天">天</option>
+				      <option value="时">时</option>
+				      <option value="分">分</option>
+				      <option selected value="秒">秒</option>
+			     </select>
+           </div>
+           <div class="pull-right" style="padding:0px;width:134px">
+           		<input type="text" class="form-control" id="maxExecutingTime" name="maxExecutingTime" value="$!{projectDo.maxExecutingTime}" data-rule="单一任务最大执行时间:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
            </div>
 	   </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">开始时间</label>
@@ -68,7 +80,7 @@
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
-var flag=false;
+var flag=true;
 $("#startTime").change(function(){
 	$("#startTime~span[for='startTime']").html("");
 	var assigntime = $("#startTime").val();
@@ -109,11 +121,6 @@ $("#endedTime").focusout(function() {
 	},50);
 });
 $("#endTest1").hide();
-var hiddenUpdate=$("#hiddenUpdate").val();
-if(hiddenUpdate!=""&&hiddenUpdate!=null&&hiddenUpdate=="update"){
-	flag=true;
-	$("#projectID").attr("readonly","readonly");
-}
 $(".form_datetime").datetimepicker({
     format: "yyyy-mm-dd hh:ii:ss",
     autoclose: 1
@@ -121,6 +128,26 @@ $(".form_datetime").datetimepicker({
 $("#myForm").validator({
 	    valid: function(form){
 	        var me = this;
+	        var selectExecutePeriod=$("#selectExecutePeriod").val();
+	        var selectMaxExecutingTime=$("#selectMaxExecutingTime").val();
+	        var ExecutePeriod=$("#ExecutePeriod").val();
+	        var maxExecutingTime=$("#maxExecutingTime").val();
+	        if(selectExecutePeriod=="天"){
+	        	ExecutePeriod*=86400;
+	        }else if(selectExecutePeriod=="时"){
+	        	ExecutePeriod*=3600;
+	        }else if(selectExecutePeriod=="分"){
+	        	ExecutePeriod*=60;
+	        }
+	        if(selectMaxExecutingTime=="天"){
+	        	maxExecutingTime*=86400;
+	        }else if(selectMaxExecutingTime=="时"){
+	        	maxExecutingTime*=3600;
+	        }else if(selectMaxExecutingTime=="分"){
+	        	maxExecutingTime*=60;
+	        }
+	        $("#ExecutePeriod").val(ExecutePeriod);
+	        $("#maxExecutingTime").val(maxExecutingTime);
 	        // 提交表单之前，hold住表单，防止重复提交
 	        me.holdSubmit();
 	        if(flag){

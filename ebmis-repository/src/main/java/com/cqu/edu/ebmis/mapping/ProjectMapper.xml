@@ -20,8 +20,8 @@
   </sql>
   
   <insert id="insertProject" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
-    insert into _crawler_project (_project_id, _project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description)
-    values (#{projectID,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{executePeriod,jdbcType=INTEGER},  #{objName,jdbcType=VARCHAR}, #{startTime}, #{endedTime}, #{keyWord,jdbcType=VARCHAR},  #{maxExecutingTime,jdbcType=INTEGER},#{projectDescription,jdbcType=VARCHAR})
+    insert into _crawler_project (_project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description)
+    values (#{projectName,jdbcType=VARCHAR}, #{executePeriod,jdbcType=INTEGER},  #{objName,jdbcType=VARCHAR}, #{startTime}, #{endedTime}, #{keyWord,jdbcType=VARCHAR},  #{maxExecutingTime,jdbcType=INTEGER},#{projectDescription,jdbcType=VARCHAR})
   </insert>
   
   <select id="findAllProject" resultMap="BaseResultMap">

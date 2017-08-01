@@ -58,7 +58,7 @@ SpringWind - 农产品管理
 		</div>
 		
 		<div class="input-group">
-			<input type="text" id="word" name="word" class="form-control">
+			<input type="text" id="word" name="word" placeholder="按产品名称 、关键字搜索" class="form-control">
 			<span class="input-group-btn">
 				<button type="button" onClick="Search()" class="btn btn-info">搜索</button>
 			</span>
@@ -178,6 +178,7 @@ SpringWind - 农产品管理
 		var levelName4=$("#select4").val();
 		var platform=$("#platform").val();
 		var checkedNum=-1;
+		var opt1;
 		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
 			checkedNum=0;
 		}
@@ -185,13 +186,13 @@ SpringWind - 农产品管理
 			checkedNum=1;
 		}
 		if(word!=""){
-			var opt1 = {
+			opt1 = {
 	    	        url: "#springUrl('/product/getLevelSearchProduct.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
 	    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
 	    	    };
 			$("#dataTable").bootstrapTable('refresh', opt1);
 		}else{
-			var opt1 = {
+			opt1 = {
 	    	        url: "#springUrl('/product/getLevelList.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
 	    	    };
 			$("#dataTable").bootstrapTable('refresh', opt1);
