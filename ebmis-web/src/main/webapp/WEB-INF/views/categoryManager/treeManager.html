@@ -125,6 +125,7 @@ width:30px;
 						<li><a href="#" data-toggle="modal" onClick="addTree()">增加</a></li>
 						<li><a href="#" data-toggle="modal" onClick="delTree()">删除</a></li>
 						<li><a href="#" data-toggle="modal" onClick="editTree()">编辑</a></li>
+						<li><a href="#" data-toggle="modal" onClick="refreshTree()">刷新</a></li>
  </ul>
 </div>
 
@@ -201,8 +202,21 @@ function getzTreeObject(){
     },"json");
     function ajaxDataFilter(treeId, parentNode, responseData) {
         if (responseData) {
+          var url2="#springUrl('/categoryManager/getParentId.html')";
           for(var i =0; i < responseData.length; i++) {
-            responseData[i].name += "_filter";
+        	  var categoryId=responseData[i].categoryId;
+        	    var date={parentId:categoryId}
+        	    $.ajax({
+                    type: "POST",
+                    url: url2,
+                    datatype: "json",
+                    data:date,
+                    async:false,
+                    success: function (result) {
+                    	var nodeNum=result.length;
+            	    	 responseData[i].categoryName +="  "+nodeNum;
+                    }
+                });
           }
         }
         return responseData;
@@ -304,6 +318,13 @@ function getzTreeObject(){
     	    });
     	var parentId=$("#nodeParentId").val("");  
     };
+    //刷新选中的节点
+    function refreshTree(){
+    	var zTreeObject=this.getzTreeObject();
+    	var nodes=zTreeObject.getSelectedNodes();
+    	var selectNodeId=nodes[0];
+    	zTreeObject.reAsyncChildNodes(selectNodeId, "refresh");
+    }
     function addTree(){
     	$("#handAction").val("");
     	$("#categoryName").removeAttr("placeholder");
