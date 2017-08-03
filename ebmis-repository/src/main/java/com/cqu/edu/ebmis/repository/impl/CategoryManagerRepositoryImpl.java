@@ -58,5 +58,41 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 		categoryManagerMapper.updateById(categoryManager);
 	}
 
+	@Override
+	public void transformTable() {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.transformTable();
+	}
+
+	@Override
+	public void transformTableDate() {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.transformTableDate();
+	}
+
+	@Override
+	public void copyTruncateTable() {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.copyTruncateTable();
+	}
+
+	@Override
+	public void copyTableDate() {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.copyTableDate();
+	}
+
+	@Override
+	public void restoreTruncateTable() {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.restoreTruncateTable();
+	}
+
+	@Override
+	public void restoreTableDate() {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.restoreTableDate();
+	}
+
 	
 }

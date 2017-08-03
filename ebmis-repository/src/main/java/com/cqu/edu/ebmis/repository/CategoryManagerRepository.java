@@ -42,4 +42,28 @@ public interface CategoryManagerRepository {
 	 * @param categoryManager
 	 */
 	void updateById(CategoryManagerDO categoryManager);
+	/**
+	 *  将树转成表的清空表操作
+	 */
+	void transformTable();
+	/**
+	 * 将树转成表的数据插入操作
+	 */
+	void transformTableDate();
+	/**
+	 * 备份表的清空表操作
+	 */
+	void copyTruncateTable();
+	/**
+	 * 备份表的数据插入操作
+	 */
+	void copyTableDate();
+	/**
+	 * 还原表的清空表操作
+	 */
+	void restoreTruncateTable();
+	/**
+	 * 还原表的数据插入操作
+	 */
+	void restoreTableDate();
 }

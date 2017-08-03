@@ -50,6 +50,36 @@ public class CategoryManagerServiceImpl implements CategoryManagerService {
 		catetoryManagerRepository.updateById(categoryManager);
 	}
 
+	public void transformTable() {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.transformTable();
+	}
+
+	public void transformTableDate() {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.transformTableDate();
+	}
+
+	public void copyTruncateTable() {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.copyTruncateTable();
+	}
+
+	public void copyTableDate() {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.copyTableDate();
+	}
+
+	public void restoreTruncateTable() {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.restoreTruncateTable();
+	}
+
+	public void restoreTableDate() {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.restoreTableDate();
+	}
+
 
 	
 }

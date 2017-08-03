@@ -115,6 +115,72 @@ public class CategoryManagerController extends SuperController {
 		}
 		return json.toJSONString();
 	}
+	/**
+	 * 转换表
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/transformTable",produces="html/text;charset=UTF-8")
+	public String transformTable(Model model) {
+		JSONObject json = new JSONObject();
+		try {
+			categoryManagerService.transformTable();
+			categoryManagerService.transformTableDate();
+			json.put("success" , true);
+			json.put("data" , "转表成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			json.put("success" , false);
+			json.put("data" , "转表失败");
+		}
+		return json.toJSONString();
+	}
+	/**
+	 *备份
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/copyTable",produces="html/text;charset=UTF-8")
+	public String copyTable(Model model) {
+		JSONObject json = new JSONObject();
+		try {
+			categoryManagerService.copyTruncateTable();
+			categoryManagerService.copyTableDate();
+			json.put("success" , true);
+			json.put("data" , "备份成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			json.put("success" , false);
+			json.put("data" , "备份失败");
+		}
+		return json.toJSONString();
+	}
+	/**
+	 * 还原
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/restoreTable",produces="html/text;charset=UTF-8")
+	public String restoreTable(Model model) {
+		JSONObject json = new JSONObject();
+		try {
+			categoryManagerService.restoreTruncateTable();
+			categoryManagerService.restoreTableDate();
+			json.put("success" , true);
+			json.put("data" , "还原成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			json.put("success" , false);
+			json.put("data" , "还原失败");
+		}
+		return json.toJSONString();
+	}
 	@ResponseBody
 	@RequestMapping("/update")
 	public String update(Model model,CategoryManagerDO categoryManagerDO) {
