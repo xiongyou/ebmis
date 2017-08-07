@@ -13,10 +13,6 @@ font-size:17px;
 .ztree li {
 line-height:23px;
 }
-td{
-width:100px;
-font-family:Microsoft YaHei;
-}
 </style>
 #end
 #override("breadcrumb")
@@ -33,7 +29,7 @@ font-family:Microsoft YaHei;
 		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="addLog()">添加日志</button>
 		        </div>
 	        	<div style="margin:0px 10px 0px 0px;float:left">
-		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="transformTable()">转为表</button>
+		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="transformTable()">更新到三级表</button>
 		        </div>
 	        	<div style="margin:0px 10px 0px 0px;float:left">
 		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="copyTable()">备份</button>
@@ -49,22 +45,9 @@ font-family:Microsoft YaHei;
 			</div>
     </div>
     <div class="panel-body" style="height:100%;border-top:2px solid #00FF7F">
-    	<table class="table table-bordered" style="width:1100px;margin-left: 26px;margin-bottom:0px">
-    		<tbody>
-				<tr>
-					<td style="text-align: center;vertical-align: middle">修改时间</td>
-					<td style="text-align: center;vertical-align: middle" id="updateTime"></td>
-					<td style="text-align: center;vertical-align: middle">操作人员</td>
-					<td style="text-align: center;vertical-align: middle" id="actionUser"></td>
-					<td style="text-align: center;vertical-align: middle" rowspan="2">修改日志</td>
-					<td style="vertical-align: middle" rowspan="2" colspan="3" id="updateLog"></td>
-				</tr>
-				<!-- <tr>
-					<td style="text-align: center;vertical-align: middle" rowspan="2">修改日志</td>
-					<td rowspan="2" colspan="3" id="updateLog"></td>
-				</tr> -->
-			</tbody>
-		</table>
+		<div style="width:1100px;margin-left: 26px;margin-bottom:0px">
+		<span style="font-family:Microsoft YaHei;font-size: 15px">最新日志记录:</span><span style="font-family:Microsoft YaHei;font-size: 15px" id="logManager"></span>
+		</div>
        <div id="context" data-toggle="context" data-target="#context-menu">
    		<ul id="zTreeManager" class="ztree" style="padding:10px 0px 20px 20px"></ul>
 	   </div>
@@ -156,9 +139,7 @@ font-family:Microsoft YaHei;
 /* $("#editCategoey").hide(); */
  var logUrl="#springUrl('/categoryLog/selectLatestLog.html')";
     $.post(logUrl,function(result){
-    	$("#updateTime").html(result.logTime1);
-    	$("#actionUser").html(result.userName);
-    	$("#updateLog").html(result.content);
+    	$("#logManager").html(result.userName+"在"+result.logTime1+"修改的内容是"+result.content);
     },"json");
 var zTreeObj;
 function getzTreeObject(){
@@ -226,7 +207,9 @@ function getzTreeObject(){
                     async:false,
                     success: function (result) {
                     	var nodeNum=result.length;
-            	    	 responseData[i].categoryName +="  "+nodeNum;
+                    	if(nodeNum!=0){
+                    		 responseData[i].categoryName +="  "+nodeNum;
+                    	}
                     }
                 });
           }
@@ -336,9 +319,7 @@ function getzTreeObject(){
           			});
                 }else{
                 	 $.post(logUrl,function(result){
-                		 	$("#updateTime").html(result.logTime1);
-                	    	$("#actionUser").html(result.userName);
-                	    	$("#updateLog").html(result.content);
+                	    	$("#logManager").html(result.userName+"在"+result.logTime1+"修改的内容是"+result.content);
                 	    },"json");
                 	$("#treeLog").modal('hide');
                 }

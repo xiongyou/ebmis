@@ -24,8 +24,8 @@
   <select id="selectByPage" resultMap="CategoryLogResultMap">
     select
     * 
-    from category_log  
-    order by log_time
+    from category_log
+    order by log_time DESC 
     limit #{offset},#{size}
   </select>
   
