@@ -17,9 +17,9 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.getOriginData(map);
 	}
-	public int getOriginDataCount() {
+	public int getOriginDataCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.getOriginDataCount();
+		return reportRepository.getOriginDataCount(map);
 	}
 	public List<Map<String, Object>> getCQLocalStore(HashMap map) {
 		// TODO Auto-generated method stub
@@ -132,6 +132,10 @@ public class ReportServiceImpl implements ReportService {
 	public int CQEveryCityStoreCount() {
 		// TODO Auto-generated method stub
 		return reportRepository.CQEveryCityStoreCount();
+	}
+	public void updateOriginData(HashMap map) {
+		// TODO Auto-generated method stub
+		reportRepository.updateOriginData(map);
 	}
 
 }

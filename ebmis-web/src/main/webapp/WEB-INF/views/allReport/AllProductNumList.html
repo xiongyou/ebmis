@@ -9,8 +9,30 @@ SpringWind - 项目管理
 #end
 #override("content")
 <button type="button" class="btn btn-primary pull-right" onClick="OutExcel()">导出Excel</button>
-<div class="col-sm-1 pull-right" style="padding-right:0px">
-	<form id="formExcel">
+<div class="pull-right" style="padding-right:0px">
+	<form id="formExcel" class="form-inline">
+		<select id="ExcelValue" name="ExcelValue" class="form-control">
+				<option value="2017">2017</option>
+				<option value="2016">2016</option>
+				<option value="2016">2015</option>
+				<option value="2016">2014</option>
+		</select>
+		<span style="font-size: 16px">年</span>
+		<select id="ExcelValue" name="ExcelValue" class="form-control">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="1">3</option>
+				<option value="2">4</option>
+				<option value="1">5</option>
+				<option value="2">6</option>
+				<option value="1">7</option>
+				<option value="2">8</option>
+				<option value="1">9</option>
+				<option value="2">10</option>
+				<option value="1">11</option>
+				<option value="2">12</option>
+		</select>
+		<span style="margin-right: 50px;font-size: 16px">月</span>
 		<input type="hidden" id="currentIndex" name="_index">
 		<input type="hidden" id="currentSize" name="_size">
 		<input type="hidden" id="platName" name="platName" value="所有商品数量">

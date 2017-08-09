@@ -11,10 +11,13 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
 import com.cqu.edu.ebmis.service.ReportService;
+import com.cqu.edu.ebmis.service.vo.User;
 
 @Controller
 @RequestMapping("/allReport")
@@ -24,10 +27,29 @@ public class AllReportController extends SuperController {
 	 */
 	@Autowired
 	private ReportService reportService;
+	
 	@RequestMapping("/originDataReportList")
 	public String originDataReportList(Model model) {
 		return "/allReport/originDataReportList";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/auditProduct/{auditseq}")
+	public String auditProduct(@PathVariable String auditseq) {
+	
+		String[] strs = auditseq.split(":");
+		
+		session=request.getSession();
+		User user=(User) session.getAttribute("user");
+		String userName=user.getUserName();
+		HashMap map=new HashMap();
+		map.put("userName", userName);
+		map.put("dataID", strs[0]);
+		map.put("isValid", strs[1]);
+		reportService.updateOriginData(map);
+		return Boolean.TRUE.toString();
+	}
+	
 	@ResponseBody
 	@RequestMapping("/originDataReport")
 	public String originDataReport(Model model) {
@@ -36,24 +58,49 @@ public class AllReportController extends SuperController {
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
+		String word="%";
+		String word1=request.getParameter("word");
+		if(word1==null){
+			word1="";
+		}
+		word+=word1+"%";
+		String checkedNum1=request.getParameter("checkedNum");
+		String platform=request.getParameter("platform");
+		String level0=request.getParameter("level0");
+		String level1=request.getParameter("level1");
+		String level2=request.getParameter("level2");
+		String level3=request.getParameter("level3");
+		Integer checkedNum=Integer.parseInt(checkedNum1);
     	map.put("size", size);
     	map.put("offset", index);
+    	map.put("word", word);
+    	map.put("platform", platform);
+    	map.put("level0", level0);
+    	map.put("level1", level1);
+    	map.put("level2", level2);
+    	map.put("level3", level3);
+    	map.put("checkedNum", checkedNum);
     	List<Map<String, Object>> originDataReportList=reportService.getOriginData(map);
-    	int allCount=reportService.getOriginDataCount();
-    	String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
-    	for(Map<String, Object> oneMap:originDataReportList){
-    		str+="{";
-    		Set<String> setstr=oneMap.keySet();
-    		for(String keyStr:setstr){
-    			str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
-    		}
-    		str=str.substring(0, str.lastIndexOf(","));  
-    		str+="},";
+    	int allCount=reportService.getOriginDataCount(map);
+    	String str="";
+    	if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+        	for(Map<String, Object> oneMap:originDataReportList){
+        		str+="{";
+        		Set<String> setstr=oneMap.keySet();
+        		for(String keyStr:setstr){
+        			str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+        		}
+        		str=str.substring(0, str.lastIndexOf(","));  
+        		str+="},";
+        	}
+        	str=str.substring(0, str.lastIndexOf(","));  
+        	str+="]}";
     	}
-    	str=str.substring(0, str.lastIndexOf(","));  
-    	str+="]}";
-    	/*JSONArray jsonArr=JSONArray.parseArray(str);*/
     	return str;
+    	
 	}
 	@RequestMapping("/CQLocalStoreList")
 	public String CQLocalStoreList(Model model) {

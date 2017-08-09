@@ -2,18 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cqu.edu.ebmis.mapper.ReportMapper">
 
+   <update id="updateOriginData" parameterType="java.util.HashMap">
+	update data2 set isValid=#{isValid,jdbcType=INTEGER},checked=1,userName=#{userName,jdbcType=VARCHAR} where dataID=#{dataID,jdbcType=INTEGER}
+   </update>
    <select id="getOriginData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
     select 
-    dataID,productInnerId,productActualID,website,productName,errorInfo,keyword,productURL,productDescription,shelveDate,weight,origin,province,city,category,specialtyCategory,brand,factoryName,factoryAddress,series,specification,deliveryStartArea,productPrice,productPromPrice,monthSaleCount,commentCount,storeActualID,storeName,storeURL,shopkeeper,companyName,storeLocation,expirationDay,produceDay,category1,category2,category3,goodCommentCount,midCommentCount,badCommentCount,SaleCount,pictureCommentCount,additionCommentCount,extractTime,TaskDataID
-    from data
-    order by dataId desc
+    dataID,productInnerId,productActualID,website,productName,errorInfo,keyword,productURL,productDescription,shelveDate,weight,origin,province,city,category,specialtyCategory,brand,factoryName,factoryAddress,series,specification,deliveryStartArea,productPrice,productPromPrice,monthSaleCount,commentCount,storeActualID,storeName,storeURL,shopkeeper,companyName,storeLocation,expirationDay,produceDay,category1,category2,category3,goodCommentCount,midCommentCount,badCommentCount,SaleCount,pictureCommentCount,additionCommentCount,extractTime,TaskDataID,isValid,checked,userName
+    from data2 WHERE ( productName like #{word} or keyword like #{word} or userName like #{word})
+    <if test="checkedNum!=-1"> and checked=#{checkedNum}</if><if test="platform!='请选择'"> and website=#{platform}</if><if test="level0!='请选择'">and keyword IN 
+    (SELECT 三级 FROM threeclassificationtable WHERE 1=1 <if test="level0!='请选择'"> and 零级=#{level0}</if><if test="level1!='请选择'"> and 一级=#{level1}</if>
+    <if test="level2!='请选择'"> and 二级=#{level2}</if><if test="level3!='请选择'"> and 三级=#{level3}</if>)</if>
+    order by dataID desc
     <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
   </select>
-   <select id="getOriginDataCount" resultType="int">
+   <select id="getOriginDataCount" resultType="int" parameterType="java.util.HashMap">
     select
-    count(*)
-    from data    
+    count(dataID)
+    from data2 WHERE ( productName like #{word} or keyword like #{word} or userName like #{word})
+    <if test="checkedNum!=-1"> and checked=#{checkedNum}</if><if test="platform!='请选择'"> and website=#{platform}</if><if test="level0!='请选择'">and keyword IN 
+    (SELECT 三级 FROM threeclassificationtable WHERE 1=1 <if test="level0!='请选择'"> and 零级=#{level0}</if><if test="level1!='请选择'"> and 一级=#{level1}</if>
+    <if test="level2!='请选择'"> and 二级=#{level2}</if><if test="level3!='请选择'"> and 三级=#{level3}</if>)</if>   
   </select>
+ 
+ 
   <select id="getCQLocalStore" resultType="java.util.HashMap" parameterType="java.util.HashMap">
   select `a`.`storeinnerid` ,`a`.`storeactualid` ,`a`.`storeURL` ,`a`.`stor_platform` ,`a`.`storeName`,IFNULL(`b`.`companyName`,'无') companyName,`a`.`store_salse` 
   ,`a`.`sum(a.monthSaleCount)` AS counts  ,a.sku  from (`店铺季度销售排行` `a` join `store_baseinfo` `b`) where ((`a`.`loc_province` = '重庆') and 

@@ -5,6 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface ReportService {
+	
+	/**
+	 * 修改原始数据的复核数据
+	 * @param map
+	 * @return
+	 */
+	void updateOriginData(HashMap map);
 	/**获取采集的原始数据
 	 * @param map
 	 * @return
@@ -15,7 +22,7 @@ public interface ReportService {
 	 * @param map
 	 * @return
 	 */
-	int getOriginDataCount();
+	int getOriginDataCount(HashMap map);
 	/**
 	 * 重庆本土网店清单数据
 	 * @param map

@@ -9,6 +9,64 @@ SpringWind - 项目管理
 #end
 #override("content")
 <div class="row">
+	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+	<div class="input-group">			
+			<span class="input-group-cbx">
+				<input name="unchecked" id="unchecked" type="checkbox" value="0" checked="checked" onclick="selectCheck()">
+				<Strong>未复核</Strong>
+			</span>
+		</div>
+		&nbsp;&nbsp;
+		<div class="input-group">			
+			<span class="input-group-cbx">
+				<input name="checked" id="checked" type="checkbox" value="1" onclick="selectCheck()">
+				<Strong>已复核</Strong>
+			</span>
+			<span>&nbsp;
+			</span>
+		</div>
+		<div class="input-group" style="padding-left:30px">
+			<Strong>平台选择:</Strong>
+		</div>
+		<div class="input-group" style="padding-right:30px;padding-left:10px">
+			<select id="platform" name="platform" class="form-control" style="width:100px">
+		      <option value="请选择">请选择</option>
+		    </select>
+		</div>
+		<div class="input-group" style="padding-left:10px">			
+			<Strong>层级选择:</Strong>
+		</div>
+		<div class="input-group" style="padding-right:10px;padding-left:10px">			
+			<select id="select1" name="select1" class="form-control" style="width:100px">
+		      <option value="请选择">请选择</option>
+		    </select>
+		</div>
+		<div class="input-group" style="padding-right:10px">			
+			<select id="select2" name="select2" class="form-control" style="width:100px">
+		      <option value="请选择">请选择</option>
+		    </select>
+		</div>
+		<div class="input-group" style="padding-right:10px">			
+			<select id="select3" name="select3" class="form-control" style="width:100px">
+		      <option value="请选择">请选择</option>
+		    </select>
+		</div>
+		<div class="input-group" style="padding-right:60px">			
+			<select id="select4" name="select4" class="form-control" style="width:100px">
+		      <option value="请选择">请选择</option>
+		    </select>
+		</div>
+		
+		<div class="input-group">
+			<input type="text" id="word" name="word" placeholder="按产品名称 、关键字搜索" class="form-control">
+			<span class="input-group-btn">
+				<button type="button" onClick="Search()" class="btn btn-info">搜索</button>
+			</span>
+		</div>
+		
+	</div>
+</div>
+<div class="row">
     <div class="col-sm-12">
         <table id="dataTable"></table>
     </div>
@@ -22,18 +80,8 @@ SpringWind - 项目管理
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
-   	var dataUrl = "#springUrl('/allReport/originDataReport.html')";
-    /* $.ajax({
-        type: "GET",
-        url: "#springUrl('/allReport/originDataReport.html')",           
-        dataType: "json",
-        success: function (msg) {
-            $("#dataTable").bootstrapTable('load', msg);
-        },
-        error: function () {
-            alert("错误");
-        }
-    });  */
+   	var dataUrl =  "#springUrl('/allReport/originDataReport.html?level0=请选择&level1=请选择&level2=请选择&level3=请选择&checkedNum=0&platform=请选择')"
+   
     var dataColumns = [{
         field: 'TaskDataID',
         title: '任务编号'
@@ -51,7 +99,7 @@ SpringWind - 项目管理
         title: '平台'
     },{
         field: 'productName',
-        title: '名称',
+        title: '商品名称',
         formatter:function (value, row, index) {
             if(value !=null && value.length >10){
             return '<a title="'+value+'" href="javascript:void(0)" >'+value.substr(0,10)+'..</a>';
@@ -66,7 +114,19 @@ SpringWind - 项目管理
         title: '关键字'
     },{
         field: 'productURL',
-        title: '链接'
+        title: '链接',
+        formatter: function (value, row, index) {
+        	var url = row.productURL;
+        	
+        	if(typeof url == "undefined"){
+        		
+        		return "-";
+        	}else{
+        		
+        		return '<a href="'+url+'" target="_blank">'+url+'</a>';
+        	}
+        	
+        }
     },{
         field: 'productDescription',
         title: '描述 ',
@@ -146,9 +206,6 @@ SpringWind - 项目管理
         field: 'shopkeeper',
         title: '掌柜'
     },{
-        field: 'shopkeeper',
-        title: '掌柜'
-    },{
         field: 'companyName',
         title: '公司名称'
     },{
@@ -190,6 +247,44 @@ SpringWind - 项目管理
     },{
         field: 'extractTime',
         title: '抓取时间'
+    },{
+        field: 'userName',
+        title: '复核人'
+    },{
+        field: 'isValid',
+        title: '是否错误',
+        formatter: function (value, row, index) {
+            var isValid = row.isValid;
+            var id = row.dataID;
+            if(isValid==1){
+            	/*isValid 0 错误  1正确 */
+            	return '<input name="checkbox" type="checkbox" value="'+isValid+'" onclick="audit('+id+',0)">';
+            }else{
+            	return '<input name="checkbox" type="checkbox" value="'+isValid+'" checked="checked" onclick="audit('+id+',1)">';
+            }
+          
+        }
+    }, {
+        field: 'checked',
+        title: '是否校验',
+        formatter: function (value, row, index) {
+            var checked = row.checked;
+            var id = row.dataID;
+           if(checked==1){
+            	return '<span style="color:#00F">已复核</span>';
+            }else{
+            	return '<span id="'+id+'" style="color:#F00">未复核</span>';
+            }
+        }
+    }, {
+        title: '操作',
+        formatter: function (value, row, index) {
+            var id = row.dataID;
+            var isValid = row.isValid;
+           
+            return '<a class="btn btn-xs btn-warning" onclick="audit(' + "'" + id + "','" +isValid+"'"+ ')"><i class="fa fa-pencil"></i>复核</a> ';
+           
+        }
     }];
     function dataQueryParams(params) {
         return {
@@ -197,7 +292,333 @@ SpringWind - 项目管理
             _index: params.offset, //页码
         };
     }
+    function Search(){
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3=$("#select3").val();
+		var levelName4=$("#select4").val();
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		var word=$("#word").val();
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		var opt1 = {
+    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+    	    };
+		$("#dataTable").bootstrapTable('refresh', opt1);
+	}
+	$("#platform").change(function(){
+		var word=$("#word").val();
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3=$("#select3").val();
+		var levelName4=$("#select4").val();
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		var opt1;
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		if(word!=""){
+			opt1 = {
+	    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+	    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+	    	    };
+			$("#dataTable").bootstrapTable('refresh', opt1);
+		}else{
+			opt1 = {
+	    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+	    	    };
+			$("#dataTable").bootstrapTable('refresh', opt1);
+		}
+		
+	});
 
+	$("#select1").change(function(){
+		var word=$("#word").val();
+		var levelName1=$("#select1").val();
+		var platform=$("#platform").val();
+		var levelName2;
+		var	opt1;
+		var checkedNum=-1;
+		$("#select2").html("");
+		$("#select3").html("");
+		$("#select4").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		$("#select3").append(level1Str);
+		$("#select4").append(level1Str);
+		var levelName3=$("#select3").val();
+		var levelName4=$("#select4").val();
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		if(levelName1!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level1List?level0="+levelName1+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level1+'">'+data[i].level1+'</option>';
+		        	}
+		        	$("#select2").append(level1Str);
+		        	levelName2=$("#select2").val();
+		        	if(word!=""){
+		    			opt1 = {
+		    	    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+		    	    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+		    	    	    };
+		    		}else{
+		    			opt1 = {
+		    	    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+		    	    	    };
+		    		}
+		        	$("#dataTable").bootstrapTable('refresh', opt1);
+		        }
+		    }); 
+		}else{
+			$("#select2").append(level1Str);
+			levelName2=$("#select2").val();
+			if(word!=""){
+				opt1 = {
+		    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+		    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+		    	    };
+			}else{
+				opt1 = {
+		    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+		    	    };
+			}
+        	$("#dataTable").bootstrapTable('refresh', opt1);
+		}
+		
+		
+	});
+	$("#select2").change(function(){
+		var word=$("#word").val();
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3;
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		var	opt1;
+		$("#select3").html("");
+		$("#select4").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		$("#select4").append(level1Str);
+		var levelName4=$("#select4").val();
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		if(levelName2!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level2List?level0="+levelName1+"&level1="+levelName2+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level2+'">'+data[i].level2+'</option>';
+		        	}
+		        	$("#select3").append(level1Str);
+		        	levelName3=$("#select3").val();
+		        	levelName2=$("#select2").val();
+					if(word!=""){
+						opt1 = {
+				    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+				    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+				    	    };
+					}else{
+						opt1 = {
+				    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+				    	    };
+					}
+				
+				$("#dataTable").bootstrapTable('refresh', opt1);
+		        }
+		    }); 
+		}else{
+			$("#select3").append(level1Str);
+			levelName3=$("#select3").val();
+			if(word!=""){
+				opt1 = {
+		    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+		    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+		    	    };
+			}else{
+				opt1 = {
+		    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+		    	    };
+			}
+		
+		$("#dataTable").bootstrapTable('refresh', opt1);
+		}
+	});
+	$("#select3").change(function(){
+		var word=$("#word").val();
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3=$("#select3").val();
+		var levelName4;
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		var	opt1;
+		$("#select4").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}
+		else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		if(levelName2!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level3List?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level3+'">'+data[i].level3+'</option>';
+		        	}
+		        	$("#select4").append(level1Str);
+		        	levelName4=$("#select4").val();
+		        	if(word!=""){
+						opt1 = {
+				    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+				    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+				    	    };
+					}else{
+						opt1 = {
+				    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+				    	    };
+					}
+				
+				$("#dataTable").bootstrapTable('refresh', opt1);
+		        }
+		    }); 
+		}else{
+			$("#select4").append(level1Str);
+			levelName4=$("#select4").val();
+			if(word!=""){
+				opt1 = {
+		    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+		    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+		    	    };
+			}else{
+				opt1 = {
+		    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+		    	    };
+			}
+		
+		$("#dataTable").bootstrapTable('refresh', opt1);
+		}
+	});
+	$("#select4").change(function(){
+		var word=$("#word").val();
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3=$("#select3").val();
+		var levelName4=$("#select4").val();
+		var platform=$("#platform").val();
+		var checkedNum=-1;
+		var	opt1;
+		if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+			checkedNum=0;
+		}else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+			checkedNum=1;
+		}
+		if(word!=""){
+			opt1 = {
+	    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+	    	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+	    	    };
+		}else{
+			opt1 = {
+	    	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+	    	    };
+		}
+		$("#dataTable").bootstrapTable('refresh', opt1);
+	});
+	
+	$.ajax({
+        type: "POST",
+        url: "#springUrl('/threeClassification/level0List')",
+        datatype: "json",
+        success: function (data) {
+        	var level1Str="";
+        	for(var i=0;i<data.length;i++){
+        		level1Str+='<option value="'+data[i].level0+'">'+data[i].level0+'</option>';
+        	}
+        	$("#select1").append(level1Str);
+        }
+    }); 
+	$.ajax({
+        type: "POST",
+        url: "#springUrl('/threeClassification/allPlatform')",
+        datatype: "json",
+        success: function (data) {
+        	var level1Str="";
+        	for(var i=0;i<data.length;i++){
+        		level1Str+='<option value="'+data[i].platform+'">'+data[i].platform+'</option>';
+        	}
+        	$("#platform").append(level1Str);
+        }
+    }); 
+
+    function selectCheck(){
+    	var word=$("#word").val();
+    	var levelName1=$("#select1").val();
+    	var levelName2=$("#select2").val();
+    	var levelName3=$("#select3").val();
+    	var levelName4=$("#select4").val();
+    	var platform=$("#platform").val();
+    	var checkedNum=-1;
+    	var	opt1;
+    	if($("#unchecked").is(":checked")&&!$("#checked").is(":checked")){
+    		checkedNum=0;
+    	}
+    	else if(!$("#unchecked").is(":checked")&&$("#checked").is(":checked")){
+    		checkedNum=1;
+    	}
+    	if(word!=""){
+    		opt1 = {
+        	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="
+        	        		+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"&word="+word+"')"
+        	    };
+    	}else{
+    		opt1 = {
+        	        url: "#springUrl('/allReport/originDataReport.html?level0="+levelName1+"&level1="+levelName2+"&level2="+levelName3+"&level3="+levelName4+"&checkedNum="+checkedNum+"&platform="+platform+"')"
+        	    };
+    	}
+    	$("#dataTable").bootstrapTable('refresh', opt1);
+    }
+function audit(id,flag){
+	 	
+	 	$.ajax({
+	         type: "POST",
+	         url: "#springUrl('/allReport/auditProduct/')" + id+':'+flag,
+	         datatype: "text",
+	         success: function (data) {
+	             if(data == 'true'){
+	            	 $("#"+id).html("已复核");
+	            	 $("#"+id).css("color","#00F");
+	             }
+	         }
+	     });
+	 }
 </script>
 #end
 #extends("/common/framework.html")

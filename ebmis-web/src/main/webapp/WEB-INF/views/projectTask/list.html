@@ -48,7 +48,19 @@ SpringWind - 任务管理
         title: '任务Id'
     }, {
         field: 'url',
-        title: '任务地址'
+        title: '任务地址',
+        formatter: function (value, row, index) {
+        	var url = row.url;
+        	
+        	if(typeof url == "undefined"){
+        		
+        		return "-";
+        	}else{
+        		
+        		return '<a href="'+url+'" target="_blank">'+url+'</a>';
+        	}
+        	
+        }
     }, {
         field: 'dataObj',
         title: '数据对象'

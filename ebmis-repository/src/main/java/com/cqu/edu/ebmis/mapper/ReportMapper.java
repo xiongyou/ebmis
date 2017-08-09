@@ -7,6 +7,12 @@ import java.util.Map;
 public interface ReportMapper {
 
 	/**
+	 * 修改原始数据的复核数据
+	 * @param map
+	 * @return
+	 */
+	void updateOriginData(HashMap map); 
+	/**
 	 * 获取原始的采集数据
 	 * @param map
 	 * @return
@@ -17,7 +23,7 @@ public interface ReportMapper {
 	 * @param map
 	 * @return
 	 */
-	int getOriginDataCount(); 
+	int getOriginDataCount(HashMap map); 
 	/**
 	 * 重庆本土网店清单数据
 	 * @param map

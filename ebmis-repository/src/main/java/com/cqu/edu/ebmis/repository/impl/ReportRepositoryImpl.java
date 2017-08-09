@@ -19,9 +19,9 @@ public class ReportRepositoryImpl implements ReportRepository {
 		return reportMapper.getOriginData(map);
 	}
 	@Override
-	public int getOriginDataCount() {
+	public int getOriginDataCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportMapper.getOriginDataCount();
+		return reportMapper.getOriginDataCount(map);
 	}
 	@Override
 	public List<Map<String, Object>> getCQLocalStore(HashMap map) {
@@ -162,6 +162,11 @@ public class ReportRepositoryImpl implements ReportRepository {
 	public int CQEveryCityStoreCount() {
 		// TODO Auto-generated method stub
 		return reportMapper.CQEveryCityStoreCount();
+	}
+	@Override
+	public void updateOriginData(HashMap map) {
+		// TODO Auto-generated method stub
+		reportMapper.updateOriginData(map);
 	}
 
 }

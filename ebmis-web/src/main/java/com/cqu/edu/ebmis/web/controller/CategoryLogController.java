@@ -32,7 +32,7 @@ public class CategoryLogController extends SuperController {
 	
 	@RequestMapping("/list")
 	public String list(Model model) {
-	
+		
 		return "/categoryLog/list";
 	}
 	
@@ -88,5 +88,5 @@ public class CategoryLogController extends SuperController {
 		}
 		return json.toJSONString();
 	}
-	
+	 
 }
