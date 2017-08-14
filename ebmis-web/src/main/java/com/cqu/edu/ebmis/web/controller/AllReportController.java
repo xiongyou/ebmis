@@ -228,27 +228,46 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/AllProductNumReport")
 	public String AllProductNumReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		String productDay=request.getParameter("ExcelDay");
+		if(productDay.equals("请选择")){
+			productDay=null;		
+		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
 		map.put("size", size);
 		map.put("offset", index);
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
+		map.put("productDay", productDay);
 		List<Map<String, Object>> originDataReportList=reportService.allProductNumData(map);
-		int allCount=reportService.allProductNumCount();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
-		for(Map<String, Object> oneMap:originDataReportList){
-			str+="{";
-			Set<String> setstr=oneMap.keySet();
-			for(String keyStr:setstr){
-				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
-			}
-			str=str.substring(0, str.lastIndexOf(","));  
-			str+="},";
-		}
-		str=str.substring(0, str.lastIndexOf(","));  
-		str+="]}";
-		System.out.println(str);
+		int allCount=reportService.allProductNumCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+    		for(Map<String, Object> oneMap:originDataReportList){
+    			str+="{";
+    			Set<String> setstr=oneMap.keySet();
+    			for(String keyStr:setstr){
+    				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+    			}
+    			str=str.substring(0, str.lastIndexOf(","));  
+    			str+="},";
+    		}
+    		str=str.substring(0, str.lastIndexOf(","));  
+    		str+="]}";
+    	}
 		return str;
 	}
 	@RequestMapping("/CQFarmProductNumList")

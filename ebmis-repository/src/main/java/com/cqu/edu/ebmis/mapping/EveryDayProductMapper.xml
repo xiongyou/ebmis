@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.edu.ebmis.mapper.EveryDayProductMapper">
+
+    
+    <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
+  <resultMap id="EveryDayProductResultMap" type="com.cqu.edu.ebmis.domain.EveryDayProductDO">
+    <id column="productinnerid" jdbcType="INTEGER" property="productInnerId" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyWord" />
+    <result column="productactualid" jdbcType="VARCHAR" property="productActualId" />
+    <result column="productprice" jdbcType="VARCHAR" property="productPrice" />
+    <result column="productPromPrice" jdbcType="VARCHAR" property="productPromPrice" />
+    <result column="monthsalecount" jdbcType="VARCHAR" property="monthsalecount" />
+    <result column="producturl" jdbcType="VARCHAR" property="producturl" />
+    <result column="commentcount" jdbcType="VARCHAR" property="commentcount" />
+    <result column="extracttime" jdbcType="TIMESTAMP" property="extracttime" />
+  </resultMap>
+  <sql id="EveryDayProductList" >
+    productinnerid, keyword, productactualid, productprice,productPromPrice,monthsalecount,producturl,commentcount,extracttime
+  </sql>
+  <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.EveryDayProductDO">
+  	insert into everydayproduct(keyword, productactualid, productprice,productPromPrice,monthsalecount,producturl,commentcount,extracttime) values(#{keyWord,jdbcType=VARCHAR},#{productActualId,jdbcType=VARCHAR},
+  	#{productPrice,jdbcType=VARCHAR},#{productPromPrice,jdbcType=VARCHAR},#{monthsalecount,jdbcType=VARCHAR},#{producturl,jdbcType=VARCHAR},#{commentcount,jdbcType=VARCHAR},#{extracttime,jdbcType=TIMESTAMP})
+  </insert>
+</mapper>
+

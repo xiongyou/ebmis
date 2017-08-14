@@ -61,15 +61,15 @@
 	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
   </select>
   <select id="allProductNumData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-	 select platform,count(*) as 数量 from product_baseinfo 
-	WHERE isValid=1
-	GROUP BY platform
+	select <if test="productYear==null and productMonth==null and productDay==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null and productDay==null">b.year selectTime</if><if test="productYear!=null and productMonth!=null and productDay==null">CONCAT_WS(".",b.year,b.monthOfYear) selectTime</if><if test="productYear!=null and productMonth!=null and productDay!=null">CONCAT_WS(".",b.year,b.monthOfYear,b.dayOfMonth) selectTime</if> ,a.platform,count(b.productInnerId) as 数量  from (select platform,productInnerId from product_baseinfo where isValid=1) a,(select productInnerId,year,monthOfYear,dayOfMonth from productmonitor where 1=1 <if test="productYear!=null and productMonth==null and productDay==null"> AND year=#{productYear}</if><if test="productYear!=null and productMonth!=null and productDay==null"> AND year=#{productYear} AND monthOfYear=#{productMonth}</if><if test="productYear!=null and productMonth!=null and productDay!=null"> AND year=#{productYear} AND monthOfYear=#{productMonth} AND dayOfMonth=#{productDay}</if> ) b
+	WHERE a.productInnerId=b.productInnerId <if test="productYear!=null and productMonth==null and productDay==null"> AND b.`year`=#{productYear}</if><if test="productYear!=null and productMonth!=null and productDay==null"> AND b.`year`=#{productYear} AND b.monthOfYear=#{productMonth}</if><if test="productYear!=null and productMonth!=null and productDay!=null"> AND b.`year`=#{productYear} AND b.monthOfYear=#{productMonth} AND b.dayOfMonth=#{productDay}</if> 
+	GROUP BY a.platform
 	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
   </select>
-   <select id="allProductNumCount" resultType="int">
-    select count(*) from (select platform,count(*) as 数量 from product_baseinfo 
-	WHERE isValid=1
-	GROUP BY platform) a
+   <select id="allProductNumCount" parameterType="java.util.HashMap" resultType="int">
+    select count(*) from (select count(b.productInnerId) from (select platform,productInnerId from product_baseinfo where isValid=1) a,(select productInnerId,year,monthOfYear,dayOfMonth from productmonitor where 1=1 <if test="productYear!=null and productMonth==null and productDay==null"> AND year=#{productYear}</if><if test="productYear!=null and productMonth!=null and productDay==null"> AND year=#{productYear} AND monthOfYear=#{productMonth}</if><if test="productYear!=null and productMonth!=null and productDay!=null"> AND year=#{productYear} AND monthOfYear=#{productMonth} AND dayOfMonth=#{productDay}</if> ) b
+	WHERE a.productInnerId=b.productInnerId <if test="productYear!=null and productMonth==null and productDay==null"> AND b.`year`=#{productYear}</if><if test="productYear!=null and productMonth!=null and productDay==null"> AND b.`year`=#{productYear} AND b.monthOfYear=#{productMonth}</if><if test="productYear!=null and productMonth!=null and productDay!=null"> AND b.`year`=#{productYear} AND b.monthOfYear=#{productMonth} AND b.dayOfMonth=#{productDay}</if> 
+	GROUP BY a.platform) c
   </select>
   <select id="CQFarmProductNumData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 	select platform,count(*) as 数量 from `产品月度销售数据`

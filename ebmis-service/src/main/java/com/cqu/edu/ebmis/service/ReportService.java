@@ -70,7 +70,7 @@ public interface ReportService {
 	 * @param map
 	 * @return
 	 */
-	int allProductNumCount();
+	int allProductNumCount(HashMap map);
 	/**
 	 * 重庆农产品数量
 	 * @param map
