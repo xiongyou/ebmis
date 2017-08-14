@@ -442,12 +442,27 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"数量","平台"};
+	        String[] titles = {"数量","时间","平台"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String size1=request.getParameter("_size");
 			String index1=request.getParameter("_index");
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			String productDay=request.getParameter("ExcelDay");
+			if(productDay.equals("请选择")){
+				productDay=null;		
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
+			map.put("productDay", productDay);
 			Integer size=Integer.parseInt(size1);
 			Integer index=Integer.parseInt(index1);
 			map.put("size", size);
@@ -480,6 +495,21 @@ public class AllOutExcelController extends SuperController {
 			Integer index=null;
 			map.put("size", size);
 			map.put("offset", index);
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			String productDay=request.getParameter("ExcelDay");
+			if(productDay.equals("请选择")){
+				productDay=null;		
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
+			map.put("productDay", productDay);
 			List<Map<String, Object>> originDataReportList=reportService.allProductNumData(map);
 			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
 			for(Map<String, Object> oneMap:originDataReportList){

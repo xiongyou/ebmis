@@ -8,6 +8,17 @@ SpringWind - 项目管理
 <li><a>资源管理</a></li><li class="active"><a>所有商品数量</a></li>
 #end
 #override("content")
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top: 200px">
+            <div id="progressTest" class="progress">
+				  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				    请稍等,正在导出中.........
+				  </div>
+			</div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 <button type="button" class="btn btn-primary pull-right" onClick="OutExcel()">导出Excel</button>
 <div class="pull-right" style="padding-right:0px">
 	<form id="formExcel" class="form-inline">
@@ -163,11 +174,13 @@ SpringWind - 项目管理
         };
     }
     function OutExcel(){
+    	$('#myModal').modal('show');
     	$.ajax({
         	url: "#springUrl('/outExcel/AllProductNumExcel')",
             data: $("#formExcel").serialize(),
             type: "POST",
             success: function(data){
+            	$('#myModal').modal('hide');
             	var d = JSON.parse(data);
             	var info=d.data;
             	layer.alert(info, {
