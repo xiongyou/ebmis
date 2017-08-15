@@ -48,7 +48,16 @@ public interface ProductBaseInfoRepository {
 	 * @return
 	 */
 	List<ProductBaseInfoDO> selectAllProduct();
-	
+	/**
+	 * 查找已复核人的统计数量
+	 * @return
+	 */
+	List<ProductBaseInfoDO> selectRecheckPersonProductData(int size,int offset);
+	/**
+	 * 查找已复核人的统计数量的条数
+	 * @return
+	 */
+	int selectRecheckPersonProductNum();
 	/**
 	 * 查询分页
 	 * 

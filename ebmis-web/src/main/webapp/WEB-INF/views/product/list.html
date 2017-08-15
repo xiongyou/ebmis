@@ -5,11 +5,12 @@ SpringWind - 农产品管理
 <link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
 #end
 #override("breadcrumb")
-<li><a>资源管理</a></li><li class="active"><strong>农产品管理</strong></li>
+<li><a>农电商数据采集</a></li><li><a>采集数据复核</a></li><li class="active">产品基本数据复核</li>
 #end
 #override("content")
 <div class="row">
 	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+	<input type="hidden" id="recheckPerson">
 	<div class="input-group">			
 			<span class="input-group-cbx">
 				<input name="unchecked" id="unchecked" type="checkbox" value="0" checked="checked" onclick="selectCheck()">
@@ -94,7 +95,16 @@ SpringWind - 农产品管理
         title: '关键字'
     },{
         field: 'userName',
-        title: '复核人'
+        title: '复核人',
+        formatter: function (value, row, index) {
+            var userName = row.userName;
+            var id = row.productInnerId;
+           if(typeof userName == "undefined"){
+            	return '<span id="recheck'+id+'"></span>';
+            }else{
+            	return '<span id="recheck'+id+'">'+userName+'</span>';
+            }
+        }
     },{
         field: 'productURL',
         title: '产品链接',
@@ -467,6 +477,14 @@ function selectCheck(){
 	}
 	$("#dataTable").bootstrapTable('refresh', opt1);
 }
+$.ajax({
+    type: "POST",
+    url: "#springUrl('/product/getUserName.html')",
+    datatype: "text",
+    success: function (data) {
+       $("#recheckPerson").val(data);
+    }
+});
 function audit(id,flag){
 	 	
 	 	$.ajax({
@@ -474,6 +492,8 @@ function audit(id,flag){
 	         url: "#springUrl('/product/auditProduct/')" + id+':'+flag,
 	         datatype: "text",
 	         success: function (data) {
+	        	 var userName=$("#recheckPerson").val();
+	        	 $("#recheck"+id).html(userName);
 	             if(data == 'true'){
 	            	 $("#"+id).html("已复核");
 	            	 $("#"+id).css("color","#00F");

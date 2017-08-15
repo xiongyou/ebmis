@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 	 * @see com.cqu.edu.ebmis.service.ProductBaseInfoService#update(long, int,
 	 *      int)
 	 */
-	public int update(long productInnerId, int checked, int isValid,String userName) {
+	public int update(long productInnerId, int checked, int isValid,String userName,Date recheckPersonTime) {
 	
 		// 捞取产品数据
 		ProductBaseInfoDO product = productBaseInfoRepository
@@ -59,7 +60,7 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 			
 			product.setIsValid(isValid);
 			product.setUserName(userName);
-			
+			product.setRecheckPersonTime(recheckPersonTime);
 			return productBaseInfoRepository.update(product);
 		} else {
 			
@@ -128,6 +129,15 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 		page.setTotal(productBaseInfoRepository.getLevelSearchProductNum(word,platform,checkedNum, level0, level1, level2, level3));
 		page.setRecords(records);
 		 return page;
+	}
+
+	public Page<ProductBaseInfoDO> findRecheckPersonNumByPage(Page<ProductBaseInfoDO> page) {
+		// TODO Auto-generated method stub
+		List<ProductBaseInfoDO> keyWords = productBaseInfoRepository.selectRecheckPersonProductData(page.getLimit() , page.getOffset());
+		page.setTotal(productBaseInfoRepository.selectRecheckPersonProductNum());
+		
+		page.setRecords(keyWords);
+		return page;
 	}
 
 	

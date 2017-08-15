@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
@@ -46,7 +47,7 @@ public interface ProductBaseInfoService {
 	 *            校验属性<li>0--非农产品,1--农产品</li>
 	 * @return
 	 */
-	int update(long productInnerId, int checked, int isValid,String userName);
+	int update(long productInnerId, int checked, int isValid,String userName,Date recheckPersonTime);
 	
 	/**
 	 * 查找
@@ -64,6 +65,14 @@ public interface ProductBaseInfoService {
 	 * @return
 	 */
 	Page<ProductBaseInfoDO> findByPage(Page<ProductBaseInfoDO> page);
+	/**
+	 * 复核人统计数量分页查询
+	 * 
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<ProductBaseInfoDO> findRecheckPersonNumByPage(Page<ProductBaseInfoDO> page);
 	/**
 	 * 初始分页模糊查询
 	 * 

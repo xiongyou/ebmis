@@ -136,6 +136,18 @@ public class ProductBaseInfoRepositoryImpl implements ProductBaseInfoRepository 
 				level1,level2,level3);
 	}
 
+	@Override
+	public List<ProductBaseInfoDO> selectRecheckPersonProductData(int size,int offset) {
+		// TODO Auto-generated method stub
+		return productBaseInfoMapper.selectRecheckPersonProductData(size,offset);
+	}
+
+	@Override
+	public int selectRecheckPersonProductNum() {
+		// TODO Auto-generated method stub
+		return productBaseInfoMapper.selectRecheckPersonProductNum();
+	}
+
 	
 	
 }

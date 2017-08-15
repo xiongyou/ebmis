@@ -13,6 +13,7 @@
     <result column="isValid" jdbcType="INTEGER" property="isValid" />
     <result column="checked" jdbcType="INTEGER" property="checked" />
     <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="recheckPersonNum" jdbcType="INTEGER" property="recheckPersonNum" />
   </resultMap>
   <sql id="Base_Column_List" >
     productInnerId, platform, productName, productURL,singleKeyword, isValid, checked,userName
@@ -31,6 +32,15 @@
     from product_baseinfo  
     order by extractTime
   </select>
+  <select id="selectRecheckPersonProductData" resultMap="BaseResultMap">
+    SELECT userName,COUNT(productInnerId) recheckPersonNum FROM product_baseinfo WHERE checked=1 GROUP BY userName
+     limit #{offset},#{size}
+  </select>
+  <select id="selectRecheckPersonProductNum" resultType="int">
+    select
+    count(*) 
+    from ( SELECT userName,COUNT(productInnerId) recheckPersonNum FROM product_baseinfo WHERE checked=1 GROUP BY userName) a
+  </select>
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -44,7 +54,8 @@
     update product_baseinfo
     set isValid = #{isValid,jdbcType=INTEGER},
     checked = #{checked,jdbcType=INTEGER},
-    userName=#{userName,jdbcType=VARCHAR}
+    userName=#{userName,jdbcType=VARCHAR},
+    recheckPersonTime=#{recheckPersonTime,jdbcType=TIMESTAMP}
     where productInnerId = #{productInnerId,jdbcType=BIGINT}
   </update>
   

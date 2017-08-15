@@ -3,6 +3,8 @@
  */
 package com.cqu.edu.ebmis.domain;
 
+import java.util.Date;
+
 /**
  * 
  * @author mxl
@@ -27,6 +29,8 @@ public class ProductBaseInfoDO {
 	
 	private int		checked;
 	private String userName;
+	private Date recheckPersonTime;
+	private int recheckPersonNum;
 	
 	/**
 	 * @return the productInnerId
@@ -144,6 +148,22 @@ public class ProductBaseInfoDO {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Date getRecheckPersonTime() {
+		return recheckPersonTime;
+	}
+
+	public void setRecheckPersonTime(Date recheckPersonTime) {
+		this.recheckPersonTime = recheckPersonTime;
+	}
+
+	public int getRecheckPersonNum() {
+		return recheckPersonNum;
+	}
+
+	public void setRecheckPersonNum(int recheckPersonNum) {
+		this.recheckPersonNum = recheckPersonNum;
 	}
 	
 }

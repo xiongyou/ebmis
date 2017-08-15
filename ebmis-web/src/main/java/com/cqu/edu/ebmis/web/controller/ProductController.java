@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,29 @@ public class ProductController extends SuperController {
 	public String list(Model model) {
 	
 		return "/product/list";
+	}
+	@RequestMapping("/recheckPersonList")
+	public String recheckPersonList(Model model) {
+		
+		return "/product/recheckPersonList";
+	}
+	@ResponseBody
+	@RequestMapping("/getUserName")
+	public String getUserName(Model model) {
+		session=request.getSession();
+		User user=(User) session.getAttribute("user");
+		String userName=user.getUserName();
+		return userName;
+	}
+	@ResponseBody
+	@RequestMapping("/recheckPersonDate")
+	public String recheckPersonDate(Model model) {
+		
+		Page<ProductBaseInfoDO> page = getPage();
+		
+		productBaseInfoService.findRecheckPersonNumByPage(page);
+		
+		return jsonPage(page);
 	}
 	
 	@ResponseBody
@@ -83,9 +107,10 @@ public class ProductController extends SuperController {
 		session=request.getSession();
 		User user=(User) session.getAttribute("user");
 		String userName=user.getUserName();
+		Date date=new Date();
 		if (product != null) {
 			productBaseInfoService.update(Long.parseLong(strs[0]) , 1 ,
-					Integer.parseInt(strs[1]),userName);
+					Integer.parseInt(strs[1]),userName,date);
 		}
 		return Boolean.TRUE.toString();
 	}

@@ -8,7 +8,7 @@ SpringWind - 项目管理
 <link href="#springUrl('/static/css/bootstrap-datetimepicker.css')" rel="stylesheet">
 #end
 #override("breadcrumb")
-<li><a>资源管理</a></li><li class="active"><a>采集总监控</a></li>
+<li><a>农电商数据采集</a></li><li><a>采集任务管理</a></li><li class="active"><a>采集总监控</a></li>
 #end
 #override("projectControl")
 <div style="border-bottom:1px solid #ddd;padding:10px 20px 5px 20px">
@@ -27,7 +27,7 @@ SpringWind - 项目管理
   <div class="form-group" style="margin-right:140px">
     <label class="control-label" style="padding-top:8px">开始时间</label>
     <div class="input-append date form_datetime pull-right">
-			    <input type="text" id="distributedTime" class="form-control" name="distributedTime1" value="" data-rule="开始日期:required" readonly>
+			    <input type="text" id="distributedTime" style="background-color:white" class="form-control" name="distributedTime1" value="" data-rule="开始日期:required" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
 	</div>
@@ -35,7 +35,7 @@ SpringWind - 项目管理
   <div class="form-group" style="margin-right:170px">
     <label class="control-label" style="padding-top:8px">结束时间</label>
     <div class="input-append date form_datetime pull-right">
-			    <input type="text" id="finishedTime" class="form-control" name="finishedTime1" value="" data-rule="结束日期:required" readonly>
+			    <input type="text" id="finishedTime" style="background-color:white" class="form-control" name="finishedTime1" value="" data-rule="结束日期:required" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
 			    <span id="endTest1" class="msg-box n-right" style="display:inline-block"><span role="alert" class="msg-wrap n-error"><span class="n-icon"></span><span class="n-msg">结束日期必须大于开始日期</span></span></span>

@@ -1,0 +1,44 @@
+#override("title")
+SpringWind - 农产品管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>农电商数据采集</a></li><li><a>采集数据复核</a></li><li class="active">复核人员统计数量</li>
+#end
+#override("content")
+
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+    var dataUrl = "#springUrl('/product/recheckPersonDate.html')";
+    
+    var dataColumns = [{
+        field: 'userName',
+        title: '复核人'
+    },{
+        field: 'recheckPersonNum',
+        title: '复核数量'
+    }];
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+
+</script>
+#end
+#extends("/common/framework.html")
