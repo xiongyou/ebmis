@@ -69,9 +69,9 @@ public class ReportRepositoryImpl implements ReportRepository {
 		return reportMapper.CQFarmProductNumData(map);
 	}
 	@Override
-	public int CQFarmProductNumCount() {
+	public int CQFarmProductNumCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportMapper.CQFarmProductNumCount();
+		return reportMapper.CQFarmProductNumCount(map);
 	}
 	@Override
 	public List<Map<String, Object>> PlatformStoreNumData(HashMap map) {

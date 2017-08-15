@@ -83,7 +83,7 @@ public interface ReportMapper {
 	 * @param map
 	 * @return
 	 */
-	int CQFarmProductNumCount(); 
+	int CQFarmProductNumCount(HashMap map); 
 	/**
 	 * 分平台店铺数量
 	 * @param map

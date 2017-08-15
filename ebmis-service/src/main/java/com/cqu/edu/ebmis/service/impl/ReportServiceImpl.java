@@ -57,9 +57,9 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.CQFarmProductNumData(map);
 	}
-	public int CQFarmProductNumCount() {
+	public int CQFarmProductNumCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.CQFarmProductNumCount();
+		return reportRepository.CQFarmProductNumCount(map);
 	}
 	public List<Map<String, Object>> PlatformStoreNumData(HashMap map) {
 		// TODO Auto-generated method stub
