@@ -32,10 +32,7 @@ line-height:23px;
 		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="transformTable()">更新到三级表</button>
 		        </div>
 	        	<div style="margin:0px 10px 0px 0px;float:left">
-		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="copyTable()">备份</button>
-		        </div>
-	        	<div style="margin:0px 10px 0px 0px;float:left">
-		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="restoreTable()">还原</button>
+		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="restoreTable()">还原三级表</button>
 		        </div>
 			</div>
 	        <div class="pull-right">
@@ -245,30 +242,6 @@ function getzTreeObject(){
             return;
         });
     }
-    //备份
-    function copyTable(){
-    	 //询问框
-        layer.confirm('确定备份吗？', {
-            btn: ['确定', '取消'] //按钮
-        }, function () {
-        	$.ajax({
-                type: "POST",
-                url: "#springUrl('/categoryManager/copyTable')",
-                datatype: "text",
-                success: function (data) {
-                	var d = JSON.parse(data);
-	                	var error=d.data;
-	            		layer.alert(error, {
-	          			  skin: 'layui-layer-molv',
-	          			  closeBtn: 0
-	          			});
-                }
-            });
-            
-        }, function () {
-            return;
-        });
-    }
     //还原
 	function restoreTable(){
 		 //询问框
@@ -286,11 +259,6 @@ function getzTreeObject(){
 	          			  skin: 'layui-layer-molv',
 	          			  closeBtn: 0
 	          			});
-	            		var zTreeObject=$.fn.zTree.getZTreeObj("zTreeManager");
-	                	var nodes = zTreeObject.getNodes()
-	                    if(nodes.length >0){
-	                    	zTreeObject.reAsyncChildNodes(nodes[0], "refresh");
-	                    } 
 	                
                 }
             });

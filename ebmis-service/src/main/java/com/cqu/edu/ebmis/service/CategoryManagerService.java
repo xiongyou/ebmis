@@ -63,10 +63,6 @@ public interface CategoryManagerService {
 	 */
 	void copyTableDate();
 	/**
-	 * 还原表的清空表操作
-	 */
-	void restoreTruncateTable();
-	/**
 	 * 还原表的数据插入操作
 	 */
 	void restoreTableDate();

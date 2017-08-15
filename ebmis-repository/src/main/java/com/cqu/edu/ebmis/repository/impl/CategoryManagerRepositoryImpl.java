@@ -83,12 +83,6 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 	}
 
 	@Override
-	public void restoreTruncateTable() {
-		// TODO Auto-generated method stub
-		categoryManagerMapper.restoreTruncateTable();
-	}
-
-	@Override
 	public void restoreTableDate() {
 		// TODO Auto-generated method stub
 		categoryManagerMapper.restoreTableDate();

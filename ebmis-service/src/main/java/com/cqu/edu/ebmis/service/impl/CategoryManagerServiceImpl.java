@@ -70,11 +70,6 @@ public class CategoryManagerServiceImpl implements CategoryManagerService {
 		catetoryManagerRepository.copyTableDate();
 	}
 
-	public void restoreTruncateTable() {
-		// TODO Auto-generated method stub
-		catetoryManagerRepository.restoreTruncateTable();
-	}
-
 	public void restoreTableDate() {
 		// TODO Auto-generated method stub
 		catetoryManagerRepository.restoreTableDate();

@@ -52,19 +52,16 @@
   	truncate table threeclassificationtable
   </delete>
   <insert id="transformTableDate">
-  	INSERT INTO threeclassificationtable(零级,一级,二级,三级) SELECT 零级,一级,二级,三级 FROM (SELECT 零级,一级,二级,d.category_id FROM (SELECT 零级,一级,a.category_id FROM (SELECT category_name 一级,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)) a LEFT JOIN (SELECT category_name 零级,category_id FROM category_manager WHERE parent_id=455) b ON b.category_id=a.parent_id) c LEFT JOIN (SELECT category_name 二级,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455))) d ON d.parent_id=c.category_id) e LEFT JOIN (SELECT category_name 三级,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)))) f ON f.parent_id=e.category_id
+  	INSERT INTO threeclassificationtable(零级,一级,二级,三级) SELECT 零级,一级,二级,三级 FROM (SELECT 零级,一级,二级,d.category_id FROM (SELECT 零级,一级,a.category_id FROM (SELECT category_name 零级,category_id FROM category_manager WHERE parent_id=455) b LEFT JOIN (SELECT category_name 一级,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)) a  ON b.category_id=a.parent_id) c LEFT JOIN (SELECT category_name 二级,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455))) d ON d.parent_id=c.category_id) e LEFT JOIN (SELECT category_name 三级,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)))) f ON f.parent_id=e.category_id
   </insert>
   <delete id="copyTruncateTable">
-  	TRUNCATE TABLE category_manager2
+  	TRUNCATE TABLE threeclassificationtable_buckup
   </delete>
   <insert id="copyTableDate">
-  	INSERT INTO category_manager2 SELECT * FROM category_manager
+  	INSERT INTO threeclassificationtable_buckup SELECT * FROM threeclassificationtable
   </insert>
-  <delete id="restoreTruncateTable">
-  	TRUNCATE TABLE category_manager
-  </delete>
   <insert id="restoreTableDate">
-  	INSERT INTO category_manager SELECT * FROM category_manager2
+  	INSERT INTO threeclassificationtable SELECT * FROM threeclassificationtable_buckup
   </insert>
   
 </mapper>

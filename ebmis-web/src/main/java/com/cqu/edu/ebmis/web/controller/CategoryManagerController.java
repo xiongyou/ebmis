@@ -125,6 +125,8 @@ public class CategoryManagerController extends SuperController {
 	public String transformTable(Model model) {
 		JSONObject json = new JSONObject();
 		try {
+			categoryManagerService.copyTruncateTable();
+			categoryManagerService.copyTableDate();
 			categoryManagerService.transformTable();
 			categoryManagerService.transformTableDate();
 			json.put("success" , true);
@@ -138,28 +140,6 @@ public class CategoryManagerController extends SuperController {
 		return json.toJSONString();
 	}
 	/**
-	 *备份
-	 * @param model
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/copyTable",produces="html/text;charset=UTF-8")
-	public String copyTable(Model model) {
-		JSONObject json = new JSONObject();
-		try {
-			categoryManagerService.copyTruncateTable();
-			categoryManagerService.copyTableDate();
-			json.put("success" , true);
-			json.put("data" , "备份成功");
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			json.put("success" , false);
-			json.put("data" , "备份失败");
-		}
-		return json.toJSONString();
-	}
-	/**
 	 * 还原
 	 * @param model
 	 * @return
@@ -169,7 +149,7 @@ public class CategoryManagerController extends SuperController {
 	public String restoreTable(Model model) {
 		JSONObject json = new JSONObject();
 		try {
-			categoryManagerService.restoreTruncateTable();
+			categoryManagerService.transformTable();
 			categoryManagerService.restoreTableDate();
 			json.put("success" , true);
 			json.put("data" , "还原成功");
