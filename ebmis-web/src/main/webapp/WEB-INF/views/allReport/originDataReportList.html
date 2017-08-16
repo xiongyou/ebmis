@@ -10,6 +10,7 @@ SpringWind - 项目管理
 #override("content")
 <div class="row">
 	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+	<input type="hidden" id="recheckPerson">
 	<div class="input-group">			
 			<span class="input-group-cbx">
 				<input name="unchecked" id="unchecked" type="checkbox" value="0" checked="checked" onclick="selectCheck()">
@@ -249,7 +250,16 @@ SpringWind - 项目管理
         title: '抓取时间'
     },{
         field: 'userName',
-        title: '复核人'
+        title: '复核人',
+        formatter: function (value, row, index) {
+            var userName = row.userName;
+            var id = row.dataID;
+           if(typeof userName == "undefined"){
+            	return '<span id="recheck'+id+'"></span>';
+            }else{
+            	return '<span id="recheck'+id+'">'+userName+'</span>';
+            }
+        }
     },{
         field: 'isValid',
         title: '是否错误',
@@ -605,6 +615,15 @@ SpringWind - 项目管理
     	}
     	$("#dataTable").bootstrapTable('refresh', opt1);
     }
+$.ajax({
+        type: "POST",
+        url: "#springUrl('/product/getUserName.html')",
+        datatype: "text",
+        success: function (data) {
+        	alert(data);
+           $("#recheckPerson").val(data);
+        }
+    });
 function audit(id,flag){
 	 	
 	 	$.ajax({
@@ -612,6 +631,8 @@ function audit(id,flag){
 	         url: "#springUrl('/allReport/auditProduct/')" + id+':'+flag,
 	         datatype: "text",
 	         success: function (data) {
+	        	 var userName=$("#recheckPerson").val();
+	        	 $("#recheck"+id).html(userName);
 	             if(data == 'true'){
 	            	 $("#"+id).html("已复核");
 	            	 $("#"+id).css("color","#00F");
