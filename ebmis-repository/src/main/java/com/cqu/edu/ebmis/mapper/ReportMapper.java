@@ -47,7 +47,7 @@ public interface ReportMapper {
 	 * @param map
 	 * @return
 	 */
-	int AliClassifyCount(); 
+	int AliClassifyCount(HashMap map); 
 	/**
 	 * 天猫月度单品20强
 	 * @param map
@@ -95,7 +95,7 @@ public interface ReportMapper {
 	 * @param map
 	 * @return
 	 */
-	int PlatformStoreNumCount(); 
+	int PlatformStoreNumCount(HashMap map); 
 	/**
 	 * 分类体系
 	 * @param map
@@ -119,7 +119,7 @@ public interface ReportMapper {
 	 * @param map
 	 * @return
 	 */
-	int OneClassifyCount(); 
+	int OneClassifyCount(HashMap map); 
 	/**
 	 * 生鲜分类统计
 	 * @param map
@@ -131,7 +131,7 @@ public interface ReportMapper {
 	 * @param map
 	 * @return
 	 */
-	int FreshClassifyCount(); 
+	int FreshClassifyCount(HashMap map); 
 	/**
 	 * 非生鲜分类统计
 	 * @param map
@@ -143,7 +143,7 @@ public interface ReportMapper {
 	 * @param map
 	 * @return
 	 */
-	int NoFreshClassifyCount(); 
+	int NoFreshClassifyCount(HashMap map); 
 	/**
 	 * 重庆农产品各省市销售情况
 	 * @param map

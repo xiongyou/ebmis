@@ -140,16 +140,30 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/AliClassifyReport")
 	public String AliClassifyReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
 		map.put("size", size);
 		map.put("offset", index);
-		List<Map<String, Object>> originDataReportList=reportService.AliClassifyData(map);
-		int allCount=reportService.AliClassifyCount();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
-		for(Map<String, Object> oneMap:originDataReportList){
+		List<Map<String, Object>> AliClassifyReportList=reportService.AliClassifyData(map);
+		int allCount=reportService.AliClassifyCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:AliClassifyReportList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
 			for(String keyStr:setstr){
@@ -160,6 +174,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
+    	}
 		return str;
 	}
 	@RequestMapping("/TmMonthProductList")
@@ -170,25 +185,40 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/TmMonthProductReport")
 	public String TmMonthProductReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
 		map.put("size", size);
 		map.put("offset", index);
-		List<Map<String, Object>> originDataReportList=reportService.TmMonthProductData(map);
-		String str="{"+"\"total\":"+20+","+"\"rows\":[";
-		for(Map<String, Object> oneMap:originDataReportList){
-			str+="{";
-			Set<String> setstr=oneMap.keySet();
-			for(String keyStr:setstr){
-				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
-			}
-			str=str.substring(0, str.lastIndexOf(","));  
-			str+="},";
-		}
-		str=str.substring(0, str.lastIndexOf(","));  
-		str+="]}";
+		List<Map<String, Object>> TmMonthProductReportList=reportService.TmMonthProductData(map);
+		String str="";
+		if(TmMonthProductReportList.size()==0){
+    		str="{\"total\":0,\"rows\":[]}";
+    	}else{
+    		str="{\"total\":20,\"rows\":[";
+    		for(Map<String, Object> oneMap:TmMonthProductReportList){
+    			str+="{";
+    			Set<String> setstr=oneMap.keySet();
+    			for(String keyStr:setstr){
+    				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+    			}
+    			str=str.substring(0, str.lastIndexOf(","));  
+    			str+="},";
+    		}
+    		str=str.substring(0, str.lastIndexOf(","));  
+    		str+="]}";
+    	}
 		return str;
 	}
 	@RequestMapping("/TbMonthProductList")
@@ -199,6 +229,16 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/TbMonthProductReport")
 	public String TbMonthProductReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
@@ -206,18 +246,23 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> TbMonthProductList=reportService.TbMonthProductData(map);
-		String str="{"+"\"total\":"+20+","+"\"rows\":[";
-		for(Map<String, Object> oneMap:TbMonthProductList){
-			str+="{";
-			Set<String> setstr=oneMap.keySet();
-			for(String keyStr:setstr){
-				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
-			}
-			str=str.substring(0, str.lastIndexOf(","));  
-			str+="},";
-		}
-		str=str.substring(0, str.lastIndexOf(","));  
-		str+="]}";
+		String str="";
+		if(TbMonthProductList.size()==0){
+    		str="{\"total\":0,\"rows\":[]}";
+    	}else{
+    		str="{\"total\":20,\"rows\":[";
+    		for(Map<String, Object> oneMap:TbMonthProductList){
+    			str+="{";
+    			Set<String> setstr=oneMap.keySet();
+    			for(String keyStr:setstr){
+    				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+    			}
+    			str=str.substring(0, str.lastIndexOf(","));  
+    			str+="},";
+    		}
+    		str=str.substring(0, str.lastIndexOf(","));  
+    		str+="]}";
+    	}
 		return str;
 	}
 	@RequestMapping("/AllProductNumList")
@@ -236,10 +281,6 @@ public class AllReportController extends SuperController {
 		if(productMonth.equals("请选择")){
 			productMonth=null;
 		}
-		String productDay=request.getParameter("ExcelDay");
-		if(productDay.equals("请选择")){
-			productDay=null;		
-		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
@@ -248,7 +289,6 @@ public class AllReportController extends SuperController {
 		map.put("offset", index);
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
-		map.put("productDay", productDay);
 		List<Map<String, Object>> originDataReportList=reportService.allProductNumData(map);
 		int allCount=reportService.allProductNumCount(map);
 		String str="";
@@ -286,10 +326,6 @@ public class AllReportController extends SuperController {
 		if(productMonth.equals("请选择")){
 			productMonth=null;
 		}
-		String productDay=request.getParameter("ExcelDay");
-		if(productDay.equals("请选择")){
-			productDay=null;		
-		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
@@ -298,7 +334,6 @@ public class AllReportController extends SuperController {
 		map.put("offset", index);
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
-		map.put("productDay", productDay);
 		List<Map<String, Object>> originDataReportList=reportService.CQFarmProductNumData(map);
 		int allCount=reportService.CQFarmProductNumCount(map);
 		String str="";
@@ -318,7 +353,6 @@ public class AllReportController extends SuperController {
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
     	}
-		System.out.println(str);
 		return str;
 	}
 	@RequestMapping("/PlatformStoreNumList")
@@ -329,15 +363,29 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/PlatformStoreNumReport")
 	public String PlatformStoreNumReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
 		map.put("size", size);
 		map.put("offset", index);
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		List<Map<String, Object>> originDataReportList=reportService.PlatformStoreNumData(map);
-		int allCount=reportService.PlatformStoreNumCount();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		int allCount=reportService.PlatformStoreNumCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
@@ -349,7 +397,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
+    	}
 		return str;
 	}
 	@RequestMapping("/ClassifySystemList")
@@ -391,6 +439,16 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/OneClassifyReport")
 	public String OneClassifyReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
@@ -398,8 +456,12 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.OneClassifyData(map);
-		int allCount=reportService.OneClassifyCount();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		int allCount=reportService.OneClassifyCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
@@ -411,7 +473,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
+    	}
 		return str;
 	}
 	@RequestMapping("/FreshClassifyList")
@@ -422,6 +484,16 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/FreshClassifyReport")
 	public String FreshClassifyReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
@@ -429,8 +501,12 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.FreshClassifyData(map);
-		int allCount=reportService.FreshClassifyCount();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		int allCount=reportService.FreshClassifyCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
@@ -442,7 +518,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
+    	}
 		return str;
 	}
 	@RequestMapping("/NoFreshClassifyList")
@@ -457,11 +533,25 @@ public class AllReportController extends SuperController {
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.NoFreshClassifyData(map);
-		int allCount=reportService.NoFreshClassifyCount();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		int allCount=reportService.NoFreshClassifyCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
@@ -473,7 +563,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
+    	}
 		return str;
 	}
 	@RequestMapping("/CQFarmProductEveryMarketList")

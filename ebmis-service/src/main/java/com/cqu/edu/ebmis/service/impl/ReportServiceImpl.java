@@ -33,9 +33,9 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.AliClassifyData(map);
 	}
-	public int AliClassifyCount() {
+	public int AliClassifyCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.AliClassifyCount();
+		return reportRepository.AliClassifyCount(map);
 	}
 	public List<Map<String, Object>> TmMonthProductData(HashMap map) {
 		// TODO Auto-generated method stub
@@ -65,9 +65,9 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.PlatformStoreNumData(map);
 	}
-	public int PlatformStoreNumCount() {
+	public int PlatformStoreNumCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.PlatformStoreNumCount();
+		return reportRepository.PlatformStoreNumCount(map);
 	}
 	public List<Map<String, Object>> ClassifySystemData(HashMap map) {
 		// TODO Auto-generated method stub
@@ -81,25 +81,25 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.OneClassifyData(map);
 	}
-	public int OneClassifyCount() {
+	public int OneClassifyCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.OneClassifyCount();
+		return reportRepository.OneClassifyCount(map);
 	}
 	public List<Map<String, Object>> FreshClassifyData(HashMap map) {
 		// TODO Auto-generated method stub
 		return reportRepository.FreshClassifyData(map);
 	}
-	public int FreshClassifyCount() {
+	public int FreshClassifyCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.FreshClassifyCount();
+		return reportRepository.FreshClassifyCount(map);
 	}
 	public List<Map<String, Object>> NoFreshClassifyData(HashMap map) {
 		// TODO Auto-generated method stub
 		return reportRepository.NoFreshClassifyData(map);
 	}
-	public int NoFreshClassifyCount() {
+	public int NoFreshClassifyCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.NoFreshClassifyCount();
+		return reportRepository.NoFreshClassifyCount(map);
 	}
 	public List<Map<String, Object>> CQFarmProductEveryMarketData(HashMap map) {
 		// TODO Auto-generated method stub

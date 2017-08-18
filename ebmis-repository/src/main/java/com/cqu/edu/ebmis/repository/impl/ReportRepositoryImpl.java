@@ -39,9 +39,9 @@ public class ReportRepositoryImpl implements ReportRepository {
 		return reportMapper.AliClassifyData(map);
 	}
 	@Override
-	public int AliClassifyCount() {
+	public int AliClassifyCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportMapper.AliClassifyCount();
+		return reportMapper.AliClassifyCount(map);
 	}
 	@Override
 	public List<Map<String, Object>> TmMonthProductData(HashMap map) {
@@ -79,9 +79,9 @@ public class ReportRepositoryImpl implements ReportRepository {
 		return reportMapper.PlatformStoreNumData(map);
 	}
 	@Override
-	public int PlatformStoreNumCount() {
+	public int PlatformStoreNumCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportMapper.PlatformStoreNumCount();
+		return reportMapper.PlatformStoreNumCount(map);
 	}
 	@Override
 	public List<Map<String, Object>> ClassifySystemData(HashMap map) {
@@ -99,9 +99,9 @@ public class ReportRepositoryImpl implements ReportRepository {
 		return reportMapper.OneClassifyData(map);
 	}
 	@Override
-	public int OneClassifyCount() {
+	public int OneClassifyCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportMapper.OneClassifyCount();
+		return reportMapper.OneClassifyCount(map);
 	}
 	@Override
 	public List<Map<String, Object>> FreshClassifyData(HashMap map) {
@@ -109,9 +109,9 @@ public class ReportRepositoryImpl implements ReportRepository {
 		return reportMapper.FreshClassifyData(map);
 	}
 	@Override
-	public int FreshClassifyCount() {
+	public int FreshClassifyCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportMapper.FreshClassifyCount();
+		return reportMapper.FreshClassifyCount(map);
 	}
 	@Override
 	public List<Map<String, Object>> NoFreshClassifyData(HashMap map) {
@@ -119,9 +119,9 @@ public class ReportRepositoryImpl implements ReportRepository {
 		return reportMapper.NoFreshClassifyData(map);
 	}
 	@Override
-	public int NoFreshClassifyCount() {
+	public int NoFreshClassifyCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportMapper.NoFreshClassifyCount();
+		return reportMapper.NoFreshClassifyCount(map);
 	}
 	@Override
 	public List<Map<String, Object>> CQFarmProductEveryMarketData(HashMap map) {

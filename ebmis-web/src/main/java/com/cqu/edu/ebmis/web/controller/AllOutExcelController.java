@@ -207,10 +207,20 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"销售额","SKU","销量","平台","一级"};
+	        String[] titles = {"时间","销售额","SKU","平台","一级","销售额占比","SKU占比"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			String size1=request.getParameter("_size");
 			String index1=request.getParameter("_index");
 			Integer size=Integer.parseInt(size1);
@@ -241,6 +251,16 @@ public class AllOutExcelController extends SuperController {
 				}
 		}else{
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			Integer size=null;
 			Integer index=null;
 			map.put("size", size);
@@ -286,10 +306,20 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"月销量","商品编号","店铺编号","店铺所在地","店铺名称","关键词","链接","商品实际编号","平台","销售额"};
+	        String[] titles = {"所属店铺","产品名称","产品类别","时间","商品编号","销售额","销售量","价格"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			String size1=request.getParameter("_size");
 			String index1=request.getParameter("_index");
 			Integer size=Integer.parseInt(size1);
@@ -320,6 +350,16 @@ public class AllOutExcelController extends SuperController {
 				}
 		}else{
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			Integer size=20;
 			Integer index=1;
 			map.put("size", size);
@@ -364,10 +404,20 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"月销量","商品编号","店铺编号","店铺所在地","店铺名称","关键词","链接","商品实际编号","平台","销售额"};
+	        String[] titles = {"所属店铺","产品名称","产品类别","时间","商品编号","销售额","销售量","价格"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			String size1=request.getParameter("_size");
 			String index1=request.getParameter("_index");
 			Integer size=Integer.parseInt(size1);
@@ -398,6 +448,16 @@ public class AllOutExcelController extends SuperController {
 				}
 		}else{
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			Integer size=20;
 			Integer index=1;
 			map.put("size", size);
@@ -456,13 +516,8 @@ public class AllOutExcelController extends SuperController {
 			if(productMonth.equals("请选择")){
 				productMonth=null;
 			}
-			String productDay=request.getParameter("ExcelDay");
-			if(productDay.equals("请选择")){
-				productDay=null;		
-			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
-			map.put("productDay", productDay);
 			Integer size=Integer.parseInt(size1);
 			Integer index=Integer.parseInt(index1);
 			map.put("size", size);
@@ -503,13 +558,8 @@ public class AllOutExcelController extends SuperController {
 			if(productMonth.equals("请选择")){
 				productMonth=null;
 			}
-			String productDay=request.getParameter("ExcelDay");
-			if(productDay.equals("请选择")){
-				productDay=null;		
-			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
-			map.put("productDay", productDay);
 			List<Map<String, Object>> originDataReportList=reportService.allProductNumData(map);
 			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
 			for(Map<String, Object> oneMap:originDataReportList){
@@ -566,13 +616,8 @@ public class AllOutExcelController extends SuperController {
 			if(productMonth.equals("请选择")){
 				productMonth=null;
 			}
-			String productDay=request.getParameter("ExcelDay");
-			if(productDay.equals("请选择")){
-				productDay=null;		
-			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
-			map.put("productDay", productDay);
 			map.put("size", size);
 			map.put("offset", index);
 			List<Map<String, Object>> originDataReportList=reportService.CQFarmProductNumData(map);
@@ -611,13 +656,8 @@ public class AllOutExcelController extends SuperController {
 			if(productMonth.equals("请选择")){
 				productMonth=null;
 			}
-			String productDay=request.getParameter("ExcelDay");
-			if(productDay.equals("请选择")){
-				productDay=null;		
-			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
-			map.put("productDay", productDay);
 			List<Map<String, Object>> originDataReportList=reportService.CQFarmProductNumData(map);
 			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
 			for(Map<String, Object> oneMap:originDataReportList){
@@ -658,7 +698,7 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"数量","平台"};
+	        String[] titles = {"数量","时间","平台"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
@@ -666,6 +706,16 @@ public class AllOutExcelController extends SuperController {
 			String index1=request.getParameter("_index");
 			Integer size=Integer.parseInt(size1);
 			Integer index=Integer.parseInt(index1);
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			map.put("size", size);
 			map.put("offset", index);
 			List<Map<String, Object>> originDataReportList=reportService.PlatformStoreNumData(map);
@@ -694,6 +744,16 @@ public class AllOutExcelController extends SuperController {
 			HashMap map=new HashMap();
 			Integer size=null;
 			Integer index=null;
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			map.put("size", size);
 			map.put("offset", index);
 			List<Map<String, Object>> originDataReportList=reportService.PlatformStoreNumData(map);
@@ -814,7 +874,7 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"销售额","SKU","销量","一级"};
+	        String[] titles = {"时间","销售额(万元)","SKU","销量","一级"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
@@ -822,6 +882,16 @@ public class AllOutExcelController extends SuperController {
 			String index1=request.getParameter("_index");
 			Integer size=Integer.parseInt(size1);
 			Integer index=Integer.parseInt(index1);
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			map.put("size", size);
 			map.put("offset", index);
 			List<Map<String, Object>> originDataReportList=reportService.OneClassifyData(map);
@@ -850,6 +920,16 @@ public class AllOutExcelController extends SuperController {
 			HashMap map=new HashMap();
 			Integer size=null;
 			Integer index=null;
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			map.put("size", size);
 			map.put("offset", index);
 			List<Map<String, Object>> originDataReportList=reportService.OneClassifyData(map);
@@ -892,10 +972,20 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"商品数量","销售额","销量","一级"};
+	        String[] titles = {"时间","SKU","销售额(万元)","销量","一级"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			String size1=request.getParameter("_size");
 			String index1=request.getParameter("_index");
 			Integer size=Integer.parseInt(size1);
@@ -928,6 +1018,16 @@ public class AllOutExcelController extends SuperController {
 			HashMap map=new HashMap();
 			Integer size=null;
 			Integer index=null;
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			map.put("size", size);
 			map.put("offset", index);
 			List<Map<String, Object>> originDataReportList=reportService.FreshClassifyData(map);
@@ -970,10 +1070,20 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"商品数量","销售额","销量","一级"};
+	        String[] titles = {"时间","SKU","销售额(万元)","销量","一级"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			String size1=request.getParameter("_size");
 			String index1=request.getParameter("_index");
 			Integer size=Integer.parseInt(size1);
@@ -1004,6 +1114,16 @@ public class AllOutExcelController extends SuperController {
 				}
 		}else{
 			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
 			Integer size=null;
 			Integer index=null;
 			map.put("size", size);
