@@ -168,5 +168,25 @@ public class ReportRepositoryImpl implements ReportRepository {
 		// TODO Auto-generated method stub
 		reportMapper.updateOriginData(map);
 	}
+	@Override
+	public List<Map<String, Object>> CQFarmProductStoreNumData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmProductStoreNumData(map);
+	}
+	@Override
+	public int CQFarmProductStoreNumCount(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmProductStoreNumCount(map);
+	}
+	@Override
+	public List<Map<String, Object>> CQFarmNetMarketClassifyData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.CQFarmNetMarketClassifyData(map);
+	}
+	@Override
+	public List<Map<String, Object>> ControlStatisticsTotalData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.ControlStatisticsTotalData(map);
+	}
 
 }

@@ -294,6 +294,207 @@ public class AllOutExcelController extends SuperController {
 		
 	}
 	@ResponseBody
+	@RequestMapping(value="/CQFarmNetMarketClassifyExcel",produces="html/text;charset=UTF-8")
+	public String CQFarmNetMarketClassifyExcel(Model model) {
+		JSONObject json = new JSONObject();
+		String platName=request.getParameter("platName");
+		Date date = new Date();  
+		DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");   
+		String fileName =platName+sdf.format(date);  
+		//得到桌面路径  
+		File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();  
+		String desktopPath = desktopDir.getAbsolutePath();  
+		String desktopDirPath = desktopPath.replace("\\","\\\\");  
+		String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
+		String[] titles = {"生鲜单品数","时间","销售额","生鲜品类数","品类数","单品数（SKU）","平台","生鲜销售额"};
+		String excelValue=request.getParameter("ExcelValue");
+		if(excelValue.equals("1")){
+			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
+			String size1=request.getParameter("_size");
+			String index1=request.getParameter("_index");
+			Integer size=Integer.parseInt(size1);
+			Integer index=Integer.parseInt(index1);
+			map.put("size", size);
+			map.put("offset", index);
+			List<Map<String, Object>> originDataReportList=reportService.CQFarmNetMarketClassifyData(map);
+			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
+			for(Map<String, Object> oneMap:originDataReportList){
+				int num=0;
+				Set<String> setstr=oneMap.keySet();
+				Map<Integer, String> paramsLists = new HashMap<Integer, String>();
+				for(String keyStr:setstr){
+					String valueStr=oneMap.get(keyStr).toString();
+					paramsLists.put(num, valueStr);
+					num++;
+				}
+				lists.add(paramsLists);
+				
+			}
+			try {
+				writeExcel(filePath, titles, lists);
+				json.put("data" , "导出成功");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("data" , "导出失败");
+			}
+		}else{
+			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
+			Integer size=null;
+			Integer index=null;
+			map.put("size", size);
+			map.put("offset", index);
+			List<Map<String, Object>> originDataReportList=reportService.CQFarmNetMarketClassifyData(map);
+			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
+			for(Map<String, Object> oneMap:originDataReportList){
+				int num=0;
+				Set<String> setstr=oneMap.keySet();
+				Map<Integer, String> paramsLists = new HashMap<Integer, String>();
+				for(String keyStr:setstr){
+					String valueStr=oneMap.get(keyStr).toString();
+					paramsLists.put(num, valueStr);
+					num++;
+				}
+				lists.add(paramsLists);
+				
+			}
+			try {
+				writeExcel(filePath, titles, lists);
+				json.put("success" , true);
+				json.put("data" , "导出成功");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("success" ,false);
+				json.put("data" , "导出失败");
+			}
+		}
+		return json.toJSONString();
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/ControlStatisticsTotalExcel",produces="html/text;charset=UTF-8")
+	public String ControlStatisticsTotalExcel(Model model) {
+		JSONObject json = new JSONObject();
+		String platName=request.getParameter("platName");
+		Date date = new Date();  
+		DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");   
+		String fileName =platName+sdf.format(date);  
+		//得到桌面路径  
+		File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();  
+		String desktopPath = desktopDir.getAbsolutePath();  
+		String desktopDirPath = desktopPath.replace("\\","\\\\");  
+		String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
+		String[] titles = {"数值","时间","指标"};
+		String excelValue=request.getParameter("ExcelValue");
+		if(excelValue.equals("1")){
+			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
+			String size1=request.getParameter("_size");
+			String index1=request.getParameter("_index");
+			Integer size=Integer.parseInt(size1);
+			Integer index=Integer.parseInt(index1);
+			map.put("size", size);
+			map.put("offset", index);
+			List<Map<String, Object>> originDataReportList=reportService.ControlStatisticsTotalData(map);
+			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
+			for(Map<String, Object> oneMap:originDataReportList){
+				int num=0;
+				Set<String> setstr=oneMap.keySet();
+				Map<Integer, String> paramsLists = new HashMap<Integer, String>();
+				for(String keyStr:setstr){
+					String valueStr=oneMap.get(keyStr).toString();
+					paramsLists.put(num, valueStr);
+					num++;
+				}
+				lists.add(paramsLists);
+				
+			}
+			try {
+				writeExcel(filePath, titles, lists);
+				json.put("data" , "导出成功");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("data" , "导出失败");
+			}
+		}else{
+			HashMap map=new HashMap();
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
+			Integer size=null;
+			Integer index=null;
+			map.put("size", size);
+			map.put("offset", index);
+			List<Map<String, Object>> originDataReportList=reportService.ControlStatisticsTotalData(map);
+			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
+			for(Map<String, Object> oneMap:originDataReportList){
+				int num=0;
+				Set<String> setstr=oneMap.keySet();
+				Map<Integer, String> paramsLists = new HashMap<Integer, String>();
+				for(String keyStr:setstr){
+					String valueStr=oneMap.get(keyStr).toString();
+					paramsLists.put(num, valueStr);
+					num++;
+				}
+				lists.add(paramsLists);
+				
+			}
+			try {
+				writeExcel(filePath, titles, lists);
+				json.put("success" , true);
+				json.put("data" , "导出成功");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("success" ,false);
+				json.put("data" , "导出失败");
+			}
+		}
+		return json.toJSONString();
+		
+	}
+	
+	
+	@ResponseBody
 	@RequestMapping(value="/TmMonthProductExcel",produces="html/text;charset=UTF-8")
 	public String TmMonthProductExcel(Model model) {
 		JSONObject json = new JSONObject();
@@ -685,6 +886,105 @@ public class AllOutExcelController extends SuperController {
 		}
 		return json.toJSONString();
 	}
+	@ResponseBody
+	@RequestMapping(value="/CQFarmProductStoreNumExcel",produces="html/text;charset=UTF-8")
+	public String CQFarmProductStoreNumExcel(Model model) {
+		JSONObject json = new JSONObject();
+		String platName=request.getParameter("platName");
+		Date date = new Date();  
+		DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");   
+		String fileName =platName+sdf.format(date);  
+		//得到桌面路径  
+		File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();  
+		String desktopPath = desktopDir.getAbsolutePath();  
+		String desktopDirPath = desktopPath.replace("\\","\\\\");  
+		String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
+		String[] titles = {"个体网店数","合作社网店数","时间","注册地在重庆的农产品网店数","企业网店数","平台"};
+		String excelValue=request.getParameter("ExcelValue");
+		if(excelValue.equals("1")){
+			HashMap map=new HashMap();
+			String size1=request.getParameter("_size");
+			String index1=request.getParameter("_index");
+			Integer size=Integer.parseInt(size1);
+			Integer index=Integer.parseInt(index1);
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
+			map.put("size", size);
+			map.put("offset", index);
+			List<Map<String, Object>> originDataReportList=reportService.CQFarmProductStoreNumData(map);
+			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
+			for(Map<String, Object> oneMap:originDataReportList){
+				int num=0;
+				Set<String> setstr=oneMap.keySet();
+				Map<Integer, String> paramsLists = new HashMap<Integer, String>();
+				for(String keyStr:setstr){
+					String valueStr=oneMap.get(keyStr).toString();
+					paramsLists.put(num, valueStr);
+					num++;
+				}
+				lists.add(paramsLists);
+				
+			}
+			try {
+				writeExcel(filePath, titles, lists);
+				json.put("data" , "导出成功");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("data" , "导出失败");
+			}
+		}else{
+			HashMap map=new HashMap();
+			Integer size=null;
+			Integer index=null;
+			map.put("size", size);
+			map.put("offset", index);
+			String productYear=request.getParameter("ExcelYear");
+			if(productYear.equals("请选择")){
+				productYear=null;
+			}
+			String productMonth=request.getParameter("ExcelMonth");
+			if(productMonth.equals("请选择")){
+				productMonth=null;
+			}
+			map.put("productYear", productYear);
+			map.put("productMonth", productMonth);
+			List<Map<String, Object>> originDataReportList=reportService.CQFarmProductStoreNumData(map);
+			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
+			for(Map<String, Object> oneMap:originDataReportList){
+				int num=0;
+				Set<String> setstr=oneMap.keySet();
+				Map<Integer, String> paramsLists = new HashMap<Integer, String>();
+				for(String keyStr:setstr){
+					String valueStr=oneMap.get(keyStr).toString();
+					paramsLists.put(num, valueStr);
+					num++;
+				}
+				lists.add(paramsLists);
+				
+			}
+			try {
+				writeExcel(filePath, titles, lists);
+				json.put("success" , true);
+				json.put("data" , "导出成功");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("success" ,false);
+				json.put("data" , "导出失败");
+			}
+		}
+		return json.toJSONString();
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/PlatformStoreNumExcel",produces="html/text;charset=UTF-8")
 	public String PlatformStoreNumExcel(Model model) {

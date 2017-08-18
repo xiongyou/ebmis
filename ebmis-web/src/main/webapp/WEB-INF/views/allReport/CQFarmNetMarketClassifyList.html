@@ -5,7 +5,7 @@ SpringWind - 项目管理
 <link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
 #end
 #override("breadcrumb")
-<li><a>农电商数据报表</a></li><li><a>类别数据</a></li><li class="active"><a>阿里平台月度销售情况</a></li>
+<li><a>农电商数据报表</a></li><li><a>类别数据</a></li><li class="active"><a>重庆农产品上网销售品类数清单</a></li>
 #end
 #override("content")
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -45,7 +45,7 @@ SpringWind - 项目管理
 		<button type="button" class="btn btn-primary" style="margin-right: 300px" onClick="selectForm()">查询</button>
 		<input type="hidden" id="currentIndex" name="_index">
 		<input type="hidden" id="currentSize" name="_size">
-		<input type="hidden" id="platName" name="platName" value="阿里平台月度销售情况">
+		<input type="hidden" id="platName" name="platName" value="重庆农产品上网销售品类数清单">
 		<select id="ExcelValue" name="ExcelValue" class="form-control">
 				<option value="1">当前页</option>
 				<option value="2">全部</option>
@@ -70,12 +70,12 @@ SpringWind - 项目管理
 	var date = new Date();
 	var currentYear = date.getFullYear();
 	$("#ExcelYear").html("<option value='请选择'>请选择</option><option value='"+currentYear+"'>"+currentYear+"</option><option value='"+(currentYear-1)+"'>"+(currentYear-1)+"</option><option value='"+(currentYear-2)+"'>"+(currentYear-2)+"</option><option value='"+(currentYear-3)+"'>"+(currentYear-3)+"</option><option value='"+(currentYear-4)+"'>"+(currentYear-4)+"</option>")
-   	var dataUrl = "#springUrl('/allReport/AliClassifyReport.html?ExcelYear=请选择&ExcelMonth=请选择')";
+   	var dataUrl = "#springUrl('/allReport/CQFarmNetMarketClassifyReport.html?ExcelYear=请选择&ExcelMonth=请选择')";
 	function selectForm(){
 		var ExcelYearValue=$("#ExcelYear").val();
 		var ExcelMonthValue=$("#ExcelMonth").val();
 		var opt = {
-    	        url: "#springUrl('/allReport/AliClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"')"
+    	        url: "#springUrl('/allReport/CQFarmNetMarketClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"')"
     	    };
     		$("#dataTable").bootstrapTable('refresh', opt);
 	}
@@ -89,20 +89,23 @@ SpringWind - 项目管理
         field: 'platform',
         title: '平台'
     },{
-        field: '一级',
-        title: '一级'
+        field: '品类数',
+        title: '品类数'
     }, {
+        field: '单品数（SKU）',
+        title: '单品数（SKU）'
+    },{
         field: '销售额',
         title: '销售额'
-    },{
-        field: 'sku',
-        title: 'SKU'
     }, {
-        field: '销售额占比',
-        title: '销售额占比'
+        field: '生鲜品类数',
+        title: '生鲜品类数'
     }, {
-        field: 'SKU占比',
-        title: 'SKU占比'
+        field: '生鲜单品数',
+        title: '生鲜单品数'
+    }, {
+        field: '生鲜销售额',
+        title: '生鲜销售额'
     },{
         field: 'selectTime',
         title: '时间'
@@ -118,7 +121,7 @@ SpringWind - 项目管理
     function OutExcel(){
     	$('#myModal').modal('show');
     	$.ajax({
-        	url: "#springUrl('/outExcel/AliClassifyExcel')",
+        	url: "#springUrl('/outExcel/CQFarmNetMarketClassifyExcel')",
             data: $("#formExcel").serialize(),
             type: "POST",
             success: function(data){

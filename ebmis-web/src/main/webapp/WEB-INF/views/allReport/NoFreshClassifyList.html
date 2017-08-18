@@ -30,19 +30,19 @@ SpringWind - 项目管理
 				<option value='请选择'>请选择</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
-				<option value="1">3</option>
-				<option value="2">4</option>
-				<option value="1">5</option>
-				<option value="2">6</option>
-				<option value="1">7</option>
-				<option value="2">8</option>
-				<option value="1">9</option>
-				<option value="2">10</option>
-				<option value="1">11</option>
-				<option value="2">12</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
 		</select>
-		<span style="margin-right: 50px;font-size: 16px">月</span>
-				
+		<span style="margin-right: 15px;font-size: 16px">月</span>
+		<button type="button" class="btn btn-primary" style="margin-right: 300px" onClick="selectForm()">查询</button>		
 		<input type="hidden" id="currentIndex" name="_index">
 		<input type="hidden" id="currentSize" name="_size">
 		<input type="hidden" id="platName" name="platName" value="非生鲜分类统计">
@@ -55,6 +55,7 @@ SpringWind - 项目管理
 
 <div class="row">
     <div class="col-sm-12">
+    	<h3 class="text-center" style="margin-top: 30px"></h3>
         <table id="dataTable"></table>
     </div>
 </div>
@@ -71,35 +72,18 @@ SpringWind - 项目管理
 	var currentYear = date.getFullYear();
 	$("#ExcelYear").html("<option value='请选择'>请选择</option><option value='"+currentYear+"'>"+currentYear+"</option><option value='"+(currentYear-1)+"'>"+(currentYear-1)+"</option><option value='"+(currentYear-2)+"'>"+(currentYear-2)+"</option><option value='"+(currentYear-3)+"'>"+(currentYear-3)+"</option><option value='"+(currentYear-4)+"'>"+(currentYear-4)+"</option>")
    	var dataUrl = "#springUrl('/allReport/NoFreshClassifyReport.html?ExcelYear=请选择&ExcelMonth=请选择')";
-	$("#ExcelYear").change(function(){
-		var ExcelYearValue=$("#ExcelYear").val();
-		if(ExcelYearValue!="请选择"){
-			$("#ExcelMonth").html("<option value='请选择'>请选择</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>")
-			var opt = {
-				 url:"#springUrl('/allReport/NoFreshClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth=请选择')"
-    	    };
-    		$("#dataTable").bootstrapTable('refresh', opt);
-		}else{
-			$("#ExcelMonth").html("<option value='请选择'>请选择</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>")
-			var opt = {
-    	        url: "#springUrl('/allReport/NoFreshClassifyReport.html?ExcelYear=请选择&ExcelMonth=请选择')"
-    	    };
-    		$("#dataTable").bootstrapTable('refresh', opt);
-		}
-	});
-	$("#ExcelMonth").change(function(){
+	function selectForm(){
 		var ExcelYearValue=$("#ExcelYear").val();
 		var ExcelMonthValue=$("#ExcelMonth").val();
-		if(ExcelMonthValue!="请选择"){
-			var opt = {
-	    	        url: "#springUrl('/allReport/NoFreshClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"')"
-	    	    };
-	    		$("#dataTable").bootstrapTable('refresh', opt);
-		}else{
-			var opt = {
-    	        url: "#springUrl('/allReport/NoFreshClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth=请选择')"
+		var opt = {
+    	        url: "#springUrl('/allReport/NoFreshClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"')"
     	    };
     		$("#dataTable").bootstrapTable('refresh', opt);
+	}
+	$("#ExcelYear").change(function(){
+		var ExcelYearValue=$("#ExcelYear").val();
+		if(ExcelYearValue=="请选择"){
+			$("#ExcelMonth").html("<option value='请选择'>请选择</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>")
 		}
 	});
     var dataColumns = [{

@@ -137,5 +137,21 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		reportRepository.updateOriginData(map);
 	}
+	public List<Map<String, Object>> CQFarmProductStoreNumData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.CQFarmProductStoreNumData(map);
+	}
+	public int CQFarmProductStoreNumCount(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.CQFarmProductStoreNumCount(map);
+	}
+	public List<Map<String, Object>> CQFarmNetMarketClassifyData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.CQFarmNetMarketClassifyData(map);
+	}
+	public List<Map<String, Object>> ControlStatisticsTotalData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.ControlStatisticsTotalData(map);
+	}
 
 }

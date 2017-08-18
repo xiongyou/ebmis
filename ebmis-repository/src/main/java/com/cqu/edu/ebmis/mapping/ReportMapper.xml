@@ -34,14 +34,17 @@
     select count(*) from (`店铺季度销售排行` `a` join `store_baseinfo` `b`) where ((`a`.`loc_province` = '重庆') and 
   (`a`.`storeinnerid` = `b`.`storeInnerId`)) order by `a`.`store_salse` desc
   </select>
+  
+  
+  
   <select id="AliClassifyData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
   	SELECT <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,a.platform,a.一级,a.`销售额`,a.`销售额`/b.`销售额` as 销售额占比,a.sku,a.sku/b.sku as SKU占比 from
 	(select a.platform,b.一级, round(sum(std_price*monthSaleCount),2) as 销售额 ,count(DISTINCT a.productInnerId)as SKU from product_baseinfo a,threeclassificationtable b,productmonitor c
-	where a.isValid=1 and a.loc_province='重庆' and (a.platform='TaoBao' or a.platform='Tmall')  <if test="productYear!=null and productMonth==null"> AND year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND year=#{productYear} AND monthOfYear=#{productMonth}</if>
+	where a.isValid=1 and a.loc_province='重庆' and (a.platform='TaoBao' or a.platform='Tmall')  <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if>
 	and  a.singleKeyword=b.三级 and a.productInnerId=c.productInnerId
 	group by a.platform,b.一级) a,
 	(select a.platform,round(sum(std_price*monthSaleCount),2) as 销售额,count(DISTINCT a.productInnerId)as SKU from product_baseinfo a,productmonitor c
-	where a.isValid=1 and a.loc_province='重庆' and (a.platform='TaoBao' or a.platform='Tmall')  <if test="productYear!=null and productMonth==null"> AND year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND year=#{productYear} AND monthOfYear=#{productMonth}</if>
+	where a.isValid=1 and a.loc_province='重庆' and (a.platform='TaoBao' or a.platform='Tmall')  <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if>
 	and a.productInnerId=c.productInnerId
 	group by a.platform)b
 	where a.platform=b.platform
@@ -59,6 +62,59 @@
 	group by a.platform)b
 	where a.platform=b.platform) e
   </select>
+  
+  
+  <select id="CQFarmNetMarketClassifyData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,a.*,ifnull(b.生鲜品类数,0) 生鲜品类数,ifnull(b.生鲜单品数,0) 生鲜单品数,ifnull(b.生鲜销售额,0) 生鲜销售额 from 
+	(select platform,count(*) as 品类数,sum(数量) as 单品数（SKU）,ifnull(sum(销售额),0) as 销售额 from
+	(select  a.platform,b.三级,count(DISTINCT a.productInnerId) as 数量,sum(std_price*monthsalecount) as 销售额
+	from product_baseinfo a,threeclassificationtable b,productmonitor d 
+	where a.loc_province='重庆' and a.isvalid=1 <if test="productYear!=null and productMonth==null"> AND d.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND d.year=#{productYear} AND d.monthOfYear=#{productMonth}</if> and a.singlekeyword=b.三级  and a.productinnerid=d.productinnerid
+	GROUP BY a.platform,b.三级) as c
+	GROUP BY platform) a LEFT JOIN 
+	(select platform,count(*) as 生鲜品类数,sum(数量) as 生鲜单品数,ifnull(sum(销售额),0) as 生鲜销售额 from
+	(select  a.platform,b.三级,count(DISTINCT a.productInnerId)as 数量,sum(std_price*monthsalecount) as 销售额
+	from product_baseinfo a,threeclassificationtable b,productmonitor d 
+	where a.loc_province='重庆' and b.零级='生鲜'  and a.isvalid=1 <if test="productYear!=null and productMonth==null"> AND d.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND d.year=#{productYear} AND d.monthOfYear=#{productMonth}</if> and a.singlekeyword=b.三级  and a.productinnerid=d.productinnerid
+	GROUP BY a.platform,b.三级) as c
+	GROUP BY platform) b
+	on a.platform=b.platform
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+  
+  
+  <select id="ControlStatisticsTotalData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'销售重庆农产品的网店数（个）' as 指标, count(*) as 数值 from (select DISTINCT storeinnerid from productmonitor a ,product_baseinfo b where b.isValid=1 <if test="productYear!=null and productMonth==null"> AND a.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND a.year=#{productYear} AND a.monthOfYear=#{productMonth}</if> and b.loc_province='重庆' and a.productinnerid=b.productinnerid) c
+	union
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'登记注册地在重庆的农产品网店数（个）',count(DISTINCT a.storeinnerid) as 注册地在重庆的农产品网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid
+	union
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'其中，企业网店数（个）',count(DISTINCT a.storeinnerid) 企业网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid  and (a.companyName &lt;>'' and a.companyName is not null)
+	union
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'农民合作社网店数（个）',count(DISTINCT a.storeinnerid) 合作社网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid and a.storeName like '%合作社%' 
+	union 
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'个体网店数（个）',count(DISTINCT a.storeinnerid) 合作社网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid and a.storeName not like '%合作社%' and (a.companyName='' or a.companyName is  null) 
+	union
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'重庆农产品上网销售品类数（个）' ,count(*) from( select DISTINCT 三级 from threeclassificationtable a ,product_baseinfo b,productmonitor c where b.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.`三级`=b.singleKeyword and b.productInnerId=c.productInnerId )a
+	union
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'其中，“三品一标”触网销售数（个）' ,count(*) from( select DISTINCT 三级 from threeclassificationtable a ,product_baseinfo b,productmonitor c where b.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.`三级`=b.singleKeyword and b.productInnerId=c.productInnerId 
+	and loc_famous=1)a
+	union
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'其中，生鲜品类数（个）' ,count(*) from( 
+	select DISTINCT 一级 from threeclassificationtable a ,product_baseinfo b,productmonitor c where b.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.`三级`=b.singleKeyword and b.productInnerId=c.productInnerId 
+	and 零级='生鲜') a
+	UNION
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'重庆农产品在主要电商平台的月度销售额（万元）', ROUND(sum(b.std_price*b.monthSaleCount)/10000,2)  from product_baseinfo a,productmonitor b where a.isValid=1 and a.loc_province='重庆' <if test="productYear!=null and productMonth==null"> AND b.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND b.year=#{productYear} AND b.monthOfYear=#{productMonth}</if> and a.productInnerId=b.productInnerId
+	union 
+	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,'其中，生鲜销售额（万元）', ROUND(sum(b.std_price*b.monthSaleCount)/10000,2)  from product_baseinfo a,productmonitor b,threeclassificationtable c where a.isValid=1 and a.loc_province='重庆' <if test="productYear!=null and productMonth==null"> AND b.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND b.year=#{productYear} AND b.monthOfYear=#{productMonth}</if> and c.`零级`='生鲜' and a.productInnerId=b.productInnerId and a.singleKeyword=c.`三级`
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+  
+  
+  
   <select id="TmMonthProductData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
   	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,a.productInnerId,a.productName as 产品名称,a.singleKeyword as 产品类别,sum(monthSaleCount) as 销售量,
 	std_price as 价格, sum(std_price*monthSaleCount) as 销售额,c.storeName as 所属店铺 from product_baseinfo a ,productmonitor b,store_baseinfo c
@@ -103,6 +159,25 @@
 	(select DISTINCT productInnerId from productmonitor where 1=1 <if test="productYear!=null and productMonth==null"> AND year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND year=#{productYear} AND monthOfYear=#{productMonth}</if> )b 
 	WHERE a.isValid=1 and a.loc_province='重庆' and a.productInnerId=b.productInnerId
 	GROUP BY a.platform) c
+  </select>
+  <select id="CQFarmProductStoreNumData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+  	select <if test="productYear==null and productMonth==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth!=null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,a.platform, a.`注册地在重庆的农产品网店数`,ifnull(b.`合作社网店数`,0) 合作社网店数,ifnull(c.`企业网店数`,0) 企业网店数,a.`注册地在重庆的农产品网店数`-ifnull(b.`合作社网店数`,0)-ifnull(c.`企业网店数`,0) as 个体网店数 from
+	(select a.platform,count(DISTINCT a.storeinnerid) as 注册地在重庆的农产品网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid GROUP BY a.platform) a LEFT JOIN
+	(select a.platform,count(DISTINCT a.storeinnerid) 合作社网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid and a.storeName like '%合作社%' GROUP BY a.platform) b on a.platform=b.platform LEFT JOIN
+	(select a.platform,count(DISTINCT a.storeinnerid) 企业网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid  and (a.companyName &lt;>'' and a.companyName is not null) GROUP BY a.platform) c on  a.platform=c.platform
+	<if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="CQFarmProductStoreNumCount" resultType="int" parameterType="java.util.HashMap">
+    select count(*) from (select a.platform, a.`注册地在重庆的农产品网店数`,ifnull(b.`合作社网店数`,0) 合作社网店数,ifnull(c.`企业网店数`,0) 企业网店数,a.`注册地在重庆的农产品网店数`-ifnull(b.`合作社网店数`,0)-ifnull(c.`企业网店数`,0) as 个体网店数 from
+	(select a.platform,count(DISTINCT a.storeinnerid) as 注册地在重庆的农产品网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid GROUP BY a.platform) a LEFT JOIN
+	(select a.platform,count(DISTINCT a.storeinnerid) 合作社网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid and a.storeName like '%合作社%' GROUP BY a.platform) b on a.platform=b.platform LEFT JOIN
+	(select a.platform,count(DISTINCT a.storeinnerid) 企业网店数 from store_baseinfo a,product_baseinfo b ,productmonitor c
+	 where a.loc_province='重庆' and b.isValid=1 <if test="productYear!=null and productMonth==null"> AND c.year=#{productYear}</if><if test="productYear!=null and productMonth!=null"> AND c.year=#{productYear} AND c.monthOfYear=#{productMonth}</if> and a.storeinnerid=b.storeInnerId and b.productInnerId=c.productinnerid  and (a.companyName &lt;>'' and a.companyName is not null) GROUP BY a.platform) c on  a.platform=c.platform) f
   </select>
   
   <select id="PlatformStoreNumData" resultType="java.util.HashMap" parameterType="java.util.HashMap">

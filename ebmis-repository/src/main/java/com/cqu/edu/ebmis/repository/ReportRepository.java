@@ -42,7 +42,19 @@ public interface ReportRepository {
 	 * @param map
 	 * @return
 	 */
-	List<Map<String, Object>> AliClassifyData(HashMap map); 
+	List<Map<String, Object>> AliClassifyData(HashMap map);
+	/**
+	 *重庆农产品上网销售品类数清单
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> CQFarmNetMarketClassifyData(HashMap map);
+	/**
+	 *监测统计总表
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> ControlStatisticsTotalData(HashMap map); 
 	/**
 	 *阿里平台分类统计的条数
 	 * @param map
@@ -85,6 +97,18 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int CQFarmProductNumCount(HashMap map);
+	/**
+	 * 注册地在重庆的农产品网店数量
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> CQFarmProductStoreNumData(HashMap map); 
+	/**
+	 *注册地在重庆的农产品网店数量的条数
+	 * @param map
+	 * @return
+	 */
+	int CQFarmProductStoreNumCount(HashMap map);
 	/**
 	 * 分平台店铺数量
 	 * @param map

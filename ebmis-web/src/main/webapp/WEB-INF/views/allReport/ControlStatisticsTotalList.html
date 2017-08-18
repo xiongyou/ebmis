@@ -5,7 +5,7 @@ SpringWind - 项目管理
 <link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
 #end
 #override("breadcrumb")
-<li><a>农电商数据报表</a></li><li><a>类别数据</a></li><li class="active"><a>阿里平台月度销售情况</a></li>
+<li><a>农电商数据报表</a></li><li><a>单品统计</a></li><li class="active"><a>监测统计总表</a></li>
 #end
 #override("content")
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -45,13 +45,14 @@ SpringWind - 项目管理
 		<button type="button" class="btn btn-primary" style="margin-right: 300px" onClick="selectForm()">查询</button>
 		<input type="hidden" id="currentIndex" name="_index">
 		<input type="hidden" id="currentSize" name="_size">
-		<input type="hidden" id="platName" name="platName" value="阿里平台月度销售情况">
+		<input type="hidden" id="platName" name="platName" value="监测统计总表">
 		<select id="ExcelValue" name="ExcelValue" class="form-control">
 				<option value="1">当前页</option>
 				<option value="2">全部</option>
 		</select>
 	</form>
 </div>
+
 <div class="row">
     <div class="col-sm-12">
     	<h3 class="text-center" style="margin-top: 30px"></h3>
@@ -67,15 +68,15 @@ SpringWind - 项目管理
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
-	var date = new Date();
+   	var date = new Date();
 	var currentYear = date.getFullYear();
 	$("#ExcelYear").html("<option value='请选择'>请选择</option><option value='"+currentYear+"'>"+currentYear+"</option><option value='"+(currentYear-1)+"'>"+(currentYear-1)+"</option><option value='"+(currentYear-2)+"'>"+(currentYear-2)+"</option><option value='"+(currentYear-3)+"'>"+(currentYear-3)+"</option><option value='"+(currentYear-4)+"'>"+(currentYear-4)+"</option>")
-   	var dataUrl = "#springUrl('/allReport/AliClassifyReport.html?ExcelYear=请选择&ExcelMonth=请选择')";
+   	var dataUrl = "#springUrl('/allReport/ControlStatisticsTotalReport.html?ExcelYear=请选择&ExcelMonth=请选择')";
 	function selectForm(){
 		var ExcelYearValue=$("#ExcelYear").val();
 		var ExcelMonthValue=$("#ExcelMonth").val();
 		var opt = {
-    	        url: "#springUrl('/allReport/AliClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"')"
+    	        url: "#springUrl('/allReport/ControlStatisticsTotalReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"')"
     	    };
     		$("#dataTable").bootstrapTable('refresh', opt);
 	}
@@ -85,24 +86,12 @@ SpringWind - 项目管理
 			$("#ExcelMonth").html("<option value='请选择'>请选择</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>")
 		}
 	});
-    var dataColumns = [{
-        field: 'platform',
-        title: '平台'
+	var dataColumns = [{
+        field: '指标',
+        title: '指标'
     },{
-        field: '一级',
-        title: '一级'
-    }, {
-        field: '销售额',
-        title: '销售额'
-    },{
-        field: 'sku',
-        title: 'SKU'
-    }, {
-        field: '销售额占比',
-        title: '销售额占比'
-    }, {
-        field: 'SKU占比',
-        title: 'SKU占比'
+        field: '数值',
+        title: '数值'
     },{
         field: 'selectTime',
         title: '时间'
@@ -118,7 +107,7 @@ SpringWind - 项目管理
     function OutExcel(){
     	$('#myModal').modal('show');
     	$.ajax({
-        	url: "#springUrl('/outExcel/AliClassifyExcel')",
+        	url: "#springUrl('/outExcel/ControlStatisticsTotalExcel')",
             data: $("#formExcel").serialize(),
             type: "POST",
             success: function(data){
@@ -132,11 +121,12 @@ SpringWind - 项目管理
             }
     	});
     }
+
 </script>
 #end
 #extends("/common/framework.html")
 <script type="text/javascript">
 $("#first").removeClass();
 $("#third").addClass("active");
-$("#thirdLevel2").addClass("active");
+$("#thirdLevel5").addClass("active");
 </script>
