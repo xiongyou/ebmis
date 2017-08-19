@@ -81,7 +81,7 @@ public class AllReportController extends SuperController {
     	map.put("level3", level3);
     	map.put("checkedNum", checkedNum);
     	List<Map<String, Object>> originDataReportList=reportService.getOriginData(map);
-    	int allCount=originDataReportList.size();
+    	int allCount=reportService.getOriginDataCount(map);
     	String str="";
     	if(allCount==0){
     		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -110,16 +110,30 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/CQLocalStoreReport")
 	public String CQLocalStoreReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
 		map.put("size", size);
 		map.put("offset", index);
-		List<Map<String, Object>> originDataReportList=reportService.getCQLocalStore(map);
-		int allCount=originDataReportList.size();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
-		for(Map<String, Object> oneMap:originDataReportList){
+		List<Map<String, Object>> CQLocalStoreList=reportService.getCQLocalStore(map);
+		int allCount=reportService.getCQLocalStoreCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:CQLocalStoreList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
 			for(String keyStr:setstr){
@@ -130,6 +144,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
+    	}
 		return str;
 	}
 	@RequestMapping("/AliClassifyList")
@@ -157,7 +172,7 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> AliClassifyReportList=reportService.AliClassifyData(map);
-		int allCount=AliClassifyReportList.size();
+		int allCount=reportService.AliClassifyCount(map);
 		String str="";
 		if(allCount==0){
     		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -202,7 +217,7 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> CQFarmNetMarketClassifyList=reportService.CQFarmNetMarketClassifyData(map);
-		int allCount=CQFarmNetMarketClassifyList.size();
+		int allCount=reportService.CQFarmNetMarketClassifyCount(map);
 		String str="";
 		if(allCount==0){
 			str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -248,7 +263,7 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> ControlStatisticsTotalList=reportService.ControlStatisticsTotalData(map);
-		int allCount=ControlStatisticsTotalList.size();
+		int allCount=reportService.ControlStatisticsTotalCount(map);
 		String str="";
 		if(allCount==0){
 			str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -381,7 +396,7 @@ public class AllReportController extends SuperController {
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
 		List<Map<String, Object>> originDataReportList=reportService.allProductNumData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.allProductNumCount(map);
 		String str="";
 		if(allCount==0){
     		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -426,7 +441,7 @@ public class AllReportController extends SuperController {
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
 		List<Map<String, Object>> originDataReportList=reportService.CQFarmProductNumData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.CQFarmProductNumCount(map);
 		String str="";
 		if(allCount==0){
     		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -471,7 +486,52 @@ public class AllReportController extends SuperController {
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
 		List<Map<String, Object>> originDataReportList=reportService.CQFarmProductStoreNumData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.CQFarmProductStoreNumCount(map);
+		String str="";
+		if(allCount==0){
+			str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+		}else{
+			str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+			for(Map<String, Object> oneMap:originDataReportList){
+				str+="{";
+				Set<String> setstr=oneMap.keySet();
+				for(String keyStr:setstr){
+					str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+				}
+				str=str.substring(0, str.lastIndexOf(","));  
+				str+="},";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="]}";
+		}
+		return str;
+	}
+	@RequestMapping("/EveryCityFarmProductList")
+	public String EveryCityFarmProductList(Model model) {
+		return "/allReport/EveryCityFarmProductList";
+	}
+	@ResponseBody
+	@RequestMapping("/EveryCityFarmProductNumReport")
+	public String EveryCityFarmProductNumReport(Model model) {
+		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
+		List<Map<String, Object>> originDataReportList=reportService.EveryCityFarmProductNumData(map);
+		int allCount=reportService.EveryCityFarmProductNumCount(map);
 		String str="";
 		if(allCount==0){
 			str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -516,7 +576,7 @@ public class AllReportController extends SuperController {
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
 		List<Map<String, Object>> originDataReportList=reportService.PlatformStoreNumData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.PlatformStoreNumCount(map);
 		String str="";
 		if(allCount==0){
     		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -551,7 +611,7 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.ClassifySystemData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.ClassifySystemCount();
 		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";
@@ -591,7 +651,7 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.OneClassifyData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.OneClassifyCount(map);
 		String str="";
 		if(allCount==0){
     		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -636,7 +696,7 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.FreshClassifyData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.FreshClassifyCount(map);
 		String str="";
 		if(allCount==0){
     		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -681,7 +741,7 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.NoFreshClassifyData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.NoFreshClassifyCount(map);
 		String str="";
 		if(allCount==0){
     		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
@@ -711,13 +771,27 @@ public class AllReportController extends SuperController {
 		HashMap map=new HashMap();
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.CQFarmProductEveryMarketData(map);
-		int allCount=originDataReportList.size();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		int allCount=reportService.CQFarmProductEveryMarketCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
@@ -729,6 +803,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
+    	}
 		return str;
 	}
 	@RequestMapping("/CQFarmProductEveryStoreList")
@@ -739,6 +814,16 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/CQFarmProductEveryStoreReport")
 	public String CQFarmProductEveryStoreReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
@@ -746,8 +831,12 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.CQFarmProductEveryStoreData(map);
-		int allCount=originDataReportList.size();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		int allCount=reportService.CQFarmProductEveryStoreCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
@@ -759,6 +848,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
+    	}
 		return str;
 	}
 	@RequestMapping("/MarketCQFarmProductStoreList")
@@ -769,6 +859,16 @@ public class AllReportController extends SuperController {
 	@RequestMapping("/MarketCQFarmProductStoreReport")
 	public String MarketCQFarmProductStoreReport(Model model) {
 		HashMap map=new HashMap();
+		String productYear=request.getParameter("ExcelYear");
+		if(productYear.equals("请选择")){
+			productYear=null;
+		}
+		String productMonth=request.getParameter("ExcelMonth");
+		if(productMonth.equals("请选择")){
+			productMonth=null;
+		}
+		map.put("productYear", productYear);
+		map.put("productMonth", productMonth);
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		Integer size=Integer.parseInt(size1);
@@ -776,8 +876,12 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.MarketCQFarmProductStoreData(map);
-		int allCount=originDataReportList.size();
-		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		int allCount=reportService.MarketCQFarmProductStoreCount(map);
+		String str="";
+		if(allCount==0){
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[]}";
+    	}else{
+    		str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";
 			Set<String> setstr=oneMap.keySet();
@@ -789,6 +893,7 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
+    	}
 		return str;
 	}
 	@RequestMapping("/CQEveryCityStoreList")
@@ -806,7 +911,7 @@ public class AllReportController extends SuperController {
 		map.put("size", size);
 		map.put("offset", index);
 		List<Map<String, Object>> originDataReportList=reportService.CQEveryCityStoreData(map);
-		int allCount=originDataReportList.size();
+		int allCount=reportService.CQEveryCityStoreCount();
 		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
 		for(Map<String, Object> oneMap:originDataReportList){
 			str+="{";

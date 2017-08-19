@@ -8,9 +8,41 @@ SpringWind - 项目管理
 <li><a>农电商数据报表</a></li><li><a>地区数据</a></li><li class="active"><a>重庆农产品各省市销售情况</a></li>
 #end
 #override("content")
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-top: 200px">
+            <div id="progressTest" class="progress">
+				  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				   请稍等   , 正在导出桌面中  .........
+				  </div>
+			</div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 <button type="button" class="btn btn-primary pull-right" onClick="OutExcel()">导出Excel</button>
-<div class="col-sm-1 pull-right" style="padding-right:0px">
-	<form id="formExcel">
+<div class="pull-right" style="padding-right:0px">
+	<form id="formExcel" class="form-inline">
+		<Strong>时间选择:</Strong>
+		<select id="ExcelYear" name="ExcelYear" class="form-control">
+		</select>
+		<span style="font-size: 16px">年</span>
+		<select id="ExcelMonth" name="ExcelMonth" class="form-control">
+				<option value='请选择'>请选择</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+		</select>
+		<span style="margin-right: 15px;font-size: 16px">月</span>
+		<button type="button" class="btn btn-primary" style="margin-right: 300px" onClick="selectForm()">查询</button>
 		<input type="hidden" id="currentIndex" name="_index">
 		<input type="hidden" id="currentSize" name="_size">
 		<input type="hidden" id="platName" name="platName" value="重庆农产品在各个省份销售的情况统计">
@@ -36,13 +68,33 @@ SpringWind - 项目管理
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
-   	var dataUrl = "#springUrl('/allReport/CQFarmProductEveryMarketReport.html')";
+   	var date = new Date();
+	var currentYear = date.getFullYear();
+	$("#ExcelYear").html("<option value='请选择'>请选择</option><option value='"+currentYear+"'>"+currentYear+"</option><option value='"+(currentYear-1)+"'>"+(currentYear-1)+"</option><option value='"+(currentYear-2)+"'>"+(currentYear-2)+"</option><option value='"+(currentYear-3)+"'>"+(currentYear-3)+"</option><option value='"+(currentYear-4)+"'>"+(currentYear-4)+"</option>")
+   	var dataUrl = "#springUrl('/allReport/CQFarmProductEveryMarketReport.html?ExcelYear=请选择&ExcelMonth=请选择')";
+	function selectForm(){
+		var ExcelYearValue=$("#ExcelYear").val();
+		var ExcelMonthValue=$("#ExcelMonth").val();
+		var opt = {
+    	        url: "#springUrl('/allReport/CQFarmProductEveryMarketReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"')"
+    	    };
+    		$("#dataTable").bootstrapTable('refresh', opt);
+	}
+	$("#ExcelYear").change(function(){
+		var ExcelYearValue=$("#ExcelYear").val();
+		if(ExcelYearValue=="请选择"){
+			$("#ExcelMonth").html("<option value='请选择'>请选择</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>")
+		}
+	});
     var dataColumns = [{
-        field: 'stor_province',
+        field: 'loc_province',
         title: '省份'
     },{
-        field: '销售额',
-        title: '销售额',
+        field: '销售额（万元）',
+        title: '销售额（万元）'
+    },{
+        field: '销量',
+        title: '销量',
         formatter:function (value, row, index) {
             if(value.indexOf("E",0)!=-1){
             	var valueIndex=value.indexOf("E",0);
@@ -67,8 +119,8 @@ SpringWind - 项目管理
             return value;
             }
     },{
-        field: '销量',
-        title: '销量'
+        field: 'selectTime',
+        title: '时间'
     }];
     function dataQueryParams(params) {
     	$("#currentIndex").val(params.offset);
@@ -79,11 +131,13 @@ SpringWind - 项目管理
         };
     }
     function OutExcel(){
+    	$('#myModal').modal('show');
     	$.ajax({
         	url: "#springUrl('/outExcel/CQFarmProductEveryMarketExcel')",
             data: $("#formExcel").serialize(),
             type: "POST",
             success: function(data){
+            	$('#myModal').modal('hide');
             	var d = JSON.parse(data);
             	var info=d.data;
             	layer.alert(info, {

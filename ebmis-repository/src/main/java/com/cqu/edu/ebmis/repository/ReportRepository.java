@@ -25,6 +25,9 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int getOriginDataCount(HashMap map); 
+	
+	
+	
 	/**
 	 * 重庆本土网店清单数据
 	 * @param map
@@ -36,7 +39,10 @@ public interface ReportRepository {
 	 * @param map
 	 * @return
 	 */
-	int getCQLocalStoreCount();
+	int getCQLocalStoreCount(HashMap map);
+	
+	
+	
 	/**
 	 * 阿里平台分类统计
 	 * @param map
@@ -44,35 +50,61 @@ public interface ReportRepository {
 	 */
 	List<Map<String, Object>> AliClassifyData(HashMap map);
 	/**
+	 *阿里平台分类统计的条数
+	 * @param map
+	 * @return
+	 */
+	int AliClassifyCount(HashMap map); 
+	
+	
+	
+	/**
 	 *重庆农产品上网销售品类数清单
 	 * @param map
 	 * @return
 	 */
 	List<Map<String, Object>> CQFarmNetMarketClassifyData(HashMap map);
 	/**
+	 *重庆农产品上网销售品类数清单的条数
+	 * @param map
+	 * @return
+	 */
+	int CQFarmNetMarketClassifyCount(HashMap map);
+	
+	
+	
+	
+	/**
 	 *监测统计总表
 	 * @param map
 	 * @return
 	 */
-	List<Map<String, Object>> ControlStatisticsTotalData(HashMap map); 
+	List<Map<String, Object>> ControlStatisticsTotalData(HashMap map);
 	/**
-	 *阿里平台分类统计的条数
+	 *监测统计总表的条数
 	 * @param map
 	 * @return
 	 */
-	int AliClassifyCount(HashMap map); 
+	int ControlStatisticsTotalCount(HashMap map);
+	
+	
 	/**
 	 * 天猫月度单品20强
 	 * @param map
 	 * @return
 	 */
 	List<Map<String, Object>> TmMonthProductData(HashMap map);
+	
+	
+	
 	/**
 	 * 淘宝月度单品20强
 	 * @param map
 	 * @return
 	 */
 	List<Map<String, Object>> TbMonthProductData(HashMap map);
+	
+	
 	/**
 	 * 所有商品数据
 	 * @param map
@@ -85,6 +117,9 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int allProductNumCount(HashMap map);
+	
+	
+	
 	/**
 	 * 重庆农产品数量
 	 * @param map
@@ -97,18 +132,24 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int CQFarmProductNumCount(HashMap map);
+	
+	
+	
 	/**
-	 * 注册地在重庆的农产品网店数量
+	 * 重庆网店数量
 	 * @param map
 	 * @return
 	 */
 	List<Map<String, Object>> CQFarmProductStoreNumData(HashMap map); 
 	/**
-	 *注册地在重庆的农产品网店数量的条数
+	 *重庆网店数量的条数
 	 * @param map
 	 * @return
 	 */
 	int CQFarmProductStoreNumCount(HashMap map);
+	
+	
+	
 	/**
 	 * 分平台店铺数量
 	 * @param map
@@ -121,6 +162,9 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int PlatformStoreNumCount(HashMap map); 
+	
+	
+	
 	/**
 	 * 分类体系
 	 * @param map
@@ -133,6 +177,9 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int ClassifySystemCount();
+	
+	
+	
 	/**
 	 * 一级分类统计
 	 * @param map
@@ -145,6 +192,9 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int OneClassifyCount(HashMap map);
+	
+	
+	
 	/**
 	 * 生鲜分类统计
 	 * @param map
@@ -157,6 +207,9 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int FreshClassifyCount(HashMap map);
+	
+	
+	
 	/**
 	 * 非生鲜分类统计
 	 * @param map
@@ -169,6 +222,8 @@ public interface ReportRepository {
 	 * @return
 	 */
 	int NoFreshClassifyCount(HashMap map);
+	
+	
 	/**
 	 * 重庆农产品各省市销售情况
 	 * @param map
@@ -180,7 +235,27 @@ public interface ReportRepository {
 	 * @param map
 	 * @return
 	 */
-	int CQFarmProductEveryMarketCount();
+	int CQFarmProductEveryMarketCount(HashMap map);
+	
+	
+	
+	
+	
+	/**
+	 * 各区县农产品统计
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> EveryCityFarmProductNumData(HashMap map); 
+	/**
+	 *各区县农产品统计的条数
+	 * @param map
+	 * @return
+	 */
+	int EveryCityFarmProductNumCount(HashMap map);
+	
+	
+	
 	/**
 	 * 重庆农产品分省店铺数量
 	 * @param map
@@ -192,7 +267,10 @@ public interface ReportRepository {
 	 * @param map
 	 * @return
 	 */
-	int CQFarmProductEveryStoreCount();
+	int CQFarmProductEveryStoreCount(HashMap map);
+	
+	
+	
 	/**
 	 * 售卖重庆农产品的店铺
 	 * @param map
@@ -204,7 +282,10 @@ public interface ReportRepository {
 	 * @param map
 	 * @return
 	 */
-	int MarketCQFarmProductStoreCount();
+	int MarketCQFarmProductStoreCount(HashMap map);
+	
+	
+	
 	/**
 	 * 重庆各区县店铺数量
 	 * @param map

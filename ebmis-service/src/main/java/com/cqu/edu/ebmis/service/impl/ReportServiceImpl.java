@@ -25,9 +25,9 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.getCQLocalStore(map);
 	}
-	public int getCQLocalStoreCount() {
+	public int getCQLocalStoreCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.getCQLocalStoreCount();
+		return reportRepository.getCQLocalStoreCount(map);
 	}
 	public List<Map<String, Object>> AliClassifyData(HashMap map) {
 		// TODO Auto-generated method stub
@@ -105,25 +105,25 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.CQFarmProductEveryMarketData(map);
 	}
-	public int CQFarmProductEveryMarketCount() {
+	public int CQFarmProductEveryMarketCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.CQFarmProductEveryMarketCount();
+		return reportRepository.CQFarmProductEveryMarketCount(map);
 	}
 	public List<Map<String, Object>> CQFarmProductEveryStoreData(HashMap map) {
 		// TODO Auto-generated method stub
 		return reportRepository.CQFarmProductEveryStoreData(map);
 	}
-	public int CQFarmProductEveryStoreCount() {
+	public int CQFarmProductEveryStoreCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.CQFarmProductEveryStoreCount();
+		return reportRepository.CQFarmProductEveryStoreCount(map);
 	}
 	public List<Map<String, Object>> MarketCQFarmProductStoreData(HashMap map) {
 		// TODO Auto-generated method stub
 		return reportRepository.MarketCQFarmProductStoreData(map);
 	}
-	public int MarketCQFarmProductStoreCount() {
+	public int MarketCQFarmProductStoreCount(HashMap map) {
 		// TODO Auto-generated method stub
-		return reportRepository.MarketCQFarmProductStoreCount();
+		return reportRepository.MarketCQFarmProductStoreCount(map);
 	}
 	public List<Map<String, Object>> CQEveryCityStoreData(HashMap map) {
 		// TODO Auto-generated method stub
@@ -152,6 +152,22 @@ public class ReportServiceImpl implements ReportService {
 	public List<Map<String, Object>> ControlStatisticsTotalData(HashMap map) {
 		// TODO Auto-generated method stub
 		return reportRepository.ControlStatisticsTotalData(map);
+	}
+	public int CQFarmNetMarketClassifyCount(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.CQFarmNetMarketClassifyCount(map);
+	}
+	public int ControlStatisticsTotalCount(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.ControlStatisticsTotalCount(map);
+	}
+	public List<Map<String, Object>> EveryCityFarmProductNumData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.EveryCityFarmProductNumData(map);
+	}
+	public int EveryCityFarmProductNumCount(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.EveryCityFarmProductNumCount(map);
 	}
 
 }
