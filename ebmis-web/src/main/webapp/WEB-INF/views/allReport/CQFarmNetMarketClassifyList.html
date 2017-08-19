@@ -54,7 +54,7 @@ SpringWind - 项目管理
 </div>
 <div class="row">
     <div class="col-sm-12">
-    	<h3 class="text-center" style="margin-top: 30px"></h3>
+    	<h3 class="text-center" style="margin-top: 30px">重庆农产品上网销售品类数清单</h3>
         <table id="dataTable"></table>
     </div>
 </div>
@@ -96,7 +96,30 @@ SpringWind - 项目管理
         title: '单品数（SKU）'
     },{
         field: '销售额',
-        title: '销售额'
+        title: '销售额',
+        formatter:function (value, row, index) {
+            if(value.indexOf("E",0)!=-1){
+            	var valueIndex=value.indexOf("E",0);
+            	var valueStr=value.substring(0,valueIndex);
+            	var indexNum=1;
+            	for(var i=0;i<valueIndex-2;i++){
+            		indexNum*=10;
+            	}
+            	var valueNum=parseInt(indexNum*valueStr).toString();
+            	if(valueNum.length>8){
+            		var valueStr=value.substring(valueIndex+1,valueIndex+2);
+            		if(valueStr>7){
+            			valueNum=valueNum.substring(0,9)+"."+valueNum.substring(9,valueNum.length);
+            		}else{
+            			valueNum=valueNum.substring(0,8)+"."+valueNum.substring(8,valueNum.length);
+            		}
+            	}else{
+            		valueNum+=".0";
+            	}
+            return '<span>'+valueNum+'</span>';
+            }
+            return value;
+            }
     }, {
         field: '生鲜品类数',
         title: '生鲜品类数'
@@ -105,7 +128,30 @@ SpringWind - 项目管理
         title: '生鲜单品数'
     }, {
         field: '生鲜销售额',
-        title: '生鲜销售额'
+        title: '生鲜销售额',
+        formatter:function (value, row, index) {
+            if(value.indexOf("E",0)!=-1){
+            	var valueIndex=value.indexOf("E",0);
+            	var valueStr=value.substring(0,valueIndex);
+            	var indexNum=1;
+            	for(var i=0;i<valueIndex-2;i++){
+            		indexNum*=10;
+            	}
+            	var valueNum=parseInt(indexNum*valueStr).toString();
+            	if(valueNum.length>8){
+            		var valueStr=value.substring(valueIndex+1,valueIndex+2);
+            		if(valueStr>7){
+            			valueNum=valueNum.substring(0,9)+"."+valueNum.substring(9,valueNum.length);
+            		}else{
+            			valueNum=valueNum.substring(0,8)+"."+valueNum.substring(8,valueNum.length);
+            		}
+            	}else{
+            		valueNum+=".0";
+            	}
+            return '<span>'+valueNum+'</span>';
+            }
+            return value;
+            }
     },{
         field: 'selectTime',
         title: '时间'

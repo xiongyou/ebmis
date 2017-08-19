@@ -703,7 +703,7 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"数量","时间","平台"};
+	        String[] titles = {"SKU","时间","平台"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
@@ -801,7 +801,7 @@ public class AllOutExcelController extends SuperController {
 	        String desktopPath = desktopDir.getAbsolutePath();  
 	        String desktopDirPath = desktopPath.replace("\\","\\\\");  
 	        String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
-	        String[] titles = {"数量","时间","平台"};
+	        String[] titles = {"SKU","时间","平台"};
 		String excelValue=request.getParameter("ExcelValue");
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();

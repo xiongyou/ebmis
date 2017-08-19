@@ -45,7 +45,7 @@ SpringWind - 项目管理
 		<button type="button" class="btn btn-primary" style="margin-right: 300px" onClick="selectForm()">查询</button>
 		<input type="hidden" id="currentIndex" name="_index">
 		<input type="hidden" id="currentSize" name="_size">
-		<input type="hidden" id="platName" name="platName" value="天猫月度单品20强">
+		<input type="hidden" id="platName" name="platName" value="天猫单品20强">
 		<select id="ExcelValue" name="ExcelValue" class="form-control">
 				<option value="1">当前页</option>
 				<option value="2">全部</option>
@@ -55,7 +55,7 @@ SpringWind - 项目管理
 
 <div class="row">
     <div class="col-sm-12">
-    	<h3 class="text-center" style="margin-top: 30px"></h3>
+    	<h3 class="text-center" style="margin-top: 30px">天猫单品20强</h3>
         <table id="dataTable"></table>
     </div>
 </div>
@@ -97,13 +97,59 @@ SpringWind - 项目管理
         title: '产品类别'
     }, {
         field: '销售量',
-        title: '销售量'
+        title: '销售量',
+        formatter:function (value, row, index) {
+            if(value.indexOf("E",0)!=-1){
+            	var valueIndex=value.indexOf("E",0);
+            	var valueStr=value.substring(0,valueIndex);
+            	var indexNum=1;
+            	for(var i=0;i<valueIndex-2;i++){
+            		indexNum*=10;
+            	}
+            	var valueNum=parseInt(indexNum*valueStr).toString();
+            	if(valueNum.length>8){
+            		var valueStr=value.substring(valueIndex+1,valueIndex+2);
+            		if(valueStr>7){
+            			valueNum=valueNum.substring(0,9)+"."+valueNum.substring(9,valueNum.length);
+            		}else{
+            			valueNum=valueNum.substring(0,8)+"."+valueNum.substring(8,valueNum.length);
+            		}
+            	}else{
+            		valueNum+=".0";
+            	}
+            return '<span>'+valueNum+'</span>';
+            }
+            return value;
+            }
     }, {
         field: '价格',
         title: '价格'
     }, {
         field: '销售额',
-        title: '销售额'
+        title: '销售额',
+        formatter:function (value, row, index) {
+            if(value.indexOf("E",0)!=-1){
+            	var valueIndex=value.indexOf("E",0);
+            	var valueStr=value.substring(0,valueIndex);
+            	var indexNum=1;
+            	for(var i=0;i<valueIndex-2;i++){
+            		indexNum*=10;
+            	}
+            	var valueNum=parseInt(indexNum*valueStr).toString();
+            	if(valueNum.length>8){
+            		var valueStr=value.substring(valueIndex+1,valueIndex+2);
+            		if(valueStr>7){
+            			valueNum=valueNum.substring(0,9)+"."+valueNum.substring(9,valueNum.length);
+            		}else{
+            			valueNum=valueNum.substring(0,8)+"."+valueNum.substring(8,valueNum.length);
+            		}
+            	}else{
+            		valueNum+=".0";
+            	}
+            return '<span>'+valueNum+'</span>';
+            }
+            return value;
+            }
     }, {
         field: '所属店铺',
         title: '所属店铺'

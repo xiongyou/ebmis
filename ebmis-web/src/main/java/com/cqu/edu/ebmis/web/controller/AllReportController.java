@@ -564,7 +564,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 	@RequestMapping("/OneClassifyList")
@@ -730,7 +729,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 	@RequestMapping("/CQFarmProductEveryStoreList")
@@ -761,7 +759,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 	@RequestMapping("/MarketCQFarmProductStoreList")
@@ -792,7 +789,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 	@RequestMapping("/CQEveryCityStoreList")
@@ -823,7 +819,6 @@ public class AllReportController extends SuperController {
 		}
 		str=str.substring(0, str.lastIndexOf(","));  
 		str+="]}";
-		System.out.println(str);
 		return str;
 	}
 
