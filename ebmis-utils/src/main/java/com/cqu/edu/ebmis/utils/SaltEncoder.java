@@ -72,7 +72,7 @@ public class SaltEncoder {
 	 */
 	public static boolean md5SaltValid(String salt, String encodeText,
 			String rawText) {
-	
+		//System.out.println(new SaltEncoder().md5SaltEncode(salt, "123123"));
 		return new SaltEncoder(salt , Algorithm.MD5).isValid(encodeText ,
 				rawText);
 	}
