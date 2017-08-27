@@ -3,9 +3,12 @@
  */
 package com.cqu.edu.ebmis.service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
+import com.cqu.edu.ebmis.service.page.Page;
 
 
 /**
@@ -33,6 +36,11 @@ public interface ThreeClassificationService {
 	 */
 	List<ThreeClassificationDo> findLevel2(ThreeClassificationDo threeClassificationDo);
 	/**
+	 * 查询所有二级列表
+	 * 
+	 */
+	List<ThreeClassificationDo> allFindLevel2();
+	/**
 	 * 选择零级,一级,二级的三级列表
 	 * @param threeClassificationDo
 	 * @return
@@ -44,5 +52,18 @@ public interface ThreeClassificationService {
 	 * @return
 	 */
 	List<ThreeClassificationDo> allPlatform();
+	/**
+	 * 分页三级关键词查询
+	 * 
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<ThreeClassificationDo> findThreeKeyWordByPage(Page<ThreeClassificationDo> page,String word,String level2);
+	/**
+	 * 修改关键词属性
+	 * 
+	 */
+	void updateThreeKeyWord(HashMap map);
 	
 }

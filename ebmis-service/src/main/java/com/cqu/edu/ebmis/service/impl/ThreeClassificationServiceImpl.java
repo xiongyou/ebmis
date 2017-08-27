@@ -3,11 +3,13 @@
  */
 package com.cqu.edu.ebmis.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.repository.ProductBaseInfoRepository;
@@ -52,6 +54,27 @@ public class ThreeClassificationServiceImpl implements ThreeClassificationServic
 	public List<ThreeClassificationDo> allPlatform() {
 		// TODO Auto-generated method stub
 		return threeClassificationRepository.allPlatform();
+	}
+
+	public Page<ThreeClassificationDo> findThreeKeyWordByPage(Page<ThreeClassificationDo> page,String word,String level2) {
+		// TODO Auto-generated method stub
+		List<ThreeClassificationDo> keyWords = threeClassificationRepository.getThreeKeyWordDate(
+				page.getLimit() , page.getOffset(),word,level2);
+		page.setTotal(threeClassificationRepository.getThreeKeyWordNum(page.getLimit() , page.getOffset(),word,level2));
+		
+		page.setRecords(keyWords);
+		return page;
+	}
+
+	public List<ThreeClassificationDo> allFindLevel2() {
+		// TODO Auto-generated method stub
+		return threeClassificationRepository.allFindLevel2();
+	}
+
+	public void updateThreeKeyWord(HashMap map) {
+		// TODO Auto-generated method stub
+		threeClassificationRepository.updateThreeKeyWord(map);
+		
 	}
 	
 }

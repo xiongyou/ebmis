@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.service.ThreeClassificationService;
+import com.cqu.edu.ebmis.service.page.Page;
 
 /**
  * 农产品基本信息管理
@@ -31,6 +34,25 @@ public class ThreeClassificationController extends SuperController {
 	public String list(Model model) {
 	
 		return "/product/list";
+	}
+	@RequestMapping("/threeKeyWordlist")
+	public String threeKeyWordlist(Model model) {
+		
+		return "/threeKeyWord/list";
+	}
+	@ResponseBody
+	@RequestMapping("/getThreeKeyWordlist")
+	public String getThreeKeyWordlist(Model model) {
+		Page<ThreeClassificationDo> page = getPage();
+		String word="%";
+		String word1=request.getParameter("word");
+		if(word1==null){
+			word1="";
+		}
+		word+=word1+"%";
+		String level2=request.getParameter("level2");
+		threeClassificationService.findThreeKeyWordByPage(page, word, level2);
+		return jsonPage(page);
 	}
 	@ResponseBody
 	@RequestMapping("/level0List")
@@ -58,6 +80,26 @@ public class ThreeClassificationController extends SuperController {
 		threeClassificationDo.setLevel0(level0);
 		threeClassificationDo.setLevel1(level1);
 		return threeClassificationService.findLevel2(threeClassificationDo);
+	}
+	@ResponseBody
+	@RequestMapping("/threeLevel2List")
+	public List<ThreeClassificationDo> threeLevel2List(Model model) {
+		return threeClassificationService.allFindLevel2();
+	}
+	@RequestMapping("/updateThreeKeyWord")
+	public void updateThreeKeyWord(Model model) {
+		HashMap map=new HashMap();
+		String level3Name=request.getParameter("level3Name");
+		String area=request.getParameter("area");
+		String locFamous1=request.getParameter("locFamous");
+		int locFamous=Integer.parseInt(locFamous1);
+		String keyProduct1=request.getParameter("keyProduct");
+		int keyProduct=Integer.parseInt(keyProduct1);
+		map.put("level3", level3Name);
+		map.put("area", area);
+		map.put("locFamous", locFamous);
+		map.put("keyProduct", keyProduct);
+		threeClassificationService.updateThreeKeyWord(map);
 	}
 	@ResponseBody
 	@RequestMapping("/level3List")

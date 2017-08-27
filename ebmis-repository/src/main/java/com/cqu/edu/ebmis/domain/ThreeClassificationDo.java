@@ -12,6 +12,9 @@ public class ThreeClassificationDo {
 	private int checkedNum;
 	private String categoryCode;
 	private String platform;
+	private int locFamous;
+	private String area;
+	private int keyProduct;
 	public String getLevel0() {
 		return level0;
 	}
@@ -59,6 +62,24 @@ public class ThreeClassificationDo {
 	}
 	public void setPlatform(String platform) {
 		this.platform = platform;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public int getLocFamous() {
+		return locFamous;
+	}
+	public void setLocFamous(int locFamous) {
+		this.locFamous = locFamous;
+	}
+	public int getKeyProduct() {
+		return keyProduct;
+	}
+	public void setKeyProduct(int keyProduct) {
+		this.keyProduct = keyProduct;
 	}
 	
 }

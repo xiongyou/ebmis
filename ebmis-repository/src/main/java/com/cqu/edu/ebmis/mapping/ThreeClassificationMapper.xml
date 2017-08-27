@@ -9,6 +9,9 @@
     <result column="二级" jdbcType="VARCHAR" property="level2" />
     <result column="三级" jdbcType="VARCHAR" property="level3" />
     <result column="platform" jdbcType="VARCHAR" property="platform" />
+    <result column="loc_famous" jdbcType="INTEGER" property="locFamous" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="KeyProduct" jdbcType="INTEGER" property="keyProduct" />
     </resultMap>
    <select id="findLevel0" resultMap="ThreeClassificationResultMap">
     SELECT DISTINCT 零级  FROM threeclassificationtable 
@@ -22,9 +25,22 @@
    <select id="findLevel2" resultMap="ThreeClassificationResultMap" parameterType="com.cqu.edu.ebmis.domain.ThreeClassificationDo">
     SELECT DISTINCT 二级	FROM threeclassificationtable WHERE 零级=#{level0} AND 一级=#{level1}
    </select>
+   <select id="allFindLevel2" resultMap="ThreeClassificationResultMap">
+    SELECT DISTINCT 二级	FROM threeclassificationtable
+   </select>
    <select id="findLevel3" resultMap="ThreeClassificationResultMap" parameterType="com.cqu.edu.ebmis.domain.ThreeClassificationDo">
     SELECT 三级	FROM threeclassificationtable WHERE 零级=#{level0} AND 一级=#{level1} AND 二级=#{level2}
    </select>
-  
+   <select id="getThreeKeyWordDate" resultMap="ThreeClassificationResultMap">
+    SELECT 三级	FROM threeclassificationtable where 三级  like #{word} <if test="level2!='请选择'"> and 二级=#{level2}</if> 
+    <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+   </select>
+   <select id="getThreeKeyWordNum" resultType="int">
+    SELECT count(*)	FROM (SELECT 三级	FROM threeclassificationtable where 三级  like #{word} <if test="level2!='请选择'"> and 二级=#{level2}</if>) a
+   </select>
+   <update id="updateThreeKeyWord" parameterType="java.util.HashMap">
+    update threeclassificationtable set loc_famous=#{locFamous,jdbcType=INTEGER}, area= #{area,jdbcType=VARCHAR},KeyProduct=#{keyProduct,jdbcType=INTEGER}
+    where 三级 = #{level3,jdbcType=VARCHAR}
+   </update>
 </mapper>
 

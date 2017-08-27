@@ -3,7 +3,10 @@
  */
 package com.cqu.edu.ebmis.repository;
 
+import java.util.HashMap;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 
@@ -28,6 +31,11 @@ public interface ThreeClassificationRepository {
 	 */
 	List<ThreeClassificationDo> findLevel2(ThreeClassificationDo threeClassificationDo);
 	/**
+	 * 查询所有二级列表
+	 * 
+	 */
+	List<ThreeClassificationDo> allFindLevel2();
+	/**
 	 * 选择零级,一级,二级的三级列表
 	 * @param threeClassificationDo
 	 * @return
@@ -39,4 +47,21 @@ public interface ThreeClassificationRepository {
 	 * @return
 	 */
 	List<ThreeClassificationDo> allPlatform();
+	/**
+	 * 查询三级关键词
+	 * 
+	 */
+	List<ThreeClassificationDo> getThreeKeyWordDate(@Param("size") int size,
+			@Param("offset") int offset,@Param("word") String word,@Param("level2") String level2);
+	/**
+	 * 查询三级关键词的数量
+	 * 
+	 */
+	int getThreeKeyWordNum(@Param("size") int size,
+			@Param("offset") int offset,@Param("word") String word,@Param("level2") String level2);
+	/**
+	 * 修改关键词属性
+	 * 
+	 */
+	void updateThreeKeyWord(HashMap map);
 }

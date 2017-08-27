@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.repository.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,30 @@ public class ThreeClassificationRepositoryImpl implements ThreeClassificationRep
 		// TODO Auto-generated method stub
 		return threeClassificationMapper.allPlatform();
 	}
-	
+
+	@Override
+	public List<ThreeClassificationDo> getThreeKeyWordDate(int size, int offset, String word, String level2) {
+		// TODO Auto-generated method stub
+		return threeClassificationMapper.getThreeKeyWordDate(size, offset, word, level2);
+	}
+
+	@Override
+	public int getThreeKeyWordNum(int size, int offset, String word, String level2) {
+		// TODO Auto-generated method stub
+		return threeClassificationMapper.getThreeKeyWordNum(size, offset, word, level2);
+	}
+
+	@Override
+	public List<ThreeClassificationDo> allFindLevel2() {
+		// TODO Auto-generated method stub
+		return threeClassificationMapper.allFindLevel2();
+	}
+
+	@Override
+	public void updateThreeKeyWord(HashMap map) {
+		// TODO Auto-generated method stub
+		threeClassificationMapper.updateThreeKeyWord(map);
+	}
 	
 	
 }

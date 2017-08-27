@@ -1,0 +1,207 @@
+#override("title")
+SpringWind - 关键字管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>农电商数据采集</a></li><li><a>基础数据管理</a></li><li class="active">关键词管理</li>
+#end
+#override("content")
+<div class="row">
+	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+				<div class="input-group">
+						<div class="input-group" style="margin-right:10px">			
+						<Strong>所属关键词的上级选择:</Strong>
+				</div>
+				<div class="input-group" style="padding-right:60px">			
+					<select id="select2" name="select2" class="form-control" style="width:100px">
+				      <option value="请选择">请选择</option>
+				    </select>
+				</div>
+			
+				<div class="input-group">
+					<input type="text" id="word" name="word" placeholder="按关键词搜索" class="form-control">
+					<span class="input-group-btn">
+						<button type="button" onClick="Search()" class="btn btn-info">搜索</button>
+					</span>
+				</div>
+		</div>
+	</div>
+	<!-- /.modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	                <h4 class="modal-title" id="myModalLabel">编辑</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<form class="form-horizontal" id="form1">
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">关键字</label>
+		                  <div class="col-sm-8">
+		                    <input type="text" id="level3Name" name="level3Name" class="form-control" readOnly/>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">区域</label>
+		                  <div class="col-sm-8">
+		                    <input type="text" id="area" name="area" class="form-control"/>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">是否为三品一标关键词</label>
+		                  <div class="col-sm-8">
+		                    <select id="locFamous" name="locFamous" class="form-control" style="width:100px">
+						    </select>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">是否为名优产品关键字</label>
+		                  <div class="col-sm-8">
+		                    <select id="keyProduct" name="keyProduct" class="form-control" style="width:100px">
+						    </select>
+		                  </div>
+		                </div>
+	            </form>
+	            </div>
+	            <div class="modal-footer">
+	              <div class="pull-right" style="margin:0px 10px 10px 0px">
+		              <div class="buttons">
+		                <button class="btn btn-primary btn-flat" onClick="save()"><i class="fa fa-save"></i>保存</button>
+		                <button class="btn btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
+		              </div>
+	              </div>
+	                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary">提交更改</button>  -->
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>
+<!-- /.modal -->
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+    var dataUrl = "#springUrl('/threeClassification/getThreeKeyWordlist.html?level2=请选择')";
+    var dataColumns = [{
+        field: 'level3',
+        title: '关键字'
+    },{
+        field: 'area',
+        title: '区域'
+    },{
+        field: 'locFamous',
+        title: '是否为三品一标关键词',
+        formatter: function (value, row, index) {
+            var locFamous = row.locFamous;
+            if(locFamous==0){
+                return '<span>否</span>'
+            }else{
+            	 return '<span>是</span>'
+            }
+        }
+    },{
+        field: 'keyProduct',
+        title: '是否为名优产品关键字',
+        formatter: function (value, row, index) {
+        	 var keyProduct = row.keyProduct;
+             if(keyProduct==0){
+                 return '<span>否</span>'
+             }else{
+             	 return '<span>是</span>'
+             }
+        }
+    }, {
+        title: '操作',
+        formatter: function (value, row, index) {
+            var level3 = row.level3;
+            var area = row.area;
+            var locFamous = row.locFamous;
+            var keyProduct = row.keyProduct;
+            return '<a class="btn btn-xs btn-warning" onclick="editKeyWord(' + "'" + level3 + "'," +"'" + area + "'," +"'" + locFamous + "'," +"'" + keyProduct + "'" + ')"><i class="fa fa-pencil" data-toggle="modal" onClick="editKeyWord()"></i>编辑</a> '
+                    <!-- 此处按钮级别权限控制，目前只有 admin 拥有该权限！ -->
+        }
+    }
+    ];
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+    $.ajax({
+        type: "POST",
+        url: "#springUrl('/threeClassification/threeLevel2List')",
+        datatype: "json",
+        success: function (data) {
+        	var level2Str="";
+        	for(var i=0;i<data.length;i++){
+        		level2Str+='<option value="'+data[i].level2+'">'+data[i].level2+'</option>';
+        	}
+        	$("#select2").append(level2Str);
+        }
+    }); 
+    $("#select2").change(function(){
+		var levelName2=$("#select2").val();
+		opt1 = {
+    	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level2="+levelName2+"')"
+    	    };
+	
+		$("#dataTable").bootstrapTable('refresh', opt1);
+		
+	});
+    function Search(){
+    	var word=$("#word").val();
+    	var levelName2=$("#select2").val();
+		opt1 = {
+    	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level2="+levelName2+"&word="+word+"')"
+    	    };
+		$("#dataTable").bootstrapTable('refresh', opt1);
+    }
+    function save(){
+    	var date=$("#form1").serialize();
+    	var url="#springUrl('/threeClassification/updateThreeKeyWord.html')";
+    	$.post(url,date,function(result){
+               $('#myModal').modal('hide');
+    	    }); 
+    }
+	function editKeyWord(level3Name,area,locFamous,keyProduct){
+		$("#level3Name").val(level3Name);
+		$("#locFamous").html("");
+		$("#keyProduct").html("");
+		if(area==null){
+			$("#area").val("");
+		}
+		if(locFamous=='0'){
+			$("#locFamous").append('<option value=0 selected>否</option><option value=1>是</option>');
+		}else{
+			$("#locFamous").append('<option value=0 >否</option><option value=1 selected>是</option>');
+		}
+		if(keyProduct=='0'){
+			$("#keyProduct").append('<option value=0 selected>否</option><option value=1>是</option>');
+		}else{
+			$("#keyProduct").append('<option value=0 >否</option><option value=1 selected>是</option>');
+		}
+		
+		$('#myModal').modal('show');
+	}
+</script>
+#end
+#extends("/common/framework.html")
+<script type="text/javascript">
+$("#firstLeve1").removeClass();
+$("#firstLeve2").addClass("active");
+</script>
