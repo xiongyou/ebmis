@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.service.ThreeClassificationService;
@@ -86,8 +87,10 @@ public class ThreeClassificationController extends SuperController {
 	public List<ThreeClassificationDo> threeLevel2List(Model model) {
 		return threeClassificationService.allFindLevel2();
 	}
+	@ResponseBody
 	@RequestMapping("/updateThreeKeyWord")
-	public void updateThreeKeyWord(Model model) {
+	public String updateThreeKeyWord(Model model) {
+		JSONObject json = new JSONObject();
 		HashMap map=new HashMap();
 		String level3Name=request.getParameter("level3Name");
 		String area=request.getParameter("area");
@@ -100,6 +103,9 @@ public class ThreeClassificationController extends SuperController {
 		map.put("locFamous", locFamous);
 		map.put("keyProduct", keyProduct);
 		threeClassificationService.updateThreeKeyWord(map);
+		json.put("success" , true);
+		json.put("data" , "修改成功");
+		return json.toJSONString();
 	}
 	@ResponseBody
 	@RequestMapping("/level3List")

@@ -173,17 +173,25 @@ SpringWind - 关键字管理
     }
     function save(){
     	var date=$("#form1").serialize();
-    	var url="#springUrl('/threeClassification/updateThreeKeyWord.html')";
+    	var url="#springUrl('/threeClassification/updateThreeKeyWord')";
     	$.post(url,date,function(result){
                $('#myModal').modal('hide');
+               var word=$("#word").val();
+           	   var levelName2=$("#select2").val();
+               opt1 = {
+           	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level2="+levelName2+"&word="+word+"')"
+           	    };
+       		$("#dataTable").bootstrapTable('refresh', opt1);
     	    }); 
     }
 	function editKeyWord(level3Name,area,locFamous,keyProduct){
 		$("#level3Name").val(level3Name);
 		$("#locFamous").html("");
 		$("#keyProduct").html("");
-		if(area==null){
+		if(area=='undefined'){
 			$("#area").val("");
+		}else{
+			$("#area").val(area);
 		}
 		if(locFamous=='0'){
 			$("#locFamous").append('<option value=0 selected>否</option><option value=1>是</option>');
