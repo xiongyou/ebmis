@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -18,20 +19,45 @@ public interface CategoryManagerMapper {
 	 */
 	void save(CategoryManagerDO categoryManager);
 	/**
+	 * 添加新关键词
+	 * @param categoryManager
+	 */
+	void saveNewKeyWord(CategoryManagerDO categoryManager);
+	/**
 	 * 修改类型节点
 	 * @param categoryManager
 	 */
 	void update(CategoryManagerDO categoryManager);
+	/**
+	 * 修改新关键词
+	 * @param categoryManager
+	 */
+	void updateNewKeyWord(HashMap map);
+	/**
+	 * 获取树的所有二级数据
+	 * @param categoryManager
+	 */
+	List<CategoryManagerDO> allLevel2Date();
 	/**
 	 * 修改父节点
 	 * @param categoryManager
 	 */
 	void updateById(CategoryManagerDO categoryManager);
 	/**
+	 * 关联关键词
+	 * @param categoryManager
+	 */
+	void editLinkNewKeyWord(CategoryManagerDO categoryManager);
+	/**
 	 * 删除类型节点
 	 * @param categoryManager
 	 */
 	void del(int categoryId);
+	/**
+	 * 删除新关键词
+	 * @param categoryManager
+	 */
+	void delNewKeyWord(String categoryName);
 	/**
 	 * 根据categoryId查询CategoryManagerDO
 	 * @param categoryManager
@@ -63,4 +89,18 @@ public interface CategoryManagerMapper {
 	 * 还原表的数据插入操作
 	 */
 	void restoreTableDate();
+	/**
+	 * 查询新关键词
+	 * @param parentId
+	 * @return
+	 */
+	List<CategoryManagerDO> getNewKeyWordDate(@Param("size") int size,
+			@Param("offset") int offset,@Param("word") String word);
+	/**
+	 * 查询新关键词的条数
+	 * @param parentId
+	 * @return
+	 */
+	int getNewKeyWordNum(@Param("size") int size,
+			@Param("offset") int offset,@Param("word") String word);
 }

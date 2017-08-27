@@ -103,6 +103,7 @@ public class ThreeClassificationController extends SuperController {
 		map.put("locFamous", locFamous);
 		map.put("keyProduct", keyProduct);
 		threeClassificationService.updateThreeKeyWord(map);
+		threeClassificationService.synchUpdateThreeKeyWord(map);
 		json.put("success" , true);
 		json.put("data" , "修改成功");
 		return json.toJSONString();

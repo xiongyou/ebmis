@@ -13,7 +13,7 @@ public class CategoryManagerDO {
 	/**
 	 * 父节点ID
 	 */
-	private int	parentId;
+	private Integer	parentId;
 	/**
 	 * 是否是父节点
 	 */
@@ -35,13 +35,12 @@ public class CategoryManagerDO {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	public int getParentId() {
+	public Integer getParentId() {
 		return parentId;
 	}
-	public void setParentId(int parentId) {
+	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
-	
 	public String getIsParent() {
 		return isParent;
 	}

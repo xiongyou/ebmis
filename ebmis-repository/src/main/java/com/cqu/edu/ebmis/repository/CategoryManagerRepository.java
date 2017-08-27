@@ -3,11 +3,9 @@
  */
 package com.cqu.edu.ebmis.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
-import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.CategoryManagerDO;
 
 public interface CategoryManagerRepository {
@@ -17,10 +15,20 @@ public interface CategoryManagerRepository {
 	 */
 	void save(CategoryManagerDO categoryManager);
 	/**
+	 * 添加新关键词
+	 * @param categoryManager
+	 */
+	void saveNewKeyWord(CategoryManagerDO categoryManager);
+	/**
 	 * 修改类型节点
 	 * @param categoryManager
 	 */
 	void update(CategoryManagerDO categoryManager);
+	/**
+	 * 修改新关键词
+	 * @param categoryManager
+	 */
+	void updateNewKeyWord(HashMap map);
 	/**
 	 * 删除类型节点
 	 * @param categoryManager
@@ -43,6 +51,11 @@ public interface CategoryManagerRepository {
 	 */
 	void updateById(CategoryManagerDO categoryManager);
 	/**
+	 * 关联关键词
+	 * @param categoryManager
+	 */
+	void editLinkNewKeyWord(CategoryManagerDO categoryManager);
+	/**
 	 *  将树转成表的清空表操作
 	 */
 	void transformTable();
@@ -62,4 +75,26 @@ public interface CategoryManagerRepository {
 	 * 还原表的数据插入操作
 	 */
 	void restoreTableDate();
+	/**
+	 * 查询新关键词
+	 * @param parentId
+	 * @return
+	 */
+	List<CategoryManagerDO> getNewKeyWordDate(int size,int offset,String word);
+	/**
+	 * 查询新关键词的条数
+	 * @param parentId
+	 * @return
+	 */
+	int getNewKeyWordNum(int size,int offset,String word);
+	/**
+	 * 获取树的所有二级数据
+	 * @param categoryManager
+	 */
+	List<CategoryManagerDO> allLevel2Date();
+	/**
+	 * 删除新关键词
+	 * @param categoryManager
+	 */
+	void delNewKeyWord(String categoryName);
 }

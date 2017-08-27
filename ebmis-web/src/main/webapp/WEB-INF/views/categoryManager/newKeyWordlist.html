@@ -1,0 +1,256 @@
+#override("title")
+SpringWind - 任务管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>农电商数据采集</a></li><li><a>基础数据管理</a></li><li class="active"><a>新关键词类别关联管理</a></li>
+#end
+#override("content")
+<div class="row">
+	<div class="ibox-content form-inline" style="background: #F3F3F4;">
+		<div class="pull-left">
+			<button class="btn btn-primary" onclick="editNewKeyWords()" type="button">
+			<i class="fa fa-pencil"></i>&nbsp;批量添加</button>
+		</div>
+		<div class="input-group pull-right">
+			<input type="text" id="word" name="word" value="" placeholder="按关键词搜索" class="form-control">
+			<span class="input-group-btn">
+				<button type="button" onClick="search()" class="btn btn-info">搜索</button>
+			</span>
+		</div>
+	</div>
+<!-- /.modal -->
+	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	                <h4 class="modal-title" id="myModalLabel">编辑</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<form class="form-horizontal" id="form1">
+	            		<input type="hidden" id="categoryName1" name="categoryName1" class="form-control"/>
+		                <div class="form-group">
+		                  <label class="col-sm-3 control-label">关键词</label>
+		                  <div class="col-sm-9">
+		                    <input type="text" id="categoryName" name="categoryName" class="form-control"/>
+		                  </div>
+		                </div>
+	            </form>
+	            </div>
+	            <div class="modal-footer">
+	              <div class="pull-right" style="margin:0px 10px 10px 0px">
+		              <div class="buttons">
+		                <button class="btn btn-primary btn-flat" onClick="save1()"><i class="fa fa-save"></i>保存</button>
+		                <button class="btn btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
+		              </div>
+	              </div>
+	                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary">提交更改</button>  -->
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>
+<!-- /.modal -->
+<!-- /.modal -->
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	                <h4 class="modal-title" id="myModalLabel">关联</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<form class="form-horizontal" id="form2">
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">关键词</label>
+		                  <div class="col-sm-8">
+		                    <input type="text" id="linkCategoryName" name="linkCategoryName" class="form-control" readOnly/>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">关键词关联的类别选择</label>
+		                  <div class="col-sm-8">
+		                  	<select id="select2" name="select2" class="form-control">
+						      <option value="">请选择</option>
+						    </select>
+		                  </div>
+		                </div>
+	            </form>
+	            </div>
+	            <div class="modal-footer">
+	              <div class="pull-right" style="margin:0px 10px 10px 0px">
+		              <div class="buttons">
+		                <button class="btn btn-primary btn-flat" onClick="save2()"><i class="fa fa-save"></i>保存</button>
+		                <button class="btn btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
+		              </div>
+	              </div>
+	                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary">提交更改</button>  -->
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	</div>
+<!-- /.modal -->
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+	var projectID=$("#projectID").val();
+    var dataUrl = "#springUrl('/categoryManager/findNewKeyWordByPage.html')";
+    var dataColumns = [{
+        field: 'categoryName',
+        title: '关键词'
+    },{
+        title: '操作',
+        formatter: function (value, row, index) {
+            var categoryName = row.categoryName;
+            return '<a class="btn btn-xs btn-primary" onclick="linkNewKeyWord(' + "'" + categoryName + "'" + ')"><i class="fa fa-link" data-toggle="modal"></i>关联</a> '
+            		+'<a class="btn btn-xs btn-warning" onclick="editNewKeyWord(' + "'" + categoryName + "'" + ')"><i class="fa fa-pencil" data-toggle="modal"></i>编辑</a> '
+            		+ '<a class="btn btn-xs btn-danger" onclick="delNewKeyWord(' + "'" + categoryName + "'" + ')"><i class="fa fa-remove"></i>删除</a> '
+                    ;
+        }
+    }
+    ];
+    function search(){
+    	var word=$("#word").val();
+    	var opt = {
+    	        url: "#springUrl('/categoryManager/findNewKeyWordByPage.html?word="+word+"')"
+    	    };
+    	$("#dataTable").bootstrapTable('refresh', opt);
+
+    }
+    function dataQueryParams(params) {
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+    function delNewKeyWord(categoryName) {
+        //询问框
+        layer.confirm('确定删除吗？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+        	var url= "#springUrl('/categoryManager/delNewKeyWord.html')";
+            var date={categoryName:categoryName};
+             $.post(url,date,function(result){
+         		var d = JSON.parse(result);
+         		if(!d.success){
+             		var error=d.data;
+             		layer.alert(error, {
+           			  skin: 'layui-layer-molv',
+           			  closeBtn: 0
+           			});
+                 }else{
+                	layer.closeAll();
+                 	var word=$("#word").val();
+                 	var opt1 = {
+                 	        url: "#springUrl('/categoryManager/findNewKeyWordByPage.html?word="+word+"')"
+                 	    };
+         			$("#dataTable").bootstrapTable('refresh', opt1);
+                 }
+     		});
+        }, function () {
+            return;
+        });
+    }
+    //加载二级数据
+    $.ajax({
+        type: "POST",
+        url: "#springUrl('/categoryManager/allLevel2Date')",
+        datatype: "json",
+        success: function (data) {
+        	var level2Str="";
+        	for(var i=0;i<data.length;i++){
+        		level2Str+='<option value="'+data[i].categoryId+'">'+data[i].categoryName+'</option>';
+        	}
+        	$("#select2").append(level2Str);
+        }
+    }); 
+  //关联操作
+    function linkNewKeyWord(categoryName){
+    	$("#linkCategoryName").val(categoryName);
+    	$("#myModal2").modal('show');
+    }
+  //编辑关键词
+    function editNewKeyWord(categoryName){
+    	$("#categoryName1").val(categoryName);
+    	$("#categoryName").val(categoryName);
+    	$("#myModal1").modal('show');
+    }
+    function save1(){
+    	var date=$("#form1").serialize();
+    	var url="#springUrl('/categoryManager/editNewKeyWord')";
+		$.post(url,date,function(result){
+    		var d = JSON.parse(result);
+    		if(!d.success){
+        		var error=d.data;
+        		layer.alert(error, {
+      			  skin: 'layui-layer-molv',
+      			  closeBtn: 0
+      			});
+            }else{
+            	$("#myModal1").modal('hide');
+            	var word=$("#word").val();
+            	var opt1 = {
+            	        url: "#springUrl('/categoryManager/findNewKeyWordByPage.html?word="+word+"')"
+            	    };
+    			$("#dataTable").bootstrapTable('refresh', opt1);
+            }
+		});
+    }
+    function save2(){
+    	var date=$("#form2").serialize();
+    	var url="#springUrl('/categoryManager/editLinkNewKeyWord')";
+		$.post(url,date,function(result){
+    		var d = JSON.parse(result);
+    		if(!d.success){
+        		var error=d.data;
+        		layer.alert(error, {
+      			  skin: 'layui-layer-molv',
+      			  closeBtn: 0
+      			});
+            }else{
+            	$("#myModal2").modal('hide');
+            	var word=$("#word").val();
+            	var opt1 = {
+            	        url: "#springUrl('/categoryManager/findNewKeyWordByPage.html?word="+word+"')"
+            	    };
+    			$("#dataTable").bootstrapTable('refresh', opt1);
+            }
+		});
+    }
+    function editNewKeyWords(taskId){
+	   	var title = "批量添加";
+	   	var url = "#springUrl('/categoryManager/edits.html')";
+	    layer.open({
+	        type: 2,
+	        title: title,
+	        shadeClose: true,
+	        shade: 0.8,
+	        area: ['600px', '430px'],
+	        fix: false,
+	        maxmin: true,
+	        content: url
+	    });
+	}
+</script>
+#end
+#extends("/common/framework.html")
+<script type="text/javascript">
+$("#firstLeve1").removeClass();
+$("#firstLeve2").addClass("active");
+</script>

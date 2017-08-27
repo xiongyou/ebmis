@@ -64,4 +64,9 @@ public interface ThreeClassificationRepository {
 	 * 
 	 */
 	void updateThreeKeyWord(HashMap map);
+	/**
+	 * 同步修改关键词属性
+	 * 
+	 */
+	void synchUpdateThreeKeyWord(HashMap map);
 }

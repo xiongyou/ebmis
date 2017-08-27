@@ -3,10 +3,12 @@
  */
 package com.cqu.edu.ebmis.repository.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cqu.edu.ebmis.domain.CategoryDO;
@@ -86,6 +88,48 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 	public void restoreTableDate() {
 		// TODO Auto-generated method stub
 		categoryManagerMapper.restoreTableDate();
+	}
+
+	@Override
+	public List<CategoryManagerDO> getNewKeyWordDate(int size,int offset,String word) {
+		// TODO Auto-generated method stub
+		return categoryManagerMapper.getNewKeyWordDate(size,offset,word);
+	}
+
+	@Override
+	public int getNewKeyWordNum(int size,int offset,String word) {
+		// TODO Auto-generated method stub
+		return categoryManagerMapper.getNewKeyWordNum(size,offset,word);
+	}
+
+	@Override
+	public void saveNewKeyWord(CategoryManagerDO categoryManager) {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.saveNewKeyWord(categoryManager);
+	}
+
+	@Override
+	public void updateNewKeyWord(HashMap map) {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.updateNewKeyWord(map);
+	}
+
+	@Override
+	public List<CategoryManagerDO> allLevel2Date() {
+		// TODO Auto-generated method stub
+		return categoryManagerMapper.allLevel2Date();
+	}
+
+	@Override
+	public void editLinkNewKeyWord(CategoryManagerDO categoryManager) {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.editLinkNewKeyWord(categoryManager);
+	}
+
+	@Override
+	public void delNewKeyWord(String categoryName) {
+		// TODO Auto-generated method stub
+		categoryManagerMapper.delNewKeyWord(categoryName);
 	}
 
 	

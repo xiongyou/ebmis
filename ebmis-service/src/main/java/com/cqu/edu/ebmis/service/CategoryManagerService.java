@@ -3,10 +3,12 @@
  */
 package com.cqu.edu.ebmis.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.CategoryManagerDO;
+import com.cqu.edu.ebmis.domain.ProjectDO;
 import com.cqu.edu.ebmis.service.page.Page;
 
 /**
@@ -21,10 +23,20 @@ public interface CategoryManagerService {
 	 */
 	void save(CategoryManagerDO categoryManager);
 	/**
+	 * 添加新关键词
+	 * @param categoryManager
+	 */
+	void saveNewKeyWord(CategoryManagerDO categoryManager);
+	/**
 	 * 修改类型节点
 	 * @param categoryManager
 	 */
 	void update(CategoryManagerDO categoryManager);
+	/**
+	 * 修改新关键词
+	 * @param categoryManager
+	 */
+	void updateNewKeyWord(HashMap map);
 	/**
 	 * 删除类型节点
 	 * @param categoryManager
@@ -66,4 +78,27 @@ public interface CategoryManagerService {
 	 * 还原表的数据插入操作
 	 */
 	void restoreTableDate();
+	/**
+	 * 分页新字段查询
+	 * 
+	 * @param size
+	 * @param offset
+	 * @return
+	 */
+	Page<CategoryManagerDO> findNewKeyWordByPage(Page<CategoryManagerDO> page,String word);
+	/**
+	 * 获取树的所有二级数据
+	 * @param categoryManager
+	 */
+	List<CategoryManagerDO> allLevel2Date();
+	/**
+	 * 关联关键词
+	 * @param categoryManager
+	 */
+	void editLinkNewKeyWord(CategoryManagerDO categoryManager);
+	/**
+	 * 删除新关键词
+	 * @param categoryManager
+	 */
+	void delNewKeyWord(String categoryName);
 }

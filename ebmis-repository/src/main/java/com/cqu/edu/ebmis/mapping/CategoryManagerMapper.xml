@@ -21,6 +21,20 @@
     from category_manager  
     where parent_id = #{parentId,jdbcType=INTEGER}
   </select>
+  
+  <select id="getNewKeyWordDate" resultMap="CategoryManagerResultMap">
+    select
+    <include refid="CategoryManager_Column" />
+    from category_manager  
+    where parent_id IS NULL AND isleaf=0 AND category_name like #{word,jdbcType=VARCHAR}
+  </select>
+  <select id="getNewKeyWordNum" resultType="int">
+    select count(*) from (select
+    <include refid="CategoryManager_Column" />
+    from category_manager  
+    where parent_id IS NULL AND isleaf=0 AND category_name like #{word,jdbcType=VARCHAR}) a
+  </select>
+  
   <select id="getById" resultMap="CategoryManagerResultMap" parameterType="java.lang.Integer">
     select
     <include refid="CategoryManager_Column" />
@@ -28,9 +42,18 @@
     where category_id = #{categoryId,jdbcType=INTEGER}
   </select>
   
+  <select id="allLevel2Date" resultMap="CategoryManagerResultMap">
+    SELECT category_name,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455))
+  </select>
+  
   <delete id="del" parameterType="java.lang.Integer">
     delete from category_manager
     where category_id = #{categoryId,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="delNewKeyWord" parameterType="java.lang.String">
+    delete from category_manager
+    where category_name = #{categoryName,jdbcType=VARCHAR} and isleaf=0
   </delete>
   
   <insert id="save" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
@@ -38,22 +61,40 @@
     values (#{categoryName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, #{visiable,jdbcType=INTEGER})
   </insert>
   
+  <insert id="saveNewKeyWord" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
+    insert into category_manager (category_name)
+    values (#{categoryName,jdbcType=VARCHAR})
+  </insert>
+  
   <update id="update" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
     update category_manager
     set category_name = #{categoryName,jdbcType=VARCHAR},isleaf=#{isLeaf,jdbcType=INTEGER}
     where category_id = #{categoryId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateNewKeyWord" parameterType="java.util.HashMap">
+    update category_manager
+    set category_name = #{categoryName,jdbcType=VARCHAR}
+    where category_name=#{categoryName1,jdbcType=VARCHAR} and isleaf=0
   </update>
   <update id="updateById" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
     update category_manager
     set parent_id = #{parentId,jdbcType=INTEGER}
     where category_id = #{categoryId,jdbcType=INTEGER}
   </update>
+  
+  <update id="editLinkNewKeyWord" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
+    update category_manager
+    set parent_id = #{parentId,jdbcType=INTEGER}
+    where category_name=#{categoryName,jdbcType=VARCHAR} and isleaf=0
+  </update>
   <delete id="transformTable">
   	truncate table threeclassificationtable
   </delete>
   <insert id="transformTableDate">
-  	INSERT INTO threeclassificationtable(零级,一级,二级,三级) SELECT 零级,一级,二级,三级 FROM (SELECT 零级,一级,二级,d.category_id FROM (SELECT 零级,一级,a.category_id FROM (SELECT category_name 零级,category_id FROM category_manager WHERE parent_id=455) b LEFT JOIN (SELECT category_name 一级,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)) a  ON b.category_id=a.parent_id) c LEFT JOIN (SELECT category_name 二级,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455))) d ON d.parent_id=c.category_id) e LEFT JOIN (SELECT category_name 三级,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)))) f ON f.parent_id=e.category_id
+  	INSERT INTO threeclassificationtable(零级,一级,二级,三级,area,loc_famous,KeyProduct) SELECT 零级,一级,二级,三级,area,loc_famous,KeyProduct FROM (SELECT 零级,一级,二级,d.category_id FROM (SELECT 零级,一级,a.category_id FROM (SELECT category_name 零级,category_id FROM category_manager WHERE parent_id=455) b LEFT JOIN (SELECT category_name 一级,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)) a  ON b.category_id=a.parent_id) c LEFT JOIN (SELECT category_name 二级,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455))) d ON d.parent_id=c.category_id) e LEFT JOIN (SELECT category_name 三级,parent_id,area,loc_famous,KeyProduct FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)))) f ON f.parent_id=e.category_id
   </insert>
+  
   <delete id="copyTruncateTable">
   	TRUNCATE TABLE threeclassificationtable_buckup
   </delete>

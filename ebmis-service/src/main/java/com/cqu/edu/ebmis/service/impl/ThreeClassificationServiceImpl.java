@@ -76,5 +76,10 @@ public class ThreeClassificationServiceImpl implements ThreeClassificationServic
 		threeClassificationRepository.updateThreeKeyWord(map);
 		
 	}
+
+	public void synchUpdateThreeKeyWord(HashMap map) {
+		// TODO Auto-generated method stub
+		threeClassificationRepository.synchUpdateThreeKeyWord(map);
+	}
 	
 }

@@ -79,6 +79,12 @@ public class ThreeClassificationRepositoryImpl implements ThreeClassificationRep
 		// TODO Auto-generated method stub
 		threeClassificationMapper.updateThreeKeyWord(map);
 	}
+
+	@Override
+	public void synchUpdateThreeKeyWord(HashMap map) {
+		// TODO Auto-generated method stub
+		threeClassificationMapper.synchUpdateThreeKeyWord(map);
+	}
 	
 	
 }

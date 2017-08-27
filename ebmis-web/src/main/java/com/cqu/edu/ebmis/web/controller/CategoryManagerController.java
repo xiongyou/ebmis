@@ -3,18 +3,32 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cqu.edu.ebmis.domain.CategoryManagerDO;
 import com.cqu.edu.ebmis.service.CategoryManagerService;
+import com.cqu.edu.ebmis.service.page.Page;
 
 @Controller
 @RequestMapping("/categoryManager")
@@ -27,6 +41,105 @@ public class CategoryManagerController extends SuperController {
 	
 		return "/categoryManager/treeManager";
 	}
+	@RequestMapping("/newKeyWordlist")
+	public String newKeyWordlist(Model model) {
+		
+		return "/categoryManager/newKeyWordlist";
+	}
+	@ResponseBody
+	@RequestMapping("/addCategoryManagers")
+	public String addCategoryManagers(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request,Model model) {
+		JSONObject json = new JSONObject();
+		try {
+			InputStream input=file.getInputStream();
+			BufferedReader br = new BufferedReader(new InputStreamReader(input));
+			String s = null;
+            while((s = br.readLine())!=null){//使用readLine方法，一次读一行
+            	CategoryManagerDO categoryManagerDO=new CategoryManagerDO();
+            	categoryManagerDO.setCategoryName(s);
+            	categoryManagerService.saveNewKeyWord(categoryManagerDO);
+            }
+            br.close();
+            json.put("success" , true);
+			json.put("data" , "添加成功");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			json.put("success" , false);
+			json.put("data" , "添加失败");
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping("/findNewKeyWordByPage")
+	public String findNewKeyWordByPage(Model model) {
+		Page<CategoryManagerDO> page = getPage();
+		String word="%";
+		String word1=request.getParameter("word");
+		if(word1==null){
+			word1="";
+		}
+		word+=word1+"%";
+		categoryManagerService.findNewKeyWordByPage(page, word);
+		return jsonPage(page);
+	}
+	@RequestMapping("/edits")
+	public String edits(Model model) {
+		return "/categoryManager/edits";
+	}
+	@ResponseBody
+	@RequestMapping("/editNewKeyWord")
+	public String editNewKeyWord(Model model) {
+		JSONObject json = new JSONObject();
+		HashMap map=new HashMap();
+		String categoryName1 = request.getParameter("categoryName1");
+		String categoryName = request.getParameter("categoryName");
+		map.put("categoryName1", categoryName1);
+		map.put("categoryName", categoryName);
+		try {
+			categoryManagerService.updateNewKeyWord(map);
+			json.put("success" , true);
+			json.put("data" , "编辑成功");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			json.put("success" , false);
+			json.put("data" , "编辑失败");
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping("/editLinkNewKeyWord")
+	public String editLinkNewKeyWord(Model model) {
+		JSONObject json = new JSONObject();
+		try {
+			CategoryManagerDO categoryManager=new CategoryManagerDO();
+			String categoryName = request.getParameter("linkCategoryName");
+			String pId = request.getParameter("select2");
+			Integer parentId=null;
+			if(pId!=null&&!pId.equals("")&&!pId.equals("null")){
+				parentId=Integer.parseInt(pId);
+			}
+			categoryManager.setParentId(parentId);
+			categoryManager.setCategoryName(categoryName);
+			categoryManagerService.editLinkNewKeyWord(categoryManager);
+			json.put("success" , true);
+			json.put("data" , "关联成功");
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			json.put("success" , false);
+			json.put("data" , "关联失败");
+		}
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping("/allLevel2Date")
+	public List<CategoryManagerDO> allLevel2Date(Model model) {
+		return categoryManagerService.allLevel2Date();
+	}
+	
 	@ResponseBody
 	@RequestMapping("/getToolId")
 	public List<CategoryManagerDO> getToolId(Model model) {
@@ -42,6 +155,8 @@ public class CategoryManagerController extends SuperController {
 		}
 		return list;
 	}
+	
+	
 	@ResponseBody
 	@RequestMapping("/getParentId")
 	public List<CategoryManagerDO> getParentId(Model model) {
@@ -105,6 +220,23 @@ public class CategoryManagerController extends SuperController {
 					}
 				}
 			}
+			json.put("success" , true);
+			json.put("data" , "删除成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			json.put("success" , false);
+			json.put("data" , "删除失败");
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping("/delNewKeyWord")
+	public String delNewKeyWord(Model model) {
+		JSONObject json = new JSONObject();
+		try {
+			String categoryName = request.getParameter("categoryName");
+			categoryManagerService.delNewKeyWord(categoryName);
 			json.put("success" , true);
 			json.put("data" , "删除成功");
 		} catch (Exception e) {

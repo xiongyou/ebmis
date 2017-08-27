@@ -42,5 +42,9 @@
     update threeclassificationtable set loc_famous=#{locFamous,jdbcType=INTEGER}, area= #{area,jdbcType=VARCHAR},KeyProduct=#{keyProduct,jdbcType=INTEGER}
     where 三级 = #{level3,jdbcType=VARCHAR}
    </update>
+   <update id="synchUpdateThreeKeyWord" parameterType="java.util.HashMap">
+    update category_manager set loc_famous=#{locFamous,jdbcType=INTEGER}, area= #{area,jdbcType=VARCHAR},KeyProduct=#{keyProduct,jdbcType=INTEGER}
+    where category_name = #{level3,jdbcType=VARCHAR} and isleaf=0
+   </update>
 </mapper>
 

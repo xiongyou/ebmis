@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,8 +11,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.cqu.edu.ebmis.domain.CategoryManagerDO;
+import com.cqu.edu.ebmis.domain.ProjectDO;
 import com.cqu.edu.ebmis.repository.CategoryManagerRepository;
 import com.cqu.edu.ebmis.service.CategoryManagerService;
+import com.cqu.edu.ebmis.service.page.Page;
 
 @Service
 public class CategoryManagerServiceImpl implements CategoryManagerService {
@@ -73,6 +76,41 @@ public class CategoryManagerServiceImpl implements CategoryManagerService {
 	public void restoreTableDate() {
 		// TODO Auto-generated method stub
 		catetoryManagerRepository.restoreTableDate();
+	}
+
+	public Page<CategoryManagerDO> findNewKeyWordByPage(Page<CategoryManagerDO> page, String word) {
+		// TODO Auto-generated method stub
+		List<CategoryManagerDO> categoryManagers = catetoryManagerRepository.getNewKeyWordDate(
+				page.getLimit() , page.getOffset(),word);
+		page.setTotal(catetoryManagerRepository.getNewKeyWordNum(page.getLimit() , page.getOffset(), word));
+		
+		page.setRecords(categoryManagers);
+		return page;
+	}
+
+	public void saveNewKeyWord(CategoryManagerDO categoryManager) {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.saveNewKeyWord(categoryManager);
+	}
+
+	public void updateNewKeyWord(HashMap map) {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.updateNewKeyWord(map);
+	}
+
+	public List<CategoryManagerDO> allLevel2Date() {
+		// TODO Auto-generated method stub
+		return catetoryManagerRepository.allLevel2Date();
+	}
+
+	public void editLinkNewKeyWord(CategoryManagerDO categoryManager) {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.editLinkNewKeyWord(categoryManager);
+	}
+
+	public void delNewKeyWord(String categoryName) {
+		// TODO Auto-generated method stub
+		catetoryManagerRepository.delNewKeyWord(categoryName);
 	}
 
 
