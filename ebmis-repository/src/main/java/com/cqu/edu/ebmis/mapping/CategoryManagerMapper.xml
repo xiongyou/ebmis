@@ -46,6 +46,10 @@
     SELECT category_name,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455))
   </select>
   
+  <select id="allLevel3Date" resultMap="CategoryManagerResultMap">
+	SELECT category_name,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455)))
+  </select>
+  
   <delete id="del" parameterType="java.lang.Integer">
     delete from category_manager
     where category_id = #{categoryId,jdbcType=INTEGER}

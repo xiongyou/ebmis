@@ -499,7 +499,6 @@ function getzTreeObject(){
             	$.post(url,date,function(result){
 	            		var d = JSON.parse(result);
 	            		$("#categoryName").removeAttr("placeholder");
-	            		$("#categoryName").val("");
 		                if(!d.success){
 		            		var error=d.data;
 		            		layer.alert(error, {
@@ -507,6 +506,7 @@ function getzTreeObject(){
 		          			  closeBtn: 0
 		          			});
 		                }else{
+		                	$("#categoryName").val("");
 		                	$('#myModal').modal('hide');
 		                	if(nodes[0].isParent==false){
 		            			nodes[0].isParent=true;

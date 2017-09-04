@@ -93,6 +93,11 @@ public interface CategoryManagerRepository {
 	 */
 	List<CategoryManagerDO> allLevel2Date();
 	/**
+	 * 获取树的所有三级数据
+	 * @param categoryManager
+	 */
+	List<CategoryManagerDO> allLevel3Date();
+	/**
 	 * 删除新关键词
 	 * @param categoryManager
 	 */

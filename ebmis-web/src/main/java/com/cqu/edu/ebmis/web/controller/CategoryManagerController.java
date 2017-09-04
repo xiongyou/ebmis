@@ -61,12 +61,12 @@ public class CategoryManagerController extends SuperController {
             }
             br.close();
             json.put("success" , true);
-			json.put("data" , "添加成功");
+			json.put("data" , "批量添加成功");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			json.put("success" , false);
-			json.put("data" , "添加失败");
+			json.put("data" , "批量添加失败");
 		}
 		return json.toJSONString();
 	}
@@ -109,7 +109,7 @@ public class CategoryManagerController extends SuperController {
 		return json.toJSONString();
 	}
 	@ResponseBody
-	@RequestMapping("/editLinkNewKeyWord")
+	@RequestMapping(value="/editLinkNewKeyWord",produces="html/text;charset=UTF-8")
 	public String editLinkNewKeyWord(Model model) {
 		JSONObject json = new JSONObject();
 		try {
@@ -118,13 +118,29 @@ public class CategoryManagerController extends SuperController {
 			String pId = request.getParameter("select2");
 			Integer parentId=null;
 			if(pId!=null&&!pId.equals("")&&!pId.equals("null")){
-				parentId=Integer.parseInt(pId);
+				List<CategoryManagerDO> CategoryManagerDOList=categoryManagerService.allLevel3Date();
+				Boolean flag=false;
+				for(CategoryManagerDO categoryManager1:CategoryManagerDOList){
+					String categoryName1=categoryManager1.getCategoryName();
+					if(categoryName1.equals(categoryName)){
+						flag=true;
+					}
+				}
+				if(flag){
+					json.put("success" , false);
+					json.put("data" , "关键词重复");
+				}else{
+					parentId=Integer.parseInt(pId);
+					categoryManager.setParentId(parentId);
+					categoryManager.setCategoryName(categoryName);
+					categoryManagerService.editLinkNewKeyWord(categoryManager);
+					json.put("success" , true);
+					json.put("data" , "关联成功");
+				}
+			}else{
+				json.put("success" , false);
+				json.put("data" , "请选择");
 			}
-			categoryManager.setParentId(parentId);
-			categoryManager.setCategoryName(categoryName);
-			categoryManagerService.editLinkNewKeyWord(categoryManager);
-			json.put("success" , true);
-			json.put("data" , "关联成功");
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -176,23 +192,37 @@ public class CategoryManagerController extends SuperController {
 		return categoryManagerService.getById(categoryId);
 	}
 	@ResponseBody
-	@RequestMapping("/save")
+	@RequestMapping(value="/save",produces="html/text;charset=UTF-8")
 	public String save(Model model,CategoryManagerDO categoryManagerDO) {
 		JSONObject json = new JSONObject();
 		try {
-			String id = request.getParameter("id");
-			Integer parentId = Integer.parseInt(id);
-			categoryManagerDO.setParentId(parentId);
-			categoryManagerService.save(categoryManagerDO);
-			CategoryManagerDO categoryManagerDO1=categoryManagerService.getById(parentId);
-			if(categoryManagerDO1!=null){
-				if(categoryManagerDO1.getIsLeaf()!=1){
-					categoryManagerDO1.setIsLeaf(1);
-					categoryManagerService.update(categoryManagerDO1);
+			List<CategoryManagerDO> CategoryManagerDOList=categoryManagerService.allLevel3Date();
+			String categoryName=categoryManagerDO.getCategoryName();
+			Boolean flag=false;
+			for(CategoryManagerDO categoryManager1:CategoryManagerDOList){
+				String categoryName1=categoryManager1.getCategoryName();
+				if(categoryName1.equals(categoryName)){
+					flag=true;
 				}
 			}
-			json.put("success" , true);
-			json.put("data" , "添加成功");
+			if(flag){
+				json.put("success" , false);
+				json.put("data" , "类别名称重复");
+			}else{
+				String id = request.getParameter("id");
+				Integer parentId = Integer.parseInt(id);
+				categoryManagerDO.setParentId(parentId);
+				categoryManagerService.save(categoryManagerDO);
+				CategoryManagerDO categoryManagerDO1=categoryManagerService.getById(parentId);
+				if(categoryManagerDO1!=null){
+					if(categoryManagerDO1.getIsLeaf()!=1){
+						categoryManagerDO1.setIsLeaf(1);
+						categoryManagerService.update(categoryManagerDO1);
+					}
+				}
+				json.put("success" , true);
+				json.put("data" , "添加成功");
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

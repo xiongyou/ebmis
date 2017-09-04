@@ -113,6 +113,12 @@ public class CategoryManagerServiceImpl implements CategoryManagerService {
 		catetoryManagerRepository.delNewKeyWord(categoryName);
 	}
 
+	public List<CategoryManagerDO> allLevel3Date() {
+		// TODO Auto-generated method stub
+		return catetoryManagerRepository.allLevel3Date();
+	}
+
+
 
 	
 }

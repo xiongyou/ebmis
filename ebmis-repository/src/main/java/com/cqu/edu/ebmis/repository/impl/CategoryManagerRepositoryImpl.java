@@ -132,5 +132,11 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 		categoryManagerMapper.delNewKeyWord(categoryName);
 	}
 
+	@Override
+	public List<CategoryManagerDO> allLevel3Date() {
+		// TODO Auto-generated method stub
+		return categoryManagerMapper.allLevel3Date();
+	}
+
 	
 }
