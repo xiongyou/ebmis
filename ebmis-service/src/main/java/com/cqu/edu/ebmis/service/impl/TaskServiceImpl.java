@@ -84,7 +84,7 @@ public class TaskServiceImpl implements TaskService {
 			}
 			else{
 			for(TaskDO t:tasks){
-				t.setKeyword(task.getKeyword());
+				t.setKeyword(newUrl.getKeyWord());
 				taskRepository.updateTask(t);
 			}
 			}
