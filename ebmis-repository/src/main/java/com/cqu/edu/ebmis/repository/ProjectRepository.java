@@ -57,6 +57,10 @@ public interface ProjectRepository {
 	 * @param project
 	 */
 	public int deleteProject(int projectId);
+	/**删除项目下所有的任务
+	 * @param product
+	 */
+	public int deleteProjectTask(int projectId);
 	
 	/**
 	 * 分页查找

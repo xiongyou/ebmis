@@ -76,6 +76,12 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		// TODO Auto-generated method stub
 		return projectMapper.selectAllCountField(field);
 	}
+
+	@Override
+	public int deleteProjectTask(int projectId) {
+		// TODO Auto-generated method stub
+		return projectMapper.deleteProjectTask(projectId);
+	}
 	
 	
 	

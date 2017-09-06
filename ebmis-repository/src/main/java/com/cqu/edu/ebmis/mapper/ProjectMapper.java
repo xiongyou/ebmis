@@ -58,6 +58,10 @@ public interface ProjectMapper {
 	 * @param product
 	 */
 	public int deleteProject(int projectId);
+	/**删除项目下所有的任务
+	 * @param product
+	 */
+	public int deleteProjectTask(int projectId);
 	
 	/**分页查找
 	 * @param searchContent

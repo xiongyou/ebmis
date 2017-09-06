@@ -108,8 +108,8 @@ public class ProjectController extends SuperController {
 	@ResponseBody
 	@RequestMapping("/delProject/{projectID}")
 	public String delProject(@PathVariable int projectID) {
-	
 		projectService.delete(projectID);
+		projectService.deleteProjectTask(projectID);
 		return Boolean.TRUE.toString();
 	}
 }

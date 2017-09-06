@@ -69,5 +69,10 @@ public class ProjectServiceImpl implements ProjectService {
 		return page;
 	}
 
+	public int deleteProjectTask(int projectId) {
+		// TODO Auto-generated method stub
+		return projectRepository.deleteProjectTask(projectId);
+	}
+
 
 }

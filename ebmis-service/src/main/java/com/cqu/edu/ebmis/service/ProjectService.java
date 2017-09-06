@@ -26,6 +26,10 @@ public interface ProjectService {
 	 * @return
 	 */
 	int delete(int code);
+	/**删除项目下所有的任务
+	 * @param product
+	 */
+	public int deleteProjectTask(int projectId);
 	
 	/**
 	 * 更新操作
