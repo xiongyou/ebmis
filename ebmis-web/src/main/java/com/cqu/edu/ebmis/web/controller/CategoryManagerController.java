@@ -115,7 +115,7 @@ public class CategoryManagerController extends SuperController {
 		try {
 			CategoryManagerDO categoryManager=new CategoryManagerDO();
 			String categoryName = request.getParameter("linkCategoryName");
-			String pId = request.getParameter("select2");
+			String pId = request.getParameter("select3");
 			Integer parentId=null;
 			if(pId!=null&&!pId.equals("")&&!pId.equals("null")){
 				List<CategoryManagerDO> CategoryManagerDOList=categoryManagerService.allLevel3Date();
@@ -139,7 +139,7 @@ public class CategoryManagerController extends SuperController {
 				}
 			}else{
 				json.put("success" , false);
-				json.put("data" , "请选择");
+				json.put("data" , "请选择最后一级");
 			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

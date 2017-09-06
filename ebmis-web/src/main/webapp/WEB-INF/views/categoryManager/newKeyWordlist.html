@@ -65,18 +65,28 @@ SpringWind - 任务管理
 	            <div class="modal-body">
 	            	<form class="form-horizontal" id="form2">
 		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">关键词</label>
-		                  <div class="col-sm-8">
+		                  <label class="col-sm-3 control-label">关键词</label>
+		                  <div class="col-sm-9">
 		                    <input type="text" id="linkCategoryName" name="linkCategoryName" class="form-control" readOnly/>
 		                  </div>
 		                </div>
 		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">关键词关联的类别选择</label>
-		                  <div class="col-sm-8">
-		                  	<select id="select2" name="select2" class="form-control">
-						      <option value="">请选择</option>
-						    </select>
-		                  </div>
+		                  <label class="col-sm-3 control-label">关键词关联的类别选择</label>
+		                  	<div class="col-sm-3">			
+								<select id="select1" name="select1" class="form-control">
+							      <option value="请选择">请选择</option>
+							    </select>
+							</div>
+							<div class="col-sm-3">			
+								<select id="select2" name="select2" class="form-control">
+									<option value='请选择'>请选择</option>
+							    </select>
+							</div>
+							<div class="col-sm-3">			
+								<select id="select3" name="select3" class="form-control">
+									<option value=''>请选择</option>
+							    </select>
+							</div>
 		                </div>
 	            </form>
 	            </div>
@@ -125,6 +135,66 @@ SpringWind - 任务管理
         }
     }
     ];
+    //加载零级数据
+    $.ajax({
+        type: "POST",
+        url: "#springUrl('/threeClassification/level0List')",
+        datatype: "json",
+        success: function (data) {
+        	var level1Str="";
+        	for(var i=0;i<data.length;i++){
+        		level1Str+='<option value="'+data[i].level0+'">'+data[i].level0+'</option>';
+        	}
+        	$("#select1").append(level1Str);
+        }
+    }); 
+    //选择零级加载一级数据
+    $("#select1").change(function(){
+		var levelName1=$("#select1").val();
+		$("#select2").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		if(levelName1!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level1List?level0="+levelName1+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level1+'">'+data[i].level1+'</option>';
+		        	}
+		        	$("#select2").append(level1Str);
+		        }
+		    }); 
+		}else{
+			$("#select2").append(level1Str);
+		}
+		
+		
+	});
+    //选择一级加载二级数据
+    $("#select2").change(function(){
+		var word=$("#word").val();
+		var levelName1=$("#select1").val();
+		var levelName2=$("#select2").val();
+		var levelName3;
+		$("#select3").html("");
+		var level1Str="<option value=''>请选择</option>";
+		if(levelName2!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level2List?level0="+levelName1+"&level1="+levelName2+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level2+'">'+data[i].level2+'</option>';
+		        	}
+		        	$("#select3").append(level1Str);
+		        }
+		    }); 
+		}else{
+			$("#select3").append(level1Str);
+		}
+	});
     function search(){
     	var word=$("#word").val();
     	var opt = {
@@ -167,19 +237,6 @@ SpringWind - 任务管理
             return;
         });
     }
-    //加载二级数据
-    $.ajax({
-        type: "POST",
-        url: "#springUrl('/categoryManager/allLevel2Date')",
-        datatype: "json",
-        success: function (data) {
-        	var level2Str="";
-        	for(var i=0;i<data.length;i++){
-        		level2Str+='<option value="'+data[i].categoryId+'">'+data[i].categoryName+'</option>';
-        	}
-        	$("#select2").append(level2Str);
-        }
-    }); 
   //关联操作
     function linkNewKeyWord(categoryName){
     	$("#linkCategoryName").val(categoryName);

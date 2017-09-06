@@ -25,6 +25,7 @@ SpringWind - 任务管理
 			</span>
 		</div>
 		<input type="hidden" class="form-control" id="projectID" name="projectID" value="$!{projectID}">
+		<input type="hidden" class="form-control" id="projectPriority" name="projectPriority" value="$!{projectPriority}">
 	</div>
 </div>
 <div class="row">
@@ -61,6 +62,9 @@ SpringWind - 任务管理
         	}
         	
         }
+    }, {
+        field: 'taskPriority',
+        title: '任务优先级'
     }, {
         field: 'dataObj',
         title: '数据对象'
@@ -120,7 +124,8 @@ SpringWind - 任务管理
 	function editProjectTask(taskId){
 	   	var title = "新增任务";
 	   	var projectID=$("#projectID").val();
-	   	var url ="#springUrl('/projectTask/edit.html')"+"?projectID="+projectID;
+	   	var projectPriority=$("#projectPriority").val();
+	   	var url ="#springUrl('/projectTask/edit.html')"+"?projectID="+projectID+"&projectPriority="+projectPriority;
 	   	if(taskId!=null){
 	   		title = "编辑任务";
 	   		url = url + "&taskId=" + taskId;
@@ -139,7 +144,8 @@ SpringWind - 任务管理
 	function editProjectsTask(taskId){
 	   	var title = "批量添加";
 	   	var projectID=$("#projectID").val();
-	   	var url = "#springUrl('/projectTask/edits.html')"+"?projectID="+projectID;
+		var projectPriority=$("#projectPriority").val();
+	   	var url = "#springUrl('/projectTask/edits.html')"+"?projectID="+projectID+"&projectPriority="+projectPriority;
 	    layer.open({
 	        type: 2,
 	        title: title,

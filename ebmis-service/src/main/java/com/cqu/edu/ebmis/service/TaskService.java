@@ -22,7 +22,7 @@ public interface TaskService {
 	/**
 	 * 批量插入任务
 	 */
-	boolean saveBatch(int projectId,String dataObj,List<Integer> projectIds,String filePath);
+	boolean saveBatch(int projectId,int projectPriority,String dataObj,List<Integer> projectIds,String filePath);
 	
 	/**
 	 * 删除操作

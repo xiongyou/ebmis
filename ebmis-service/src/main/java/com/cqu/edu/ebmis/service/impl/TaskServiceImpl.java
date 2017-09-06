@@ -98,7 +98,7 @@ public class TaskServiceImpl implements TaskService {
 	
 	
 
-	public boolean saveBatch(int projectId,String dataObj,List<Integer> projectIds,String filePath) {
+	public boolean saveBatch(int projectId,int projectPriority,String dataObj,List<Integer> projectIds,String filePath) {
 		
 		FileOperation fileOperation = new FileOperation();
 		List<FileInfo> fileInfos =new ArrayList<FileInfo>();
@@ -116,6 +116,8 @@ public class TaskServiceImpl implements TaskService {
 				task.setWebsite(fileInfo.getWebsite());
 				task.setDataObj(dataObj);
 				task.setKeyword(fileInfo.getKeyword());
+				task.setProjectPriority(projectPriority);
+				task.setTaskPriority(0);
 				this.save(task, projectIds);
 			}
 			

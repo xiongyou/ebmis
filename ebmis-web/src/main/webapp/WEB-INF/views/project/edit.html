@@ -65,9 +65,14 @@
 			    <span id="endTest1" class="msg-box n-right pull-left" style=""><span role="alert" class="msg-wrap n-error"><span class="n-icon"></span><span class="n-msg">结束日期必须大于开始日期</span></span></span>
 			</div>
 	   </div>
+	   <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目优先级</label>
+           <div class="col-sm-10 pull-right">
+           		<input type="text" class="form-control" name="projectPriority" value="$!{projectDo.projectPriority}" data-rule="项目优先级:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
+           </div>
+       </div>
        <div class="form-group">
             <div class="text-center">
-                <button class="btn btn-primary" type="submit">#if($!{projectDo})修 改#else提 交#end</button>
+                <button class="btn btn-primary" id="submitStyle" type="submit">#if($!{projectDo})修 改#else提 交#end</button>
             </div>
        </div>
     </form>
@@ -118,6 +123,13 @@ $("#endedTime").change(function(){
 $("#ExecutePeriod").focusout(function() {
 	setTimeout(function(){
 		$("#ExecutePeriod~span[for='ExecutePeriod'] span[role='alert']").css("margin-left","69px");
+	},10);
+});
+$("#submitStyle").focusout(function() {
+	setTimeout(function(){
+		$("#ExecutePeriod~span[for='ExecutePeriod'] span[role='alert']").css("margin-left","69px");
+		$("#maxExecutingTime~span[for='maxExecutingTime'] span[role='alert']").css("margin-left","69px");
+		$("#endedTime~span[for='endedTime']").addClass("pull-left");
 	},10);
 });
 $("#maxExecutingTime").focusout(function() {

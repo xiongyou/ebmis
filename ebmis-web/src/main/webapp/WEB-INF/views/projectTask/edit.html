@@ -17,6 +17,7 @@
        <input type="hidden" id="hiddenUpdate" class="form-control" name="update" value="$!{update}">
        <input type="hidden" class="form-control" name="taskId" value="$!{taskId}">
        <input type="hidden" class="form-control" id="dataObj" value="$!{taskDO.dataObj}">
+       <input type="hidden" class="form-control" name="projectPriority" value="$!{projectPriority}">
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">任务地址</label>
            <div class="col-sm-10 pull-right">
            		<input type="text" class="form-control" name="url" value="$!{taskDO.url}" data-rule="任务地址:required">
@@ -30,6 +31,11 @@
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">关键字</label>
            <div class="col-sm-10 pull-right">
            		<input type="text" class="form-control" name="keyword" value="$!{taskDO.keyword}" data-rule="关键字:required">
+           </div>
+       </div>
+       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">任务优先级</label>
+           <div class="col-sm-10 pull-right">
+           		<input type="text" class="form-control" name="taskPriority" value="$!{taskDO.taskPriority}" data-rule="任务优先级:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
            </div>
        </div>
        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">去重项目Id(以英文逗号隔开)</label>

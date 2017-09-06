@@ -6,6 +6,7 @@
     <!-- 定义的resultMap，可以解决类的属性名和数据库列名不一致的问题-->
   <resultMap id="BaseResultMap" type="com.cqu.edu.ebmis.domain.ProjectDO">
     <id column="_project_id" jdbcType="INTEGER" property="projectID" />
+    <result column="_priority" jdbcType="INTEGER" property="projectPriority" />
     <result column="_project_name" jdbcType="VARCHAR" property="projectName" />
     <result column="_execute_period" jdbcType="INTEGER" property="executePeriod" />
     <result column="_obj_name" jdbcType="VARCHAR" property="objName" />
@@ -16,12 +17,12 @@
     <result column="_project_description" jdbcType="VARCHAR" property="projectDescription" />
   </resultMap>
   <sql id="Base_Column_List" >
-    _project_id, _project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description
+    _project_id,_priority,_project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description
   </sql>
   
   <insert id="insertProject" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
-    insert into _crawler_project (_project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description)
-    values (#{projectName,jdbcType=VARCHAR}, #{executePeriod,jdbcType=INTEGER},  #{objName,jdbcType=VARCHAR}, #{startTime}, #{endedTime}, #{keyWord,jdbcType=VARCHAR},  #{maxExecutingTime,jdbcType=INTEGER},#{projectDescription,jdbcType=VARCHAR})
+    insert into _crawler_project (_project_name, _execute_period, _obj_name,_start_time,_end_time,_key_word,_maxexecuting_time,_project_description,_priority)
+    values (#{projectName,jdbcType=VARCHAR}, #{executePeriod,jdbcType=INTEGER},  #{objName,jdbcType=VARCHAR}, #{startTime}, #{endedTime}, #{keyWord,jdbcType=VARCHAR},  #{maxExecutingTime,jdbcType=INTEGER},#{projectDescription,jdbcType=VARCHAR},#{projectPriority,jdbcType=INTEGER})
   </insert>
   
   <select id="findAllProject" resultMap="BaseResultMap">
@@ -49,7 +50,7 @@
     update _crawler_project
     set  _project_name=#{projectName,jdbcType=VARCHAR}, _execute_period= #{executePeriod,jdbcType=INTEGER},
      _obj_name=#{objName,jdbcType=VARCHAR},_start_time=#{startTime},_end_time=#{endedTime},
-     _key_word=#{keyWord,jdbcType=VARCHAR},_maxexecuting_time=#{maxExecutingTime,jdbcType=INTEGER},_project_description=#{projectDescription,jdbcType=VARCHAR}
+     _key_word=#{keyWord,jdbcType=VARCHAR},_maxexecuting_time=#{maxExecutingTime,jdbcType=INTEGER},_project_description=#{projectDescription,jdbcType=VARCHAR},_priority=#{projectPriority,jdbcType=INTEGER}
     where _project_id = #{projectID,jdbcType=INTEGER}
   </update>
   

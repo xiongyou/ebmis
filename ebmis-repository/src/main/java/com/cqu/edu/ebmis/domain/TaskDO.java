@@ -3,6 +3,8 @@ import java.security.MessageDigest;
 public class TaskDO {
 
 	private Integer taskId;
+	private Integer projectPriority;
+	private Integer taskPriority;
 	
 	private String url;
 	
@@ -16,6 +18,23 @@ public class TaskDO {
 	
 	private String keyword;
 	private String md;
+
+	
+	public Integer getProjectPriority() {
+		return projectPriority;
+	}
+
+	public void setProjectPriority(Integer projectPriority) {
+		this.projectPriority = projectPriority;
+	}
+
+	public Integer getTaskPriority() {
+		return taskPriority;
+	}
+
+	public void setTaskPriority(Integer taskPriority) {
+		this.taskPriority = taskPriority;
+	}
 
 	public Integer getTaskId() {
 		return taskId;

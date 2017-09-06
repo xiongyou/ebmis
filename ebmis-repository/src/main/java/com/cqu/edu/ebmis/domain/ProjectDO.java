@@ -28,6 +28,16 @@ public class ProjectDO {
 	private String projectName;
 
 	private Integer maxExecutingTime;
+	private Integer projectPriority;
+
+	
+	public Integer getProjectPriority() {
+		return projectPriority;
+	}
+
+	public void setProjectPriority(Integer projectPriority) {
+		this.projectPriority = projectPriority;
+	}
 
 	public Integer getProjectID() {
 		return projectID;

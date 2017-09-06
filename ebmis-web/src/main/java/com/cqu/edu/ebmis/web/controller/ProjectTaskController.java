@@ -42,7 +42,9 @@ public class ProjectTaskController extends SuperController {
 	@RequestMapping("/list")
 	public String list(Model model) {
 		String projectID = request.getParameter("projectID");
+		String projectPriority = request.getParameter("projectPriority");
 		model.addAttribute("projectID" , projectID);
+		model.addAttribute("projectPriority" , projectPriority);
 		return "/projectTask/list";
 	}
 	
@@ -71,6 +73,7 @@ public class ProjectTaskController extends SuperController {
 	public String edit(Model model) {
 		String taskId = request.getParameter("taskId");
 		String projectID = request.getParameter("projectID");
+		String projectPriority = request.getParameter("projectPriority");
 		if (taskId != null) {
 			int taskId1= Integer.parseInt(taskId);
 			TaskDO taskDO=taskService.find(taskId1);
@@ -79,13 +82,16 @@ public class ProjectTaskController extends SuperController {
 			model.addAttribute("taskDO" , taskDO);
 		}
 		model.addAttribute("projectID",projectID);
+		model.addAttribute("projectPriority",projectPriority);
 		return "/projectTask/edit";
 	}
 	@RequestMapping("/edits")
 	public String edits(Model model) {
 		String taskId = request.getParameter("taskId");
 		String projectID = request.getParameter("projectID");
+		String projectPriority = request.getParameter("projectPriority");
 		model.addAttribute("projectID",projectID);
+		model.addAttribute("projectPriority",projectPriority);
 		return "/projectTask/edits";
 	}
 	
@@ -133,6 +139,8 @@ public class ProjectTaskController extends SuperController {
 	public String addProjectsTask(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request,Model model) {
 		JSONObject json = new JSONObject();
 		String dropProjectId = request.getParameter("dropProjectId");
+		String projectPriority1 = request.getParameter("projectPriority");
+		Integer projectPriority =Integer.parseInt(projectPriority1);
 		List<Integer> projectIds=new ArrayList<Integer>();
 		if(dropProjectId!=null&&!dropProjectId.equals("")){
 			String[] strsId=dropProjectId.split(",");
@@ -160,13 +168,13 @@ public class ProjectTaskController extends SuperController {
 	        String strPath=path.replace("\\", "/");
 	        String filePath=strPath+"/"+fileName;
 	        String fileUrl=request.getContextPath()+"/upload/"+fileName;
-			taskService.saveBatch(projectId,dataObj,projectIds,filePath);
+			taskService.saveBatch(projectId,projectPriority,dataObj,projectIds,filePath);
 			json.put("success" , true);
-			json.put("data" , "修改成功");
+			json.put("data" , "批量添加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			json.put("success" , false);
-			json.put("data" , "修改失败");
+			json.put("data" , "批量添加失败");
 		}
 		model.addAttribute("projectID" , projectId);
 		return json.toJSONString();
