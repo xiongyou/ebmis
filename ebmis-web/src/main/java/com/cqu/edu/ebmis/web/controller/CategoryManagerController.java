@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -115,9 +116,11 @@ public class CategoryManagerController extends SuperController {
 		try {
 			CategoryManagerDO categoryManager=new CategoryManagerDO();
 			String categoryName = request.getParameter("linkCategoryName");
-			String pId = request.getParameter("select3");
+			String select1 = request.getParameter("select1");
+			String select2 = request.getParameter("select2");
+			String select3 = request.getParameter("select3");
 			Integer parentId=null;
-			if(pId!=null&&!pId.equals("")&&!pId.equals("null")){
+			if(select3!=null&&!select3.equals("")&&!select3.equals("null")){
 				List<CategoryManagerDO> CategoryManagerDOList=categoryManagerService.allLevel3Date();
 				Boolean flag=false;
 				for(CategoryManagerDO categoryManager1:CategoryManagerDOList){
@@ -130,8 +133,12 @@ public class CategoryManagerController extends SuperController {
 					json.put("success" , false);
 					json.put("data" , "关键词重复");
 				}else{
-					parentId=Integer.parseInt(pId);
-					categoryManager.setParentId(parentId);
+					Map map=new HashMap();
+					map.put("select1", select1);
+					map.put("select2", select2);
+					map.put("select3", select3);
+					CategoryManagerDO categoryManagerDO1=categoryManagerService.level3findId(map);
+					categoryManager.setParentId(categoryManagerDO1.getCategoryId());
 					categoryManager.setCategoryName(categoryName);
 					categoryManagerService.editLinkNewKeyWord(categoryManager);
 					json.put("success" , true);

@@ -5,6 +5,7 @@ package com.cqu.edu.ebmis.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -33,6 +34,11 @@ public interface CategoryManagerMapper {
 	 * @param categoryManager
 	 */
 	void updateNewKeyWord(HashMap map);
+	/**
+	 * 查找第二级
+	 * @param categoryManager
+	 */
+	CategoryManagerDO level3findId(Map map);
 	/**
 	 * 获取树的所有二级数据
 	 * @param categoryManager

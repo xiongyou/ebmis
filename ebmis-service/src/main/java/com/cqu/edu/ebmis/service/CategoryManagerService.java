@@ -5,6 +5,7 @@ package com.cqu.edu.ebmis.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cqu.edu.ebmis.domain.CategoryDO;
 import com.cqu.edu.ebmis.domain.CategoryManagerDO;
@@ -106,4 +107,9 @@ public interface CategoryManagerService {
 	 * @param categoryManager
 	 */
 	void delNewKeyWord(String categoryName);
+	/**
+	 * 查找第二级
+	 * @param categoryManager
+	 */
+	CategoryManagerDO level3findId(Map map);
 }

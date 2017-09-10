@@ -5,6 +5,7 @@ package com.cqu.edu.ebmis.repository.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -136,6 +137,12 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 	public List<CategoryManagerDO> allLevel3Date() {
 		// TODO Auto-generated method stub
 		return categoryManagerMapper.allLevel3Date();
+	}
+
+	@Override
+	public CategoryManagerDO level3findId(Map map) {
+		// TODO Auto-generated method stub
+		return categoryManagerMapper.level3findId(map);
 	}
 
 	

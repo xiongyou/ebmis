@@ -27,6 +27,7 @@
     <include refid="CategoryManager_Column" />
     from category_manager  
     where parent_id IS NULL AND isleaf=0 AND category_name like #{word,jdbcType=VARCHAR}
+    limit #{offset},#{size}
   </select>
   <select id="getNewKeyWordNum" resultType="int">
     select count(*) from (select
@@ -44,6 +45,9 @@
   
   <select id="allLevel2Date" resultMap="CategoryManagerResultMap">
     SELECT category_name,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455))
+  </select>
+  <select id="level3findId" parameterType="java.util.HashMap" resultMap="CategoryManagerResultMap">
+	SELECT * FROM category_manager WHERE parent_id= (SELECT category_id FROM category_manager WHERE parent_id=(select category_id FROM category_manager where category_name=#{select1,jdbcType=VARCHAR}) AND category_name=#{select2,jdbcType=VARCHAR}) AND category_name=#{select3,jdbcType=VARCHAR}
   </select>
   
   <select id="allLevel3Date" resultMap="CategoryManagerResultMap">

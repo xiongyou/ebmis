@@ -51,8 +51,8 @@ public class ThreeClassificationController extends SuperController {
 			word1="";
 		}
 		word+=word1+"%";
-		String level2=request.getParameter("level2");
-		threeClassificationService.findThreeKeyWordByPage(page, word, level2);
+		String level3=request.getParameter("level3");
+		threeClassificationService.findThreeKeyWordByPage(page, word, level3);
 		return jsonPage(page);
 	}
 	@ResponseBody
