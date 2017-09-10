@@ -205,13 +205,31 @@ public class CategoryManagerController extends SuperController {
 		try {
 			List<CategoryManagerDO> CategoryManagerDOList=categoryManagerService.allLevel3Date();
 			String categoryName=categoryManagerDO.getCategoryName();
+			
+			String levelNUm=request.getParameter("levelNUm");
 			Boolean flag=false;
-			for(CategoryManagerDO categoryManager1:CategoryManagerDOList){
-				String categoryName1=categoryManager1.getCategoryName();
-				if(categoryName1.equals(categoryName)){
-					flag=true;
+			if(!levelNUm.equals("3")&&levelNUm!=null&&!levelNUm.equals("")&&!levelNUm.equals("null")){
+				String id = request.getParameter("id");
+				Integer parentId = Integer.parseInt(id);
+				List<CategoryManagerDO> CategoryManagerDOList2=categoryManagerService.getByParentId(parentId);
+				for(CategoryManagerDO categoryManager2:CategoryManagerDOList2){
+					String categoryName2=categoryManager2.getCategoryName();
+					if(categoryName2.equals(categoryName)){
+						flag=true;
+					}
+				}
+			}else if(levelNUm==null||levelNUm.equals("")||levelNUm.equals("null")){
+				flag=false;
+			}else{
+				for(CategoryManagerDO categoryManager1:CategoryManagerDOList){
+					String categoryName1=categoryManager1.getCategoryName();
+					if(categoryName1.equals(categoryName)){
+						flag=true;
+					}
 				}
 			}
+			
+			
 			if(flag){
 				json.put("success" , false);
 				json.put("data" , "类别名称重复");

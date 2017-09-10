@@ -90,6 +90,7 @@ line-height:23px;
 		            <input type="hidden" id="pId" name="pId"/>
 		            <input type="hidden" id="Leaf" name="Leaf"/>
 		            <input type="hidden" id="nodeParentId" name="nodeParentId"/>
+		            <input type="hidden" id="levelNUm" name="levelNUm"/>
 	                <div class="form-group">
 	                  <label class="col-sm-3 control-label">类别名称</label>
 	                  <div class="col-sm-9">
@@ -492,7 +493,9 @@ function getzTreeObject(){
         		var zTreeObject=this.getzTreeObject();
             	var nodes=zTreeObject.getSelectedNodes();
             	var id=nodes[0].categoryId;
+            	var levelNUm=nodes[0].level;
             	$("#id").val(id);
+            	$("#levelNUm").val(levelNUm);
             	var date=$("#form1").serialize();
             	var url="#springUrl('/categoryManager/save')";
 		            	
@@ -529,6 +532,7 @@ function getzTreeObject(){
             	var pId=nodes[0].parentId;
             	$("#id").val(id);
             	$("#pId").val(pId);
+            	$("#levelNUm").val("");
             	var date=$("#form1").serialize();
             	var url="#springUrl('/categoryManager/update')";
             	$.post(url,date,function(result){
