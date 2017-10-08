@@ -134,12 +134,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -174,12 +192,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -232,12 +268,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -272,12 +326,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -330,12 +402,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -370,12 +460,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -429,12 +537,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -469,12 +595,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -529,12 +673,31 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
+		
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -575,6 +738,24 @@ public class AllOutExcelController extends SuperController {
 			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			String productQuarter=request.getParameter("ExcelQuarter");
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -630,12 +811,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -670,12 +869,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -728,12 +945,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -768,12 +1003,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -828,12 +1081,31 @@ public class AllOutExcelController extends SuperController {
 			String size1=request.getParameter("_size");
 			String index1=request.getParameter("_index");
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
+		
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -870,12 +1142,31 @@ public class AllOutExcelController extends SuperController {
 			map.put("size", size);
 			map.put("offset", index);
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
+		
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -928,12 +1219,30 @@ public class AllOutExcelController extends SuperController {
 			Integer size=Integer.parseInt(size1);
 			Integer index=Integer.parseInt(index1);
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1026,12 +1335,30 @@ public class AllOutExcelController extends SuperController {
 			Integer size=Integer.parseInt(size1);
 			Integer index=Integer.parseInt(index1);
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1066,12 +1393,30 @@ public class AllOutExcelController extends SuperController {
 			map.put("size", size);
 			map.put("offset", index);
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1125,12 +1470,30 @@ public class AllOutExcelController extends SuperController {
 			Integer size=Integer.parseInt(size1);
 			Integer index=Integer.parseInt(index1);
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1163,12 +1526,30 @@ public class AllOutExcelController extends SuperController {
 			Integer size=null;
 			Integer index=null;
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1301,12 +1682,30 @@ public class AllOutExcelController extends SuperController {
 			Integer size=Integer.parseInt(size1);
 			Integer index=Integer.parseInt(index1);
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1339,12 +1738,30 @@ public class AllOutExcelController extends SuperController {
 			Integer size=null;
 			Integer index=null;
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1395,12 +1812,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1437,12 +1872,30 @@ public class AllOutExcelController extends SuperController {
 			Integer size=null;
 			Integer index=null;
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1493,12 +1946,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1533,12 +2004,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1591,12 +2080,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1631,12 +2138,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1689,12 +2214,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1729,12 +2272,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1787,12 +2348,30 @@ public class AllOutExcelController extends SuperController {
 		if(excelValue.equals("1")){
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);
@@ -1827,12 +2406,30 @@ public class AllOutExcelController extends SuperController {
 		}else{
 			HashMap map=new HashMap();
 			String productYear=request.getParameter("ExcelYear");
+			String productMonth=request.getParameter("ExcelMonth");
+			String productQuarter=request.getParameter("ExcelQuarter");
 			if(productYear.equals("请选择")){
 				productYear=null;
 			}
-			String productMonth=request.getParameter("ExcelMonth");
 			if(productMonth.equals("请选择")){
 				productMonth=null;
+			}
+			if(productQuarter.equals("请选择")){
+				productQuarter=null;
+			}else if(productQuarter.equals("一")){
+				productQuarter="一季度";
+				int firstMonth=1;
+				int endMonth=3;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
+			}else if(productQuarter.equals("二")){
+				productQuarter="二季度";
+				int firstMonth=4;
+				int endMonth=6;
+				map.put("productQuarter", productQuarter);
+				map.put("firstMonth", firstMonth);
+				map.put("endMonth", endMonth);
 			}
 			map.put("productYear", productYear);
 			map.put("productMonth", productMonth);

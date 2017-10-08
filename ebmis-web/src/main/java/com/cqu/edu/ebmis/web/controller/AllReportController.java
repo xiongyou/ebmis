@@ -111,12 +111,30 @@ public class AllReportController extends SuperController {
 	public String CQLocalStoreReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -156,12 +174,30 @@ public class AllReportController extends SuperController {
 	public String AliClassifyReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -201,12 +237,30 @@ public class AllReportController extends SuperController {
 	public String CQFarmNetMarketClassifyReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -247,12 +301,30 @@ public class AllReportController extends SuperController {
 	public String ControlStatisticsTotalReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -292,12 +364,30 @@ public class AllReportController extends SuperController {
 	public String TmMonthProductReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -336,12 +426,30 @@ public class AllReportController extends SuperController {
 	public String TbMonthProductReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -380,12 +488,30 @@ public class AllReportController extends SuperController {
 	public String AllProductNumReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -425,12 +551,30 @@ public class AllReportController extends SuperController {
 	public String CQFarmProductNumReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -470,12 +614,30 @@ public class AllReportController extends SuperController {
 	public String CQFarmProductStoreNumReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -515,12 +677,30 @@ public class AllReportController extends SuperController {
 	public String EveryCityFarmProductNumReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -560,12 +740,30 @@ public class AllReportController extends SuperController {
 	public String PlatformStoreNumReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
@@ -635,12 +833,30 @@ public class AllReportController extends SuperController {
 	public String OneClassifyReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -680,12 +896,30 @@ public class AllReportController extends SuperController {
 	public String FreshClassifyReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -729,12 +963,30 @@ public class AllReportController extends SuperController {
 		Integer size=Integer.parseInt(size1);
 		Integer index=Integer.parseInt(index1);
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -772,12 +1024,30 @@ public class AllReportController extends SuperController {
 		String size1=request.getParameter("_size");
 		String index1=request.getParameter("_index");
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -815,12 +1085,30 @@ public class AllReportController extends SuperController {
 	public String CQFarmProductEveryStoreReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);
@@ -860,12 +1148,30 @@ public class AllReportController extends SuperController {
 	public String MarketCQFarmProductStoreReport(Model model) {
 		HashMap map=new HashMap();
 		String productYear=request.getParameter("ExcelYear");
+		String productMonth=request.getParameter("ExcelMonth");
+		String productQuarter=request.getParameter("ExcelQuarter");
 		if(productYear.equals("请选择")){
 			productYear=null;
 		}
-		String productMonth=request.getParameter("ExcelMonth");
 		if(productMonth.equals("请选择")){
 			productMonth=null;
+		}
+		if(productQuarter.equals("请选择")){
+			productQuarter=null;
+		}else if(productQuarter.equals("一")){
+			productQuarter="一季度";
+			int firstMonth=1;
+			int endMonth=3;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
+		}else if(productQuarter.equals("二")){
+			productQuarter="二季度";
+			int firstMonth=4;
+			int endMonth=6;
+			map.put("productQuarter", productQuarter);
+			map.put("firstMonth", firstMonth);
+			map.put("endMonth", endMonth);
 		}
 		map.put("productYear", productYear);
 		map.put("productMonth", productMonth);

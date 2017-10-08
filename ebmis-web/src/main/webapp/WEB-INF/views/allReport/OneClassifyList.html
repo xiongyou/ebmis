@@ -28,20 +28,12 @@ SpringWind - 项目管理
 		<span style="font-size: 16px">年</span>
 		<select id="ExcelMonth" name="ExcelMonth" class="form-control">
 				<option value='请选择'>请选择</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
 		</select>
-		<span style="margin-right: 15px;font-size: 16px">月</span>
+		<span style="font-size: 16px">月</span>
+		<select id="ExcelQuarter" name="ExcelQuarter" class="form-control">
+				<option value='请选择'>请选择</option>
+		</select>
+		<span style="margin-right: 15px;font-size: 16px">季度</span>
 		<button type="button" class="btn btn-primary" style="margin-right: 300px" onClick="selectForm()">查询</button>		
 		<input type="hidden" id="currentIndex" name="_index">
 		<input type="hidden" id="currentSize" name="_size">
@@ -71,21 +63,33 @@ SpringWind - 项目管理
 	var date = new Date();
 	var currentYear = date.getFullYear();
 	$("#ExcelYear").html("<option value='请选择'>请选择</option><option value='"+currentYear+"'>"+currentYear+"</option><option value='"+(currentYear-1)+"'>"+(currentYear-1)+"</option><option value='"+(currentYear-2)+"'>"+(currentYear-2)+"</option><option value='"+(currentYear-3)+"'>"+(currentYear-3)+"</option><option value='"+(currentYear-4)+"'>"+(currentYear-4)+"</option>")
-   	var dataUrl = "#springUrl('/allReport/OneClassifyReport.html?ExcelYear=请选择&ExcelMonth=请选择')";
+   	var dataUrl = "#springUrl('/allReport/OneClassifyReport.html?ExcelYear=请选择&ExcelMonth=请选择&ExcelQuarter=请选择')";
 	function selectForm(){
 		var ExcelYearValue=$("#ExcelYear").val();
 		var ExcelMonthValue=$("#ExcelMonth").val();
+		var ExcelQuarterValue=$("#ExcelQuarter").val();
 		var opt = {
-    	        url: "#springUrl('/allReport/OneClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"')"
+    	        url: "#springUrl('/allReport/OneClassifyReport.html?ExcelYear="+ExcelYearValue+"&ExcelMonth="+ExcelMonthValue+"&ExcelQuarter="+ExcelQuarterValue+"')"
     	    };
     		$("#dataTable").bootstrapTable('refresh', opt);
 	}
 	$("#ExcelYear").change(function(){
 		var ExcelYearValue=$("#ExcelYear").val();
 		if(ExcelYearValue=="请选择"){
+			$("#ExcelMonth").html("<option value='请选择'>请选择</option>")
+			$("#ExcelQuarter").html("<option value='请选择'>请选择</option>")
+		}else{
 			$("#ExcelMonth").html("<option value='请选择'>请选择</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>")
+			$("#ExcelQuarter").html("<option value='请选择'>请选择</option><option value='一'>一</option><option value='二'>二</option>")
 		}
 	});
+	$("#ExcelMonth").change(function(){
+		$("#ExcelQuarter").html("<option value='请选择'>请选择</option><option value='一'>一</option><option value='二'>二</option>")
+	});
+	$("#ExcelQuarter").change(function(){
+		$("#ExcelMonth").html("<option value='请选择'>请选择</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option>")
+	});
+	
     var dataColumns = [{
         field: '一级',
         title: '一级'
