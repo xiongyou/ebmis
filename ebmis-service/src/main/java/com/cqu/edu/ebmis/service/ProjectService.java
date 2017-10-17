@@ -38,6 +38,14 @@ public interface ProjectService {
 	 * @return
 	 */
 	void update(ProjectDO project);
+	/**更新项目的任务里面项目优先级信息
+	 * @param product
+	 */
+	public void updateProjectTaskPriority(ProjectDO project);
+	/**更新任务信息表中项目优先级信息
+	 * @param product
+	 */
+	public void updateProjectTaskInfoPriority(ProjectDO project);
 	
 	/**
 	 * 判断项目是否存在

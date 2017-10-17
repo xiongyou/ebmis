@@ -410,6 +410,13 @@ public class TaskServiceImpl implements TaskService {
 			return tasksMap;
 			
 		}
+
+
+
+		public void updateTaskInfoPriority(TaskDO task) {
+			// TODO Auto-generated method stub
+			taskRepository.updateTaskInfoPriority(task);
+		}
 	
 
 }

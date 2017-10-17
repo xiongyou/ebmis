@@ -65,6 +65,12 @@ public interface TaskRepository {
 	 * @param product
 	 */
 	public void updateTask(TaskDO task);
+	/**
+	 * 更新发布任务信息的任务优先级
+	 * 
+	 * @param product
+	 */
+	public void updateTaskInfoPriority(TaskDO task);
 	
 	public int deleteTask(int taskId);
 

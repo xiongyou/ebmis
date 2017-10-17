@@ -83,6 +83,11 @@ public class ProjectController extends SuperController {
 			projectDo.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(projectDo.getStartTime1()));
 			projectDo.setEndedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(projectDo.getEndedTime1()));
 			if(update!=null&&!update.equals("")&&!update.equals("null")){
+				ProjectDO projectDo1=projectService.findById(projectDo.getProjectID());
+				if(projectDo1.getProjectPriority()!=projectDo.getProjectPriority()){
+					projectService.updateProjectTaskPriority(projectDo);
+					projectService.updateProjectTaskInfoPriority(projectDo);
+				}
 				projectService.update(projectDo);
 				success1="修改成功";
 			}else{

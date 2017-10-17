@@ -10,6 +10,7 @@
     <result column="_project_name" jdbcType="VARCHAR" property="projectName" />
     <result column="_execute_period" jdbcType="INTEGER" property="executePeriod" />
     <result column="_obj_name" jdbcType="VARCHAR" property="objName" />
+    <result column="_last_time"  property="lastTime" />
     <result column="_start_time"  property="startTime" />
     <result column="_end_time"  property="endedTime" />
     <result column="_key_word" jdbcType="VARCHAR" property="keyWord" />
@@ -45,6 +46,18 @@
     from _crawler_project
     where _project_name = #{projectName,jdbcType=VARCHAR}
   </select>
+  
+  <update id="updateProjectTaskPriority" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
+    update _crawler_project_task
+    set _project_priority=#{projectPriority,jdbcType=INTEGER}
+    where _project_id = #{projectID,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateProjectTaskInfoPriority" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
+    update taskinfo
+    set project_priority=#{projectPriority,jdbcType=INTEGER}
+    where ProjectID = #{projectID,jdbcType=INTEGER}
+  </update>
   
   <update id="updateProject" parameterType="com.cqu.edu.ebmis.domain.ProjectDO" >
     update _crawler_project

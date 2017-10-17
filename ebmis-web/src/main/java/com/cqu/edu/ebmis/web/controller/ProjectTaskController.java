@@ -114,6 +114,10 @@ public class ProjectTaskController extends SuperController {
 		projectIds.add(taskDO.getProjectId());
 		try {
 			if(update!=null&&!update.equals("")&&!update.equals("null")&&update.equals("update")){
+				TaskDO taskDO1=taskService.find(taskDO.getTaskId());
+				if(taskDO1.getTaskPriority()!=taskDO.getTaskPriority()){
+					taskService.updateTaskInfoPriority(taskDO);
+				}
 				taskService.update(taskDO);
 				success1="修改成功";
 			}else{

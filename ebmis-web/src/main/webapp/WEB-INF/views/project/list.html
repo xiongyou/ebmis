@@ -56,6 +56,12 @@ SpringWind - 项目管理
         field: 'executePeriod',
         title: '执行周期'
     },{
+        field: 'lastTime',
+        title: '上次更新时间',
+       	formatter: function (value, row, index) {
+               return formatDate(row.lastTime);
+           }
+    },{
         field: 'startTime',
         title: '开始时间',
        	formatter: function (value, row, index) {

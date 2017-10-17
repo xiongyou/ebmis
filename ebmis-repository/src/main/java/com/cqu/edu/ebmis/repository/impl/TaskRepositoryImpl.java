@@ -132,5 +132,11 @@ public class TaskRepositoryImpl extends SqlSessionDaoSupport  implements TaskRep
 		return taskMapper.selectAllCountProjectField(projectId, field);
 	}
 
+	@Override
+	public void updateTaskInfoPriority(TaskDO task) {
+		// TODO Auto-generated method stub
+		taskMapper.updateTaskInfoPriority(task);
+	}
+
 	
 }

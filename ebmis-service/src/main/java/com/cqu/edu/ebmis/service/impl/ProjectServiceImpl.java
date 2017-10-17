@@ -74,5 +74,15 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.deleteProjectTask(projectId);
 	}
 
+	public void updateProjectTaskPriority(ProjectDO project) {
+		// TODO Auto-generated method stub
+		projectRepository.updateProjectTaskPriority(project);
+	}
+
+	public void updateProjectTaskInfoPriority(ProjectDO project) {
+		// TODO Auto-generated method stub
+		projectRepository.updateProjectTaskInfoPriority(project);
+	}
+
 
 }

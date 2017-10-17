@@ -82,6 +82,19 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		// TODO Auto-generated method stub
 		return projectMapper.deleteProjectTask(projectId);
 	}
+
+	@Override
+	public void updateProjectTaskPriority(ProjectDO project) {
+		// TODO Auto-generated method stub
+		 projectMapper.updateProjectTaskPriority(project);
+		
+	}
+
+	@Override
+	public void updateProjectTaskInfoPriority(ProjectDO project) {
+		// TODO Auto-generated method stub
+		projectMapper.updateProjectTaskInfoPriority(project);
+	}
 	
 	
 	

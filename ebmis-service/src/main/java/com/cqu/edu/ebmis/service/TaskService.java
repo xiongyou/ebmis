@@ -54,6 +54,12 @@ public interface TaskService {
 	 * @return
 	 */
 	TaskDO find(int taskId);
+	/**
+	 * 更新发布任务信息的任务优先级
+	 * 
+	 * @param product
+	 */
+	public void updateTaskInfoPriority(TaskDO task);
 	
 	/**
 	 * 根据任务的项目Id查找

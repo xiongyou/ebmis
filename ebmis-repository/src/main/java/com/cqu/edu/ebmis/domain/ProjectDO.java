@@ -11,6 +11,8 @@ public class ProjectDO {
 	
 	private String objName;
 	
+	private Date lastTime;
+	
 	private String startTime1;
 	
 	private Date startTime;
@@ -136,5 +138,14 @@ public class ProjectDO {
 		this.maxExecutingTime = maxExecutingTime;
 	}
 
+	public Date getLastTime() {
+		return lastTime;
+	}
+
+	public void setLastTime(Date lastTime) {
+		this.lastTime = lastTime;
+	}
+
+	
 	
 }
