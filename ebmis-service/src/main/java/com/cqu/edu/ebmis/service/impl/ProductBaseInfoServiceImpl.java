@@ -140,5 +140,10 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 		return page;
 	}
 
+	public void updateKeyWord(ProductBaseInfoDO product) {
+		// TODO Auto-generated method stub
+		productBaseInfoRepository.updateKeyWord(product);
+	}
+
 	
 }

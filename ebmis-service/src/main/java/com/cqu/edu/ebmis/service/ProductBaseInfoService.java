@@ -48,6 +48,12 @@ public interface ProductBaseInfoService {
 	 * @return
 	 */
 	int update(long productInnerId, int checked, int isValid,String userName,Date recheckPersonTime);
+	/**
+	 * 产品基本数据复核 修改关键词
+	 * @param product
+	 * @return
+	 */
+	void updateKeyWord(ProductBaseInfoDO product);
 	
 	/**
 	 * 查找

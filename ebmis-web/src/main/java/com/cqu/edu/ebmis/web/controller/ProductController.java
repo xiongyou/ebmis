@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
 import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.domain.UserDO;
@@ -32,7 +33,31 @@ public class ProductController extends SuperController {
 	
 	@Autowired
 	private ProductBaseInfoService	productBaseInfoService;
-	
+	@ResponseBody
+	@RequestMapping("/updateKeyWord")
+	public String updateKeyWord(Model model) {
+		JSONObject json = new JSONObject();
+		String success1="";
+		String keyProductId=request.getParameter("keyProductId");
+		Long productInnerId=Long.parseLong(keyProductId);
+		String keyWord=request.getParameter("productKeyWord");
+		ProductBaseInfoDO productBaseInfoDO=new ProductBaseInfoDO();
+		productBaseInfoDO.setProductInnerId(productInnerId);
+		productBaseInfoDO.setKeyword(keyWord);
+		try {
+			productBaseInfoService.updateKeyWord(productBaseInfoDO);
+			success1="修改成功";
+			json.put("success" , true);
+			json.put("data" , success1);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			success1="修改失败";
+			json.put("success" , false);
+			json.put("data" , success1);
+		}
+		return json.toJSONString();
+	}
 	@RequestMapping("/list")
 	public String list(Model model) {
 	

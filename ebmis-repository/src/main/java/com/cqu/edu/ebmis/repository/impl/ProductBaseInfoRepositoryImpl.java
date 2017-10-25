@@ -148,6 +148,12 @@ public class ProductBaseInfoRepositoryImpl implements ProductBaseInfoRepository 
 		return productBaseInfoMapper.selectRecheckPersonProductNum();
 	}
 
+	@Override
+	public void updateKeyWord(ProductBaseInfoDO product) {
+		// TODO Auto-generated method stub
+		productBaseInfoMapper.updateKeyWord(product);
+	}
+
 	
 	
 }

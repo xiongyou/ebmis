@@ -34,6 +34,12 @@ public interface ProductBaseInfoMapper {
 	 * @return
 	 */
 	int update(ProductBaseInfoDO product);
+	/**
+	 * 产品基本数据复核 修改关键词
+	 * @param product
+	 * @return
+	 */
+	void updateKeyWord(ProductBaseInfoDO product);
 	
 	/**
 	 * 查找全部商品

@@ -67,6 +67,64 @@ SpringWind - 农产品管理
 		
 	</div>
 </div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改关键词</h4>
+            </div>
+            <div class="modal-body">
+            <form class="form-horizontal" id="form1">
+            			<input type="hidden" id="keyProductId" name="keyProductName">
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">产品名称</label>
+		                  <div class="col-sm-8">
+		                    <input type="text" id="keyProductName" name="keyProductName" class="form-control" disabled/>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">零级</label>
+		                  <div class="col-sm-8">
+		                    <select id="keySelect0" name="keySelect0" class="form-control">
+		                    	<option value="请选择">请选择</option>
+						    </select>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">一级</label>
+		                  <div class="col-sm-8">
+		                    <select id="keySelect1" name="keySelect1" class="form-control">
+		                    	<option value="请选择">请选择</option>
+						    </select>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">二级</label>
+		                  <div class="col-sm-8">
+		                    <select id="keySelect2" name="keySelect2" class="form-control">
+		                    	<option value="请选择">请选择</option>
+						    </select>
+		                  </div>
+		                </div>
+		                <div class="form-group">
+		                  <label class="col-sm-4 control-label">关键词</label>
+		                  <div class="col-sm-8">
+		                    <select id="keySelect3" name="keySelect3" class="form-control">
+		                    	<option value="请选择">请选择</option>
+						    </select>
+		                  </div>
+		                </div>
+	            </form>
+            </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-primary" onClick="updateKey()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
 <div class="row">
     <div class="col-sm-12">
@@ -151,8 +209,9 @@ SpringWind - 农产品管理
         formatter: function (value, row, index) {
             var id = row.productInnerId;
             var isValid = row.isValid;
-           
-            return '<a class="btn btn-xs btn-warning" onclick="audit(' + "'" + id + "','" +isValid+"'"+ ')"><i class="fa fa-pencil"></i>复核</a> ';
+            var productName=row.productName;
+            return '<a class="btn btn-xs btn-warning" onclick="audit(' + "'" + id + "','" +isValid+"'"+ ')"><i class="fa fa-pencil"></i>复核</a> '
+            		+'<a class="btn btn-xs btn-info" data-toggle="modal" data-target="#myModal" onclick="updateKeyWord(' + "'" + id + "','" +productName+"'"+ ')"><i class="fa fa-edit"></i>修改关键词</a> ';
            
         }
     }
@@ -424,7 +483,7 @@ SpringWind - 农产品管理
 		}
 		$("#dataTable").bootstrapTable('refresh', opt1);
 	});
-	
+	//加载上面搜索顶级的选择项数据
 	$.ajax({
         type: "POST",
         url: "#springUrl('/threeClassification/level0List')",
@@ -437,6 +496,134 @@ SpringWind - 农产品管理
         	$("#select1").append(level1Str);
         }
     }); 
+	
+	$("#keySelect0").change(function(){
+		var levelName0=$("#keySelect0").val();
+		$("#keySelect1").html("");
+		$("#keySelect2").html("");
+		$("#keySelect3").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		$("#keySelect2").append(level1Str);
+		$("#keySelect3").append(level1Str);
+		if(levelName0!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level1List?level0="+levelName0+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level1+'">'+data[i].level1+'</option>';
+		        	}
+		        	$("#keySelect1").append(level1Str);
+		        }
+		    }); 
+		}else{
+			$("#keySelect1").append(level1Str);
+		}
+		
+	});
+	$("#keySelect1").change(function(){
+		var levelName0=$("#keySelect0").val();
+		var levelName1=$("#keySelect1").val();
+		$("#keySelect2").html("");
+		$("#keySelect3").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		$("#keySelect3").append(level1Str);
+
+		if(levelName1!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level2List?level0="+levelName0+"&level1="+levelName1+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level2+'">'+data[i].level2+'</option>';
+		        	}
+		        	$("#keySelect2").append(level1Str);
+				
+		        }
+		    }); 
+		}else{
+			$("#keySelect2").append(level1Str);
+		}
+	});
+	$("#keySelect2").change(function(){
+		var levelName0=$("#keySelect0").val();
+		var levelName1=$("#keySelect1").val();
+		var levelName2=$("#keySelect2").val();
+		$("#keySelect3").html("");
+		var level1Str="<option value='请选择'>请选择</option>";
+		if(levelName2!="请选择"){
+			$.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level3List?level0="+levelName0+"&level1="+levelName1+"&level2="+levelName2+"')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level3+'">'+data[i].level3+'</option>';
+		        	}
+		        	$("#keySelect3").append(level1Str);
+		        }
+		    }); 
+		}else{
+			$("#keySelect3").append(level1Str);
+		}
+	});
+	//修改前加载产品名数据
+	function updateKeyWord(id,keyWord){
+		var level1Str="<option value='请选择'>请选择</option>";
+		$("#keySelect0").html("");
+		$("#keySelect1").html(level1Str);
+		$("#keySelect2").html(level1Str);
+		$("#keySelect3").html(level1Str);
+		//加载修改关键词的零级选择项数据
+		$.ajax({
+	        type: "POST",
+	        url: "#springUrl('/threeClassification/level0List')",
+	        datatype: "json",
+	        success: function (data) {
+	        	for(var i=0;i<data.length;i++){
+	        		level1Str+='<option value="'+data[i].level0+'">'+data[i].level0+'</option>';
+	        	}
+	        	$("#keySelect0").append(level1Str);
+	        }
+	    });
+		$("#keyProductName").val(keyWord);
+		$("#keyProductId").val(id);
+	}
+	
+	//修改关键词的提交处理
+	function updateKey(){
+		var productKeyWord=$("#keySelect3").val();
+		var keyProductName=$("#keyProductName").val();
+		var keyProductId=$("#keyProductId").val();
+		if(productKeyWord=="请选择"){
+			layer.alert("请选择关键词", {
+    			  skin: 'layui-layer-molv',
+    			  closeBtn: 0
+    			});
+		}else{
+			var date={keyProductId:keyProductId,productKeyWord:productKeyWord};
+			var url="#springUrl('/product/updateKeyWord')";
+			$.post(url,date,function(result){
+	    		var d = JSON.parse(result);
+	    		if(!d.success){
+	        		var error=d.data;
+	        		layer.alert(error, {
+	      			  skin: 'layui-layer-molv',
+	      			  closeBtn: 0
+	      			});
+	            }else{
+	            	$("#myModal").modal("hide");
+	            }
+		})
+			
+		}
+		
+	}
+	
+	
+//加载平台
 	$.ajax({
         type: "POST",
         url: "#springUrl('/threeClassification/allPlatform')",
@@ -478,6 +665,7 @@ function selectCheck(){
 	}
 	$("#dataTable").bootstrapTable('refresh', opt1);
 }
+
 $.ajax({
     type: "POST",
     url: "#springUrl('/product/getUserName.html')",

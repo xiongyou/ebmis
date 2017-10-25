@@ -58,6 +58,12 @@
     recheckPersonTime=#{recheckPersonTime,jdbcType=TIMESTAMP}
     where productInnerId = #{productInnerId,jdbcType=BIGINT}
   </update>
+  <!-- 产品基本数据复核 修改关键词 -->
+  <update id="updateKeyWord" parameterType="com.cqu.edu.ebmis.domain.ProductBaseInfoDO" >
+    update product_baseinfo
+    set singleKeyword=#{keyword,jdbcType=VARCHAR}
+    where productInnerId = #{productInnerId,jdbcType=BIGINT}
+  </update>
   
   <select id="selectByPage" resultMap="BaseResultMap">
     select
