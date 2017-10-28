@@ -35,6 +35,13 @@ public interface ProductBaseInfoRepository {
 	ProductBaseInfoDO selectByPrimaryKey(long productInnerId);
 	
 	/**
+	 * 修改负面清单商品
+	 * @param product
+	 * @return
+	 */
+	void isNotUpdateProduct(ProductBaseInfoDO product);
+	
+	/**
 	 * 更新记录
 	 * 
 	 * @param product

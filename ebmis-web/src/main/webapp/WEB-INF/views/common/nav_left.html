@@ -93,6 +93,7 @@
 		               	  <li class='active'><a >价格处理</a></li>
                     	  <li class='active'><a >地址处理</a></li>
                     	  <li class='active'><a >重量处理</a></li>
+                    	  <li id="isNotProduct" class='active'><a >负面商品处理</a></li>
 		               	</ul>
 		             </li>  
 		             
@@ -211,3 +212,20 @@
         </ul>
     </div>
 </nav>
+#override("js")
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script>
+   $("#isNotProduct").click(
+		   function(){
+			   $.post("#springUrl('/product/isNotUpdateProduct')",function(result){
+				   var d = JSON.parse(result);
+				   var error=d.data;
+	        		layer.alert(error, {
+	      			  skin: 'layui-layer-molv',
+	      			  closeBtn: 0
+	      			});
+			   })
+		   }
+		 )
+</script>
+#end

@@ -145,5 +145,10 @@ public class ProductBaseInfoServiceImpl implements ProductBaseInfoService {
 		productBaseInfoRepository.updateKeyWord(product);
 	}
 
+	public void isNotUpdateProduct(ProductBaseInfoDO product) {
+		// TODO Auto-generated method stub
+		productBaseInfoRepository.isNotUpdateProduct(product);
+	}
+
 	
 }

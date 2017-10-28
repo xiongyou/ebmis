@@ -154,6 +154,12 @@ public class ProductBaseInfoRepositoryImpl implements ProductBaseInfoRepository 
 		productBaseInfoMapper.updateKeyWord(product);
 	}
 
+	@Override
+	public void isNotUpdateProduct(ProductBaseInfoDO product) {
+		// TODO Auto-generated method stub
+		productBaseInfoMapper.isNotUpdateProduct(product);
+	}
+
 	
 	
 }

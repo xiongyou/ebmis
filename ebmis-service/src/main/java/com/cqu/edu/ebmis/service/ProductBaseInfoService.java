@@ -37,6 +37,13 @@ public interface ProductBaseInfoService {
 	ProductBaseInfoDO selectByInnerId(long productInnerId);
 	
 	/**
+	 * 修改负面清单商品
+	 * @param product
+	 * @return
+	 */
+	void isNotUpdateProduct(ProductBaseInfoDO product);
+	
+	/**
 	 * 更新
 	 * 
 	 * @param productInnerId

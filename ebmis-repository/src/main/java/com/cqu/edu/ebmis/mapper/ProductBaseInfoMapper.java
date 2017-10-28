@@ -29,6 +29,12 @@ public interface ProductBaseInfoMapper {
 			@Param("productInnerId") long productInnerId);
 	
 	/**
+	 * 修改负面清单商品
+	 * @param product
+	 * @return
+	 */
+	void isNotUpdateProduct(ProductBaseInfoDO product);
+	/**
 	 * 更新商品
 	 * @param product
 	 * @return

@@ -3,6 +3,10 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +37,37 @@ public class ProductController extends SuperController {
 	
 	@Autowired
 	private ProductBaseInfoService	productBaseInfoService;
+	
+	//清理负面清单
+	@ResponseBody
+	@RequestMapping(value="/isNotUpdateProduct",produces="html/text;charset=UTF-8")
+	public String isNotUpdateProduct(Model model) {
+		JSONObject json = new JSONObject();
+		String success1="";
+		try {
+			String cp11111=request.getSession().getServletContext().getRealPath("/");
+			File file=new File(cp11111+"static/isNotUpdateProduct.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+			String str="";
+			while((str=br.readLine())!=null){
+				String[] arrStr=str.split(" ");
+				Long productInnerId=Long.parseLong(arrStr[0]);
+				ProductBaseInfoDO productBaseInfoDO=new ProductBaseInfoDO();
+				productBaseInfoDO.setProductInnerId(productInnerId);
+				productBaseInfoService.isNotUpdateProduct(productBaseInfoDO);
+			}
+			success1="清理负面产品成功";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			success1="清理负面产品失败";
+		}
+		json.put("data" , success1);
+		return json.toJSONString();
+	
+	}
+	
+	//产品基本数据复核 修改关键词
 	@ResponseBody
 	@RequestMapping("/updateKeyWord")
 	public String updateKeyWord(Model model) {

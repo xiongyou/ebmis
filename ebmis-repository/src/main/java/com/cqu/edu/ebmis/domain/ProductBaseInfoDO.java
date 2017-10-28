@@ -31,6 +31,7 @@ public class ProductBaseInfoDO {
 	private String userName;
 	private Date recheckPersonTime;
 	private int recheckPersonNum;
+	private double monthSaleCount;
 	
 	/**
 	 * @return the productInnerId
@@ -165,5 +166,15 @@ public class ProductBaseInfoDO {
 	public void setRecheckPersonNum(int recheckPersonNum) {
 		this.recheckPersonNum = recheckPersonNum;
 	}
+
+	public double getMonthSaleCount() {
+		return monthSaleCount;
+	}
+
+	public void setMonthSaleCount(double monthSaleCount) {
+		this.monthSaleCount = monthSaleCount;
+	}
+
+	
 	
 }
