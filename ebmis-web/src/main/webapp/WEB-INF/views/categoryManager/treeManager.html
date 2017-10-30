@@ -34,6 +34,12 @@ line-height:23px;
 	        	<div style="margin:0px 10px 0px 0px;float:left">
 		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="restoreTable()">还原三级表</button>
 		        </div>
+	        	<div style="margin:0px;float:left">
+					<input style="line-height:20px" type="text" id="seachKeyWord" name="seachKeyWord">
+				</div>
+	        	<div style="margin:0px 10px 0px 0px;float:left">
+		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="seachKeyWord()">查询</button>
+		        </div>
 			</div>
 	        <div class="pull-right">
 	        	<div style="margin:0px 20px;float:left">
@@ -389,6 +395,8 @@ function getzTreeObject(){
     		$("#handAction").val("add");
     	}  
     }
+    
+    //删除节点
     function delTree(){
     	var zTreeObject=this.getzTreeObject();
     	var nodes=zTreeObject.getSelectedNodes();
@@ -443,6 +451,8 @@ function getzTreeObject(){
     	} 
     	
     }
+    
+   
     function editTree(){
     	$("#handAction").val("");
     	$("#categoryName").removeAttr("placeholder");
@@ -476,6 +486,8 @@ function getzTreeObject(){
     		
     	} 
     }
+    
+    //刷新节点
     function reFresh(){
     	var zTreeObject=this.getzTreeObject();
     	var nodes = zTreeObject.getNodes()
@@ -554,6 +566,24 @@ function getzTreeObject(){
             	    });
         		
         	}
+    	}
+    	
+    }
+    //关键词查询
+    function seachKeyWord(){
+    	var seachKeyWord1=$("#seachKeyWord").val();
+    	var seachKeyWord=seachKeyWord1.replace(/\s/g, "")
+    	if(seachKeyWord!=""&&seachKeyWord!=null){
+    		var date={seachKeyWord:seachKeyWord};
+        	var url="#springUrl('/categoryManager/seachKeyWord')";
+        	$.post(url,date,function(result){
+            		var d = JSON.parse(result);
+            		var error=d.data;
+            		layer.alert(error, {
+          			  skin: 'layui-layer-molv',
+          			  closeBtn: 0
+          			});
+        	    });
     	}
     	
     }

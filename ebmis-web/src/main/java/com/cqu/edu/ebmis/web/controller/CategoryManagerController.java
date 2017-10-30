@@ -257,6 +257,39 @@ public class CategoryManagerController extends SuperController {
 		return json.toJSONString();
 	}
 	@ResponseBody
+	@RequestMapping(value="/seachKeyWord",produces="html/text;charset=UTF-8")
+	public String seachKeyWord(Model model) {
+		JSONObject json = new JSONObject();
+			List<CategoryManagerDO> CategoryManagerDOList=categoryManagerService.allLevel3Date();
+			String seachKeyWord=request.getParameter("seachKeyWord");
+			Boolean flag=false;
+			String categoryName2="";
+			String categoryName1="";
+			String categoryName0="";
+			for(CategoryManagerDO categoryManagerDo:CategoryManagerDOList){
+				String categoryName=categoryManagerDo.getCategoryName();
+				if(categoryName.equals(seachKeyWord)){
+					flag=true;
+					int parentId2=categoryManagerDo.getParentId();
+					CategoryManagerDO categoryManagerDo2=categoryManagerService.getById(parentId2);
+					categoryName2=categoryManagerDo2.getCategoryName();
+					int parentId1=categoryManagerDo2.getParentId();
+					CategoryManagerDO categoryManagerDo1=categoryManagerService.getById(parentId1);
+					categoryName1=categoryManagerDo1.getCategoryName();
+					int parentId0=categoryManagerDo1.getParentId();
+					CategoryManagerDO categoryManagerDo0=categoryManagerService.getById(parentId0);
+					categoryName0=categoryManagerDo0.getCategoryName();
+				}
+			}
+			if(flag){
+				json.put("data" , "已存在: "+categoryName0+"---"+categoryName1+"---"+categoryName2+"---"+seachKeyWord);
+			}else{
+				json.put("data" , "不存在");
+			}
+		
+		return json.toJSONString();
+	}
+	@ResponseBody
 	@RequestMapping("/del")
 	public String del(Model model) {
 		JSONObject json = new JSONObject();

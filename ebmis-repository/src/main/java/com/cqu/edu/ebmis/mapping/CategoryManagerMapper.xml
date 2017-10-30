@@ -19,7 +19,7 @@
     select
     <include refid="CategoryManager_Column" />
     from category_manager  
-    where parent_id = #{parentId,jdbcType=INTEGER}
+    where parent_id = #{parentId,jdbcType=INTEGER} order by convert(category_name USING gbk) COLLATE gbk_chinese_ci asc
   </select>
   
   <select id="getNewKeyWordDate" resultMap="CategoryManagerResultMap">
