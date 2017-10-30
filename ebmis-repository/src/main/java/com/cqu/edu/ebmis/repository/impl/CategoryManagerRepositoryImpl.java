@@ -128,9 +128,9 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 	}
 
 	@Override
-	public void delNewKeyWord(String categoryName) {
+	public void delNewKeyWord(int categoryId) {
 		// TODO Auto-generated method stub
-		categoryManagerMapper.delNewKeyWord(categoryName);
+		categoryManagerMapper.delNewKeyWord(categoryId);
 	}
 
 	@Override
@@ -143,6 +143,18 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 	public CategoryManagerDO level3findId(Map map) {
 		// TODO Auto-generated method stub
 		return categoryManagerMapper.level3findId(map);
+	}
+
+	@Override
+	public List<CategoryManagerDO> allLevel0Date() {
+		// TODO Auto-generated method stub
+		return categoryManagerMapper.allLevel0Date();
+	}
+
+	@Override
+	public List<CategoryManagerDO> getAllNewKeyWordDate() {
+		// TODO Auto-generated method stub
+		return categoryManagerMapper.getAllNewKeyWordDate();
 	}
 
 	

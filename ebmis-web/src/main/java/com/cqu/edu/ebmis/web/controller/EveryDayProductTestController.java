@@ -33,7 +33,7 @@ public class EveryDayProductTestController extends SuperController {
 	private ArrayList<String> filelist = new ArrayList<String>();
 	@RequestMapping("/insert")
 	public void insert(Model model) {
-		String filePath = "C:\\Users\\Administrator\\Desktop\\output";
+		String filePath = "C:\\Users\\Administrator\\Desktop\\everydaydate";
 	    getFiles(filePath);
 	}
 	

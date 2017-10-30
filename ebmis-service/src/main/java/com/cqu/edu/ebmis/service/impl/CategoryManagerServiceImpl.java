@@ -109,9 +109,9 @@ public class CategoryManagerServiceImpl implements CategoryManagerService {
 		catetoryManagerRepository.editLinkNewKeyWord(categoryManager);
 	}
 
-	public void delNewKeyWord(String categoryName) {
+	public void delNewKeyWord(int categoryId) {
 		// TODO Auto-generated method stub
-		catetoryManagerRepository.delNewKeyWord(categoryName);
+		catetoryManagerRepository.delNewKeyWord(categoryId);
 	}
 
 	public List<CategoryManagerDO> allLevel3Date() {
@@ -122,6 +122,16 @@ public class CategoryManagerServiceImpl implements CategoryManagerService {
 	public CategoryManagerDO level3findId(Map map) {
 		// TODO Auto-generated method stub
 		return catetoryManagerRepository.level3findId(map);
+	}
+
+	public List<CategoryManagerDO> allLevel0Date() {
+		// TODO Auto-generated method stub
+		return catetoryManagerRepository.allLevel0Date();
+	}
+
+	public List<CategoryManagerDO> getAllNewKeyWordDate() {
+		// TODO Auto-generated method stub
+		return catetoryManagerRepository.getAllNewKeyWordDate();
 	}
 
 

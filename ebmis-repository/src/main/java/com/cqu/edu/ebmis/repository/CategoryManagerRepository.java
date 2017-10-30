@@ -102,10 +102,20 @@ public interface CategoryManagerRepository {
 	 * 删除新关键词
 	 * @param categoryManager
 	 */
-	void delNewKeyWord(String categoryName);
+	void delNewKeyWord(int categoryId);
 	/**
 	 * 查找第二级
 	 * @param categoryManager
 	 */
 	CategoryManagerDO level3findId(Map map);
+	/**
+	 * 获取树的所有零级数据
+	 * @param categoryManager
+	 */
+	List<CategoryManagerDO> allLevel0Date();
+	/**
+	 * 所有的新关键词
+	 * @param categoryManager
+	 */
+	List<CategoryManagerDO> getAllNewKeyWordDate();
 }

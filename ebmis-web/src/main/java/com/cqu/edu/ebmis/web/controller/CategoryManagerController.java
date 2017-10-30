@@ -48,7 +48,7 @@ public class CategoryManagerController extends SuperController {
 		return "/categoryManager/newKeyWordlist";
 	}
 	@ResponseBody
-	@RequestMapping("/addCategoryManagers")
+	@RequestMapping(value="/addCategoryManagers",produces="html/text;charset=UTF-8")
 	public String addCategoryManagers(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request,Model model) {
 		JSONObject json = new JSONObject();
 		try {
@@ -56,9 +56,10 @@ public class CategoryManagerController extends SuperController {
 			BufferedReader br = new BufferedReader(new InputStreamReader(input));
 			String s = null;
             while((s = br.readLine())!=null){//使用readLine方法，一次读一行
-            	CategoryManagerDO categoryManagerDO=new CategoryManagerDO();
+				CategoryManagerDO categoryManagerDO=new CategoryManagerDO();
             	categoryManagerDO.setCategoryName(s);
             	categoryManagerService.saveNewKeyWord(categoryManagerDO);
+	            
             }
             br.close();
             json.put("success" , true);
@@ -93,9 +94,10 @@ public class CategoryManagerController extends SuperController {
 	public String editNewKeyWord(Model model) {
 		JSONObject json = new JSONObject();
 		HashMap map=new HashMap();
-		String categoryName1 = request.getParameter("categoryName1");
+		String categoryIdStr = request.getParameter("categoryId1");
+		int categoryId=Integer.parseInt(categoryIdStr);
 		String categoryName = request.getParameter("categoryName");
-		map.put("categoryName1", categoryName1);
+		map.put("categoryId", categoryId);
 		map.put("categoryName", categoryName);
 		try {
 			categoryManagerService.updateNewKeyWord(map);
@@ -116,9 +118,10 @@ public class CategoryManagerController extends SuperController {
 		try {
 			CategoryManagerDO categoryManager=new CategoryManagerDO();
 			String categoryName = request.getParameter("linkCategoryName");
-			String select1 = request.getParameter("select1");
-			String select2 = request.getParameter("select2");
+			String categoryIdStr = request.getParameter("categoryId");
+			int categoryId=Integer.parseInt(categoryIdStr);
 			String select3 = request.getParameter("select3");
+			int categoryId3=Integer.parseInt(select3);
 			Integer parentId=null;
 			if(select3!=null&&!select3.equals("")&&!select3.equals("null")){
 				List<CategoryManagerDO> CategoryManagerDOList=categoryManagerService.allLevel3Date();
@@ -131,16 +134,18 @@ public class CategoryManagerController extends SuperController {
 				}
 				if(flag){
 					json.put("success" , false);
-					json.put("data" , "关键词重复");
+					json.put("data" , "关键词已存在农产品维护树中");
 				}else{
-					Map map=new HashMap();
-					map.put("select1", select1);
-					map.put("select2", select2);
-					map.put("select3", select3);
-					CategoryManagerDO categoryManagerDO1=categoryManagerService.level3findId(map);
-					categoryManager.setParentId(categoryManagerDO1.getCategoryId());
-					categoryManager.setCategoryName(categoryName);
+					categoryManager.setParentId(categoryId3);
+					categoryManager.setCategoryId(categoryId);
 					categoryManagerService.editLinkNewKeyWord(categoryManager);
+					CategoryManagerDO categoryManagerDO1=categoryManagerService.getById(categoryId3);
+					if(categoryManagerDO1!=null){
+						if(categoryManagerDO1.getIsLeaf()!=1){
+							categoryManagerDO1.setIsLeaf(1);
+							categoryManagerService.update(categoryManagerDO1);
+						}
+					}
 					json.put("success" , true);
 					json.put("data" , "关联成功");
 				}
@@ -157,6 +162,11 @@ public class CategoryManagerController extends SuperController {
 		return json.toJSONString();
 	}
 	
+	@ResponseBody
+	@RequestMapping("/allLevel0Date")
+	public List<CategoryManagerDO> allLevel0Date(Model model) {
+		return categoryManagerService.allLevel0Date();
+	}
 	@ResponseBody
 	@RequestMapping("/allLevel2Date")
 	public List<CategoryManagerDO> allLevel2Date(Model model) {
@@ -323,8 +333,9 @@ public class CategoryManagerController extends SuperController {
 	public String delNewKeyWord(Model model) {
 		JSONObject json = new JSONObject();
 		try {
-			String categoryName = request.getParameter("categoryName");
-			categoryManagerService.delNewKeyWord(categoryName);
+			String categoryIdStr = request.getParameter("categoryId");
+			int categoryId=Integer.parseInt(categoryIdStr);
+			categoryManagerService.delNewKeyWord(categoryId);
 			json.put("success" , true);
 			json.put("data" , "删除成功");
 		} catch (Exception e) {

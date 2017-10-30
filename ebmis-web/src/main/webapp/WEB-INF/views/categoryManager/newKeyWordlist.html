@@ -31,7 +31,7 @@ SpringWind - 任务管理
 	            </div>
 	            <div class="modal-body">
 	            	<form class="form-horizontal" id="form1">
-	            		<input type="hidden" id="categoryName1" name="categoryName1" class="form-control"/>
+	            		<input type="hidden" id="categoryId1" name="categoryId1" class="form-control"/>
 		                <div class="form-group">
 		                  <label class="col-sm-3 control-label">关键词</label>
 		                  <div class="col-sm-9">
@@ -64,10 +64,11 @@ SpringWind - 任务管理
 	            </div>
 	            <div class="modal-body">
 	            	<form class="form-horizontal" id="form2">
+	            	    <input type="hidden" id="categoryId" name="categoryId"/>
 		                <div class="form-group">
 		                  <label class="col-sm-3 control-label">关键词</label>
 		                  <div class="col-sm-9">
-		                    <input type="text" id="linkCategoryName" name="linkCategoryName" class="form-control" readOnly/>
+		                    <input type="text" id="linkCategoryName" name="linkCategoryName" class="form-control" readonly/>
 		                  </div>
 		                </div>
 		                <div class="form-group">
@@ -91,12 +92,8 @@ SpringWind - 任务管理
 	            </form>
 	            </div>
 	            <div class="modal-footer">
-	              <div class="pull-right" style="margin:0px 10px 10px 0px">
-		              <div class="buttons">
-		                <button class="btn btn-primary btn-flat" onClick="save2()"><i class="fa fa-save"></i>保存</button>
-		                <button class="btn btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
-		              </div>
-	              </div>
+	            	<button type="button" class="btn btn-primary" onClick="save2()">确定</button>
+                	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 	                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 	                <button type="button" class="btn btn-primary">提交更改</button>  -->
 	            </div>
@@ -127,40 +124,30 @@ SpringWind - 任务管理
     },{
         title: '操作',
         formatter: function (value, row, index) {
+            var categoryId = row.categoryId;
             var categoryName = row.categoryName;
-            return '<a class="btn btn-xs btn-primary" onclick="linkNewKeyWord(' + "'" + categoryName + "'" + ')"><i class="fa fa-link" data-toggle="modal"></i>关联</a> '
-            		+'<a class="btn btn-xs btn-warning" onclick="editNewKeyWord(' + "'" + categoryName + "'" + ')"><i class="fa fa-pencil" data-toggle="modal"></i>编辑</a> '
-            		+ '<a class="btn btn-xs btn-danger" onclick="delNewKeyWord(' + "'" + categoryName + "'" + ')"><i class="fa fa-remove"></i>删除</a> '
+            return '<a class="btn btn-xs btn-primary" onclick="linkNewKeyWord(' + "'" + categoryName + "',"+"'"+categoryId+"'"+ ')"><i class="fa fa-link" data-toggle="modal"></i>关联</a> '
+            		+'<a class="btn btn-xs btn-warning" onclick="editNewKeyWord(' + "'" + categoryName + "',"+"'"+categoryId+"'" + ')"><i class="fa fa-pencil" data-toggle="modal"></i>编辑</a> '
+            		+ '<a class="btn btn-xs btn-danger" onclick="delNewKeyWord(' + "'" + categoryId + "'" + ')"><i class="fa fa-remove"></i>删除</a> '
                     ;
         }
     }
     ];
-    //加载零级数据
-    $.ajax({
-        type: "POST",
-        url: "#springUrl('/threeClassification/level0List')",
-        datatype: "json",
-        success: function (data) {
-        	var level1Str="";
-        	for(var i=0;i<data.length;i++){
-        		level1Str+='<option value="'+data[i].level0+'">'+data[i].level0+'</option>';
-        	}
-        	$("#select1").append(level1Str);
-        }
-    }); 
+    
     //选择零级加载一级数据
     $("#select1").change(function(){
-		var levelName1=$("#select1").val();
+		var categoryId1=$("#select1").val();
 		$("#select2").html("");
 		var level1Str="<option value='请选择'>请选择</option>";
-		if(levelName1!="请选择"){
+		$("#select3").html(level1Str);
+		if(categoryId1!="请选择"){
 			$.ajax({
 		        type: "POST",
-		        url: "#springUrl('/threeClassification/level1List?level0="+levelName1+"')",
+		        url: "#springUrl('/categoryManager/getParentId?parentId="+categoryId1+"')",
 		        datatype: "json",
 		        success: function (data) {
 		        	for(var i=0;i<data.length;i++){
-		        		level1Str+='<option value="'+data[i].level1+'">'+data[i].level1+'</option>';
+		        		level1Str+='<option value="'+data[i].categoryId+'">'+data[i].categoryName+'</option>';
 		        	}
 		        	$("#select2").append(level1Str);
 		        }
@@ -173,20 +160,17 @@ SpringWind - 任务管理
 	});
     //选择一级加载二级数据
     $("#select2").change(function(){
-		var word=$("#word").val();
-		var levelName1=$("#select1").val();
-		var levelName2=$("#select2").val();
-		var levelName3;
+		var categoryId2=$("#select2").val();
 		$("#select3").html("");
 		var level1Str="<option value=''>请选择</option>";
-		if(levelName2!="请选择"){
+		if(categoryId2!="请选择"){
 			$.ajax({
 		        type: "POST",
-		        url: "#springUrl('/threeClassification/level2List?level0="+levelName1+"&level1="+levelName2+"')",
+		        url: "#springUrl('/categoryManager/getParentId?parentId="+categoryId2+"')",
 		        datatype: "json",
 		        success: function (data) {
 		        	for(var i=0;i<data.length;i++){
-		        		level1Str+='<option value="'+data[i].level2+'">'+data[i].level2+'</option>';
+		        		level1Str+='<option value="'+data[i].categoryId+'">'+data[i].categoryName+'</option>';
 		        	}
 		        	$("#select3").append(level1Str);
 		        }
@@ -209,13 +193,13 @@ SpringWind - 任务管理
             _index: params.offset, //页码
         };
     }
-    function delNewKeyWord(categoryName) {
+    function delNewKeyWord(categoryId) {
         //询问框
         layer.confirm('确定删除吗？', {
             btn: ['确定', '取消'] //按钮
         }, function () {
         	var url= "#springUrl('/categoryManager/delNewKeyWord.html')";
-            var date={categoryName:categoryName};
+            var date={categoryId:categoryId};
              $.post(url,date,function(result){
          		var d = JSON.parse(result);
          		if(!d.success){
@@ -238,13 +222,32 @@ SpringWind - 任务管理
         });
     }
   //关联操作
-    function linkNewKeyWord(categoryName){
+    function linkNewKeyWord(categoryName,categoryId){
+    	$("#categoryId").val(categoryId);
     	$("#linkCategoryName").val(categoryName);
     	$("#myModal2").modal('show');
+    	$("#select2").html("<option value='请选择'>请选择</option>");
+    	$("#select3").html("<option value='请选择'>请选择</option>");
+    	 //加载零级数据
+        $.ajax({
+            type: "POST",
+            url: "#springUrl('/categoryManager/allLevel0Date')",
+            datatype: "json",
+            success: function (data) {
+            	var level1Str="";
+            	$("#select1").html("");
+            	var level1Str="<option value='请选择'>请选择</option>";
+            	for(var i=0;i<data.length;i++){
+            		level1Str+='<option value="'+data[i].categoryId+'">'+data[i].categoryName+'</option>';
+            	}
+            	$("#select1").append(level1Str);
+            }
+        });
     }
   //编辑关键词
-    function editNewKeyWord(categoryName){
-    	$("#categoryName1").val(categoryName);
+    function editNewKeyWord(categoryName,categoryId){
+    	$("#categoryId1").val(categoryId);
+    	alert(categoryId);
     	$("#categoryName").val(categoryName);
     	$("#myModal1").modal('show');
     }

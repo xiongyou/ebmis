@@ -26,14 +26,22 @@
     select
     <include refid="CategoryManager_Column" />
     from category_manager  
-    where parent_id IS NULL AND isleaf=0 AND category_name like #{word,jdbcType=VARCHAR}
+    where parent_id IS NULL AND isleaf=0 AND category_name like #{word,jdbcType=VARCHAR} order by convert(category_name USING gbk) COLLATE gbk_chinese_ci asc
     limit #{offset},#{size}
   </select>
+  
   <select id="getNewKeyWordNum" resultType="int">
     select count(*) from (select
     <include refid="CategoryManager_Column" />
     from category_manager  
     where parent_id IS NULL AND isleaf=0 AND category_name like #{word,jdbcType=VARCHAR}) a
+  </select>
+  
+  <select id="getAllNewKeyWordDate" resultMap="CategoryManagerResultMap">
+    select
+    <include refid="CategoryManager_Column" />
+    from category_manager  
+    where parent_id IS NULL AND isleaf=0
   </select>
   
   <select id="getById" resultMap="CategoryManagerResultMap" parameterType="java.lang.Integer">
@@ -43,6 +51,9 @@
     where category_id = #{categoryId,jdbcType=INTEGER}
   </select>
   
+  <select id="allLevel0Date" resultMap="CategoryManagerResultMap">
+   SELECT * FROM category_manager WHERE parent_id=455
+  </select>
   <select id="allLevel2Date" resultMap="CategoryManagerResultMap">
     SELECT category_name,category_id,parent_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id IN (SELECT category_id FROM category_manager WHERE parent_id=455))
   </select>
@@ -59,9 +70,9 @@
     where category_id = #{categoryId,jdbcType=INTEGER}
   </delete>
   
-  <delete id="delNewKeyWord" parameterType="java.lang.String">
+  <delete id="delNewKeyWord" parameterType="java.lang.Integer">
     delete from category_manager
-    where category_name = #{categoryName,jdbcType=VARCHAR} and isleaf=0
+    where category_id = #{category_id,jdbcType=INTEGER} and isleaf=0
   </delete>
   
   <insert id="save" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
@@ -83,7 +94,7 @@
   <update id="updateNewKeyWord" parameterType="java.util.HashMap">
     update category_manager
     set category_name = #{categoryName,jdbcType=VARCHAR}
-    where category_name=#{categoryName1,jdbcType=VARCHAR} and isleaf=0
+    where category_id=#{categoryId,jdbcType=INTEGER} and isleaf=0
   </update>
   <update id="updateById" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
     update category_manager
@@ -94,7 +105,7 @@
   <update id="editLinkNewKeyWord" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
     update category_manager
     set parent_id = #{parentId,jdbcType=INTEGER}
-    where category_name=#{categoryName,jdbcType=VARCHAR} and isleaf=0
+    where category_id=#{categoryId,jdbcType=INTEGER} and isleaf=0
   </update>
   <delete id="transformTable">
   	truncate table threeclassificationtable

@@ -35,10 +35,20 @@ public interface CategoryManagerMapper {
 	 */
 	void updateNewKeyWord(HashMap map);
 	/**
+	 * 所有的新关键词
+	 * @param categoryManager
+	 */
+	List<CategoryManagerDO> getAllNewKeyWordDate();
+	/**
 	 * 查找第二级
 	 * @param categoryManager
 	 */
 	CategoryManagerDO level3findId(Map map);
+	/**
+	 * 获取树的所有零级数据
+	 * @param categoryManager
+	 */
+	List<CategoryManagerDO> allLevel0Date();
 	/**
 	 * 获取树的所有二级数据
 	 * @param categoryManager
@@ -68,7 +78,7 @@ public interface CategoryManagerMapper {
 	 * 删除新关键词
 	 * @param categoryManager
 	 */
-	void delNewKeyWord(String categoryName);
+	void delNewKeyWord(int categoryId);
 	/**
 	 * 根据categoryId查询CategoryManagerDO
 	 * @param categoryManager
