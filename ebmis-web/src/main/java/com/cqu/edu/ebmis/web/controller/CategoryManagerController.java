@@ -27,9 +27,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.cqu.edu.ebmis.domain.CategoryLogDO;
 import com.cqu.edu.ebmis.domain.CategoryManagerDO;
+import com.cqu.edu.ebmis.service.CategoryLogService;
 import com.cqu.edu.ebmis.service.CategoryManagerService;
 import com.cqu.edu.ebmis.service.page.Page;
+import com.cqu.edu.ebmis.service.vo.User;
 
 @Controller
 @RequestMapping("/categoryManager")
@@ -37,6 +40,10 @@ public class CategoryManagerController extends SuperController {
 	
 	@Autowired
 	private CategoryManagerService categoryManagerService;
+	
+	@Autowired
+	private CategoryLogService	categoryLogService;
+	
 	@RequestMapping("/manager")
 	public String list(Model model) {
 	
@@ -55,9 +62,12 @@ public class CategoryManagerController extends SuperController {
 			InputStream input=file.getInputStream();
 			BufferedReader br = new BufferedReader(new InputStreamReader(input));
 			String s = null;
+			session=request.getSession();
+			User user=(User) session.getAttribute("user");
             while((s = br.readLine())!=null){//使用readLine方法，一次读一行
 				CategoryManagerDO categoryManagerDO=new CategoryManagerDO();
             	categoryManagerDO.setCategoryName(s);
+            	categoryManagerDO.setUserName(user.getUserName());
             	categoryManagerService.saveNewKeyWord(categoryManagerDO);
 	            
             }
@@ -139,6 +149,15 @@ public class CategoryManagerController extends SuperController {
 					categoryManager.setParentId(categoryId3);
 					categoryManager.setCategoryId(categoryId);
 					categoryManagerService.editLinkNewKeyWord(categoryManager);
+					session=request.getSession();
+					User user=(User) session.getAttribute("user");
+					String content="关联操作的新关键词 : "+categoryName;
+					CategoryLogDO categoryLogDo=new CategoryLogDO();
+					categoryLogDo.setContent(content);
+					categoryLogDo.setLogTime(new Date());
+					categoryLogDo.setUserId(user.getUserId());
+					categoryLogDo.setUserName(user.getUserName());
+					categoryLogService.insert(categoryLogDo);
 					CategoryManagerDO categoryManagerDO1=categoryManagerService.getById(categoryId3);
 					if(categoryManagerDO1!=null){
 						if(categoryManagerDO1.getIsLeaf()!=1){

@@ -23,6 +23,7 @@ public class CategoryManagerDO {
 	 */
 	private Integer visiable;
 	private Integer isLeaf;
+	private String userName;
 	public Integer getCategoryId() {
 		return categoryId;
 	}
@@ -64,5 +65,12 @@ public class CategoryManagerDO {
 			this.isParent="true";
 		}
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	
 }

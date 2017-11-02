@@ -57,7 +57,30 @@ public class EveryDayProductTestController extends SuperController {
 	            	EveryDayProductDO everyDayProductDO=new EveryDayProductDO();
 	            	String[] strList=s.split("\\s+");
 	            	System.out.println(strList.length);
-	            	if(strList.length==10){
+	            	if(strList.length==12){
+	            		String extracttime1=strList[10]+" "+strList[11];
+	            		String productPrice=strList[3]+strList[4]+strList[5];
+	            		Date extracttime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(extracttime1);
+	            		everyDayProductDO.setKeyWord(strList[1]);
+	            		everyDayProductDO.setProductActualId(strList[2]);
+	            		everyDayProductDO.setProductPrice(productPrice);
+	            		everyDayProductDO.setProductPromPrice(strList[6]);
+	            		everyDayProductDO.setMonthsalecount(strList[7]);
+	            		everyDayProductDO.setCommentcount(strList[8]);
+	            		everyDayProductDO.setProducturl(strList[9]);
+	            		everyDayProductDO.setExtracttime(extracttime);
+	            	}else if(strList.length==11){
+	            		String extracttime1=strList[9]+" "+strList[10];
+	            		String productPrice=strList[3]+strList[4]+strList[5];
+	            		Date extracttime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(extracttime1);
+	            		everyDayProductDO.setKeyWord(strList[1]);
+	            		everyDayProductDO.setProductActualId(strList[2]);
+	            		everyDayProductDO.setProductPrice(productPrice);
+	            		everyDayProductDO.setMonthsalecount(strList[6]);
+	            		everyDayProductDO.setCommentcount(strList[7]);
+	            		everyDayProductDO.setProducturl(strList[8]);
+	            		everyDayProductDO.setExtracttime(extracttime);
+	            	}else if(strList.length==10){
             			String extracttime1=strList[8]+" "+strList[9];
             			Date extracttime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(extracttime1);
             			everyDayProductDO.setKeyWord(strList[1]);

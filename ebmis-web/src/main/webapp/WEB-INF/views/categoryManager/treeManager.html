@@ -35,7 +35,7 @@ line-height:23px;
 		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="restoreTable()">还原三级表</button>
 		        </div>
 	        	<div style="margin:0px;float:left">
-					<input style="line-height:20px" type="text" id="seachKeyWord" name="seachKeyWord">
+					<input style="line-height:20px" type="text" id="seachKeyWord" name="seachKeyWord" placeholder="按关键词搜索">
 				</div>
 	        	<div style="margin:0px 10px 0px 0px;float:left">
 		        	<button type="button" class="btn btn-primary" style="padding:2px 6px 3px 6px;background-color: #003399" onClick="seachKeyWord()">查询</button>
@@ -69,12 +69,14 @@ line-height:23px;
             </form>
             </div>
             <div class="modal-footer">
-              <div class="pull-right" style="margin:0px 10px 10px 0px">
+            	<button type="button" class="btn btn-primary" onClick="saveLog()">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+             <!--  <div class="pull-right" style="margin:0px 10px 10px 0px">
 	              <div class="buttons">
 	                <button class="btn btn-primary btn-flat" onClick="saveLog()"><i class="fa fa-save"></i>保存</button>
 	                <button class="btn btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
 	              </div>
-              </div>
+              </div> -->
                 <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary">提交更改</button>  -->
             </div>
@@ -106,12 +108,14 @@ line-height:23px;
             </form>
             </div>
             <div class="modal-footer">
-              <div class="pull-right" style="margin:0px 10px 10px 0px">
+            	<button type="button" class="btn btn-primary" onClick="save()">确定</button>
+                <button type="button" class="btn btn-default" onClick="cancel()" data-dismiss="modal">取消</button>
+              <!-- <div class="pull-right" style="margin:0px 10px 10px 0px">
 	              <div class="buttons">
 	                <button class="btn btn-primary btn-flat" onClick="save()"><i class="fa fa-save"></i>保存</button>
 	                <button class="btn btn-danger btn-flat" onClick="cancel()" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
 	              </div>
-              </div>
+              </div> -->
                 <!-- <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary">提交更改</button>  -->
             </div>

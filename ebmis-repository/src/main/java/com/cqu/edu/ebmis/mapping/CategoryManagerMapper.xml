@@ -7,12 +7,13 @@
   <resultMap id="CategoryManagerResultMap" type="com.cqu.edu.ebmis.domain.CategoryManagerDO">
     <id column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="visiable" jdbcType="INTEGER" property="visiable" />
     <result column="isleaf" jdbcType="INTEGER" property="isLeaf" />
   </resultMap>
   <sql id="CategoryManager_Column" >
-    category_id, category_name, parent_id, visiable, isleaf
+    category_id, category_name,user_name, parent_id, visiable, isleaf
   </sql>
 
   <select id="getByParentId" resultMap="CategoryManagerResultMap" parameterType="java.lang.Integer">
@@ -81,8 +82,8 @@
   </insert>
   
   <insert id="saveNewKeyWord" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
-    insert into category_manager (category_name)
-    values (#{categoryName,jdbcType=VARCHAR})
+    insert into category_manager (category_name,user_name)
+    values (#{categoryName,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR})
   </insert>
   
   <update id="update" parameterType="com.cqu.edu.ebmis.domain.CategoryManagerDO" >
