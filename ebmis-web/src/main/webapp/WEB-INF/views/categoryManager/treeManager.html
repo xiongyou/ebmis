@@ -583,10 +583,23 @@ function getzTreeObject(){
         	$.post(url,date,function(result){
             		var d = JSON.parse(result);
             		var error=d.data;
-            		layer.alert(error, {
-          			  skin: 'layui-layer-molv',
-          			  closeBtn: 0
-          			});
+            		if(error!="不存在"){
+            			var strError=error.split(",");
+            			var Error="";
+            			for(var i=0;i<strError.length;i++){
+            				Error+=strError[i]+"<br/>"
+            			}
+            			layer.alert(Error, {
+              			  skin: 'layui-layer-molv',
+              			  closeBtn: 0
+              			});
+            		}else{
+            			layer.alert(error, {
+                			  skin: 'layui-layer-molv',
+                			  closeBtn: 0
+                			});	
+            		}
+            		
         	    });
     	}
     	

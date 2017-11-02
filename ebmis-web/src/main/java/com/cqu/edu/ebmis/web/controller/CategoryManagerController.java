@@ -290,28 +290,38 @@ public class CategoryManagerController extends SuperController {
 	public String seachKeyWord(Model model) {
 		JSONObject json = new JSONObject();
 			List<CategoryManagerDO> CategoryManagerDOList=categoryManagerService.allLevel3Date();
-			String seachKeyWord=request.getParameter("seachKeyWord");
+			String seachKeyWord="%"+request.getParameter("seachKeyWord")+"%";
+			List<CategoryManagerDO> CategoryManagerDOList3=categoryManagerService.searchAllLevel3Date(seachKeyWord);
 			Boolean flag=false;
+			if(CategoryManagerDOList3.size()<1){
+				json.put("data" , "不存在");
+				return json.toJSONString();
+			}
 			String categoryName2="";
 			String categoryName1="";
 			String categoryName0="";
+			String strFlag="";
 			for(CategoryManagerDO categoryManagerDo:CategoryManagerDOList){
 				String categoryName=categoryManagerDo.getCategoryName();
-				if(categoryName.equals(seachKeyWord)){
-					flag=true;
-					int parentId2=categoryManagerDo.getParentId();
-					CategoryManagerDO categoryManagerDo2=categoryManagerService.getById(parentId2);
-					categoryName2=categoryManagerDo2.getCategoryName();
-					int parentId1=categoryManagerDo2.getParentId();
-					CategoryManagerDO categoryManagerDo1=categoryManagerService.getById(parentId1);
-					categoryName1=categoryManagerDo1.getCategoryName();
-					int parentId0=categoryManagerDo1.getParentId();
-					CategoryManagerDO categoryManagerDo0=categoryManagerService.getById(parentId0);
-					categoryName0=categoryManagerDo0.getCategoryName();
+				for(CategoryManagerDO categoryManagerDo3:CategoryManagerDOList3){
+					if(categoryName.equals(categoryManagerDo3.getCategoryName())){
+						flag=true;
+						int parentId2=categoryManagerDo.getParentId();
+						CategoryManagerDO categoryManagerDo2=categoryManagerService.getById(parentId2);
+						categoryName2=categoryManagerDo2.getCategoryName();
+						int parentId1=categoryManagerDo2.getParentId();
+						CategoryManagerDO categoryManagerDo1=categoryManagerService.getById(parentId1);
+						categoryName1=categoryManagerDo1.getCategoryName();
+						int parentId0=categoryManagerDo1.getParentId();
+						CategoryManagerDO categoryManagerDo0=categoryManagerService.getById(parentId0);
+						categoryName0=categoryManagerDo0.getCategoryName();
+						strFlag+=categoryName0+"--->"+categoryName1+"--->"+categoryName2+"--->"+categoryName+",";
+					}
 				}
 			}
 			if(flag){
-				json.put("data" , "已存在: "+categoryName0+"---"+categoryName1+"---"+categoryName2+"---"+seachKeyWord);
+				strFlag.substring(0, strFlag.length());
+				json.put("data" , strFlag);
 			}else{
 				json.put("data" , "不存在");
 			}

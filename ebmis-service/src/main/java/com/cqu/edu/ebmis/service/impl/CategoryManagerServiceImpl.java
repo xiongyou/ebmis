@@ -134,6 +134,11 @@ public class CategoryManagerServiceImpl implements CategoryManagerService {
 		return catetoryManagerRepository.getAllNewKeyWordDate();
 	}
 
+	public List<CategoryManagerDO> searchAllLevel3Date(String searchWord) {
+		// TODO Auto-generated method stub
+		return catetoryManagerRepository.searchAllLevel3Date(searchWord);
+	}
+
 
 
 	

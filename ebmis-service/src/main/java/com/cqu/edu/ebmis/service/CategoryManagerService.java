@@ -122,4 +122,9 @@ public interface CategoryManagerService {
 	 * @param categoryManager
 	 */
 	List<CategoryManagerDO> getAllNewKeyWordDate();
+	/**
+	 * 类型树上模糊查询关键词
+	 * 
+	 */
+	List<CategoryManagerDO> searchAllLevel3Date(String searchWord);
 }

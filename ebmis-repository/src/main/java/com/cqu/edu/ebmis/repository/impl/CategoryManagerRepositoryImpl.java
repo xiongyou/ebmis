@@ -157,5 +157,11 @@ public class CategoryManagerRepositoryImpl implements CategoryManagerRepository 
 		return categoryManagerMapper.getAllNewKeyWordDate();
 	}
 
+	@Override
+	public List<CategoryManagerDO> searchAllLevel3Date(String searchWord) {
+		// TODO Auto-generated method stub
+		return categoryManagerMapper.searchAllLevel3Date(searchWord);
+	}
+
 	
 }

@@ -64,6 +64,13 @@ public interface CategoryManagerMapper {
 	 * @param categoryManager
 	 */
 	void updateById(CategoryManagerDO categoryManager);
+	
+	/**
+	 * 类型树上模糊查询关键词
+	 * 
+	 */
+	List<CategoryManagerDO> searchAllLevel3Date(String searchWord);
+	
 	/**
 	 * 关联关键词
 	 * @param categoryManager
