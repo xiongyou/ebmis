@@ -68,6 +68,7 @@ public class CategoryManagerController extends SuperController {
 				CategoryManagerDO categoryManagerDO=new CategoryManagerDO();
             	categoryManagerDO.setCategoryName(s);
             	categoryManagerDO.setUserName(user.getUserName());
+            	categoryManagerDO.setAddTime(new Date());
             	categoryManagerService.saveNewKeyWord(categoryManagerDO);
 	            
             }
@@ -263,9 +264,13 @@ public class CategoryManagerController extends SuperController {
 				json.put("success" , false);
 				json.put("data" , "类别名称重复");
 			}else{
+				session=request.getSession();
+				User user=(User) session.getAttribute("user");
 				String id = request.getParameter("id");
 				Integer parentId = Integer.parseInt(id);
 				categoryManagerDO.setParentId(parentId);
+				categoryManagerDO.setAddTime(new Date());
+				categoryManagerDO.setUserName(user.getUserName());
 				categoryManagerService.save(categoryManagerDO);
 				CategoryManagerDO categoryManagerDO1=categoryManagerService.getById(parentId);
 				if(categoryManagerDO1!=null){

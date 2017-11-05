@@ -50,7 +50,7 @@ public class ProductController extends SuperController {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			String str="";
 			while((str=br.readLine())!=null){
-				String[] arrStr=str.split(" ");
+				String[] arrStr=str.split("	");
 				Long productInnerId=Long.parseLong(arrStr[0]);
 				ProductBaseInfoDO productBaseInfoDO=new ProductBaseInfoDO();
 				productBaseInfoDO.setProductInnerId(productInnerId);

@@ -3,6 +3,7 @@
  */
 package com.cqu.edu.ebmis.domain;
 
+import java.util.Date;
 import java.util.List;
 
 public class CategoryManagerDO {
@@ -24,6 +25,7 @@ public class CategoryManagerDO {
 	private Integer visiable;
 	private Integer isLeaf;
 	private String userName;
+	private Date addTime;
 	public Integer getCategoryId() {
 		return categoryId;
 	}
@@ -70,6 +72,12 @@ public class CategoryManagerDO {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public Date getAddTime() {
+		return addTime;
+	}
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
 	}
 	
 	
