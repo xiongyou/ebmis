@@ -32,11 +32,11 @@
     SELECT 三级	FROM threeclassificationtable WHERE 零级=#{level0} AND 一级=#{level1} AND 二级=#{level2}
    </select>
    <select id="getThreeKeyWordDate" resultMap="ThreeClassificationResultMap">
-    SELECT 三级,area,loc_famous,KeyProduct FROM threeclassificationtable where 三级  like #{word} <if test="level2!='请选择'"> and 二级=#{level2}</if> order by convert(三级 USING gbk) COLLATE gbk_chinese_ci asc
+    SELECT 三级,area,loc_famous,KeyProduct FROM threeclassificationtable where 三级  like #{word} <if test="locFamous!=-1"> and loc_famous=#{locFamous} </if><if test="level2!='请选择'"> and 二级=#{level2}</if> order by convert(三级 USING gbk) COLLATE gbk_chinese_ci asc
     <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
    </select>
    <select id="getThreeKeyWordNum" resultType="int">
-    SELECT count(*)	FROM (SELECT 三级	FROM threeclassificationtable where 三级  like #{word} <if test="level2!='请选择'"> and 二级=#{level2}</if>) a
+    SELECT count(*)	FROM (SELECT 三级	FROM threeclassificationtable where 三级  like #{word} <if test="locFamous!=-1"> and loc_famous=#{locFamous} </if><if test="level2!='请选择'"> and 二级=#{level2}</if>) a
    </select>
    <update id="updateThreeKeyWord" parameterType="java.util.HashMap">
     update threeclassificationtable set loc_famous=#{locFamous,jdbcType=INTEGER}, area= #{area,jdbcType=VARCHAR},KeyProduct=#{keyProduct,jdbcType=INTEGER}

@@ -10,6 +10,15 @@ SpringWind - 关键字管理
 #override("content")
 <div class="row">
 	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+				<div class="input-group">			
+					<span class="input-group-cbx">
+						<input name="cheackSpyb" id="spyb" type="checkbox" onclick="selectCheck()">
+					</span>
+				</div>
+				<div class="input-group">
+						<div class="input-group" style="margin-right:30px">			
+						<Strong>三品一标</Strong>
+				</div>
 				<div class="input-group">
 						<div class="input-group" style="margin-right:10px">			
 						<Strong>关键词关联的类别选择:</Strong>
@@ -107,7 +116,7 @@ SpringWind - 关键字管理
 <script src="#springUrl('/static/js/base_list.js')"></script>
 <script src="#springUrl('/static/js/common.js')"></script>
 <script type="text/javascript">
-    var dataUrl = "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3=请选择')";
+    var dataUrl = "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3=请选择&spyb=-1')";
     var dataColumns = [{
         field: 'level3',
         title: '关键词'
@@ -171,7 +180,9 @@ SpringWind - 关键字管理
     $("#select1").change(function(){
 		var levelName1=$("#select1").val();
 		$("#select2").html("");
+		$("#select3").html("");
 		var level1Str="<option value='请选择'>请选择</option>";
+		$("#select3").append(level1Str);
 		if(levelName1!="请选择"){
 			$.ajax({
 		        type: "POST",
@@ -219,9 +230,13 @@ SpringWind - 关键字管理
     	var levelName1=$("#select1").val();
     	var levelName2=$("#select2").val();
     	var levelName3=$("#select3").val();
+    	if($("#spyb").is(":checked")){
+    		$("#spyb").attr("checked",false);
+    	}
+    	var word=$("#word").val("");
     	if(levelName1!="请选择"&&levelName2!="请选择"&&levelName3!="请选择"){
     		var opt1 = {
-        	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3="+levelName3+"')"
+        	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?spyb=-1&level3="+levelName3+"')"
         	    };
     	
     		$("#dataTable").bootstrapTable('refresh', opt1);
@@ -234,22 +249,52 @@ SpringWind - 关键字管理
     }
     function Search(){
     	var word=$("#word").val();
-    	var levelName3=$("#select3").val();
+    	$("#select1").html("");
+    	$("#select2").html("");
+		$("#select3").html("");
+		if($("#spyb").is(":checked")){
+			$("#spyb").attr("checked",false);
+    	}
+		var level1Str="<option value='请选择'>请选择</option>";
+    	$("#select2").append(level1Str);
+    	$("#select3").append(level1Str);
+		 //加载零级数据
+	    $.ajax({
+	        type: "POST",
+	        url: "#springUrl('/threeClassification/level0List')",
+	        datatype: "json",
+	        success: function (data) {
+	        	for(var i=0;i<data.length;i++){
+	        		level1Str+='<option value="'+data[i].level0+'">'+data[i].level0+'</option>';
+	        	}
+	        	$("#select1").append(level1Str);
+	        }
+	    });
 		opt1 = {
-    	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3="+levelName3+"&word="+word+"')"
+    	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3=请选择&spyb=-1&word="+word+"')"
     	    };
 		$("#dataTable").bootstrapTable('refresh', opt1);
     }
     function save(){
     	var date=$("#form1").serialize();
     	var url="#springUrl('/threeClassification/updateThreeKeyWord')";
+    	var checkedNum=-1;
+    	if($("#spyb").is(":checked")){
+    		checkedNum=1;
+    	}
     	$.post(url,date,function(result){
                $('#myModal').modal('hide');
                var word=$("#word").val();
            	   var levelName3=$("#select3").val();
-               opt1 = {
-           	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3="+levelName3+"&word="+word+"')"
-           	    };
+           	   if(levelName3!="请选择"){
+           		opt1 = {
+               	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3="+levelName3+"&spyb="+checkedNum+"')"
+               	    };
+           	   }else{
+           		opt1 = {
+            	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3=请选择&spyb="+checkedNum+"&word="+word+"')"
+            	    };
+           	   }
        		$("#dataTable").bootstrapTable('refresh', opt1);
     	    }); 
     }
@@ -285,18 +330,48 @@ SpringWind - 关键字管理
 	        $("#areaHtml").html(html);
 		}
 		if(locFamous=='0'){
-			$("#locFamous").append('<option value=0 selected>否</option><option value=1>是</option>');
+			$("#locFamous").append('<option value=1>是</option><option value=0 selected>否</option>');
 		}else{
-			$("#locFamous").append('<option value=0 >否</option><option value=1 selected>是</option>');
+			$("#locFamous").append('<option value=1 selected>是</option><option value=0 >否</option>');
 		}
 		if(keyProduct=='0'){
-			$("#keyProduct").append('<option value=0 selected>否</option><option value=1>是</option>');
+			$("#keyProduct").append('<option value=1>是</option><option value=0 selected>否</option>');
 		}else{
-			$("#keyProduct").append('<option value=0 >否</option><option value=1 selected>是</option>');
+			$("#keyProduct").append('<option value=1 selected>是</option><option value=0 >否</option>');
 		}
 		
 		$('#myModal').modal('show');
 	}
+	 function selectCheck(){
+		 var word=$("#word").val("");
+	    	$("#select1").html("");
+	    	$("#select2").html("");
+			$("#select3").html("");
+			var level1Str="<option value='请选择'>请选择</option>";
+	    	$("#select2").append(level1Str);
+	    	$("#select3").append(level1Str);
+			 //加载零级数据
+		    $.ajax({
+		        type: "POST",
+		        url: "#springUrl('/threeClassification/level0List')",
+		        datatype: "json",
+		        success: function (data) {
+		        	for(var i=0;i<data.length;i++){
+		        		level1Str+='<option value="'+data[i].level0+'">'+data[i].level0+'</option>';
+		        	}
+		        	$("#select1").append(level1Str);
+		        }
+		    });
+		    var	opt1;
+	    	var checkedNum=-1;
+	    	if($("#spyb").is(":checked")){
+	    		checkedNum=1;
+	    	}
+	    	opt1 = {
+           	        url: "#springUrl('/threeClassification/getThreeKeyWordlist.html?level3=请选择&spyb="+checkedNum+"')"
+           	    };
+	    	$("#dataTable").bootstrapTable('refresh', opt1);
+	    }
 </script>
 #end
 #extends("/common/framework.html")

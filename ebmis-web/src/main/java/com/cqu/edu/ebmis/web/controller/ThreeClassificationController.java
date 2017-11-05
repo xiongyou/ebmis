@@ -52,7 +52,9 @@ public class ThreeClassificationController extends SuperController {
 		}
 		word+=word1+"%";
 		String level3=request.getParameter("level3");
-		threeClassificationService.findThreeKeyWordByPage(page, word, level3);
+		String locFamousStr=request.getParameter("spyb");
+		int locFamous=Integer.parseInt(locFamousStr);
+		threeClassificationService.findThreeKeyWordByPage(page, word,locFamous, level3);
 		return jsonPage(page);
 	}
 	@ResponseBody

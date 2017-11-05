@@ -56,11 +56,11 @@ public class ThreeClassificationServiceImpl implements ThreeClassificationServic
 		return threeClassificationRepository.allPlatform();
 	}
 
-	public Page<ThreeClassificationDo> findThreeKeyWordByPage(Page<ThreeClassificationDo> page,String word,String level2) {
+	public Page<ThreeClassificationDo> findThreeKeyWordByPage(Page<ThreeClassificationDo> page,String word,int locFamous,String level2) {
 		// TODO Auto-generated method stub
 		List<ThreeClassificationDo> keyWords = threeClassificationRepository.getThreeKeyWordDate(
-				page.getLimit() , page.getOffset(),word,level2);
-		page.setTotal(threeClassificationRepository.getThreeKeyWordNum(page.getLimit() , page.getOffset(),word,level2));
+				page.getLimit() , page.getOffset(),locFamous,word,level2);
+		page.setTotal(threeClassificationRepository.getThreeKeyWordNum(page.getLimit() , page.getOffset(),locFamous,word,level2));
 		
 		page.setRecords(keyWords);
 		return page;

@@ -59,7 +59,7 @@ public interface ThreeClassificationService {
 	 * @param offset
 	 * @return
 	 */
-	Page<ThreeClassificationDo> findThreeKeyWordByPage(Page<ThreeClassificationDo> page,String word,String level2);
+	Page<ThreeClassificationDo> findThreeKeyWordByPage(Page<ThreeClassificationDo> page,String word,int locFamous,String level2);
 	/**
 	 * 修改关键词属性
 	 * 

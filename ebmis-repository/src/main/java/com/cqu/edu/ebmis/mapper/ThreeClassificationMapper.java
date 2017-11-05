@@ -61,11 +61,11 @@ public interface ThreeClassificationMapper {
 	 * 
 	 */
 	List<ThreeClassificationDo> getThreeKeyWordDate(@Param("size") int size,
-			@Param("offset") int offset,@Param("word") String word,@Param("level2") String level2);
+			@Param("offset") int offset,@Param("locFamous") int locFamous,@Param("word") String word,@Param("level2") String level2);
 	/**
 	 * 查询三级关键词的数量
 	 * 
 	 */
 	int getThreeKeyWordNum(@Param("size") int size,
-			@Param("offset") int offset,@Param("word") String word,@Param("level2") String level2);
+			@Param("offset") int offset,@Param("locFamous") int locFamous,@Param("word") String word,@Param("level2") String level2);
 }
