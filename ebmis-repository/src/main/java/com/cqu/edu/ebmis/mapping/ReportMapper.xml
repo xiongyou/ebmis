@@ -293,6 +293,13 @@
     select count(*) from threeclassificationtable ORDER BY 零级,一级,二级,三级 
   </select>
   
+  <select id="EveryDayListData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+	select productactualid,keyword,productprice,monthsalecount,producturl,extracttime,commentcount from everydayproduct <if test="size!=null and offset!=null"> limit #{offset},#{size}</if>
+  </select>
+   <select id="EveryDayListCount" resultType="int">
+    select count(productinnerid) from everydayproduct 
+  </select>
+  
   
   <select id="OneClassifyData" resultType="java.util.HashMap" parameterType="java.util.HashMap">
   	select <if test="productYear==null and productMonth==null and productQuarter==null">'所有' selectTime</if><if test="productYear!=null and productMonth==null and productQuarter==null">#{productYear} selectTime</if><if test="productYear!=null and productMonth==null and productQuarter!=null">#{productQuarter} selectTime</if><if test="productYear!=null and productMonth!=null and productQuarter==null">CONCAT_WS(".",#{productYear},#{productMonth}) selectTime</if>,b.一级, round(sum(std_price*monthSaleCount)/10000,2) as 销售额（万元）,sum(monthSaleCount) as 销量 ,count(DISTINCT a.productInnerId)as SKU from product_baseinfo a,threeclassificationtable b,productmonitor c

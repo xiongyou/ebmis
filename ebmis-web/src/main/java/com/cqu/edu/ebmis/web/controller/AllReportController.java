@@ -824,6 +824,36 @@ public class AllReportController extends SuperController {
 		str+="]}";
 		return str;
 	}
+	@RequestMapping("/EveryDayList")
+	public String EveryDayList(Model model) {
+		return "/allReport/EveryDayList";
+	}
+	@ResponseBody
+	@RequestMapping("/EveryDayListReport")
+	public String EveryDayListReport(Model model) {
+		HashMap map=new HashMap();
+		String size1=request.getParameter("_size");
+		String index1=request.getParameter("_index");
+		Integer size=Integer.parseInt(size1);
+		Integer index=Integer.parseInt(index1);
+		map.put("size", size);
+		map.put("offset", index);
+		List<Map<String, Object>> originDataReportList=reportService.EveryDayListData(map);
+		int allCount=reportService.EveryDayListCount();
+		String str="{"+"\"total\":"+allCount+","+"\"rows\":[";
+		for(Map<String, Object> oneMap:originDataReportList){
+			str+="{";
+			Set<String> setstr=oneMap.keySet();
+			for(String keyStr:setstr){
+				str+="\""+keyStr+"\":"+"\""+oneMap.get(keyStr)+"\",";
+			}
+			str=str.substring(0, str.lastIndexOf(","));  
+			str+="},";
+		}
+		str=str.substring(0, str.lastIndexOf(","));  
+		str+="]}";
+		return str;
+	}
 	@RequestMapping("/OneClassifyList")
 	public String OneClassifyList(Model model) {
 		return "/allReport/OneClassifyList";

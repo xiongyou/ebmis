@@ -208,5 +208,15 @@ public class ReportRepositoryImpl implements ReportRepository {
 		// TODO Auto-generated method stub
 		return reportMapper.EveryCityFarmProductNumCount(map);
 	}
+	@Override
+	public List<Map<String, Object>> EveryDayListData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportMapper.EveryDayListData(map);
+	}
+	@Override
+	public int EveryDayListCount() {
+		// TODO Auto-generated method stub
+		return reportMapper.EveryDayListCount();
+	}
 
 }

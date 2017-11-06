@@ -169,5 +169,13 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportRepository.EveryCityFarmProductNumCount(map);
 	}
+	public List<Map<String, Object>> EveryDayListData(HashMap map) {
+		// TODO Auto-generated method stub
+		return reportRepository.EveryDayListData(map);
+	}
+	public int EveryDayListCount() {
+		// TODO Auto-generated method stub
+		return reportRepository.EveryDayListCount();
+	}
 
 }

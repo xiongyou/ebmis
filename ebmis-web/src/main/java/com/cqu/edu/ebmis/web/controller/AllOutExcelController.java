@@ -1660,6 +1660,87 @@ public class AllOutExcelController extends SuperController {
 		}
 		return json.toJSONString();
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/EveryDayListExcel",produces="html/text;charset=UTF-8")
+	public String EveryDayListExcel(Model model) {
+		JSONObject json = new JSONObject();
+		String platName=request.getParameter("platName");
+		Date date = new Date();  
+		DateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");   
+		String fileName =platName+sdf.format(date);  
+		//得到桌面路径  
+		File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();  
+		String desktopPath = desktopDir.getAbsolutePath();  
+		String desktopDirPath = desktopPath.replace("\\","\\\\");  
+		String filePath = desktopDirPath + "\\\\" +fileName + ".xls";  
+		String[] titles = {"评价条数","销量","产品ID","采集时间","关键词","单价","产品链接地址"};
+		String excelValue=request.getParameter("ExcelValue");
+		if(excelValue.equals("1")){
+			HashMap map=new HashMap();
+			String size1=request.getParameter("_size");
+			String index1=request.getParameter("_index");
+			Integer size=Integer.parseInt(size1);
+			Integer index=Integer.parseInt(index1);
+			map.put("size", size);
+			map.put("offset", index);
+			List<Map<String, Object>> EveryDayList=reportService.EveryDayListData(map);
+			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
+			for(Map<String, Object> oneMap:EveryDayList){
+				int num=0;
+				Set<String> setstr=oneMap.keySet();
+				Map<Integer, String> paramsLists = new HashMap<Integer, String>();
+				for(String keyStr:setstr){
+					String valueStr=oneMap.get(keyStr).toString();
+					paramsLists.put(num, valueStr);
+					num++;
+				}
+				lists.add(paramsLists);
+				
+			}
+			try {
+				writeExcel(filePath, titles, lists);
+				json.put("data" , "导出成功");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("data" , "导出失败");
+			}
+		}else{
+			HashMap map=new HashMap();
+			Integer size=null;
+			Integer index=null;
+			map.put("size", size);
+			map.put("offset", index);
+			List<Map<String, Object>> EveryDayList=reportService.EveryDayListData(map);
+			List<Map<Integer, String>> lists = new ArrayList<Map<Integer,String>>();  
+			for(Map<String, Object> oneMap:EveryDayList){
+				int num=0;
+				if(oneMap!=null){
+					Set<String> setstr=oneMap.keySet();
+					Map<Integer, String> paramsLists = new HashMap<Integer, String>();
+					for(String keyStr:setstr){
+						String valueStr=oneMap.get(keyStr).toString();
+						paramsLists.put(num, valueStr);
+						num++;
+					}
+					lists.add(paramsLists);
+				}
+				
+			}
+			try {
+				writeExcel(filePath, titles, lists);
+				json.put("success" , true);
+				json.put("data" , "导出成功");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				json.put("success" ,false);
+				json.put("data" , "导出失败");
+			}
+		}
+		return json.toJSONString();
+	}
 	@ResponseBody
 	@RequestMapping(value="/OneClassifyExcel",produces="html/text;charset=UTF-8")
 	public String OneClassifyExcel(Model model) {

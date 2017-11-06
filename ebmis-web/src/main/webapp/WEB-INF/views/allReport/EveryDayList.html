@@ -1,0 +1,102 @@
+#override("title")
+SpringWind - 项目管理
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')" rel="stylesheet">
+#end
+#override("breadcrumb")
+<li><a>农电商数据报表</a></li><li><a>每日采集报表</a></li>
+#end
+#override("content")
+<button type="button" class="btn btn-primary pull-right" onClick="OutExcel()">导出Excel</button>
+<div class="col-sm-1 pull-right" style="padding-right:0px">
+	<form id="formExcel">
+		<input type="hidden" id="currentIndex" name="_index">
+		<input type="hidden" id="currentSize" name="_size">
+		<input type="hidden" id="platName" name="platName" value="每日采集报表">
+		<select id="ExcelValue" name="ExcelValue" class="form-control">
+				<option value="1">当前页</option>
+		</select>
+	</form>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+    	<h3 class="text-center" style="margin-top: 30px">每日采集报表</h3>
+        <table id="dataTable"></table>
+    </div>
+</div>
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<script src="#springUrl('/static/js/base_list.js')"></script>
+<script src="#springUrl('/static/js/common.js')"></script>
+<script type="text/javascript">
+   	var dataUrl = "#springUrl('/allReport/EveryDayListReport.html')";
+    var dataColumns = [{
+        field: 'productactualid',
+        title: '产品ID'
+    },{
+        field: 'producturl',
+        title: '产品链接地址',
+        formatter: function (value, row, index) {
+        	var url = row.producturl;
+        	
+        	if(typeof url == "undefined"){
+        		
+        		return "-";
+        	}else{
+        		
+        		return '<a href="'+url+'" target="_blank">'+url+'</a>';
+        	}
+        	
+        }
+    },{
+        field: 'keyword',
+        title: '关键词'
+    },{
+        field: 'productprice',
+        title: '单价'
+    },{
+        field: 'monthsalecount',
+        title: '销量'
+    },{
+        field: 'commentcount',
+        title: '评价条数'
+    },{
+        field: 'extracttime',
+        title: '采集时间'
+    }];
+    function dataQueryParams(params) {
+    	$("#currentIndex").val(params.offset);
+    	$("#currentSize").val(params.limit);
+        return {
+            _size: params.limit,  //页面大小
+            _index: params.offset, //页码
+        };
+    }
+    function OutExcel(){
+    	$.ajax({
+        	url: "#springUrl('/outExcel/EveryDayListExcel')",
+            data: $("#formExcel").serialize(),
+            type: "POST",
+            success: function(data){
+            	var d = JSON.parse(data);
+            	var info=d.data;
+            	layer.alert(info, {
+        			  skin: 'layui-layer-molv',
+        			  closeBtn: 0
+        			});
+            }
+    	});
+    }
+</script>
+#end
+#extends("/common/framework.html")
+<script type="text/javascript">
+$("#first").removeClass();
+$("#third").addClass("active");
+</script>

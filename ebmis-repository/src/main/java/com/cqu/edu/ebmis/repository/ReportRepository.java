@@ -181,6 +181,22 @@ public interface ReportRepository {
 	
 	
 	/**
+	 * 每日采集的数据
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> EveryDayListData(HashMap map); 
+	/**
+	 *每日采集数据的条数
+	 * @param map
+	 * @return
+	 */
+	int EveryDayListCount();
+	
+	
+	
+	
+	/**
 	 * 一级分类统计
 	 * @param map
 	 * @return

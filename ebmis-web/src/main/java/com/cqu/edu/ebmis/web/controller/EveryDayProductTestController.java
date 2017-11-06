@@ -52,10 +52,10 @@ public class EveryDayProductTestController extends SuperController {
 	      File file1=new File(file.getAbsolutePath());
 	        try{
 	            BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
-	            String s = null;
-	            while((s = br.readLine())!=null){//使用readLine方法，一次读一行
+	            String str = null;
+	            while((str = br.readLine())!=null){//使用readLine方法，一次读一行
 	            	EveryDayProductDO everyDayProductDO=new EveryDayProductDO();
-	            	String[] strList=s.split("\\s+");
+	            	String[] strList=str.split("\\s+");
 	            	System.out.println(strList.length);
 	            	if(strList.length==12){
 	            		String extracttime1=strList[10]+" "+strList[11];
