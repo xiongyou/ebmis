@@ -33,9 +33,9 @@
   </insert>
   
   <insert id="insertTasksBatch" parameterType="java.util.List" >
-  	insert into _crawler_project_task (_url,_product_inner_id,_dataobj,_keyword,_project_id,_website,_md) values 
+  	insert into _crawler_project_task (_url,_product_inner_id,_dataobj,_keyword,_project_id,_website,_md,_project_priority,_task_priority) values 
   	<foreach collection="list" item="task" index="index" separator=",">  
-     (#{task.url,jdbcType=VARCHAR},#{task.productInnerId,jdbcType=INTEGER},#{task.dataObj,jdbcType=VARCHAR},#{task.keyword,jdbcType=VARCHAR},#{task.projectId,jdbcType=INTEGER},#{task.website,jdbcType=VARCHAR},#{task.md,jdbcType=VARCHAR})   
+     (#{task.url,jdbcType=VARCHAR},#{task.productInnerId,jdbcType=INTEGER},#{task.dataObj,jdbcType=VARCHAR},#{task.keyword,jdbcType=VARCHAR},#{task.projectId,jdbcType=INTEGER},#{task.website,jdbcType=VARCHAR},#{task.md,jdbcType=VARCHAR},#{task.projectPriority,jdbcType=INTEGER},#{task.taskPriority,jdbcType=INTEGER})   
       </foreach>  
   </insert>
   
@@ -85,12 +85,12 @@
     update _crawler_project_task
     set  _url=#{url,jdbcType=VARCHAR}, _product_inner_id=#{productInnerId,jdbcType=INTEGER}, 
     _dataobj=#{dataObj,jdbcType=VARCHAR},_keyword=#{keyword,jdbcType=VARCHAR},
-    _project_id=#{projectId,jdbcType=INTEGER},_website=#{website,jdbcType=VARCHAR},_md=#{md,jdbcType=VARCHAR},_task_priority=#{taskPriority,jdbcType=VARCHAR}
+    _project_id=#{projectId,jdbcType=INTEGER},_website=#{website,jdbcType=VARCHAR},_md=#{md,jdbcType=VARCHAR},_project_priority=#{projectPriority,jdbcType=INTEGER},_task_priority=#{taskPriority,jdbcType=INTEGER}
      where _project_task_id = #{taskId,jdbcType=INTEGER}
   </update>
   <update id="updateTaskInfoPriority" parameterType="com.cqu.edu.ebmis.domain.TaskDO" >
     update taskinfo
-    set task_priority=#{taskPriority,jdbcType=VARCHAR}
+    set _task_priority=#{taskPriority,jdbcType=VARCHAR}
      where Project_Task_ID = #{taskId,jdbcType=INTEGER}
   </update>
   

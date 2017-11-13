@@ -29,7 +29,7 @@ public class SessionFilter extends OncePerRequestFilter {
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 	
-		String[] notFilter = new String[]{"login.html"};
+		String[] notFilter = new String[]{"login.html",".css",".js"};
 		
 		String uri = request.getRequestURI();
 		

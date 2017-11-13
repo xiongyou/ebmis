@@ -55,6 +55,7 @@ public class TaskServiceImpl implements TaskService {
 			newUrl.setMd(taskMd5);
 			newUrl.setKeyWord(task.getKeyword());
 			newUrl.setPlatform(task.getWebsite());
+			newUrl.setStatus((byte) 0);
 			newUrl.setGetURLTime(new Date());
 			urlRepository.insert(newUrl);
 			
@@ -122,14 +123,17 @@ public class TaskServiceImpl implements TaskService {
 			}
 			
 		}
+		else{
+			this.saveBatch(projectId,projectPriority, dataObj, projectIds, fileInfos);
+		}
 		return true;
 		//return this.saveBatch(projectId, dataObj, projectIds, fileInfos);
 	}
 	
-	public boolean saveBatch(int projectId,String dataObj,List<Integer> projectIds,List<FileInfo> fileInfos) {
+	public boolean saveBatch(int projectId,int projectPriority,String dataObj,List<Integer> projectIds,List<FileInfo> fileInfos) {
 		List<TaskDO> initTasks = new ArrayList<TaskDO>();
 		
-		initTasks = this.generateTasks(projectId,dataObj, fileInfos);
+		initTasks = this.generateTasks(projectId,projectPriority,dataObj, fileInfos);
 		
 		this.addTaskByJDBC(projectId, dataObj, initTasks,projectIds); 
 		
@@ -142,7 +146,7 @@ public class TaskServiceImpl implements TaskService {
 
 	public void update(TaskDO task) {
 		taskRepository.updateTask(task);
-		;
+		
 	}
 
 	public List<TaskDO> findAll() {
@@ -174,17 +178,20 @@ public class TaskServiceImpl implements TaskService {
 	/**
 	 * 生成初始任务
 	 */
-	public List<TaskDO> generateTasks(int pId,String dataObj,List<FileInfo> fileInfos){
+	public List<TaskDO> generateTasks(int pId,int projectPriority,String dataObj,List<FileInfo> fileInfos){
 		List<TaskDO> tasks = new ArrayList<TaskDO>();
 		for(int i=0;i<fileInfos.size();i++){
 			TaskDO task = new TaskDO();
 			task.setProjectId(pId);
+			task.setProjectPriority(projectPriority);
 			task.setDataObj(dataObj);
 			task.setUrl(fileInfos.get(i).getUrl());
 			String md5 = Md5Util.toMd5(fileInfos.get(i).getUrl());
 			task.setMd(md5);
 			task.setWebsite(fileInfos.get(i).getWebsite());
 			task.setKeyword(fileInfos.get(i).getKeyword());
+			task.setTaskPriority(0);
+		
 			tasks.add(task);
 		}
 		return tasks;
@@ -267,6 +274,7 @@ public class TaskServiceImpl implements TaskService {
 					url.setGetURLTime(new Date());
 					url.setPlatform(tasks.get(i).getWebsite());
 					url.setKeyWord(tasks.get(i).getKeyword());
+					url.setStatus((byte) 0);
 					//url.setHashValue(tasks.get(i).getUrlHashForm());
 					url.setMd(tasks.get(i).getMd());
 					insertUrls.add(url);

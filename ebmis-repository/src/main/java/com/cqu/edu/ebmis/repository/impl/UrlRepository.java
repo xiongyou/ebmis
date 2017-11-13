@@ -1,5 +1,6 @@
 package com.cqu.edu.ebmis.repository.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class UrlRepository extends SqlSessionDaoSupport implements com.cqu.edu.e
 	@Resource
 	private UrlMapper urlMapper;
 	
-	 @Resource
+	@Resource
 	     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory){
 	       super.setSqlSessionFactory(sqlSessionFactory);
 	      }
@@ -36,7 +37,24 @@ public class UrlRepository extends SqlSessionDaoSupport implements com.cqu.edu.e
 
 	@Override
 	public boolean insertUrls(List<UrlDO> urls) {
-		return urlMapper.insertUrls(urls);
+		//对于大数据量，需要分批次执行，每1000个一批。
+		int size=urls.size();
+		if(size==0)
+			return true;
+		int count=size/1000 + 1; //循环的次数
+		List<UrlDO> tmpUrl=new ArrayList<UrlDO>();
+		
+		for(int i=0;i<count;i++ ){
+			//如果是最后一批，则只统计到列表的大小-1。
+			if(i==count-1)
+				tmpUrl=urls.subList(i*1000, size-1);
+			else
+			 tmpUrl=urls.subList(i*1000, (i+1)*1000-1);
+			if(!tmpUrl.isEmpty())
+				urlMapper.insertUrls(tmpUrl);
+		}
+		
+		return true;
 	}
 
 	@Override
