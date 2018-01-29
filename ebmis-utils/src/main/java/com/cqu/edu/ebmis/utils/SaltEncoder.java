@@ -73,6 +73,7 @@ public class SaltEncoder {
 	public static boolean md5SaltValid(String salt, String encodeText,
 			String rawText) {
 		//System.out.println(new SaltEncoder().md5SaltEncode(salt, "123123"));
+		//md5($pass.$salt):(12345,#user01)
 		return new SaltEncoder(salt , Algorithm.MD5).isValid(encodeText ,
 				rawText);
 	}
@@ -91,7 +92,7 @@ public class SaltEncoder {
 	
 		try {
 			MessageDigest md = MessageDigest.getInstance(algorithm);
-			// 加密后的字符串
+			// 加密后的字符串 
 			return Byte2Hex.byte2Hex(md.digest(mergeRawTextAndSalt(rawText)
 					.getBytes(SSO_ENCODING)));
 		} catch (Exception e) {
