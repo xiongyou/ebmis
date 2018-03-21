@@ -23,11 +23,25 @@
     where user_id = #{userId,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="com.cqu.edu.ebmis.domain.UserDO" >
     select 
     <include refid="Base_Column_List" />
     from user
+    where nick_name = #{nickName,jdbcType=VARCHAR} and user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByUserAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user 
     where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="loginUser" resultMap="BaseResultMap" parameterType="com.cqu.edu.ebmis.domain.UserDO" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_name = #{userName,jdbcType=VARCHAR} and password=#{password,jdbcType=VARCHAR}
   </select>
   
   <select id="selectAllUser" resultMap="BaseResultMap">
@@ -44,15 +58,15 @@
   </delete>
   
   <insert id="insert" parameterType="com.cqu.edu.ebmis.domain.UserDO" >
-    insert into user (user_id, user_name, nick_name, password, create_time, modify_time)
-    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+    insert into user (user_name, nick_name, password)
+    values (#{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR})
   </insert>
   
-  <update id="update" parameterType="com.cqu.edu.ebmis.domain.UserDO" >
+  <update id="update" parameterType="com.cqu.edu.ebmis.domain.UserDO">
     update user
-    set nick_name = #{nickName,jdbcType=VARCHAR}, password = #{password,jdbcType=VARCHAR}, modify_time = #{modifyTime,jdbcType=TIMESTAMP}
-    where id = #{userId,jdbcType=VARCHAR}
+    set password = #{password,jdbcType=VARCHAR}
+    where nick_name = #{nickName,jdbcType=VARCHAR} and user_name=#{userName,jdbcType=VARCHAR}
   </update>
   
   <select id="selectByPage" resultMap="BaseResultMap">
@@ -69,5 +83,10 @@
     from user  
     order by create_time
   </select>
+  <update id="editUser" parameterType="com.cqu.edu.ebmis.domain.UserDO" >
+    update user
+    set password = #{password,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
 </mapper>
 

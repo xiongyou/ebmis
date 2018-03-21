@@ -3,8 +3,6 @@
  */
 package com.cqu.edu.ebmis.web.controller;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cqu.edu.ebmis.service.UserService;
 import com.cqu.edu.ebmis.service.page.Page;
 import com.cqu.edu.ebmis.service.vo.User;
-import com.cqu.edu.ebmis.utils.SaltEncoder;
 
 /**
  * 
@@ -45,27 +42,6 @@ public class UserController extends SuperController {
 			model.addAttribute("user" , user);
 		}
 		return "/user/edit";
-	}
-	
-	@ResponseBody
-	@RequestMapping("/editUser")
-	public String editUser(User user) {
-	
-		User tmpUser = userService.findByID(user.getUserId());
-		if (tmpUser != null) {
-			
-			tmpUser.setPassword(user.getPassword());
-			userService.update(user);
-			
-		} else {
-			user.setModifyTime(new Date());
-			user.setCreateTime(user.getCreateTime());
-			
-			user.setPassword(SaltEncoder.md5SaltEncode(user.getUserName() ,
-					user.getPassword()));
-			userService.save(user);
-		}
-		return "";
 	}
 	
 	@ResponseBody

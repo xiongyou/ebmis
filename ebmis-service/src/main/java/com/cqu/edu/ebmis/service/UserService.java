@@ -5,6 +5,9 @@ package com.cqu.edu.ebmis.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.cqu.edu.ebmis.domain.UserDO;
 import com.cqu.edu.ebmis.service.page.Page;
 import com.cqu.edu.ebmis.service.vo.User;
 
@@ -22,7 +25,18 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	int save(User user);
+	void insert(UserDO user);
+	
+	/**
+	 * 登陆
+	 */
+	UserDO loginUser(UserDO user);
+	
+	
+	/**
+	 * 根据用户昵称和用户名查找账号
+	 */
+	UserDO selectByUserName(UserDO user);
 	
 	/**
 	 * 删除操作
@@ -38,7 +52,7 @@ public interface UserService {
 	 * @param user
 	 * @return
 	 */
-	int update(User user);
+	void update(UserDO user);
 	
 	/**
 	 * 按照用户名查找
@@ -71,4 +85,8 @@ public interface UserService {
 	 * @return
 	 */
 	Page<User> findByPage(Page<User> page);
+	
+	UserDO selectByUserAccount(String userName);
+	
+	void editUser(UserDO user);
 }

@@ -8,16 +8,16 @@ SpringWind - 项目管理
 <li><a>农电商数据采集</a></li><li><a>采集任务管理</a></li><li class="active"><a>项目管理</a></li>
 #end
 #override("content")
-<div class="row">
-	<div class="ibox-content form-inline" style="background: #F3F3F4;">
+<div class="row" style="border-top:1px solid #f3f3f4;padding:20px 20px 0px 20px;">
+	<div class="form-inline">
 	<div class="pull-left">
-		<button class="btn btn-primary" onclick="editProject(null)" type="button">
+		<button class="btn btn-sm btn-primary" onclick="editProject(null)" type="button">
 		<i class="fa fa-pencil"></i>&nbsp;添加项目</button>
 	</div>
 		<div class="pull-right input-group">
-			<input type="text" id="field" name="field" value="" placeholder="按项目ID 描述 项目名搜索" class="form-control">
+			<input type="text" style="height:30px;" id="field" name="field" value="" placeholder="按项目ID 描述 项目名搜索" class="form-control">
 			<span class="input-group-btn">
-				<button type="button" onClick="search()" class="btn btn-info">搜索</button>
+				<button type="button" onClick="search()" class="btn btn-sm btn-info">搜索</button>
 			</span>
 		</div>
 	</div>

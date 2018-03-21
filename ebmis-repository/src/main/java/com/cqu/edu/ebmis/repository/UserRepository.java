@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.cqu.edu.ebmis.domain.UserDO;
-
 /**
  * 用户仓储
  * 
@@ -23,7 +22,12 @@ public interface UserRepository {
 	 * @param user
 	 * @return
 	 */
-	int insert(UserDO user);
+	void insert(UserDO user);
+	
+	/**
+	 * 登陆
+	 */
+	UserDO loginUser(UserDO user);
 	
 	/**
 	 * 删除
@@ -47,7 +51,7 @@ public interface UserRepository {
 	 * @param userName
 	 * @return
 	 */
-	UserDO selectByUserName(@Param("userName") String userName);
+	UserDO selectByUserName(UserDO user);
 	
 	/**
 	 * 更新数据
@@ -55,7 +59,7 @@ public interface UserRepository {
 	 * @param user
 	 * @return
 	 */
-	int update(UserDO user);
+	void update(UserDO user);
 	
 	/**
 	 * 
@@ -79,4 +83,8 @@ public interface UserRepository {
 	 * @return
 	 */
 	int selectCount();
+	
+	UserDO selectByUserAccount(@Param("userName") String userName);
+	
+	void editUser(UserDO user);
 }

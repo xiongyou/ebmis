@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cqu.edu.ebmis.domain.ProductBaseInfoDO;
-import com.cqu.edu.ebmis.domain.ThreeClassificationDo;
 import com.cqu.edu.ebmis.domain.UserDO;
 import com.cqu.edu.ebmis.service.ProductBaseInfoService;
 import com.cqu.edu.ebmis.service.page.Page;
-import com.cqu.edu.ebmis.service.vo.User;
 
 /**
  * 农产品基本信息管理
@@ -107,7 +104,7 @@ public class ProductController extends SuperController {
 	@RequestMapping("/getUserName")
 	public String getUserName(Model model) {
 		session=request.getSession();
-		User user=(User) session.getAttribute("user");
+		UserDO user=(UserDO) session.getAttribute("user");
 		String userName=user.getUserName();
 		return userName;
 	}
@@ -165,7 +162,7 @@ public class ProductController extends SuperController {
 		ProductBaseInfoDO product = productBaseInfoService.selectByInnerId(Long
 				.parseLong(strs[0]));
 		session=request.getSession();
-		User user=(User) session.getAttribute("user");
+		UserDO user=(UserDO) session.getAttribute("user");
 		String userName=user.getUserName();
 		Date date=new Date();
 		if (product != null) {

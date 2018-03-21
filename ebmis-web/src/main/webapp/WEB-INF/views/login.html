@@ -5,36 +5,35 @@ SpringWind 管理系统 - 登录
 <link href="#springUrl('/static/css/plugins/iCheck/custom.css')" rel="stylesheet">
 #end
 #override("body")
-<body class="gray-bg">
+<body class="gray-bg" style='background-image:url("static/css/img/bj.png");background-size:cover;'>
     <div class="middle-box loginscreen animated fadeInDown">
-        <div>
-            <div>
-                <h1 class="logo-name">SW</h1>
-            </div>
-            <h3 class="text-center">欢迎使用 农产品电商管理系统</h3>
-            <form class="m-t" role="form" method="post" action="#springUrl('/account/login.html')">
-                <div class="form-group">
-                    <input type="text" name="loginName" class="form-control" placeholder="用户名" required="">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="密码" required="">
-                </div>
-                <div class="form-group form-inline">
-                    <div class="checkbox i-checks"><label><input type="checkbox" name="rememberMe"><i></i>&nbsp;记住我</label></div>
-                    <a href="#"><small>忘记密码了？</small></a>
-                </div>
-				#if($!{errorMsg})
-				<div class="form-group">
-					<br>
-					<div class="col-sm-10">
-						<div class="alert alert-danger">$!{errorMsg}</div>
+    	<div class="login-box" style="margin-top:70px">
+        	<div class="login-box-body" style="background:#fff;padding:15px;width:380px;border:1px solid #e7eaec">
+	            <p class="login-box-msg text-center">用户登录</p>
+	            <form class="m-t" role="form" method="post" action="#springUrl('/account/login.html')">
+	                <div class="form-group has-feedback">
+	                    <input type="text" name="loginName" class="form-control" placeholder="请输入用户账号" required="">
+	                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+	                </div>
+	                <div class="form-group has-feedback">
+	                    <input type="password" name="password" class="form-control" placeholder="请输入用户密码" required="">
+	                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+	                </div>
+	                <div class="form-group form-inline">
+	                    <a href="#springUrl('/account/tzPassWord.html')"><small>忘记密码了？</small></a>
+	                </div>
+					#if($!{errorMsg}=='用户名或密码错误')
+					<div class="form-group">
+						<br>
+						<div class="col-sm-10">
+							<div class="alert alert-danger">$!{errorMsg}</div>
+						</div>
 					</div>
-				</div>
-				#end
-                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-                <!-- <a class="btn btn-sm btn-white btn-block" href="#springUrl('/account/register.html')">注册一个新账号</a> -->
-            </form>
-            <p class="m-t text-center"><small><a target="_blank" href="http://www.baomidou.com/">&copy;dragonMX</a></small> </p>
+					#end
+	                <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+	                <!-- <a class="btn btn-sm btn-info btn-block" href="#springUrl('/account/register.html')">注册</a> -->
+	            </form>
+	        </div>
         </div>
     </div>
 </body>

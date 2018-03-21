@@ -29,9 +29,9 @@ public class UserRepositoryImpl implements UserRepository {
 	 * @see com.cqu.edu.ebmis.repository.UserRepository#insert(com.cqu.edu.ebmis.domain.UserDO)
 	 */
 	@Override
-	public int insert(UserDO user) {
+	public void insert(UserDO user) {
 	
-		return userMapper.insert(user);
+		userMapper.insert(user);
 	}
 	
 	/**
@@ -56,19 +56,18 @@ public class UserRepositoryImpl implements UserRepository {
 	 * @see com.cqu.edu.ebmis.repository.UserRepository#selectByUserName(java.lang.String)
 	 */
 	@Override
-	public UserDO selectByUserName(String userName) {
+	public UserDO selectByUserName(UserDO user) {
 	
-		return userMapper.selectByUserName(userName);
+		return userMapper.selectByUserName(user);
 	}
 	
 	/**
 	 * @see com.cqu.edu.ebmis.repository.UserRepository#update(com.cqu.edu.ebmis.domain.UserDO)
 	 */
 	@Override
-	public int update(UserDO user) {
+	public void update(UserDO user) {
 	
 		userMapper.update(user);
-		return 1;
 	}
 	
 	/**
@@ -96,6 +95,24 @@ public class UserRepositoryImpl implements UserRepository {
 	public int selectCount() {
 	
 		return userMapper.selectAllCount();
+	}
+
+	@Override
+	public UserDO loginUser(UserDO user) {
+		// TODO Auto-generated method stub
+		return userMapper.loginUser(user);
+	}
+
+	@Override
+	public UserDO selectByUserAccount(String userName) {
+		// TODO Auto-generated method stub
+		return userMapper.selectByUserAccount(userName);
+	}
+
+	@Override
+	public void editUser(UserDO user) {
+		// TODO Auto-generated method stub
+		userMapper.editUser(user);
 	}
 	
 }

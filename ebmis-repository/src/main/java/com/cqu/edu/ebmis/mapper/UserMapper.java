@@ -16,15 +16,15 @@ import com.cqu.edu.ebmis.domain.UserDO;
  */
 public interface UserMapper {
 	
-	int insert(UserDO user);
+	void insert(UserDO user);
 	
 	int deleteByPrimaryKey(@Param("userId") String userId);
 	
 	UserDO selectByPrimaryKey(@Param("userId") String userId);
 	
-	UserDO selectByUserName(String userName);
+	UserDO selectByUserName(UserDO user);
 	
-	UserDO update(UserDO user);
+	void update(UserDO user);
 	
 	List<UserDO> selectAllUser();
 	
@@ -32,5 +32,14 @@ public interface UserMapper {
 			@Param("offset") int offset);
 	
 	int selectAllCount();
+	
+	/**
+	 * 登陆
+	 */
+	UserDO loginUser(UserDO user);
+	
+	UserDO selectByUserAccount(@Param("userName") String userName);
+	
+	void editUser(UserDO user);
 	
 }

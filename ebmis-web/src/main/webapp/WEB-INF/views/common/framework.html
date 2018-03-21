@@ -9,22 +9,49 @@
 <div id="wrapper">
    #parse("/common/nav_left.html")
    <!--右侧部分开始-->
-   <div id="page-wrapper" class="gray-bg dashbard-1">
+   <div class="modal fade" id="myModal4" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+	            </div>
+	            <div class="modal-body">
+	            <form id='tbListform' class="form-horizontal" role="form" method="post" action="#springUrl('/account/editUser')">
+					  <div class="form-group">
+					    <label class="col-sm-2 control-label">密码</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" name="password" placeholder="请输入信息" required="">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <div class="col-sm-offset-5 col-sm-10">
+					      <button type="submit" class="btn btn-default">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					      <button type="button" class="btn btn-default" data-dismiss="modal" >返回</button>
+					    </div>
+					  </div>
+					</form>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+   <div id="page-wrapper" class="gray-bg dashbard-1" style="background:#fff;">
 	   <div class="row border-bottom">
-	   <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-		   <div class="navbar-header">
-		       <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-		       <form role="search" class="navbar-form-custom" action="search_results.html">
-		           <div class="form-group">
-		               <input type="text" placeholder="请输入您需要查找的内容..." class="form-control" name="top-search" id="top-search">
-		           </div>
-		       </form>
-		   </div>
+	   <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;background-color: #3c8dbc;height:45px;">
+	   	   <form class="navbar-form-custom" style="display:inline;">
+				           <div style="width:600px;margin:15px;">
+				               <span style="color:#fff;font-size: 14px;margin-left:10px;">欢迎您 ! ${user.nickName}</span>
+				           </div>
+		   </form>
 	       <ul class="nav navbar-top-links navbar-right">
-			   #include('/common/dropdown.html')
+	       	   <li>
+	           		<a data-toggle="modal" data-target="#myModal4">
+	           	   		<i class="fa fa-pencil" style="color:#fff"></i><span style="color:#fff;font-size: 14px">修改密码</span>
+	           	    </a>
+	           </li>
 	           <li>
 	               <a href="#springUrl('/account/lockscreen.html')">
-	                   <i class="fa fa-sign-out"></i>退出
+	                   <i class="fa fa-sign-out" style="color:#fff"></i><span style="color:#fff;font-size: 14px">退出</span>
 	               </a>
 	           </li>
 	       </ul>
@@ -32,9 +59,9 @@
 	   </div>
 
 	<div class="row border-bottom white-bg dashboard-header">
-		<div class="col-lg-10">
+		<div class="col-lg-12 col-md-12 col-sm-12">
 			<ol class="breadcrumb">
-				<li><a href="index.html">首页</a></li>
+				<li><a href="#springUrl('/ymtz/sytz.html')">首页</a></li>
 				#block("breadcrumb")#end
 			</ol>
 		</div>
@@ -44,11 +71,6 @@
 		<div class="col-lg-12">
 			<div class="wrapper wrapper-content">
 				#block("content")#end
-			</div>
-			<div class="footer">
-				<div class="pull-right">
-					<a target="_blank" href="http://www.baomidou.com/">&copy;baomidou</a>
-				</div>
 			</div>
 		</div>
 	</div>

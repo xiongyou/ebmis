@@ -8,8 +8,8 @@ SpringWind - 农产品管理
 <li><a>农电商数据采集</a></li><li><a>采集数据复核</a></li><li class="active">产品基本数据复核</li>
 #end
 #override("content")
-<div class="row">
-	<div class="ibox-content text-right form-inline" style="background: #F3F3F4;">
+<div class="row" style="border-top:1px solid #f3f3f4;padding-top:15px;">
+	<div class="form-inline col-lg-12 col-md-12 col-sm-12" style="margin-left:50px;">
 	<input type="hidden" id="recheckPerson">
 	<div class="input-group">			
 			<span class="input-group-cbx">
@@ -26,42 +26,42 @@ SpringWind - 农产品管理
 			<span>&nbsp;
 			</span>
 		</div>
-		<div class="input-group" style="padding-left:30px">
+		<div class="input-group" style="margin-left:20px;">
 			<Strong>平台选择:</Strong>
 		</div>
-		<div class="input-group" style="padding-right:30px;padding-left:10px">
-			<select id="platform" name="platform" class="form-control" style="width:100px">
+		<div class="input-group">
+			<select id="platform" name="platform" class="form-control" style="width:100px;height:30px;padding:0px 0px 0px 18px;">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
-		<div class="input-group" style="padding-left:10px">			
+		<div class="input-group" style="padding-left:20px">			
 			<Strong>层级选择:</Strong>
 		</div>
-		<div class="input-group" style="padding-right:10px;padding-left:10px">			
-			<select id="select1" name="select1" class="form-control" style="width:100px">
+		<div class="input-group" style="padding-right:10px">			
+			<select id="select1" name="select1" class="form-control" style="width:100px;height:30px;padding:0px 0px 0px 18px;">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
 		<div class="input-group" style="padding-right:10px">			
-			<select id="select2" name="select2" class="form-control" style="width:100px">
+			<select id="select2" name="select2" class="form-control" style="width:100p;height:30px;padding:0px 0px 0px 18px;">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
 		<div class="input-group" style="padding-right:10px">			
-			<select id="select3" name="select3" class="form-control" style="width:100px">
+			<select id="select3" name="select3" class="form-control" style="width:100px;height:30px;padding:0px 0px 0px 18px;">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
-		<div class="input-group" style="padding-right:60px">			
-			<select id="select4" name="select4" class="form-control" style="width:100px">
+		<div class="input-group" style="padding-right:30px">			
+			<select id="select4" name="select4" class="form-control" style="width:100px;height:30px;padding:0px 0px 0px 18px;">
 		      <option value="请选择">请选择</option>
 		    </select>
 		</div>
 		
 		<div class="input-group">
-			<input type="text" id="word" name="word" placeholder="按产品名称 、关键字、复核人搜索" class="form-control">
+			<input type="text" style="height:30px;" id="word" name="word" placeholder="按产品名称 、关键字、复核人搜索" class="form-control">
 			<span class="input-group-btn">
-				<button type="button" onClick="Search()" class="btn btn-info">搜索</button>
+				<button type="button" onClick="Search()" class="btn btn-sm btn-info">搜索</button>
 			</span>
 		</div>
 		

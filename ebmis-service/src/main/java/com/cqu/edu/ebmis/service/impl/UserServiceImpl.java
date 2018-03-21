@@ -30,10 +30,9 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * @see com.cqu.edu.ebmis.service.UserService#save(com.cqu.edu.ebmis.service.vo.User)
 	 */
-	public int save(User user) {
+	public void insert(UserDO user) {
 	
-		UserDO userDO = UserConvert.vo2DO(user);
-		return userRepository.insert(userDO);
+		userRepository.insert(user);
 	}
 	
 	/**
@@ -47,21 +46,17 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * @see com.cqu.edu.ebmis.service.UserService#update(com.cqu.edu.ebmis.service.vo.User)
 	 */
-	public int update(User user) {
+	public void update(UserDO user) {
 	
-		UserDO userDO = UserConvert.vo2DO(user);
-		
-		return userRepository.update(userDO);
+		userRepository.update(user);
 	}
 	
 	/**
 	 * @see com.cqu.edu.ebmis.service.UserService#findByName(java.lang.String)
 	 */
-	public User findByName(String userName) {
+	public UserDO selectByUserName(UserDO user) {
 	
-		UserDO userDO = userRepository.selectByUserName(userName);
-		
-		return UserConvert.do2VO(userDO);
+		return userRepository.selectByUserName(user);
 	}
 	
 	/**
@@ -95,5 +90,25 @@ public class UserServiceImpl implements UserService {
 		page.setRecords(UserConvert.doList2VOList(keyWords));
 		return page;
 	}
-	
+
+	public User findByName(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public UserDO loginUser(UserDO user) {
+		// TODO Auto-generated method stub
+		return userRepository.loginUser(user);
+	}
+
+	public UserDO selectByUserAccount(String userName) {
+		// TODO Auto-generated method stub
+		return userRepository.selectByUserAccount(userName);
+	}
+
+	public void editUser(UserDO user) {
+		// TODO Auto-generated method stub
+		userRepository.editUser(user);
+	}
+
 }
