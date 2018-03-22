@@ -10,22 +10,25 @@
 	<link href="#springUrl('/static/css/bootstrap-datetimepicker.css')" rel="stylesheet">
 </head>
 <body class="white-bg">
-<div class="ibox-content" style="width: 430px;">
+<div class="ibox-content" style="width: 500px;">
    <form id="myForm" class="form-horizontal">
    	   <input type="hidden" id="hiddenUpdate" class="form-control" name="update" value="$!{update}">
        <input type="hidden" id="projectID" class="form-control" name="projectID" value="$!{projectDo.projectID}">
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目名</label>
-           <div class="col-sm-10 pull-right">
-           		<input type="text" class="form-control" name="projectName" value="$!{projectDo.projectName}" data-rule="项目名:required">
-           </div>
+       <div class="form-group" style="margin-left:80px;">
+	       	   <label class="control-label pull-left" style="padding-top:8px;margin-right:28px;">项目名</label>
+	           <div class="pull-left">
+	           		<input type="text" class="form-control" name="projectName" value="$!{projectDo.projectName}" data-rule="项目名:required">
+	           </div>
        </div>
-	   <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目描述</label>
-           <div class="col-sm-10 pull-right">
+	   <div class="form-group" style="margin-left:80px;">
+	       <label class="control-label pull-left" style="padding-top:8px;margin-right:15px;">项目描述</label>
+           <div class="pull-left">
            		<input type="text" class="form-control" name="projectDescription" value="$!{projectDo.projectDescription}" data-rule="项目描述:required">
            </div>
 	   </div>
-        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">执行周期</label>
-           <div class="col-sm-1 pull-right" style="padding:0px;margin-right: 15px">
+        <div class="form-group" style="margin-left:80px;">
+           <label class="control-label pull-left" style="padding-top:8px;margin-right:15px;">执行周期</label>
+           <div class="pull-left" style="padding:0px;">
            		 <select id="selectExecutePeriod" class="form-control">
 				      <option value="天">天</option>
 				      <option value="时">时</option>
@@ -33,12 +36,13 @@
 				      <option selected value="秒">秒</option>
 			     </select>
            </div>
-           <div class="pull-right" style="padding:0px;width:134px">
+           <div class="pull-left" style="padding:0px;width:139px">
            		<input type="text" class="form-control" id="ExecutePeriod" name="ExecutePeriod" value="$!{projectDo.ExecutePeriod}" data-rule="执行周期:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
            </div>
 	   </div>
-        <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">单一任务最大执行时间</label>
-           <div class="col-sm-1 pull-right" style="padding:0px;margin-right: 15px">
+        <div class="form-group" style="margin-left:2px;">
+           <label class="control-label pull-left" style="padding-top:8px;margin-right:15px;">单一任务最大执行时间</label>
+           <div class="pull-left" style="padding:0px;">
            		 <select id="selectMaxExecutingTime" class="form-control">
 				      <option value="天">天</option>
 				      <option value="时">时</option>
@@ -46,33 +50,36 @@
 				      <option selected value="秒">秒</option>
 			     </select>
            </div>
-           <div class="pull-right" style="padding:0px;width:134px">
+           <div class="pull-left" style="padding:0px;width:139px">
            		<input type="text" class="form-control" id="maxExecutingTime" name="maxExecutingTime" value="$!{projectDo.maxExecutingTime}" data-rule="单一任务最大执行时间:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
            </div>
 	   </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">开始时间</label>
-		     <div class="input-append date form_datetime col-sm-10 pull-right">
+       <div class="form-group" style="margin-left:80px;">
+             <label class="control-label pull-left" style="padding-top:8px;margin-right:15px;">开始时间</label>
+		     <div class="input-append date form_datetime pull-left">
 			    <input type="text" id="startTime" class="form-control" name="startTime1" value="$!{projectDo.startTime1}" data-rule="开始日期:required" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
 			</div> 
 	   </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">结束时间</label>
-           <div class="input-append date form_datetime col-sm-10 pull-right" id="endTest">
+       <div class="form-group" style="margin-left:80px;">
+           <label class="control-label pull-left" style="padding-top:8px;margin-right:15px;">结束时间</label>
+           <div class="input-append date form_datetime pull-left" id="endTest">
 			    <input type="text" id="endedTime" class="form-control pull-left" name="endedTime1" value="$!{projectDo.endedTime1}" data-rule="结束日期:required" readonly>
 			    <span class="add-on"><i class="icon-remove"></i></span>
 			    <span class="add-on"><i class="icon-calendar"></i></span>
 			    <span id="endTest1" class="msg-box n-right pull-left" style=""><span role="alert" class="msg-wrap n-error"><span class="n-icon"></span><span class="n-msg">结束日期必须大于开始日期</span></span></span>
 			</div>
 	   </div>
-	   <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">项目优先级</label>
-           <div class="col-sm-10 pull-right">
+	   <div class="form-group" style="margin-left:67px;">
+	       <label class="pull-left control-label" style="padding-top:8px;margin-right:15px;">项目优先级</label>
+           <div class="pull-left">
            		<input type="text" class="form-control" name="projectPriority" value="$!{projectDo.projectPriority}" data-rule="项目优先级:required;integer" data-rule-integer="[/^[0-9]*[0-9][0-9]*$/,'请输入数字']">
            </div>
        </div>
        <div class="form-group">
             <div class="text-center">
-                <button class="btn btn-primary" id="submitStyle" type="submit">#if($!{projectDo})修 改#else提 交#end</button>
+                <button class="btn btn-sm btn-primary" id="submitStyle" type="submit">#if($!{projectDo})修 改#else提 交#end</button>
             </div>
        </div>
     </form>

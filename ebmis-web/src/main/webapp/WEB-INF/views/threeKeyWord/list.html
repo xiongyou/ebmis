@@ -9,7 +9,7 @@ SpringWind - 关键字管理
 #end
 #override("content")
 <div class="row" style="padding:20px;border-top:1px solid #f3f3f4;">
-	<div class="text-right form-inline">
+	<div class="text-right form-inline" style="margin-right:30px;">
 				<div class="input-group">			
 					<span class="input-group-cbx">
 						<input name="cheackSpyb" id="spyb" type="checkbox" onclick="selectCheck()">
@@ -61,41 +61,35 @@ SpringWind - 关键字管理
 	            <div class="modal-body">
 	            	<form class="form-horizontal" id="form1">
 		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">关键词</label>
+		                  <label class="col-sm-3 control-label" style="padding:0px;">关键词</label>
 		                  <div class="col-sm-8">
 		                    <input type="text" id="level3Name" name="level3Name" class="form-control" readOnly/>
 		                  </div>
 		                </div>
 		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">区域</label>
+		                  <label class="col-sm-3 control-label" style="padding:0px;">区域</label>
 		                  <div id="areaHtml" class="col-sm-8">
 		                  </div>
 		                </div>
 		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">是否为三品一标关键词</label>
+		                  <label class="col-sm-3 control-label" style="padding:0px;">是否为三品一标关键词</label>
 		                  <div class="col-sm-8">
 		                    <select id="locFamous" name="locFamous" class="form-control">
 						    </select>
 		                  </div>
 		                </div>
 		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">是否为名优产品关键字</label>
+		                  <label class="col-sm-3 control-label" style="padding:0px;">是否为名优产品关键字</label>
 		                  <div class="col-sm-8">
 		                    <select id="keyProduct" name="keyProduct" class="form-control">
 						    </select>
 		                  </div>
 		                </div>
 	            </form>
-	            </div>
-	            <div class="modal-footer">
-	            <button type="button" class="btn btn-primary" onClick="save()">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-	              <!-- <div class="pull-right" style="margin:0px 10px 10px 0px">
-		              <div class="buttons">
-		                <button class="btn btn-primary btn-flat" onClick="save()"><i class="fa fa-save"></i>保存</button>
-		                <button class="btn btn-danger btn-flat" data-dismiss="modal"><i class="fa fa-close"></i>取消</button>
-		              </div>
-	              </div> -->
+	            <div class="col-sm-offset-5 form-group">
+	            	<button type="button" class="btn btn-sm btn-primary" style="margin-right:15px;" onClick="save()">确定</button>
+	                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
+            	</div>
 	            </div>
 	        </div><!-- /.modal-content -->
 	    </div><!-- /.modal-dialog -->
@@ -103,7 +97,7 @@ SpringWind - 关键字管理
 <!-- /.modal -->
 </div>
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12" style="padding-right:45px;">
         <table id="dataTable"></table>
     </div>
 </div>

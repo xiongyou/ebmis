@@ -1,0 +1,17 @@
+#override("title")
+SpringWind 农产品填报系统  - 注册
+#end
+#override("css")
+<link href="#springUrl('/static/css/plugins/iCheck/custom.css')" rel="stylesheet">
+#end
+#override("body")
+#end
+#override("js")
+<script src="#springUrl('/static/js/plugins/iCheck/icheck.min.js')"></script>
+<script>
+	onload=function(){  
+		location.href='login.html';  
+	};  
+</script>
+#end
+#extends("/common/base.html")

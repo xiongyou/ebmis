@@ -8,27 +8,27 @@ SpringWind - 任务管理
 <li><a>农电商数据采集</a></li><li><a>采集任务管理</a></li><li class="active"><a href="#springUrl('/project/list')">项目管理</a></li><li class="active"><a href="#">任务管理</a></li>
 #end
 #override("content")
-<div class="row">
-	<div class="ibox-content form-inline" style="background: #F3F3F4;">
+<div class="row" style="border-top:1px solid #f3f3f4;padding:20px 50px 0px 20px;">
+	<div class="form-inline">
 		<div class="pull-left">
-			<button class="btn btn-primary" onclick="editProjectTask(null)" type="button">
+			<button class="btn btn-sm btn-primary" onclick="editProjectTask(null)" type="button">
 			<i class="fa fa-pencil"></i>&nbsp;添加任务</button>
 		</div>
 		<div class="pull-left" style="margin-left:5px">
-			<button class="btn btn-primary" onclick="editProjectsTask(null)" type="button">
+			<button class="btn btn-sm btn-primary" onclick="editProjectsTask(null)" type="button">
 			<i class="fa fa-pencil"></i>&nbsp;批量添加</button>
 		</div>
 		<div class="input-group pull-right">
-			<input type="text" id="field" name="field" value="" placeholder="按任务ID 对象 网站 关键字搜索" class="form-control">
+			<input type="text" id="field" name="field" value="" style="height:30px;" placeholder="按任务ID 对象 网站 关键字搜索" class="form-control">
 			<span class="input-group-btn">
-				<button type="button" onClick="search()" class="btn btn-info">搜索</button>
+				<button type="button" onClick="search()" class="btn btn-sm btn-info">搜索</button>
 			</span>
 		</div>
 		<input type="hidden" class="form-control" id="projectID" name="projectID" value="$!{projectID}">
 		<input type="hidden" class="form-control" id="projectPriority" name="projectPriority" value="$!{projectPriority}">
 	</div>
 </div>
-<div class="row">
+<div class="row" style="margin-right:20px;">
     <div class="col-sm-12">
         <table id="dataTable"></table>
     </div>

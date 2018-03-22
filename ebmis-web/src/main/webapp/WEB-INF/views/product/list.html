@@ -76,58 +76,58 @@ SpringWind - 农产品管理
                 <h4 class="modal-title" id="myModalLabel">修改关键词</h4>
             </div>
             <div class="modal-body">
-            <form class="form-horizontal" id="form1">
-            			<input type="hidden" id="keyProductId" name="keyProductName">
-		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">产品名称</label>
-		                  <div class="col-sm-8">
-		                    <input type="text" id="keyProductName" name="keyProductName" class="form-control" disabled/>
-		                  </div>
-		                </div>
-		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">零级</label>
-		                  <div class="col-sm-8">
-		                    <select id="keySelect0" name="keySelect0" class="form-control">
-		                    	<option value="请选择">请选择</option>
-						    </select>
-		                  </div>
-		                </div>
-		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">一级</label>
-		                  <div class="col-sm-8">
-		                    <select id="keySelect1" name="keySelect1" class="form-control">
-		                    	<option value="请选择">请选择</option>
-						    </select>
-		                  </div>
-		                </div>
-		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">二级</label>
-		                  <div class="col-sm-8">
-		                    <select id="keySelect2" name="keySelect2" class="form-control">
-		                    	<option value="请选择">请选择</option>
-						    </select>
-		                  </div>
-		                </div>
-		                <div class="form-group">
-		                  <label class="col-sm-4 control-label">关键词</label>
-		                  <div class="col-sm-8">
-		                    <select id="keySelect3" name="keySelect3" class="form-control">
-		                    	<option value="请选择">请选择</option>
-						    </select>
-		                  </div>
-		                </div>
-	            </form>
-            </div>
-            <div class="modal-footer">
-            	<button type="button" class="btn btn-primary" onClick="updateKey()">确定</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	            <form class="form-horizontal" id="form1">
+	            			<input type="hidden" id="keyProductId" name="keyProductName">
+			                <div class="form-group">
+			                  <label class="col-sm-3 control-label">产品名称</label>
+			                  <div class="col-sm-8">
+			                    <input type="text" id="keyProductName" name="keyProductName" class="form-control" disabled/>
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <label class="col-sm-3 control-label">零级</label>
+			                  <div class="col-sm-8">
+			                    <select id="keySelect0" name="keySelect0" class="form-control">
+			                    	<option value="请选择">请选择</option>
+							    </select>
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <label class="col-sm-3 control-label">一级</label>
+			                  <div class="col-sm-8">
+			                    <select id="keySelect1" name="keySelect1" class="form-control">
+			                    	<option value="请选择">请选择</option>
+							    </select>
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <label class="col-sm-3 control-label">二级</label>
+			                  <div class="col-sm-8">
+			                    <select id="keySelect2" name="keySelect2" class="form-control">
+			                    	<option value="请选择">请选择</option>
+							    </select>
+			                  </div>
+			                </div>
+			                <div class="form-group">
+			                  <label class="col-sm-3 control-label">关键词</label>
+			                  <div class="col-sm-8">
+			                    <select id="keySelect3" name="keySelect3" class="form-control">
+			                    	<option value="请选择">请选择</option>
+							    </select>
+			                  </div>
+			                </div>
+		            </form>
+		        <div class="col-sm-offset-5 form-group">
+	            	<button type="button" class="btn btn-sm btn-primary" style="margin-right:15px;" onClick="updateKey()">确定</button>
+	                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
+            	</div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12" style="padding-right:45px;">
     	<h3 class="text-center" style="margin-top: 30px">对已经纳入统计数据库中的产品是否是农产品进行复核</h3>
         <table id="dataTable"></table>
     </div>

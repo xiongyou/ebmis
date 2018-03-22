@@ -18,34 +18,40 @@
        <input type="hidden" class="form-control" name="taskId" value="$!{taskId}">
        <input type="hidden" class="form-control" id="dataObj" value="$!{taskDO.dataObj}">
        <input type="hidden" class="form-control" name="projectPriority" value="$!{projectPriority}">
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">任务地址</label>
-           <div class="col-sm-10 pull-right">
+       <div class="form-group" style="margin-left:111px;">
+           <label class="control-label pull-left" style="padding-top:8px;margin-right:15px;">任务地址</label>
+           <div class="pull-left">
            		<input type="text" class="form-control" name="url" value="$!{taskDO.url}" data-rule="任务地址:required">
            </div>
        </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">网站名</label>
-           <div class="col-sm-10 pull-right">
+       <div class="form-group" style="margin-left:124px;">
+       	   <label class="control-label pull-left" style="padding-top:8px;margin-right:15px;">网站名</label>
+           <div class="pull-left">
            		<input type="text" class="form-control" name="website" value="$!{taskDO.website}" data-rule="网站名:required">
            </div>
        </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">关键字</label>
-           <div class="col-sm-10 pull-right">
+       <div class="form-group" style="margin-left:124px;">
+           <label class="control-label pull-left" style="padding-top:8px;margin-right:15px;">关键字</label>
+           <div class="pull-left">
            		<input type="text" class="form-control" name="keyword" value="$!{taskDO.keyword}" data-rule="关键字:required">
            </div>
        </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">任务优先级</label>
-           <div class="col-sm-10 pull-right">
+       <div class="form-group" style="margin-left:98px;">
+           <label class="pull-left control-label" style="padding-top:8px;margin-right:15px;">任务优先级</label>
+           <div class="pull-left">
            		<input type="text" class="form-control" name="taskPriority" value="$!{taskDO.taskPriority}" data-rule="任务优先级:required;integer" data-rule-integer="[/^[0-9]*[1-9][0-9]*$/,'请输入数字']">
            </div>
        </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">去重项目Id(以英文逗号隔开)</label>
-           <div class="col-sm-10 pull-right">
+       <div class="form-group" style="margin-left:0px;">
+           <label class="pull-left control-label" style="padding-top:8px;margin-right:15px;">去重项目Id(以英文逗号隔开)</label>
+           <div class="pull-left">
            		<input type="text" id="dropProjectId" class="form-control" name="dropProjectId">
            </div>
        </div>
-       <div class="form-group"><label class="col-sm-2 control-label" style="padding-top:8px">数据对象</label>
-       	   <div class="col-sm-10 pull-right">
-		       <select class="form-control" name="dataObj" style="width:196px">
+       <div class="form-group" style="margin-left:111px;">
+           <label class="pull-left control-label" style="padding-top:8px;margin-right:15px;">数据对象</label>
+       	   <div class="pull-left">
+		       <select class="form-control" name="dataObj" style="width:200px">
 			      <option id="Product">Product</option>
 			      <option id="test1">test1</option>
 			      <option id="test2">test2</option>
@@ -54,10 +60,8 @@
 		       </select>
 	       </div>
 	   </div>
-       <div class="form-group">
-            <div class="text-center">
-                <button class="btn btn-primary" type="submit">#if($!{taskDO})修 改#else提 交#end</button>
-            </div>
+       <div class="form-group" style="margin-left:250px;">
+                <button class="btn btn-sm btn-primary" type="submit">#if($!{taskDO})修 改#else提 交#end</button>
        </div>
     </form>
 </div>
