@@ -19,33 +19,41 @@ SpringWind - 项目管理
 #end
 #override("content")
 <div style="padding:10px 80px">
-<form class="form-inline" role="form" id="myForm" style="margin-bottom:30px">
-<input type="hidden" id="AwaitTaskNumber" name="awaitTaskNumber" value="${taskInfoDO.awaitTaskNumber}">
-<input type="hidden" id="ExecutedTaskNumber" name="executedTaskNumber" value="${taskInfoDO.executedTaskNumber}">
-<input type="hidden" id="ExecutingTaskNumber" name="executingTaskNumber" value="${taskInfoDO.executingTaskNumber}">
-	<div class="row" style="margin-top:15px;">
-		  <div class="col-lg-offset-4 col-lg-8 form-group" style="margin-bottom:15px;padding-left:40px;">
-		    <label class="control-label pull-left" style="padding-top:8px;margin-right:10px;">开始时间:</label>
-		    <div class="input-append date form_datetime pull-left">
-					    <input type="text" id="distributedTime" style="background-color:white" class="form-control" name="distributedTime1" value="" data-rule="开始日期:required" readonly>
-					    <span class="add-on"><i class="icon-remove"></i></span>
-					    <span class="add-on"><i class="icon-calendar"></i></span>
-			</div>
-		  </div>
-		  <div class="col-lg-offset-4 col-lg-8 form-group" style="margin-bottom:15px;padding-left:40px;">
-		    <label class="control-label pull-left" style="padding-top:8px;margin-right:10px;">结束时间:</label>
-		    <div class="input-append date form_datetime pull-left">
-					    <input type="text" id="finishedTime" style="background-color:white" class="form-control" name="finishedTime1" value="" data-rule="结束日期:required" readonly>
-					    <span class="add-on"><i class="icon-remove"></i></span>
-					    <span class="add-on"><i class="icon-calendar"></i></span>
-					    <span id="endTest1" class="msg-box n-right" style="display:inline-block"><span role="alert" class="msg-wrap n-error"><span class="n-icon"></span><span class="n-msg">结束日期必须大于开始日期</span></span></span>
-			</div>
-		  </div>
-		  <center>
-		  		<button type="submit" class="btn btn-default">统计</button>
-		  </center>
-    </div>
-</form>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">查询</h3>
+  </div>
+  <div class="panel-body">
+    <form class="form-inline" role="form" id="myForm" style="margin-bottom:30px">
+		<input type="hidden" id="AwaitTaskNumber" name="awaitTaskNumber" value="${taskInfoDO.awaitTaskNumber}">
+		<input type="hidden" id="ExecutedTaskNumber" name="executedTaskNumber" value="${taskInfoDO.executedTaskNumber}">
+		<input type="hidden" id="ExecutingTaskNumber" name="executingTaskNumber" value="${taskInfoDO.executingTaskNumber}">
+			<div class="row" style="margin-top:15px;">
+				  <div class="col-lg-offset-4 col-lg-8 form-group" style="margin-bottom:15px;padding-left:40px;">
+				    <label class="control-label pull-left" style="padding-top:8px;margin-right:10px;">开始时间:</label>
+				    <div class="input-append date form_datetime pull-left">
+							    <input type="text" id="distributedTime" style="background-color:white" class="form-control" name="distributedTime1" value="" data-rule="开始日期:required" readonly>
+							    <span class="add-on"><i class="icon-remove"></i></span>
+							    <span class="add-on"><i class="icon-calendar"></i></span>
+					</div>
+				  </div>
+				  <div class="col-lg-offset-4 col-lg-8 form-group" style="margin-bottom:15px;padding-left:40px;">
+				    <label class="control-label pull-left" style="padding-top:8px;margin-right:10px;">结束时间:</label>
+				    <div class="input-append date form_datetime pull-left">
+							    <input type="text" id="finishedTime" style="background-color:white" class="form-control" name="finishedTime1" value="" data-rule="结束日期:required" readonly>
+							    <span class="add-on"><i class="icon-remove"></i></span>
+							    <span class="add-on"><i class="icon-calendar"></i></span>
+							    <span id="endTest1" class="msg-box n-right" style="display:inline-block"><span role="alert" class="msg-wrap n-error"><span class="n-icon"></span><span class="n-msg">结束日期必须大于开始日期</span></span></span>
+					</div>
+				  </div>
+				  <center>
+				  		<button type="submit" class="btn btn-default">统计</button>
+				  </center>
+		    </div>
+		</form>
+  </div>
+</div>
+
   <div class="panel panel-default">
 	    <div class="panel-heading" style="padding:8px 15px 1px 8px">
 	    	<h4>项目基本信息</h4>
